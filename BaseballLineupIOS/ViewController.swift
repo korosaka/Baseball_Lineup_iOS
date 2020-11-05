@@ -15,6 +15,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func onClickAllReview(_ sender: Any) {
+        performSegue(withIdentifier: "goAllReview", sender: nil)
+    }
+    
 }
 
