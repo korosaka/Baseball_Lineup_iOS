@@ -25,7 +25,7 @@ class DetailReviewViewController: UIViewController {
         userNameLabel.text = review!.user
         evaluationLabel.text = String(review!.evaluation)
         wholeCommentLabel.text = review!.comment
-        if let image = review?.pictures {
+        if let image = review?.picture {
             ramenPicture.image = image
         }
 
