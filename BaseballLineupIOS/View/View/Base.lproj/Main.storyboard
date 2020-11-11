@@ -85,10 +85,29 @@
                     <view key="view" contentMode="scaleToFill" id="efl-1m-zvO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ik-Je-3Fe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="WLP-fa-GvT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0ik-Je-3Fe" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="CPX-gJ-2hZ"/>
+                            <constraint firstItem="eAy-rI-zYh" firstAttribute="trailing" secondItem="0ik-Je-3Fe" secondAttribute="trailing" id="vP6-dU-SJD"/>
+                            <constraint firstItem="0ik-Je-3Fe" firstAttribute="top" secondItem="eAy-rI-zYh" secondAttribute="top" id="yjb-F0-pSG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eAy-rI-zYh"/>
                     </view>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
+                    <connections>
+                        <outlet property="testLabel" destination="0ik-Je-3Fe" id="1Nd-pB-dlJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea7-fD-gkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

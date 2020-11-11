@@ -16,11 +16,18 @@ class TopViewController: UIViewController {
     }
 
     @IBAction func onClickNoDH(_ sender: Any) {
-        performSegue(withIdentifier: "goOrderScreen", sender: nil)
+        performSegue(withIdentifier: "goOrderScreen", sender: "NoDH")
     }
     
     @IBAction func onClickDH(_ sender: Any) {
-        performSegue(withIdentifier: "goOrderScreen", sender: nil)
+        performSegue(withIdentifier: "goOrderScreen", sender: "DH")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goOrderScreen" {
+            let orderViewController = segue.destination as! OrderViewController
+            orderViewController.orderType = sender as? String
+        }
     }
 }
 
