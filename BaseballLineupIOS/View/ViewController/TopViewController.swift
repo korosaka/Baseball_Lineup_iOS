@@ -9,10 +9,13 @@
 import UIKit
 
 class TopViewController: UIViewController {
+    
+    var viewModel: TopViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        viewModel = .init()
     }
 
     @IBAction func onClickNoDH(_ sender: Any) {
@@ -24,10 +27,7 @@ class TopViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goOrderScreen" {
-            let orderViewController = segue.destination as! OrderViewController
-            orderViewController.orderType = sender as? String
-        }
+        viewModel?.informOrderType(segue: segue, sender: sender)
     }
 }
 

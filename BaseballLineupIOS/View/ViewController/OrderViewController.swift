@@ -10,24 +10,32 @@ import UIKit
 
 class OrderViewController: UIViewController {
     
-    var orderType: String?
+    var viewModel: OrderViewModel?
     
-    @IBOutlet weak var testLabel: UILabel!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        testLabel.text = orderType
-        // Do any additional setup after loading the view.
+    required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
+      setup()
+    }
+
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
+      super.init(nibName: nil, bundle: nil)
+      setup()
+    }
+
+    convenience init() {
+      self.init(nibName: nil, bundle: nil)
+    }
+
+    func setup() {
+        viewModel = .init()
     }
     
+    @IBOutlet weak var testLabel: UILabel!
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        testLabel.text = viewModel?.orderType
+        // Do any additional setup after loading the view.
+    }
     
 }
