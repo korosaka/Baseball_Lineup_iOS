@@ -15,6 +15,12 @@ class TopViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func onClickNoDH(_ sender: Any) {
+        performSegue(withIdentifier: "goOrderScreen", sender: nil)
+    }
+    
+    @IBAction func onClickDH(_ sender: Any) {
+        performSegue(withIdentifier: "goOrderScreen", sender: nil)
+    }
 }
 

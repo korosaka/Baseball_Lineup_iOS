@@ -36,6 +36,9 @@
                                 <state key="normal" title="DHなし">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="onClickNoDH:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Umb-AX-FoE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m16-2K-wdV">
                                 <rect key="frame" x="50" y="446" width="314" height="46"/>
@@ -44,6 +47,9 @@
                                 <state key="normal" title="DHあり">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="onClickDH:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rXe-tK-Hzx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -64,10 +70,29 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="nPR-ES-wef"/>
+                    <connections>
+                        <segue destination="Kpq-Ia-amI" kind="show" identifier="goOrderScreen" id="o9x-03-AeD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="138.61607142857142"/>
+        </scene>
+        <!--Order View Controller-->
+        <scene sceneID="gUb-ya-Jso">
+            <objects>
+                <viewController id="Kpq-Ia-amI" customClass="OrderViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="efl-1m-zvO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eAy-rI-zYh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ea7-fD-gkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1920" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PXi-Aj-IVK">
