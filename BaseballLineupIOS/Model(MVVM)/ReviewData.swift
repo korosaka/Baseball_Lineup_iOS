@@ -18,7 +18,7 @@ struct Review {
 
 class ReviewData {
     var reviews: [Review]
-    var delegate: ReviewDataDelegate?
+    weak var delegate: ReviewDataDelegate?
     
     init() {
         self.reviews = originalReviewData
@@ -28,15 +28,13 @@ class ReviewData {
         return reviews.count
     }
     
-    // MARK: add new review
+    // MARK: in real situation, it is supposed to get Data from Firebase store
     func reloadReviewData() {
-        
-        // guruguru?
-        
         let globalQueue = DispatchQueue.global(
             qos: DispatchQoS.QoSClass.userInitiated)
         globalQueue.async { [ weak self] in
             let newReview = Review(user: "NewUser", evaluation: 5, comment: "New review was added !", picture: nil)
+            
             // MARK: to show indicator
             Thread.sleep(forTimeInterval: 2.0)
             
@@ -66,6 +64,6 @@ class ReviewData {
 
 
 // MARK: from Model to ViewModel
-protocol ReviewDataDelegate {
+protocol ReviewDataDelegate: class {
     func afterReload()
 }

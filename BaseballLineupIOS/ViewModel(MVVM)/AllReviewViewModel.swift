@@ -11,7 +11,7 @@ import UIKit
 
 class AllReviewViewModel {
     
-    var delegate: AllReviewViewModelDelegate?
+    weak var delegate: AllReviewViewModelDelegate?
     
     var reviewData: ReviewData
     var selectedReview: Review?
@@ -82,6 +82,6 @@ extension AllReviewViewModel: ReviewDataDelegate {
 }
 
 // MARK: from ViewModel to View
-protocol AllReviewViewModelDelegate {
+protocol AllReviewViewModelDelegate: class {
     func tableviewRefresh()
 }
