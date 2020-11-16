@@ -16,6 +16,8 @@
 		886B35332551278A0056AB86 /* AllReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B35322551278A0056AB86 /* AllReviewViewController.swift */; };
 		886B353525524A2C0056AB86 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B353425524A2C0056AB86 /* ReviewCell.swift */; };
 		886B3537255263D50056AB86 /* DetailReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B3536255263D50056AB86 /* DetailReviewViewController.swift */; };
+		88F2250925622C7600B88083 /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F2250825622C7600B88083 /* ReviewData.swift */; };
+		88F2250C25622D6900B88083 /* AllReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F2250B25622D6900B88083 /* AllReviewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		886B35322551278A0056AB86 /* AllReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReviewViewController.swift; sourceTree = "<group>"; };
 		886B353425524A2C0056AB86 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		886B3536255263D50056AB86 /* DetailReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewController.swift; sourceTree = "<group>"; };
+		88F2250825622C7600B88083 /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
+		88F2250B25622D6900B88083 /* AllReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReviewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,18 +66,44 @@
 		886B351D2550617C0056AB86 /* BaseballLineupIOS */ = {
 			isa = PBXGroup;
 			children = (
+				88F2250625621C1C00B88083 /* Model(MVVM) */,
+				88F2250425621B9300B88083 /* ViewModel(MVVM) */,
+				88F2250325621B0800B88083 /* View(MVVM) */,
 				886B351E2550617C0056AB86 /* AppDelegate.swift */,
 				886B35202550617C0056AB86 /* SceneDelegate.swift */,
-				886B35222550617C0056AB86 /* ViewController.swift */,
-				886B35242550617C0056AB86 /* Main.storyboard */,
 				886B35272550617D0056AB86 /* Assets.xcassets */,
 				886B35292550617D0056AB86 /* LaunchScreen.storyboard */,
 				886B352C2550617D0056AB86 /* Info.plist */,
+			);
+			path = BaseballLineupIOS;
+			sourceTree = "<group>";
+		};
+		88F2250325621B0800B88083 /* View(MVVM) */ = {
+			isa = PBXGroup;
+			children = (
+				886B35222550617C0056AB86 /* ViewController.swift */,
 				886B35322551278A0056AB86 /* AllReviewViewController.swift */,
 				886B353425524A2C0056AB86 /* ReviewCell.swift */,
 				886B3536255263D50056AB86 /* DetailReviewViewController.swift */,
+				886B35242550617C0056AB86 /* Main.storyboard */,
 			);
-			path = BaseballLineupIOS;
+			path = "View(MVVM)";
+			sourceTree = "<group>";
+		};
+		88F2250425621B9300B88083 /* ViewModel(MVVM) */ = {
+			isa = PBXGroup;
+			children = (
+				88F2250B25622D6900B88083 /* AllReviewViewModel.swift */,
+			);
+			path = "ViewModel(MVVM)";
+			sourceTree = "<group>";
+		};
+		88F2250625621C1C00B88083 /* Model(MVVM) */ = {
+			isa = PBXGroup;
+			children = (
+				88F2250825622C7600B88083 /* ReviewData.swift */,
+			);
+			path = "Model(MVVM)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,7 +133,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Koro Saka";
 				TargetAttributes = {
 					886B351A2550617C0056AB86 = {
@@ -149,9 +179,11 @@
 			files = (
 				886B35232550617C0056AB86 /* ViewController.swift in Sources */,
 				886B353525524A2C0056AB86 /* ReviewCell.swift in Sources */,
+				88F2250C25622D6900B88083 /* AllReviewViewModel.swift in Sources */,
 				886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */,
 				886B35332551278A0056AB86 /* AllReviewViewController.swift in Sources */,
 				886B3537255263D50056AB86 /* DetailReviewViewController.swift in Sources */,
+				88F2250925622C7600B88083 /* ReviewData.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,6 +236,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -228,7 +261,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -264,6 +297,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -282,7 +316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,6 +331,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

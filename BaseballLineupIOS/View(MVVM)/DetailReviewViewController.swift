@@ -17,7 +17,7 @@ class DetailReviewViewController: UIViewController {
     @IBOutlet weak var ramenPicture: UIImageView!
     
     
-    var review: AllReviewViewController.Review?
+    var review: Review?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,27 +1,54 @@
 //
-//  AllReviewViewController.swift
+//  ReviewData.swift
 //  BaseballLineupIOS
 //
-//  Created by Koro Saka on 2020-11-02.
+//  Created by Koro Saka on 2020-11-15.
 //  Copyright © 2020 Koro Saka. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class AllReviewViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+struct Review {
+    var user: String
+    var evaluation: Int
+    var comment: String
+    var picture: UIImage?
+}
+
+class ReviewData {
+    var reviews: [Review]
+    var delegate: ReviewDataDelegate?
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    struct Review {
-        var user: String
-        var evaluation: Int
-        var comment: String
-        var picture: UIImage?
+    init() {
+        self.reviews = originalReviewData
     }
     
-    var selectedReview: Review?
+    func countReview() -> Int {
+        return reviews.count
+    }
     
-    let reviews: [Review]
+    // MARK: add new review
+    func reloadReviewData() {
+        
+        // guruguru?
+        
+        let globalQueue = DispatchQueue.global(
+            qos: DispatchQoS.QoSClass.userInitiated)
+        globalQueue.async { [ weak self] in
+            let newReview = Review(user: "NewUser", evaluation: 5, comment: "New review was added !", picture: nil)
+            // MARK: to show indicator
+            Thread.sleep(forTimeInterval: 2.0)
+            
+            DispatchQueue.main.async {
+                self!.reviews.append(newReview)
+                self!.delegate?.afterReload()
+            }
+        }
+    }
+    
+    
+    var originalReviewData: [Review]
         = [Review(user: "Trump", evaluation: 4, comment: "My favorite shop, but is always crowded....JIjaRF0XffWxVPwwKwWeE9JuFbDejmWRcTbcYNYNFuaimcmthZSSy9hXmYlgefU6pCl4B9R8ZoBZuzlmnztOkysGWlnFKOUJxpoTpmplOgwzl85yuPTQtNc9BU0FSnsqdS5xeaTCDosWOOPjJwH4Ibh1YbZqbDCQ9beV4vFKgEvZWK6s5IXOskcoc56xOBi2fQXjA9gozZru9Q9Wr5OB7UUV6NkfjxwFSNIBJdeW91pMdPOOeUU5mF3BpLHv", picture: UIImage(named: "ramen1")),
            Review(user: "Biden", evaluation: 5, comment: "Perfect!"),
            Review(user: "Trudeau", evaluation: 4, comment: "YbZqbDCQ9beV4vFKgEvZWK6s5IXOskcoc56xOBi2fQXjA9gozZru9Q9Wr5OB7UUV6NkfjxwFSNIBJdeW91pMdPOOeUU5mF3BpLHvrl1uiGySVB4Nxd0Ac84PuC6fDE2eUWEMAfMLI4lZbbg2xwtdPIvsF5I4pzhcj6bh4PKyyGFtCY09iaqUwUCZvEjkq4uZ843yC31WTVqRffOhgpa5AM2bvD2pq3AQ4fOMXaRSeJtgy7OMCfOjjnq5pkbKzrUBq9DpR2G2CRzBKWOpOq0PiaFGSYLht99PBZDhRUcBXE2ECY3t75bIr12ZR8ryuIvQZlGNbaARq5IuQ1IF", picture: UIImage(named: "ramen2")),
@@ -35,47 +62,10 @@ class AllReviewViewController: UIViewController, UITableViewDataSource, UITableV
            Review(user: "Obama", evaluation: 4, comment: "My favorite shop, but is always crowded"),
            Review(user: "Merkel", evaluation: 4, comment: "My favorite shop, but is always crowded"),
            Review(user: "Xi Jinping", evaluation: 4, comment: "My favorite shop, but is always crowded")]
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    // MARK: UITableViewDataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
-    }
-    
-    // MARK: UITableViewDataSource
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let reviewCell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as? ReviewCell else {
-            fatalError("Could not create ReviewCell")
-        }
-        reviewCell.userNameLabel.text = reviews[indexPath.row].user
-        reviewCell.evaluationLabel.text = String(reviews[indexPath.row].evaluation)
-        reviewCell.shortReviewLabel.text = reviews[indexPath.row].comment
-        if let _ = reviews[indexPath.row].picture {
-            reviewCell.cameraIcon.image = UIImage(systemName: "camera.fill")
-        } else {
-            reviewCell.cameraIcon.image = UIImage(systemName: "camera")
-        }
-        
-        return reviewCell
-    }
-    
-    // MARK: UITableViewDelegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedReview = reviews[indexPath.row]
-        performSegue(withIdentifier: "goDetailView", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let nextViewConntroller = segue.destination as? DetailReviewViewController {
-            nextViewConntroller.review = selectedReview
-        }
-    }
-    
+}
+
+
+// MARK: from Model to ViewModel
+protocol ReviewDataDelegate {
+    func afterReload()
 }
