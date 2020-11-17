@@ -28,7 +28,7 @@ class ReviewData {
         return reviews.count
     }
     
-    // MARK: in real situation, it is supposed to get Data from Firebase store
+    // MARK: in production environment, it will get Review Data from Firebase store
     func reloadReviewData() {
         let globalQueue = DispatchQueue.global(
             qos: DispatchQoS.QoSClass.userInitiated)
