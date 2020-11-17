@@ -10,8 +10,19 @@ import UIKit
 
 class OrderViewController: UIViewController {
     
-    var viewModel: OrderViewModel?
+    var orderVM: OrderViewModel?
     @IBOutlet weak var orderTable: UITableView!
+    @IBOutlet weak var numlabel: UILabel!
+    @IBOutlet weak var positionPicker: UIPickerView!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBAction func onClickCancel(_ sender: Any) {
+    }
+    @IBAction func onClickClear(_ sender: Any) {
+    }
+    @IBAction func onClickExchange(_ sender: Any) {
+    }
+    @IBAction func onClickRegister(_ sender: Any) {
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,7 +39,7 @@ class OrderViewController: UIViewController {
     }
     
     func setup() {
-        viewModel = .init()
+        orderVM = .init()
     }
     
     override func viewDidLoad() {
@@ -42,7 +53,7 @@ class OrderViewController: UIViewController {
 
 extension OrderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableSize = viewModel?.getOrdeSize() else {
+        guard let tableSize = orderVM?.getOrdeSize() else {
             return 0
             
         }
@@ -53,9 +64,9 @@ extension OrderViewController: UITableViewDataSource {
         guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as? OrderTableCell else {
             fatalError("Could not create ReviewCell")
         }
+        orderTableCell.orderVM = self.orderVM
         
-        guard let startingPlayer = viewModel?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
-        
+        guard let startingPlayer = orderVM?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
         orderTableCell.numButton.setTitle("\(startingPlayer.orderNum)番", for: .normal)
         orderTableCell.positionLabel.text = "(\(startingPlayer.position))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name)"

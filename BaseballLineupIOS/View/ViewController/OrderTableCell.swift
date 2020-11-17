@@ -8,7 +8,11 @@
 
 import UIKit
 class OrderTableCell: UITableViewCell {
+    var orderVM: OrderViewModel?
+    
     @IBOutlet weak var numButton: UIButton!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBAction func onClickNum(_ sender: Any) {
+    }
 }

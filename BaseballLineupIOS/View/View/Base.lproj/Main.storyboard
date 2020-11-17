@@ -108,6 +108,9 @@
                                                                 <constraint firstAttribute="width" constant="90" id="ZSe-sM-Ndl"/>
                                                             </constraints>
                                                             <state key="normal" title="NumButton"/>
+                                                            <connections>
+                                                                <action selector="onClickNum:" destination="SLe-JY-Ham" eventType="touchUpInside" id="oE8-B3-kf9"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXW-VN-t7C">
                                                             <rect key="frame" x="161" y="0.0" width="50" height="30.5"/>
@@ -192,6 +195,9 @@
                                             <constraint firstAttribute="width" constant="70" id="w9i-oA-csL"/>
                                         </constraints>
                                         <state key="normal" title="CANCEL"/>
+                                        <connections>
+                                            <action selector="onClickCancel:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="fET-Ak-kZI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nj-2y-cul">
                                         <rect key="frame" x="151" y="0.0" width="70" height="40"/>
@@ -199,10 +205,16 @@
                                             <constraint firstAttribute="width" constant="70" id="gKr-VC-QJJ"/>
                                         </constraints>
                                         <state key="normal" title="CLEAR"/>
+                                        <connections>
+                                            <action selector="onClickClear:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="pu9-GE-Fa2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiB-H1-KzT">
                                         <rect key="frame" x="302" y="0.0" width="112" height="40"/>
                                         <state key="normal" title="EXCHANGE"/>
+                                        <connections>
+                                            <action selector="onClickExchange:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="AF2-41-tgj"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -215,6 +227,9 @@
                                     <constraint firstAttribute="height" constant="40" id="Elm-lN-iXj"/>
                                 </constraints>
                                 <state key="normal" title="REGISTER"/>
+                                <connections>
+                                    <action selector="onClickRegister:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="21e-1g-5sv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eAy-rI-zYh"/>
@@ -237,7 +252,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
+                        <outlet property="nameTextField" destination="0NS-fO-hfL" id="a3o-Pr-Ddq"/>
+                        <outlet property="numlabel" destination="H19-a2-qPi" id="IB4-0V-16W"/>
                         <outlet property="orderTable" destination="wBH-qL-PrY" id="YQO-3a-nvL"/>
+                        <outlet property="positionPicker" destination="5el-4Q-7Kv" id="fn3-pz-Pfb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea7-fD-gkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
