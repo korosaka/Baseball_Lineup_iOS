@@ -9,10 +9,12 @@
 import UIKit
 class OrderTableCell: UITableViewCell {
     var orderVM: OrderViewModel?
+    var orderNum: Int?
     
     @IBOutlet weak var numButton: UIButton!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBAction func onClickNum(_ sender: Any) {
+        self.orderVM?.selectNumButton(selectedNum: orderNum!)
     }
 }

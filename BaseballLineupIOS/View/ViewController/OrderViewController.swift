@@ -45,6 +45,7 @@ class OrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         orderTable.dataSource = self
+        orderVM?.delegate = self
         //        orderTable.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -66,7 +67,9 @@ extension OrderViewController: UITableViewDataSource {
         }
         orderTableCell.orderVM = self.orderVM
         
+        
         guard let startingPlayer = orderVM?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
+        orderTableCell.orderNum = startingPlayer.orderNum
         orderTableCell.numButton.setTitle("\(startingPlayer.orderNum)番", for: .normal)
         orderTableCell.positionLabel.text = "(\(startingPlayer.position))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name)"
@@ -75,8 +78,15 @@ extension OrderViewController: UITableViewDataSource {
     }
 }
 
+extension OrderViewController: OrderVMDelegate {
+    func prepareRegistering(selectedNum: Int) {
+        numlabel.text = "\(selectedNum)番"
+    }
+}
+
 //extension OrderViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        //
 //    }
 //}
+

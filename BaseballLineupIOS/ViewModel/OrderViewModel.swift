@@ -12,6 +12,11 @@ class OrderViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData
     
+    weak var delegate: OrderVMDelegate?
+    
+    var numButtonSelected = false
+//    var selectedNum = 0
+    
     init() {
         cacheData = CacheOrderData()
     }
@@ -35,5 +40,13 @@ class OrderViewModel {
         return getStatingOrder()[num]
     }
     
-    
+    func selectNumButton(selectedNum: Int) {
+        numButtonSelected = true
+//        self.selectedNum = selectedNum
+        delegate?.prepareRegistering(selectedNum: selectedNum)
+    }
+}
+
+protocol OrderVMDelegate: class {
+    func prepareRegistering(selectedNum: Int)
 }
