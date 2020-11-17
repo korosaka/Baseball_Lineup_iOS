@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="322" width="414" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderCell" id="SLe-JY-Ham">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="orderCell" id="SLe-JY-Ham" customClass="OrderTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="30.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SLe-JY-Ham" id="4je-Gh-jzO">
@@ -149,6 +149,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="hTx-tp-5dP" secondAttribute="bottom" id="erf-U8-4k3"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="6uv-Xa-Q3w" id="Kz9-uo-13u"/>
+                                            <outlet property="numButton" destination="fmJ-y1-zNn" id="LmA-Pa-Sqs"/>
+                                            <outlet property="positionLabel" destination="pXW-VN-t7C" id="DcG-Tk-44X"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -244,10 +249,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
-                        <outlet property="nameLabel" destination="6uv-Xa-Q3w" id="XA5-ht-3v1"/>
-                        <outlet property="numButton" destination="fmJ-y1-zNn" id="C8A-Ak-9aM"/>
                         <outlet property="orderTable" destination="wBH-qL-PrY" id="YQO-3a-nvL"/>
-                        <outlet property="positionLabel" destination="pXW-VN-t7C" id="Li3-Vi-a3Y"/>
                         <outlet property="testLabel" destination="0ik-Je-3Fe" id="1Nd-pB-dlJ"/>
                     </connections>
                 </viewController>
