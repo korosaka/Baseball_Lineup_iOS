@@ -65,10 +65,6 @@ class AllReviewViewModel {
         selectedReview = getReview(index: index)
     }
     
-    func reloadReview() {
-        reviewData.reloadReviewData()
-    }
-    
     func reloadData() {
         reviewData.reloadReviewData()
     }
