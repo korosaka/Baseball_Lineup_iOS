@@ -13,7 +13,7 @@ class TopViewModel {
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goOrderScreen" {
             let orderViewController = segue.destination as! OrderViewController
-            orderViewController.viewModel?.orderType = sender as? String
+            orderViewController.viewModel?.orderType = sender as? OrderType
         }
     }
 }

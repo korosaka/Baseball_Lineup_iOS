@@ -31,13 +31,10 @@ class OrderViewController: UIViewController {
         viewModel = .init()
     }
     
-    @IBOutlet weak var testLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        testLabel.text = viewModel?.orderType
         orderTable.dataSource = self
-        orderTable.delegate = self
+        //        orderTable.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -57,16 +54,18 @@ extension OrderViewController: UITableViewDataSource {
             fatalError("Could not create ReviewCell")
         }
         
-        orderTableCell.numButton.setTitle("4番", for: .normal)
-        orderTableCell.positionLabel.text = "(三)"
-        orderTableCell.nameLabel.text = "長嶋"
+        guard let startingPlayer = viewModel?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
+        
+        orderTableCell.numButton.setTitle("\(startingPlayer.orderNum)番", for: .normal)
+        orderTableCell.positionLabel.text = "(\(startingPlayer.position))"
+        orderTableCell.nameLabel.text = "\(startingPlayer.name)"
         
         return orderTableCell
     }
 }
 
-extension OrderViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
-    }
-}
+//extension OrderViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        //
+//    }
+//}

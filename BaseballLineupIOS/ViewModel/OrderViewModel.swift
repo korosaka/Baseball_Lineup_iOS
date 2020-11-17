@@ -9,16 +9,31 @@
 import UIKit
 
 class OrderViewModel {
-    var orderType: String?
+    var orderType: OrderType?
+    var cacheData: CacheOrderData
+    
+    init() {
+        cacheData = CacheOrderData()
+    }
     
     func getOrdeSize() -> Int {
         switch orderType {
-        case "NoDH":
+        case .Normal:
             return 9
-        case "DH":
+        case .DH:
             return 10
         default:
             return 0
         }
     }
+    
+    func getStatingOrder() -> [StartingPlayer] {
+        cacheData.getOrder(orderType: orderType!)
+    }
+    
+    func getStatingPlyaer(num: Int) -> StartingPlayer {
+        return getStatingOrder()[num]
+    }
+    
+    
 }
