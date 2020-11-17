@@ -10,4 +10,15 @@ import UIKit
 
 class OrderViewModel {
     var orderType: String?
+    
+    func getOrdeSize() -> Int {
+        switch orderType {
+        case "NoDH":
+            return 9
+        case "DH":
+            return 10
+        default:
+            return 0
+        }
+    }
 }
