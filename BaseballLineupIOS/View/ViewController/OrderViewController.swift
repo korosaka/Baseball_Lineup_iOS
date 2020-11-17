@@ -11,6 +11,10 @@ import UIKit
 class OrderViewController: UIViewController {
     
     var viewModel: OrderViewModel?
+    @IBOutlet weak var orderTable: UITableView!
+    @IBOutlet weak var numButton: UIButton!
+    @IBOutlet weak var positionLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
