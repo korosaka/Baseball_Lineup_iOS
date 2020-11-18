@@ -46,6 +46,9 @@ class OrderViewController: UIViewController {
         super.viewDidLoad()
         orderTable.dataSource = self
         orderVM?.delegate = self
+        nameTextField.delegate = self
+        
+        setDefaultUIState()
         //        orderTable.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -81,6 +84,22 @@ extension OrderViewController: UITableViewDataSource {
 extension OrderViewController: OrderVMDelegate {
     func prepareRegistering(selectedNum: Int) {
         numlabel.text = "\(selectedNum)番"
+        nameTextField.isEnabled = true
+        nameTextField.placeholder = "名前を入力してください"
+    }
+    
+    func setDefaultUIState() {
+        numlabel.text = "---"
+        nameTextField.isEnabled = false
+        nameTextField.placeholder = "打順を選択してください"
+    }
+}
+
+extension OrderViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.resignFirstResponder()
+        
+        return true
     }
 }
 
