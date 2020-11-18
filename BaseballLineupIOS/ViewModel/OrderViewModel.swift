@@ -45,6 +45,17 @@ class OrderViewModel {
 //        self.selectedNum = selectedNum
         delegate?.prepareRegistering(selectedNum: selectedNum)
     }
+    
+    func getPickerNum() -> Int {
+        switch orderType {
+        case .Normal:
+            return 10
+        case .DH:
+            return 11
+        default:
+            return 0
+        }
+    }
 }
 
 protocol OrderVMDelegate: class {

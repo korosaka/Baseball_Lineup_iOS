@@ -47,12 +47,14 @@ class OrderViewController: UIViewController {
         orderTable.dataSource = self
         orderVM?.delegate = self
         nameTextField.delegate = self
+        positionPicker.delegate = self
         
         setDefaultUIState()
         //        orderTable.delegate = self
         // Do any additional setup after loading the view.
     }
     
+    let positonPickerData = ["---", "投", "捕", "一", "二", "三", "遊", "左", "中", "右", "DH"]
 }
 
 extension OrderViewController: UITableViewDataSource {
@@ -103,6 +105,38 @@ extension OrderViewController: UITextFieldDelegate {
     }
 }
 
+extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    numberOfRowsInComponent component: Int) -> Int {
+        guard let num = orderVM?.getPickerNum() else {
+            return 0
+        }
+        return num
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    didSelectRow row: Int,
+                    inComponent component: Int) {
+        // MARK: TODO
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+
+        let pickerLabel = UILabel()
+        pickerLabel.font = UIFont(name:"Helvetica", size: 26)
+        pickerLabel.textAlignment = .center
+        pickerLabel.text = positonPickerData[row]
+        
+        return pickerLabel
+    }
+}
 //extension OrderViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        //
