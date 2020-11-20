@@ -11,7 +11,7 @@ import UIKit
 class OrderViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData
-    var selectedPosition = "---"
+    var selectedPosition = Position.Non
     var writtenName = ""
     
     weak var delegate: OrderVMDelegate?
@@ -65,7 +65,7 @@ class OrderViewModel {
     }
     
     func resetData() {
-        selectedPosition = "---"
+        selectedPosition = Position.Non
         writtenName = ""
         numButtonSelected = false
         selectedNum = 0

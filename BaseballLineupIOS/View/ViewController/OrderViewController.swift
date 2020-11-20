@@ -25,8 +25,6 @@ class OrderViewController: UIViewController {
         orderVM?.writtenName = nameTextField.text!
         orderVM?.overWriteStatingPlayer()
         setDefaultUIState()
-//        print("position:\(String(describing: orderVM?.selectedPosition)), name:\(String(describing: orderVM?.writtenName))")
-//        print(orderVM?.getStatingOrder() ?? "nothing data")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,10 +54,8 @@ class OrderViewController: UIViewController {
         
         setDefaultUIState()
         //        orderTable.delegate = self
-        // Do any additional setup after loading the view.
     }
     
-    let positonPickerData = ["---", "投", "捕", "一", "二", "三", "遊", "左", "中", "右", "DH"]
 }
 
 extension OrderViewController: UITableViewDataSource {
@@ -81,7 +77,7 @@ extension OrderViewController: UITableViewDataSource {
         guard let startingPlayer = orderVM?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
         orderTableCell.orderNum = startingPlayer.orderNum
         orderTableCell.numButton.setTitle("\(startingPlayer.orderNum)番", for: .normal)
-        orderTableCell.positionLabel.text = "(\(startingPlayer.position))"
+        orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name)"
         
         return orderTableCell
@@ -129,8 +125,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        // MARK: TODO
-        orderVM?.selectedPosition = positonPickerData[row]
+        orderVM?.selectedPosition = Position(description: Constants.positions[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -138,7 +133,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let pickerLabel = UILabel()
         pickerLabel.font = UIFont(name:"Helvetica", size: 26)
         pickerLabel.textAlignment = .center
-        pickerLabel.text = positonPickerData[row]
+        pickerLabel.text = Constants.positions[row]
         
         return pickerLabel
     }

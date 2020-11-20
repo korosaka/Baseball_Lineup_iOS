@@ -1,0 +1,12 @@
+//
+//  Constans.swift
+//  BaseballLineupIOS
+//
+//  Created by Koro Saka on 2020-11-20.
+//  Copyright © 2020 Koro Saka. All rights reserved.
+//
+
+import Foundation
+struct Constants {
+    static let positions = ["---", "投" ,"捕" ,"一" ,"二" ,"三" ,"遊" ,"左" ,"中" ,"右" ,"DH"]
+}
