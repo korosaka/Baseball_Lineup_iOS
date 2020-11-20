@@ -17,7 +17,7 @@ class OrderViewModel {
     weak var delegate: OrderVMDelegate?
     
     var numButtonSelected = false
-//    var selectedNum = 0
+    var selectedNum = 0
     
     init() {
         cacheData = CacheOrderData()
@@ -44,7 +44,7 @@ class OrderViewModel {
     
     func selectNumButton(selectedNum: Int) {
         numButtonSelected = true
-//        self.selectedNum = selectedNum
+        self.selectedNum = selectedNum
         delegate?.prepareRegistering(selectedNum: selectedNum)
     }
     
