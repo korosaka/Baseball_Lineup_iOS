@@ -22,7 +22,11 @@ class OrderViewController: UIViewController {
     @IBAction func onClickExchange(_ sender: Any) {
     }
     @IBAction func onClickRegister(_ sender: Any) {
-        print("position:\(String(describing: orderVM?.selectedPosition)), name:\(String(describing: orderVM?.writtenName))")
+        orderVM?.writtenName = nameTextField.text!
+        orderVM?.overWriteStatingPlayer()
+        setDefaultUIState()
+//        print("position:\(String(describing: orderVM?.selectedPosition)), name:\(String(describing: orderVM?.writtenName))")
+//        print(orderVM?.getStatingOrder() ?? "nothing data")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,15 +97,16 @@ extension OrderViewController: OrderVMDelegate {
     
     func setDefaultUIState() {
         numlabel.text = "---"
+        nameTextField.text = ""
         nameTextField.isEnabled = false
         nameTextField.placeholder = "打順を選択してください"
+        orderVM?.resetData()
     }
 }
 
 extension OrderViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
-        orderVM?.writtenName = textField.text!
         return true
     }
 }

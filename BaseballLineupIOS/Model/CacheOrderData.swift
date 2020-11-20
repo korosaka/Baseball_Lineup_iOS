@@ -40,10 +40,25 @@ class CacheOrderData {
     
     func getOrder(orderType: OrderType) -> [StartingPlayer] {
         switch orderType {
-        case .Normal:
-            return startingOrderNormal
-        default:
+        case .DH:
             return startingOrderDH
+        default:
+            return startingOrderNormal
         }
+    }
+    
+    func overWriteStartingPlayer(type: OrderType, player: StartingPlayer) {
+        let index = convertOrderNumToIndex(player.orderNum)
+        if index < 0 { return }
+        switch type {
+        case .DH:
+            startingOrderDH[index] = player
+        default:
+            startingOrderNormal[index] = player
+        }
+    }
+    
+    func convertOrderNumToIndex(_ orderNum: Int) -> Int {
+        return orderNum - 1
     }
 }

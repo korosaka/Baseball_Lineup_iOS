@@ -58,6 +58,19 @@ class OrderViewModel {
             return 0
         }
     }
+    
+    func overWriteStatingPlayer() {
+        let player = StartingPlayer(orderNum: selectedNum, position: selectedPosition, name: writtenName)
+        cacheData.overWriteStartingPlayer(type: orderType!, player: player)
+    }
+    
+    func resetData() {
+        selectedPosition = "---"
+        writtenName = ""
+        numButtonSelected = false
+        selectedNum = 0
+    }
+    
 }
 
 protocol OrderVMDelegate: class {
