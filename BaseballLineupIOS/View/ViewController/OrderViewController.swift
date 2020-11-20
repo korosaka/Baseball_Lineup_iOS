@@ -22,6 +22,7 @@ class OrderViewController: UIViewController {
     @IBAction func onClickExchange(_ sender: Any) {
     }
     @IBAction func onClickRegister(_ sender: Any) {
+        print("position:\(String(describing: orderVM?.selectedPosition)), name:\(String(describing: orderVM?.writtenName))")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,7 +101,7 @@ extension OrderViewController: OrderVMDelegate {
 extension OrderViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
-        
+        orderVM?.writtenName = textField.text!
         return true
     }
 }
@@ -124,7 +125,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                     didSelectRow row: Int,
                     inComponent component: Int) {
         // MARK: TODO
-        
+        orderVM?.selectedPosition = positonPickerData[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

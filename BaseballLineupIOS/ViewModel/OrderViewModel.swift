@@ -11,6 +11,8 @@ import UIKit
 class OrderViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData
+    var selectedPosition = "---"
+    var writtenName = ""
     
     weak var delegate: OrderVMDelegate?
     
