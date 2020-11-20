@@ -8,9 +8,16 @@
 
 import Foundation
 struct StartingPlayer {
-    var orderNum: Int
+    var order: OrderNum
     var position: Position
     var name: String
+}
+
+struct OrderNum {
+    var order: Int
+    var index: Int {
+        return order - 1
+    }
 }
 
 enum OrderType {
@@ -85,12 +92,12 @@ class CacheOrderData {
     
     func setEmptyData() {
         for num in 1...9 {
-            let emptyPlayer = StartingPlayer(orderNum: num, position: Position.Non, name: "----")
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: "----")
             startingOrderNormal.append(emptyPlayer)
         }
         
         for num in 1...10 {
-            let emptyPlayer = StartingPlayer(orderNum: num, position: Position.Non, name: "----")
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: "----")
             startingOrderDH.append(emptyPlayer)
         }
     }
@@ -105,13 +112,11 @@ class CacheOrderData {
     }
     
     func overWriteStartingPlayer(type: OrderType, player: StartingPlayer) {
-        let index = convertOrderNumToIndex(player.orderNum)
-        if index < 0 { return }
         switch type {
         case .DH:
-            startingOrderDH[index] = player
+            startingOrderDH[player.order.index] = player
         default:
-            startingOrderNormal[index] = player
+            startingOrderNormal[player.order.index] = player
         }
     }
     

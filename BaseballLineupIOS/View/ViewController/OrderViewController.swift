@@ -22,9 +22,11 @@ class OrderViewController: UIViewController {
     @IBAction func onClickExchange(_ sender: Any) {
     }
     @IBAction func onClickRegister(_ sender: Any) {
-        orderVM?.writtenName = nameTextField.text!
-        orderVM?.overWriteStatingPlayer()
-        setDefaultUIState()
+        if orderVM!.numButtonSelected {
+            orderVM?.writtenName = nameTextField.text!
+            orderVM?.overWriteStatingPlayer()
+            setDefaultUIState()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,8 +77,8 @@ extension OrderViewController: UITableViewDataSource {
         
         
         guard let startingPlayer = orderVM?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
-        orderTableCell.orderNum = startingPlayer.orderNum
-        orderTableCell.numButton.setTitle("\(startingPlayer.orderNum)番", for: .normal)
+        orderTableCell.orderNum = startingPlayer.order
+        orderTableCell.numButton.setTitle("\(startingPlayer.order.order)番", for: .normal)
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name)"
         
@@ -85,8 +87,8 @@ extension OrderViewController: UITableViewDataSource {
 }
 
 extension OrderViewController: OrderVMDelegate {
-    func prepareRegistering(selectedNum: Int) {
-        numlabel.text = "\(selectedNum)番"
+    func prepareRegistering(selectedNum: OrderNum) {
+        numlabel.text = "\(selectedNum.order)番"
         nameTextField.isEnabled = true
         nameTextField.placeholder = "名前を入力してください"
     }

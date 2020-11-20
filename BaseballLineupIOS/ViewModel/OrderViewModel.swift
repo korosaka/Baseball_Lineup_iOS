@@ -17,7 +17,7 @@ class OrderViewModel {
     weak var delegate: OrderVMDelegate?
     
     var numButtonSelected = false
-    var selectedNum = 0
+    var selectedNum = OrderNum(order: 0)
     
     init() {
         cacheData = CacheOrderData()
@@ -42,7 +42,7 @@ class OrderViewModel {
         return getStatingOrder()[num]
     }
     
-    func selectNumButton(selectedNum: Int) {
+    func selectNumButton(selectedNum: OrderNum) {
         numButtonSelected = true
         self.selectedNum = selectedNum
         delegate?.prepareRegistering(selectedNum: selectedNum)
@@ -60,7 +60,7 @@ class OrderViewModel {
     }
     
     func overWriteStatingPlayer() {
-        let player = StartingPlayer(orderNum: selectedNum, position: selectedPosition, name: writtenName)
+        let player = StartingPlayer(order: selectedNum, position: selectedPosition, name: writtenName)
         cacheData.overWriteStartingPlayer(type: orderType!, player: player)
     }
     
@@ -68,11 +68,11 @@ class OrderViewModel {
         selectedPosition = Position.Non
         writtenName = ""
         numButtonSelected = false
-        selectedNum = 0
+        selectedNum = OrderNum(order: 0)
     }
     
 }
 
 protocol OrderVMDelegate: class {
-    func prepareRegistering(selectedNum: Int)
+    func prepareRegistering(selectedNum: OrderNum)
 }

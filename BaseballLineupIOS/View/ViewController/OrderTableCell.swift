@@ -9,7 +9,7 @@
 import UIKit
 class OrderTableCell: UITableViewCell {
     var orderVM: OrderViewModel?
-    var orderNum: Int?
+    var orderNum: OrderNum?
     
     @IBOutlet weak var numButton: UIButton!
     @IBOutlet weak var positionLabel: UILabel!
