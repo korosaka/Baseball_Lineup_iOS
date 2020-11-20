@@ -119,8 +119,4 @@ class CacheOrderData {
             startingOrderNormal[player.order.index] = player
         }
     }
-    
-    func convertOrderNumToIndex(_ orderNum: Int) -> Int {
-        return orderNum - 1
-    }
 }
