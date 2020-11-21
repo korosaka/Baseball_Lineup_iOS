@@ -55,29 +55,33 @@ enum Position {
     }
     
     var description: String {
+        return Constants.positions[index]
+    }
+    
+    var index: Int {
         switch self {
         case .Pitcher:
-            return Constants.positions[1]
+            return 1
         case .Catcher:
-            return Constants.positions[2]
+            return 2
         case .First:
-            return Constants.positions[3]
+            return 3
         case .Second:
-            return Constants.positions[4]
+            return 4
         case .Third:
-            return Constants.positions[5]
+            return 5
         case .Short:
-            return Constants.positions[6]
+            return 6
         case .Left:
-            return Constants.positions[7]
+            return 7
         case .Center:
-            return Constants.positions[8]
+            return 8
         case .Right:
-            return Constants.positions[9]
+            return 9
         case .DH:
-            return Constants.positions[10]
+            return 10
         default:
-            return Constants.positions[0]
+            return 0
         }
     }
 }

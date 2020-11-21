@@ -38,8 +38,8 @@ class OrderViewModel {
         cacheData.getOrder(orderType: orderType!)
     }
     
-    func getStatingPlyaer(num: Int) -> StartingPlayer {
-        return getStatingOrder()[num]
+    func getStatingPlayer(num: OrderNum) -> StartingPlayer {
+        return getStatingOrder()[num.index]
     }
     
     func selectNumButton(selectedNum: OrderNum) {

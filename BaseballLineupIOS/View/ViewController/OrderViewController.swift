@@ -75,8 +75,8 @@ extension OrderViewController: UITableViewDataSource {
         }
         orderTableCell.orderVM = self.orderVM
         
-        
-        guard let startingPlayer = orderVM?.getStatingPlyaer(num: indexPath.row) else { return orderTableCell }
+        let order = indexPath.row + 1
+        guard let startingPlayer = orderVM?.getStatingPlayer(num: OrderNum(order: order)) else { return orderTableCell }
         orderTableCell.orderNum = startingPlayer.order
         orderTableCell.numButton.setTitle("\(startingPlayer.order.order)番", for: .normal)
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
@@ -88,13 +88,18 @@ extension OrderViewController: UITableViewDataSource {
 
 extension OrderViewController: OrderVMDelegate {
     func prepareRegistering(selectedNum: OrderNum) {
+        let currentPlayer = orderVM!.getStatingPlayer(num: selectedNum)
+
         numlabel.text = "\(selectedNum.order)番"
+        orderVM?.selectedPosition = currentPlayer.position
+        positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
         nameTextField.isEnabled = true
         nameTextField.placeholder = "名前を入力してください"
     }
     
     func setDefaultUIState() {
         numlabel.text = "---"
+        positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
         nameTextField.text = ""
         nameTextField.isEnabled = false
         nameTextField.placeholder = "打順を選択してください"
