@@ -89,7 +89,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wBH-qL-PrY">
-                                <rect key="frame" x="0.0" y="292" width="414" height="604"/>
+                                <rect key="frame" x="0.0" y="254" width="414" height="642"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderCell" id="SLe-JY-Ham" customClass="OrderTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -191,31 +191,34 @@
                                     <constraint firstAttribute="height" constant="120" id="rNN-WK-Gg9"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="Nzb-tf-Tg5">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="Nzb-tf-Tg5" userLabel="ButtonsStack">
                                 <rect key="frame" x="0.0" y="209" width="414" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6W-xX-AZ9">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6W-xX-AZ9">
+                                        <rect key="frame" x="0.0" y="0.0" width="59" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="w9i-oA-csL"/>
+                                            <constraint firstAttribute="height" constant="40" id="8ep-Qi-lUW"/>
                                         </constraints>
                                         <state key="normal" title="CANCEL"/>
                                         <connections>
                                             <action selector="onClickCancel:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="fET-Ak-kZI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nj-2y-cul">
-                                        <rect key="frame" x="151" y="0.0" width="70" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEu-t7-bzj">
+                                        <rect key="frame" x="140" y="0.0" width="70" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="gKr-VC-QJJ"/>
+                                            <constraint firstAttribute="height" constant="40" id="Elm-lN-iXj"/>
                                         </constraints>
-                                        <state key="normal" title="CLEAR"/>
+                                        <state key="normal" title="REGISTER"/>
                                         <connections>
-                                            <action selector="onClickClear:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="pu9-GE-Fa2"/>
+                                            <action selector="onClickRegister:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="21e-1g-5sv"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiB-H1-KzT">
-                                        <rect key="frame" x="302" y="0.0" width="112" height="40"/>
+                                        <rect key="frame" x="291" y="0.0" width="123" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Egm-JT-xVi"/>
+                                        </constraints>
                                         <state key="normal" title="EXCHANGE"/>
                                         <connections>
                                             <action selector="onClickExchange:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="AF2-41-tgj"/>
@@ -226,30 +229,17 @@
                                     <constraint firstAttribute="height" constant="40" id="v4q-Tx-I6L"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEu-t7-bzj">
-                                <rect key="frame" x="0.0" y="250" width="414" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Elm-lN-iXj"/>
-                                </constraints>
-                                <state key="normal" title="REGISTER"/>
-                                <connections>
-                                    <action selector="onClickRegister:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="21e-1g-5sv"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eAy-rI-zYh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wBH-qL-PrY" firstAttribute="top" secondItem="Nzb-tf-Tg5" secondAttribute="bottom" constant="5" id="Ajo-Mv-xRg"/>
                             <constraint firstAttribute="trailing" secondItem="bYu-yh-KXP" secondAttribute="trailing" id="G1U-Pg-Cl3"/>
                             <constraint firstItem="wBH-qL-PrY" firstAttribute="trailing" secondItem="eAy-rI-zYh" secondAttribute="trailing" id="Q1X-mh-opJ"/>
                             <constraint firstAttribute="bottom" secondItem="wBH-qL-PrY" secondAttribute="bottom" id="RxL-X2-eUV"/>
-                            <constraint firstItem="XEu-t7-bzj" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="TUw-S2-CTP"/>
                             <constraint firstItem="bYu-yh-KXP" firstAttribute="top" secondItem="eAy-rI-zYh" secondAttribute="top" id="iqi-Vo-Xnt"/>
                             <constraint firstItem="Nzb-tf-Tg5" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="kkD-59-Xg9"/>
                             <constraint firstItem="bYu-yh-KXP" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="lb8-mi-IXv"/>
-                            <constraint firstItem="XEu-t7-bzj" firstAttribute="top" secondItem="Nzb-tf-Tg5" secondAttribute="bottom" constant="1" id="oVa-MR-6hs"/>
-                            <constraint firstItem="eAy-rI-zYh" firstAttribute="trailing" secondItem="XEu-t7-bzj" secondAttribute="trailing" id="qjh-bp-2Yu"/>
-                            <constraint firstItem="wBH-qL-PrY" firstAttribute="top" secondItem="XEu-t7-bzj" secondAttribute="bottom" constant="2" id="r1k-r8-oFN"/>
                             <constraint firstItem="wBH-qL-PrY" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="rvP-t6-Z6Z"/>
                             <constraint firstItem="Nzb-tf-Tg5" firstAttribute="top" secondItem="bYu-yh-KXP" secondAttribute="bottom" constant="1" id="wmz-DX-z4q"/>
                             <constraint firstItem="eAy-rI-zYh" firstAttribute="trailing" secondItem="Nzb-tf-Tg5" secondAttribute="trailing" id="xZJ-Hr-v6L"/>

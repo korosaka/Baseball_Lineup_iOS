@@ -18,8 +18,6 @@ class OrderViewController: UIViewController {
     @IBAction func onClickCancel(_ sender: Any) {
         setDefaultUIState()
     }
-    @IBAction func onClickClear(_ sender: Any) {
-    }
     @IBAction func onClickExchange(_ sender: Any) {
     }
     @IBAction func onClickRegister(_ sender: Any) {
