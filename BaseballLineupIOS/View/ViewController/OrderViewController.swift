@@ -16,6 +16,7 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBAction func onClickCancel(_ sender: Any) {
+        setDefaultUIState()
     }
     @IBAction func onClickClear(_ sender: Any) {
     }
@@ -100,7 +101,7 @@ extension OrderViewController: OrderVMDelegate {
     }
     
     func setDefaultUIState() {
-        numlabel.text = "---"
+        numlabel.text = Constants.NO_NUM
         positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
         nameTextField.isEnabled = false
