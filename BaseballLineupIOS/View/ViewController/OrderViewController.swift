@@ -25,6 +25,7 @@ class OrderViewController: UIViewController {
         if orderVM!.numButtonSelected {
             orderVM?.writtenName = nameTextField.text!
             orderVM?.overWriteStatingPlayer()
+            orderTable.reloadData()
             setDefaultUIState()
         }
     }
