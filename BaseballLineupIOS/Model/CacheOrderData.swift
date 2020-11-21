@@ -29,25 +29,25 @@ enum Position {
     
     init(description: String) {
         switch description {
-        case Constants.positions[1]:
+        case Constants.POSITIONS[1]:
             self = .Pitcher
-        case Constants.positions[2]:
+        case Constants.POSITIONS[2]:
             self = .Catcher
-        case Constants.positions[3]:
+        case Constants.POSITIONS[3]:
             self = .First
-        case Constants.positions[4]:
+        case Constants.POSITIONS[4]:
             self = .Second
-        case Constants.positions[5]:
+        case Constants.POSITIONS[5]:
             self = .Third
-        case Constants.positions[6]:
+        case Constants.POSITIONS[6]:
             self = .Short
-        case Constants.positions[7]:
+        case Constants.POSITIONS[7]:
             self = .Left
-        case Constants.positions[8]:
+        case Constants.POSITIONS[8]:
             self = .Center
-        case Constants.positions[9]:
+        case Constants.POSITIONS[9]:
             self = .Right
-        case Constants.positions[10]:
+        case Constants.POSITIONS[10]:
             self = .DH
         default:
             self = .Non
@@ -55,7 +55,7 @@ enum Position {
     }
     
     var description: String {
-        return Constants.positions[index]
+        return Constants.POSITIONS[index]
     }
     
     var index: Int {
@@ -96,12 +96,12 @@ class CacheOrderData {
     
     func setEmptyData() {
         for num in 1...9 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: "----")
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: Constants.NOT_REGISTERED)
             startingOrderNormal.append(emptyPlayer)
         }
         
         for num in 1...10 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: "----")
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: Constants.NOT_REGISTERED)
             startingOrderDH.append(emptyPlayer)
         }
     }

@@ -100,7 +100,7 @@ extension OrderViewController: OrderVMDelegate {
     func setDefaultUIState() {
         numlabel.text = "---"
         positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
-        nameTextField.text = ""
+        nameTextField.text = Constants.EMPTY
         nameTextField.isEnabled = false
         nameTextField.placeholder = "打順を選択してください"
         orderVM?.resetData()
@@ -132,7 +132,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        orderVM?.selectedPosition = Position(description: Constants.positions[row])
+        orderVM?.selectedPosition = Position(description: Constants.POSITIONS[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -140,7 +140,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let pickerLabel = UILabel()
         pickerLabel.font = UIFont(name:"Helvetica", size: 26)
         pickerLabel.textAlignment = .center
-        pickerLabel.text = Constants.positions[row]
+        pickerLabel.text = Constants.POSITIONS[row]
         
         return pickerLabel
     }

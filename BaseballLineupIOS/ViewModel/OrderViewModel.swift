@@ -12,7 +12,7 @@ class OrderViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData
     var selectedPosition = Position.Non
-    var writtenName = ""
+    var writtenName = Constants.EMPTY
     
     weak var delegate: OrderVMDelegate?
     
