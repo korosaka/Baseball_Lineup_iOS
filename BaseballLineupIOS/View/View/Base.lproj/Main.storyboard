@@ -247,10 +247,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
+                        <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
+                        <outlet property="exchangeButton" destination="UiB-H1-KzT" id="2KK-UA-UzU"/>
                         <outlet property="nameTextField" destination="0NS-fO-hfL" id="a3o-Pr-Ddq"/>
                         <outlet property="numlabel" destination="H19-a2-qPi" id="IB4-0V-16W"/>
                         <outlet property="orderTable" destination="wBH-qL-PrY" id="YQO-3a-nvL"/>
                         <outlet property="positionPicker" destination="5el-4Q-7Kv" id="fn3-pz-Pfb"/>
+                        <outlet property="registerButton" destination="XEu-t7-bzj" id="o2x-KT-vK8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea7-fD-gkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

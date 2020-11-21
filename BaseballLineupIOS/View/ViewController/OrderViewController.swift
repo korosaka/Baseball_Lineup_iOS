@@ -15,6 +15,10 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var numlabel: UILabel!
     @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var exchangeButton: UIButton!
+    
     @IBAction func onClickCancel(_ sender: Any) {
         setDefaultUIState()
     }
@@ -53,18 +57,31 @@ class OrderViewController: UIViewController {
         orderVM?.delegate = self
         nameTextField.delegate = self
         positionPicker.delegate = self
-        
         setDefaultUIState()
-        //        orderTable.delegate = self
     }
     
+    func setDefaultUIState() {
+        numlabel.text = Constants.NO_NUM
+        positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
+        nameTextField.text = Constants.EMPTY
+        setItemEnabled(isInput: false)
+        nameTextField.placeholder = "打順を選択してください"
+        orderVM?.resetData()
+    }
+    
+    func setItemEnabled(isInput: Bool) {
+        positionPicker.isUserInteractionEnabled = isInput
+        nameTextField.isEnabled = isInput
+        cancelButton.isEnabled = isInput
+        registerButton.isEnabled = isInput
+        exchangeButton.isEnabled = !isInput
+    }
 }
 
 extension OrderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableSize = orderVM?.getOrdeSize() else {
             return 0
-            
         }
         return tableSize
     }
@@ -87,25 +104,18 @@ extension OrderViewController: UITableViewDataSource {
 }
 
 extension OrderViewController: OrderVMDelegate {
+    
     func prepareRegistering(selectedNum: OrderNum) {
         let currentPlayer = orderVM!.getStatingPlayer(num: selectedNum)
-
+        
         numlabel.text = "\(selectedNum.order)番"
         orderVM?.selectedPosition = currentPlayer.position
         positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
-        nameTextField.isEnabled = true
+        setItemEnabled(isInput: true)
         nameTextField.placeholder = "名前を入力してください"
         nameTextField.text = currentPlayer.name.original
     }
     
-    func setDefaultUIState() {
-        numlabel.text = Constants.NO_NUM
-        positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
-        nameTextField.text = Constants.EMPTY
-        nameTextField.isEnabled = false
-        nameTextField.placeholder = "打順を選択してください"
-        orderVM?.resetData()
-    }
 }
 
 extension OrderViewController: UITextFieldDelegate {
@@ -137,7 +147,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-
+        
         let pickerLabel = UILabel()
         pickerLabel.font = UIFont(name:"Helvetica", size: 26)
         pickerLabel.textAlignment = .center
@@ -146,9 +156,3 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return pickerLabel
     }
 }
-//extension OrderViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        //
-//    }
-//}
-
