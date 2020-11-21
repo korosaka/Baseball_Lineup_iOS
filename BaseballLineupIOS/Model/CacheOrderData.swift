@@ -10,7 +10,7 @@ import Foundation
 struct StartingPlayer {
     var order: OrderNum
     var position: Position
-    var name: String
+    var name: PlayerName
 }
 
 struct OrderNum {
@@ -22,6 +22,17 @@ struct OrderNum {
 
 enum OrderType {
     case Normal, DH
+}
+
+struct PlayerName {
+    var original: String
+    var forDisplay: String {
+        if original == Constants.EMPTY {
+            return Constants.NOT_REGISTERED
+        } else {
+            return original
+        }
+    }
 }
 
 enum Position {
@@ -96,12 +107,16 @@ class CacheOrderData {
     
     func setEmptyData() {
         for num in 1...9 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: Constants.NOT_REGISTERED)
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num),
+                                             position: Position.Non,
+                                             name: PlayerName(original: Constants.EMPTY))
             startingOrderNormal.append(emptyPlayer)
         }
         
         for num in 1...10 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num), position: Position.Non, name: Constants.NOT_REGISTERED)
+            let emptyPlayer = StartingPlayer(order: OrderNum(order: num),
+                                             position: Position.Non,
+                                             name: PlayerName(original: Constants.EMPTY))
             startingOrderDH.append(emptyPlayer)
         }
     }

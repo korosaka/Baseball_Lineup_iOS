@@ -80,7 +80,7 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.orderNum = startingPlayer.order
         orderTableCell.numButton.setTitle("\(startingPlayer.order.order)番", for: .normal)
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
-        orderTableCell.nameLabel.text = "\(startingPlayer.name)"
+        orderTableCell.nameLabel.text = "\(startingPlayer.name.forDisplay)"
         
         return orderTableCell
     }
@@ -95,6 +95,7 @@ extension OrderViewController: OrderVMDelegate {
         positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
         nameTextField.isEnabled = true
         nameTextField.placeholder = "名前を入力してください"
+        nameTextField.text = currentPlayer.name.original
     }
     
     func setDefaultUIState() {

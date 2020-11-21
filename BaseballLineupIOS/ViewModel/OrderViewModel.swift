@@ -60,13 +60,16 @@ class OrderViewModel {
     }
     
     func overWriteStatingPlayer() {
-        let player = StartingPlayer(order: selectedNum, position: selectedPosition, name: writtenName)
-        cacheData.overWriteStartingPlayer(type: orderType!, player: player)
+        let player = StartingPlayer(order: selectedNum,
+                                    position: selectedPosition,
+                                    name: PlayerName(original: writtenName))
+        cacheData.overWriteStartingPlayer(type: orderType!,
+                                          player: player)
     }
     
     func resetData() {
         selectedPosition = Position.Non
-        writtenName = ""
+        writtenName = Constants.EMPTY
         numButtonSelected = false
         selectedNum = OrderNum(order: 0)
     }
