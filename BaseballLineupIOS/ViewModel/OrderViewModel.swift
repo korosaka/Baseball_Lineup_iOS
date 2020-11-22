@@ -56,6 +56,8 @@ class OrderViewModel {
         if isExchanging {
             if firstSelectedNum == nil {
                 firstSelectedNum = selectedNum
+            } else if firstSelectedNum?.order == selectedNum.order {
+                firstSelectedNum = nil
             } else {
                 secondSelectedNum = selectedNum
                 cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
