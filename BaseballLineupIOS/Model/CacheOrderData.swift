@@ -121,6 +121,7 @@ class CacheOrderData {
         }
     }
     
+    // MARK: be careful, because in Swift, Array is value type,,,,
     func getOrder(orderType: OrderType) -> [StartingPlayer] {
         switch orderType {
         case .DH:
@@ -137,5 +138,25 @@ class CacheOrderData {
         default:
             startingOrderNormal[player.order.index] = player
         }
+    }
+    
+    func exchangeOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
+        switch orderType {
+        case .DH:
+            exchange2Players(order: &startingOrderDH, num1, num2)
+        default:
+            exchange2Players(order: &startingOrderNormal, num1, num2)
+        }
+    }
+    
+    func exchange2Players(order: inout [StartingPlayer], _ num1: OrderNum, _ num2: OrderNum) {
+        
+        // MARK: TODO
+        order[num1.index].order = num2
+        order[num2.index].order = num1
+        
+        let tmp = order[num1.index]
+        order[num1.index] = order[num2.index]
+        order[num2.index] = tmp
     }
 }

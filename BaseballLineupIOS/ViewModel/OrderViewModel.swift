@@ -17,7 +17,11 @@ class OrderViewModel {
     weak var delegate: OrderVMDelegate?
     
     var numButtonSelected = false
-    var selectedNum = OrderNum(order: 0)
+    var isExchanging = false
+    var firstSelectedNum: OrderNum?
+    var secondSelectedNum: OrderNum?
+    
+    var targetOrderNum = OrderNum(order: 0)
     
     init() {
         cacheData = CacheOrderData()
@@ -42,10 +46,27 @@ class OrderViewModel {
         return getStatingOrder()[num.index]
     }
     
+    func cancelExchange() {
+        firstSelectedNum = nil
+        secondSelectedNum = nil
+        isExchanging = false
+    }
+    
     func selectNumButton(selectedNum: OrderNum) {
-        numButtonSelected = true
-        self.selectedNum = selectedNum
-        delegate?.prepareRegistering(selectedNum: selectedNum)
+        if isExchanging {
+            if firstSelectedNum == nil {
+                firstSelectedNum = selectedNum
+            } else {
+                secondSelectedNum = selectedNum
+                cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+                delegate?.reloadOrder()
+                cancelExchange()
+            }
+        } else {
+            numButtonSelected = true
+            self.targetOrderNum = selectedNum
+            delegate?.prepareRegistering(selectedNum: selectedNum)
+        }
     }
     
     func getPickerNum() -> Int {
@@ -60,7 +81,7 @@ class OrderViewModel {
     }
     
     func overWriteStatingPlayer() {
-        let player = StartingPlayer(order: selectedNum,
+        let player = StartingPlayer(order: targetOrderNum,
                                     position: selectedPosition,
                                     name: PlayerName(original: writtenName))
         cacheData.overWriteStartingPlayer(type: orderType!,
@@ -71,11 +92,13 @@ class OrderViewModel {
         selectedPosition = Position.Non
         writtenName = Constants.EMPTY
         numButtonSelected = false
-        selectedNum = OrderNum(order: 0)
+        targetOrderNum = OrderNum(order: 0)
+        isExchanging = false
     }
     
 }
 
 protocol OrderVMDelegate: class {
     func prepareRegistering(selectedNum: OrderNum)
+    func reloadOrder()
 }

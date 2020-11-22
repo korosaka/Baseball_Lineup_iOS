@@ -20,9 +20,13 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var exchangeButton: UIButton!
     
     @IBAction func onClickCancel(_ sender: Any) {
+        if orderVM!.isExchanging { orderVM?.cancelExchange() }
         setDefaultUIState()
     }
     @IBAction func onClickExchange(_ sender: Any) {
+        orderVM?.isExchanging = true
+        exchangeButton.isEnabled = false
+        cancelButton.isEnabled = true
     }
     @IBAction func onClickRegister(_ sender: Any) {
         if orderVM!.numButtonSelected {
@@ -104,6 +108,11 @@ extension OrderViewController: UITableViewDataSource {
 }
 
 extension OrderViewController: OrderVMDelegate {
+
+    func reloadOrder() {
+        orderTable.reloadData()
+        setDefaultUIState()
+    }
     
     func prepareRegistering(selectedNum: OrderNum) {
         let currentPlayer = orderVM!.getStatingPlayer(num: selectedNum)
