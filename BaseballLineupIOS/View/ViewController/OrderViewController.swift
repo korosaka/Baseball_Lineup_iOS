@@ -96,10 +96,11 @@ extension OrderViewController: UITableViewDataSource {
         }
         orderTableCell.orderVM = self.orderVM
         
-        let order = indexPath.row + 1
-        guard let startingPlayer = orderVM?.getStatingPlayer(num: OrderNum(order: order)) else { return orderTableCell }
+        let orderNum = OrderNum(order: indexPath.row + 1)
+        guard let startingPlayer = orderVM?.getStatingPlayer(num: orderNum) else { return orderTableCell }
         orderTableCell.orderNum = startingPlayer.order
-        orderTableCell.numButton.setTitle("\(startingPlayer.order.order)番", for: .normal)
+        orderTableCell.numButton.setTitle(orderVM!.getNumButtonText(orderNum: orderNum), for: .normal)
+        orderTableCell.numButton.backgroundColor = .blue
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name.forDisplay)"
         
@@ -117,10 +118,18 @@ extension OrderViewController: OrderVMDelegate {
     func prepareRegistering(selectedNum: OrderNum) {
         let currentPlayer = orderVM!.getStatingPlayer(num: selectedNum)
         
-        numlabel.text = "\(selectedNum.order)番"
+        numlabel.text = orderVM?.getNumButtonText(orderNum: selectedNum)
         orderVM?.selectedPosition = currentPlayer.position
-        positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
         setItemEnabled(isInput: true)
+        if orderVM!.isDHPitcher(orderNum: selectedNum) {
+            positionPicker.selectRow(Position.Pitcher.index, inComponent: 0, animated: true)
+            positionPicker.isUserInteractionEnabled = false
+            orderVM?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.index])
+        } else {
+            positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
+            positionPicker.isUserInteractionEnabled = true
+        }
+        
         nameTextField.placeholder = "名前を入力してください"
         nameTextField.text = currentPlayer.name.original
     }
@@ -152,6 +161,12 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
+        // MARK: prevent set position P to fielder in DH
+        if (orderVM!.isDHFielder()) && (row == Position.Pitcher.index) {
+            orderVM?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.index])
+            pickerView.selectRow(Position.Non.index, inComponent: 0, animated: true)
+            return
+        }
         orderVM?.selectedPosition = Position(description: Constants.POSITIONS[row])
     }
     

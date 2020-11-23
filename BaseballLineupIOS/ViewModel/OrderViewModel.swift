@@ -50,6 +50,8 @@ class OrderViewModel {
         firstSelectedNum = nil
         secondSelectedNum = nil
         isExchanging = false
+        // MARK: to reset button color
+        delegate?.reloadOrder()
     }
     
     func selectNumButton(selectedNum: OrderNum) {
@@ -66,7 +68,7 @@ class OrderViewModel {
             }
         } else {
             numButtonSelected = true
-            self.targetOrderNum = selectedNum
+            targetOrderNum = selectedNum
             delegate?.prepareRegistering(selectedNum: selectedNum)
         }
     }
@@ -96,6 +98,36 @@ class OrderViewModel {
         numButtonSelected = false
         targetOrderNum = OrderNum(order: 0)
         isExchanging = false
+    }
+    
+    func getNumButtonText(orderNum: OrderNum) -> String {
+        if isDHPitcher(orderNum: orderNum) {
+            return "P"
+        } else {
+            return "\(orderNum.order)番"
+        }
+    }
+    
+    func isDHPitcher(orderNum: OrderNum) -> Bool {
+        return (orderNum.order == 10) && (orderType == .DH)
+    }
+    
+    func isDHFielder() -> Bool {
+        return (targetOrderNum.order != 10) && (orderType == .DH)
+    }
+    
+    func getNumButtonColor(orderNum: OrderNum) -> UIColor {
+        if isExchanging {
+            if firstSelectedNum == nil {
+                return .red
+            } else if firstSelectedNum!.order == orderNum.order {
+                return .blue
+            } else {
+                return .red
+            }
+        } else {
+            return .blue
+        }
     }
     
 }

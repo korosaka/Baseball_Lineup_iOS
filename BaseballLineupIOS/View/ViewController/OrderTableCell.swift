@@ -15,6 +15,7 @@ class OrderTableCell: UITableViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBAction func onClickNum(_ sender: Any) {
-        self.orderVM?.selectNumButton(selectedNum: orderNum!)
+        numButton.backgroundColor = orderVM!.getNumButtonColor(orderNum: orderNum!)
+        orderVM?.selectNumButton(selectedNum: orderNum!)
     }
 }
