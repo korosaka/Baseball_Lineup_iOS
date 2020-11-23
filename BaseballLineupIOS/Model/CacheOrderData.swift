@@ -100,6 +100,7 @@ enum Position {
 class CacheOrderData {
     var startingOrderNormal = [StartingPlayer]()
     var startingOrderDH = [StartingPlayer]()
+    let indexDHP = 9
     
     init() {
         setEmptyData()
@@ -143,7 +144,13 @@ class CacheOrderData {
     func exchangeOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
         switch orderType {
         case .DH:
-            exchange2Players(order: &startingOrderDH, num1, num2)
+            if num1.index == indexDHP {
+                exchange2PlayersWithDHPitcher(fielderNum: num2)
+            } else if num2.index == indexDHP {
+                exchange2PlayersWithDHPitcher(fielderNum: num1)
+            } else {
+                exchange2Players(order: &startingOrderDH, num1, num2)
+            }
         default:
             exchange2Players(order: &startingOrderNormal, num1, num2)
         }
@@ -158,5 +165,11 @@ class CacheOrderData {
         let tmp = order[num1.index]
         order[num1.index] = order[num2.index]
         order[num2.index] = tmp
+    }
+    
+    func exchange2PlayersWithDHPitcher(fielderNum: OrderNum) {
+        let tmp = startingOrderDH[indexDHP].name
+        startingOrderDH[indexDHP].name = startingOrderDH[fielderNum.index].name
+        startingOrderDH[fielderNum.index].name = tmp
     }
 }
