@@ -18,6 +18,7 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var exchangeButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func onClickCancel(_ sender: Any) {
         if orderVM!.isExchanging { orderVM?.cancelExchange() }
@@ -27,6 +28,8 @@ class OrderViewController: UIViewController {
         orderVM?.isExchanging = true
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
+        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.textColor = .red
     }
     @IBAction func onClickRegister(_ sender: Any) {
         if orderVM!.numButtonSelected {
@@ -70,6 +73,8 @@ class OrderViewController: UIViewController {
         nameTextField.text = Constants.EMPTY
         setItemEnabled(isInput: false)
         nameTextField.placeholder = "打順を選択してください"
+        titleLabel.text = "Starting Member"
+        titleLabel.textColor = .green
         orderVM?.resetData()
     }
     
