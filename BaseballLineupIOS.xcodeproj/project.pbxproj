@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		883AA0A025641D51002AC14A /* OrderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883AA09F25641D51002AC14A /* OrderTableCell.swift */; };
 		883AA0A325643346002AC14A /* CacheOrderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883AA0A225643346002AC14A /* CacheOrderData.swift */; };
+		884CEBC7257390270020C932 /* StartingPlayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884CEBC6257390270020C932 /* StartingPlayerTable.swift */; };
 		886036FA255C3E7900C5ED1C /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036F9255C3E7900C5ED1C /* OrderViewController.swift */; };
 		886036FC255C45F200C5ED1C /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036FB255C45F200C5ED1C /* OrderViewModel.swift */; };
 		886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036FD255C54F900C5ED1C /* TopViewModel.swift */; };
@@ -19,11 +20,14 @@
 		886B35282550617D0056AB86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B35272550617D0056AB86 /* Assets.xcassets */; };
 		886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35292550617D0056AB86 /* LaunchScreen.storyboard */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
+		CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		818ACAF1901F1969C17E8A3E /* Pods-BaseballLineupIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseballLineupIOS.release.xcconfig"; path = "Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS.release.xcconfig"; sourceTree = "<group>"; };
 		883AA09F25641D51002AC14A /* OrderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableCell.swift; sourceTree = "<group>"; };
 		883AA0A225643346002AC14A /* CacheOrderData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheOrderData.swift; sourceTree = "<group>"; };
+		884CEBC6257390270020C932 /* StartingPlayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingPlayerTable.swift; sourceTree = "<group>"; };
 		886036F9255C3E7900C5ED1C /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		886036FB255C45F200C5ED1C /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		886036FD255C54F900C5ED1C /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		886B352A2550617D0056AB86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886B352C2550617D0056AB86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
+		B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseballLineupIOS.debug.xcconfig"; path = "Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaseballLineupIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D9F13E55E470BA0F7E15421 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		30208541CC82CB0ACAD48DFC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */,
+				818ACAF1901F1969C17E8A3E /* Pods-BaseballLineupIOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		886036F4255C3CFA00C5ED1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				883AA0A225643346002AC14A /* CacheOrderData.swift */,
 				888CD392256887820072CFA5 /* Constans.swift */,
+				884CEBC6257390270020C932 /* StartingPlayerTable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -99,6 +125,8 @@
 			children = (
 				886B351D2550617C0056AB86 /* BaseballLineupIOS */,
 				886B351C2550617C0056AB86 /* Products */,
+				30208541CC82CB0ACAD48DFC /* Pods */,
+				0D9F13E55E470BA0F7E15421 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,9 +160,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 886B352F2550617D0056AB86 /* Build configuration list for PBXNativeTarget "BaseballLineupIOS" */;
 			buildPhases = (
+				E01D13D36A816D3D9707A29C /* [CP] Check Pods Manifest.lock */,
 				886B35172550617C0056AB86 /* Sources */,
 				886B35182550617C0056AB86 /* Frameworks */,
 				886B35192550617C0056AB86 /* Resources */,
+				344713C4FF693808D7679D6B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,6 +221,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		344713C4FF693808D7679D6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E01D13D36A816D3D9707A29C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BaseballLineupIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		886B35172550617C0056AB86 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -203,6 +275,7 @@
 				886036FC255C45F200C5ED1C /* OrderViewModel.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,
+				884CEBC7257390270020C932 /* StartingPlayerTable.swift in Sources */,
 				883AA0A025641D51002AC14A /* OrderTableCell.swift in Sources */,
 				886036FA255C3E7900C5ED1C /* OrderViewController.swift in Sources */,
 			);
@@ -346,6 +419,7 @@
 		};
 		886B35302550617D0056AB86 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -364,6 +438,7 @@
 		};
 		886B35312550617D0056AB86 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 818ACAF1901F1969C17E8A3E /* Pods-BaseballLineupIOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
