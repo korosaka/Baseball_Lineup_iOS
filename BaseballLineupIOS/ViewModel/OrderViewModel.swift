@@ -65,6 +65,43 @@ class OrderViewModel {
             } else {
                 secondSelectedNum = selectedNum
                 cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+                
+                // MARK: this process should be a function
+                let result = helper.inDatabase{(db) in
+                    let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
+                    let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
+                    switch orderType {
+                    case .Normal:
+                        // MARK: "key" means Primary Key
+                        var playerNormal = try StartingNormalTable.fetchOne(db, key: firstSelectedNum!.order)
+                        playerNormal?.position = player1.position.description
+                        playerNormal?.name = player1.name.original
+                        try playerNormal?.update(db)
+                        
+                        playerNormal = try StartingNormalTable.fetchOne(db, key: secondSelectedNum!.order)
+                        playerNormal?.position = player2.position.description
+                        playerNormal?.name = player2.name.original
+                        try playerNormal?.update(db)
+                        
+                    case .DH:
+                        var playerDH = try StartingDHTable.fetchOne(db, key: firstSelectedNum!.order)
+                        playerDH?.position = player1.position.description
+                        playerDH?.name = player1.name.original
+                        try playerDH?.update(db)
+                        
+                        playerDH = try StartingDHTable.fetchOne(db, key: secondSelectedNum!.order)
+                        playerDH?.position = player2.position.description
+                        playerDH?.name = player2.name.original
+                        try playerDH?.update(db)
+                        
+                    default:
+                        return
+                    }
+                }
+                if !result {
+                    print("DB Error happened!!!!!!!!")
+                }
+                
                 delegate?.reloadOrder()
                 cancelExchange()
             }
