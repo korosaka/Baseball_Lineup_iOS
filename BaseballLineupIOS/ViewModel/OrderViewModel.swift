@@ -64,27 +64,31 @@ class OrderViewModel {
             } else if firstSelectedNum?.order == selectedNum.order {
                 firstSelectedNum = nil
             } else {
-                secondSelectedNum = selectedNum
-                cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
-                
-                let result = helper.inDatabase{(db) in
-                    let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
-                    let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
-                    try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
-                    try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
-                }
-                if !result {
-                    print("DB Error happened!!!!!!!!")
-                }
-                
-                delegate?.reloadOrder()
-                cancelExchange()
+                exchangeStartingPlayers(selectedNum)
             }
         } else {
             numButtonSelected = true
             targetOrderNum = selectedNum
             delegate?.prepareRegistering(selectedNum: selectedNum)
         }
+    }
+    
+    func exchangeStartingPlayers(_ selectedNum: OrderNum) {
+        secondSelectedNum = selectedNum
+        cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+        
+        let result = helper.inDatabase{(db) in
+            let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
+            let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
+            try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
+            try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
+        }
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
+        
+        delegate?.reloadOrder()
+        cancelExchange()
     }
     
     func getPickerNum() -> Int {

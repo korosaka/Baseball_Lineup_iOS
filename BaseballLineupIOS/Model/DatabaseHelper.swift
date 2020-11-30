@@ -36,27 +36,29 @@ class DatabaseHelper {
         let result = inDatabase {(db) in
             try StartingNormalTable.create(db)
             try StartingDHTable.create(db)
-            
-            // MARK: set Empty data to update
-            for order in 1...9 {
-                let playerNormal = StartingNormalTable(order: order,
-                                                       position: Constants.POSITIONS[Position.Non.index],
-                                                       name: Constants.EMPTY)
-                try playerNormal.insert(db)
-            }
-            
-            for order in 1...10 {
-                let playerDH = StartingDHTable(order: order,
-                                               position: Constants.POSITIONS[Position.Non.index],
-                                               name: Constants.EMPTY)
-                try playerDH.insert(db)
-            }
+            try storeEmptyData(db)
         }
         
         if !result {
             do {try FileManager.default.removeItem(atPath: Const.dbFileName)} catch {
                 print("remove DB Error !!!!!!!!!!")
             }
+        }
+    }
+    
+    private func storeEmptyData(_ db: Database) throws {
+        for order in 1...9 {
+            let playerNormal = StartingNormalTable(order: order,
+                                                   position: Constants.POSITIONS[Position.Non.index],
+                                                   name: Constants.EMPTY)
+            try playerNormal.insert(db)
+        }
+        
+        for order in 1...10 {
+            let playerDH = StartingDHTable(order: order,
+                                           position: Constants.POSITIONS[Position.Non.index],
+                                           name: Constants.EMPTY)
+            try playerDH.insert(db)
         }
     }
 }
