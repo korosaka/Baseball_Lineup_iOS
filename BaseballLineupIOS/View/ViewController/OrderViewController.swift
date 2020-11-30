@@ -60,6 +60,7 @@ class OrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        orderVM?.fetchData()
         orderTable.dataSource = self
         orderVM?.delegate = self
         nameTextField.delegate = self

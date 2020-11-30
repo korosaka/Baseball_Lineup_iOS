@@ -11,6 +11,7 @@ import UIKit
 class OrderViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData
+    var helper: DatabaseHelper
     var selectedPosition = Position.Non
     var writtenName = Constants.EMPTY
     
@@ -24,7 +25,8 @@ class OrderViewModel {
     var targetOrderNum = OrderNum(order: 0)
     
     init() {
-        cacheData = CacheOrderData()
+        helper = .init()
+        cacheData = .init()
     }
     
     func getOrdeSize() -> Int {
@@ -84,12 +86,41 @@ class OrderViewModel {
         }
     }
     
+    func fetchData() {
+        cacheData.fetchOrderFromDB(orderType!, helper)
+    }
+    
     func overWriteStatingPlayer() {
-        let player = StartingPlayer(order: targetOrderNum,
+        let newPlayer = StartingPlayer(order: targetOrderNum,
                                     position: selectedPosition,
                                     name: PlayerName(original: writtenName))
+        
         cacheData.overWriteStartingPlayer(type: orderType!,
-                                          player: player)
+                                          player: newPlayer)
+        
+        let result = helper.inDatabase{(db) in
+            switch orderType {
+            case .Normal:
+                // MARK: "key" means Primary Key
+                let playerNormal = try StartingNormalTable.fetchOne(db, key: newPlayer.order.order)
+                playerNormal?.position = newPlayer.position.description
+                playerNormal?.name = newPlayer.name.original
+                try playerNormal?.update(db)
+                
+            case .DH:
+                let playerDH = try StartingDHTable.fetchOne(db, key: newPlayer.order.order)
+                playerDH?.position = newPlayer.position.description
+                playerDH?.name = newPlayer.name.original
+                try playerDH?.update(db)
+                
+            default:
+                return
+            }
+        }
+        
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
     }
     
     func resetData() {

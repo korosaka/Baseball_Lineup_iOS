@@ -102,23 +102,45 @@ class CacheOrderData {
     var startingOrderDH = [StartingPlayer]()
     let indexDHP = 9
     
-    init() {
-        setEmptyData()
-    }
-    
-    func setEmptyData() {
-        for num in 1...9 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num),
-                                             position: Position.Non,
-                                             name: PlayerName(original: Constants.EMPTY))
-            startingOrderNormal.append(emptyPlayer)
+    func fetchOrderFromDB(_ orderType: OrderType, _ helper: DatabaseHelper) {
+        let result = helper.inDatabase{(db) in
+            switch orderType {
+            case .Normal:
+                startingOrderNormal.removeAll()
+                for order in 1...9 {
+                    let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
+                    if playerNormal != nil {
+                        let startingPlayer = StartingPlayer(order: OrderNum(order: order),
+                                                            position: Position(description: playerNormal!.position),
+                                                            name: PlayerName(original: playerNormal!.name))
+                        startingOrderNormal.append(startingPlayer)
+                    } else {
+                        let emptyPlayer = StartingPlayer(order: OrderNum(order: order),
+                                                         position: Position.Non,
+                                                         name: PlayerName(original: Constants.EMPTY))
+                        startingOrderNormal.append(emptyPlayer)
+                    }
+                }
+            case .DH:
+                startingOrderDH.removeAll()
+                for order in 1...10 {
+                    let playerDH = try StartingDHTable.fetchOne(db, key: order)
+                    if playerDH != nil {
+                        let startingPlayer = StartingPlayer(order: OrderNum(order: order),
+                                                            position: Position(description: playerDH!.position),
+                                                            name: PlayerName(original: playerDH!.name))
+                        startingOrderDH.append(startingPlayer)
+                    } else {
+                        let emptyPlayer = StartingPlayer(order: OrderNum(order: order),
+                                                         position: Position.Non,
+                                                         name: PlayerName(original: Constants.EMPTY))
+                        startingOrderDH.append(emptyPlayer)
+                    }
+                }
+            }
         }
-        
-        for num in 1...10 {
-            let emptyPlayer = StartingPlayer(order: OrderNum(order: num),
-                                             position: Position.Non,
-                                             name: PlayerName(original: Constants.EMPTY))
-            startingOrderDH.append(emptyPlayer)
+        if !result {
+            print("Error happened !!! (setOrderFromDB)")
         }
     }
     
