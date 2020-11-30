@@ -103,11 +103,11 @@ class OrderViewModel {
     }
     
     func overWriteStatingPlayer() {
-        let newPlayer = StartingPlayer(order: targetOrderNum,
-                                       position: selectedPosition,
+        let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
         cacheData.overWriteStartingPlayer(type: orderType!,
+                                          orderNum: targetOrderNum,
                                           player: newPlayer)
         
         let result = helper.inDatabase{(db) in

@@ -8,7 +8,6 @@
 
 import Foundation
 struct StartingPlayer {
-    var order: OrderNum
     var position: Position
     var name: PlayerName
 }
@@ -110,13 +109,11 @@ class CacheOrderData {
                 for order in 1...9 {
                     let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
                     if playerNormal != nil {
-                        let startingPlayer = StartingPlayer(order: OrderNum(order: order),
-                                                            position: Position(description: playerNormal!.position),
+                        let startingPlayer = StartingPlayer(position: Position(description: playerNormal!.position),
                                                             name: PlayerName(original: playerNormal!.name))
                         startingOrderNormal.append(startingPlayer)
                     } else {
-                        let emptyPlayer = StartingPlayer(order: OrderNum(order: order),
-                                                         position: Position.Non,
+                        let emptyPlayer = StartingPlayer(position: Position.Non,
                                                          name: PlayerName(original: Constants.EMPTY))
                         startingOrderNormal.append(emptyPlayer)
                     }
@@ -126,13 +123,11 @@ class CacheOrderData {
                 for order in 1...10 {
                     let playerDH = try StartingDHTable.fetchOne(db, key: order)
                     if playerDH != nil {
-                        let startingPlayer = StartingPlayer(order: OrderNum(order: order),
-                                                            position: Position(description: playerDH!.position),
+                        let startingPlayer = StartingPlayer(position: Position(description: playerDH!.position),
                                                             name: PlayerName(original: playerDH!.name))
                         startingOrderDH.append(startingPlayer)
                     } else {
-                        let emptyPlayer = StartingPlayer(order: OrderNum(order: order),
-                                                         position: Position.Non,
+                        let emptyPlayer = StartingPlayer(position: Position.Non,
                                                          name: PlayerName(original: Constants.EMPTY))
                         startingOrderDH.append(emptyPlayer)
                     }
@@ -154,12 +149,12 @@ class CacheOrderData {
         }
     }
     
-    func overWriteStartingPlayer(type: OrderType, player: StartingPlayer) {
+    func overWriteStartingPlayer(type: OrderType, orderNum: OrderNum, player: StartingPlayer) {
         switch type {
         case .DH:
-            startingOrderDH[player.order.index] = player
+            startingOrderDH[orderNum.index] = player
         default:
-            startingOrderNormal[player.order.index] = player
+            startingOrderNormal[orderNum.index] = player
         }
     }
     
@@ -179,11 +174,6 @@ class CacheOrderData {
     }
     
     func exchange2Players(order: inout [StartingPlayer], _ num1: OrderNum, _ num2: OrderNum) {
-        
-        // MARK: TODO
-        order[num1.index].order = num2
-        order[num2.index].order = num1
-        
         let tmp = order[num1.index]
         order[num1.index] = order[num2.index]
         order[num2.index] = tmp
