@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GRDB
 
 class OrderViewModel {
     var orderType: OrderType?
@@ -66,37 +67,11 @@ class OrderViewModel {
                 secondSelectedNum = selectedNum
                 cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
                 
-                // MARK: this process should be a function
                 let result = helper.inDatabase{(db) in
                     let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
                     let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
-                    switch orderType {
-                    case .Normal:
-                        // MARK: "key" means Primary Key
-                        var playerNormal = try StartingNormalTable.fetchOne(db, key: firstSelectedNum!.order)
-                        playerNormal?.position = player1.position.description
-                        playerNormal?.name = player1.name.original
-                        try playerNormal?.update(db)
-                        
-                        playerNormal = try StartingNormalTable.fetchOne(db, key: secondSelectedNum!.order)
-                        playerNormal?.position = player2.position.description
-                        playerNormal?.name = player2.name.original
-                        try playerNormal?.update(db)
-                        
-                    case .DH:
-                        var playerDH = try StartingDHTable.fetchOne(db, key: firstSelectedNum!.order)
-                        playerDH?.position = player1.position.description
-                        playerDH?.name = player1.name.original
-                        try playerDH?.update(db)
-                        
-                        playerDH = try StartingDHTable.fetchOne(db, key: secondSelectedNum!.order)
-                        playerDH?.position = player2.position.description
-                        playerDH?.name = player2.name.original
-                        try playerDH?.update(db)
-                        
-                    default:
-                        return
-                    }
+                    try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
+                    try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
                 }
                 if !result {
                     print("DB Error happened!!!!!!!!")
@@ -129,34 +104,35 @@ class OrderViewModel {
     
     func overWriteStatingPlayer() {
         let newPlayer = StartingPlayer(order: targetOrderNum,
-                                    position: selectedPosition,
-                                    name: PlayerName(original: writtenName))
+                                       position: selectedPosition,
+                                       name: PlayerName(original: writtenName))
         
         cacheData.overWriteStartingPlayer(type: orderType!,
                                           player: newPlayer)
         
         let result = helper.inDatabase{(db) in
-            switch orderType {
-            case .Normal:
-                // MARK: "key" means Primary Key
-                let playerNormal = try StartingNormalTable.fetchOne(db, key: newPlayer.order.order)
-                playerNormal?.position = newPlayer.position.description
-                playerNormal?.name = newPlayer.name.original
-                try playerNormal?.update(db)
-                
-            case .DH:
-                let playerDH = try StartingDHTable.fetchOne(db, key: newPlayer.order.order)
-                playerDH?.position = newPlayer.position.description
-                playerDH?.name = newPlayer.name.original
-                try playerDH?.update(db)
-                
-            default:
-                return
-            }
+            try updateStartingTable(db, orderNum: targetOrderNum, newData: newPlayer)
         }
         
         if !result {
             print("DB Error happened!!!!!!!!")
+        }
+    }
+    
+    func updateStartingTable(_ db: Database, orderNum: OrderNum, newData: StartingPlayer) throws {
+        switch orderType {
+        case .Normal:
+            let playerNormal = try StartingNormalTable.fetchOne(db, key: orderNum.order)
+            playerNormal?.position = newData.position.description
+            playerNormal?.name = newData.name.original
+            try playerNormal?.update(db)
+        case .DH:
+            let playerDH = try StartingDHTable.fetchOne(db, key: orderNum.order)
+            playerDH?.position = newData.position.description
+            playerDH?.name = newData.name.original
+            try playerDH?.update(db)
+        default:
+            return
         }
     }
     
