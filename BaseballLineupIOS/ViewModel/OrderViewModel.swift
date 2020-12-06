@@ -169,12 +169,12 @@ class OrderViewModel {
             if firstSelectedNum == nil {
                 return .red
             } else if firstSelectedNum!.order == orderNum.order {
-                return .blue
+                return .systemBlue
             } else {
                 return .red
             }
         } else {
-            return .blue
+            return .systemBlue
         }
     }
     

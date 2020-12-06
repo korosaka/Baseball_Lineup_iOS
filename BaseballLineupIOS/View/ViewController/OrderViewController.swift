@@ -106,7 +106,10 @@ extension OrderViewController: UITableViewDataSource {
         guard let startingPlayer = orderVM?.getStatingPlayer(num: orderNum) else { return orderTableCell }
         orderTableCell.orderNum = orderNum
         orderTableCell.numButton.setTitle(orderVM!.getNumButtonText(orderNum: orderNum), for: .normal)
-        orderTableCell.numButton.backgroundColor = .blue
+        orderTableCell.numButton.backgroundColor = .systemBlue
+        orderTableCell.numButton.layer.cornerRadius = 15
+        orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
+        orderTableCell.numButton.layer.borderWidth = 2
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         orderTableCell.nameLabel.text = "\(startingPlayer.name.forDisplay)"
         
