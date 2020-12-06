@@ -118,7 +118,7 @@ extension OrderViewController: UITableViewDataSource {
 }
 
 extension OrderViewController: OrderVMDelegate {
-
+    
     func reloadOrder() {
         orderTable.reloadData()
         setDefaultUIState()

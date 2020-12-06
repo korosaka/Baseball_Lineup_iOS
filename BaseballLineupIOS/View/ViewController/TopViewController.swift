@@ -11,13 +11,13 @@ import UIKit
 class TopViewController: UIViewController {
     
     var viewModel: TopViewModel?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel = .init()
     }
-
+    
     @IBAction func onClickNoDH(_ sender: Any) {
         performSegue(withIdentifier: "goOrderScreen", sender: OrderType.Normal)
     }
