@@ -14,6 +14,12 @@
 		886036FA255C3E7900C5ED1C /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036F9255C3E7900C5ED1C /* OrderViewController.swift */; };
 		886036FC255C45F200C5ED1C /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036FB255C45F200C5ED1C /* OrderViewModel.swift */; };
 		886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886036FD255C54F900C5ED1C /* TopViewModel.swift */; };
+		8864A337257E8FCC00CA6889 /* SubMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A336257E8FCC00CA6889 /* SubMemberViewController.swift */; };
+		8864A33A257E949A00CA6889 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A339257E949A00CA6889 /* CustomTabBarController.swift */; };
+		8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A33D257EA60400CA6889 /* FieldViewController.swift */; };
+		8864A341257EC88B00CA6889 /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A340257EC88B00CA6889 /* CustomTabBarViewModel.swift */; };
+		8864A344257ECB6500CA6889 /* SubMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A343257ECB6500CA6889 /* SubMemberViewModel.swift */; };
+		8864A347257ECBCB00CA6889 /* FieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8864A346257ECBCB00CA6889 /* FieldViewModel.swift */; };
 		886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B351E2550617C0056AB86 /* AppDelegate.swift */; };
 		886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B35202550617C0056AB86 /* SceneDelegate.swift */; };
 		886B35232550617C0056AB86 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B35222550617C0056AB86 /* TopViewController.swift */; };
@@ -33,6 +39,12 @@
 		886036F9255C3E7900C5ED1C /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		886036FB255C45F200C5ED1C /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		886036FD255C54F900C5ED1C /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
+		8864A336257E8FCC00CA6889 /* SubMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMemberViewController.swift; sourceTree = "<group>"; };
+		8864A339257E949A00CA6889 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		8864A33D257EA60400CA6889 /* FieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldViewController.swift; sourceTree = "<group>"; };
+		8864A340257EC88B00CA6889 /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
+		8864A343257ECB6500CA6889 /* SubMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMemberViewModel.swift; sourceTree = "<group>"; };
+		8864A346257ECBCB00CA6889 /* FieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldViewModel.swift; sourceTree = "<group>"; };
 		886B351B2550617C0056AB86 /* BaseballLineupIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseballLineupIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B351E2550617C0056AB86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B35202550617C0056AB86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +103,9 @@
 			children = (
 				886036FB255C45F200C5ED1C /* OrderViewModel.swift */,
 				886036FD255C54F900C5ED1C /* TopViewModel.swift */,
+				8864A340257EC88B00CA6889 /* CustomTabBarViewModel.swift */,
+				8864A343257ECB6500CA6889 /* SubMemberViewModel.swift */,
+				8864A346257ECBCB00CA6889 /* FieldViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -118,6 +133,9 @@
 				886B35222550617C0056AB86 /* TopViewController.swift */,
 				886036F9255C3E7900C5ED1C /* OrderViewController.swift */,
 				883AA09F25641D51002AC14A /* OrderTableCell.swift */,
+				8864A336257E8FCC00CA6889 /* SubMemberViewController.swift */,
+				8864A339257E949A00CA6889 /* CustomTabBarController.swift */,
+				8864A33D257EA60400CA6889 /* FieldViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -271,16 +289,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B35232550617C0056AB86 /* TopViewController.swift in Sources */,
+				8864A347257ECBCB00CA6889 /* FieldViewModel.swift in Sources */,
+				8864A344257ECB6500CA6889 /* SubMemberViewModel.swift in Sources */,
 				883AA0A325643346002AC14A /* CacheOrderData.swift in Sources */,
 				888CD393256887820072CFA5 /* Constans.swift in Sources */,
 				884CEBCD2573B2EC0020C932 /* DatabaseHelper.swift in Sources */,
 				886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */,
+				8864A337257E8FCC00CA6889 /* SubMemberViewController.swift in Sources */,
 				886036FC255C45F200C5ED1C /* OrderViewModel.swift in Sources */,
+				8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,
 				884CEBC7257390270020C932 /* StartingOrderTable.swift in Sources */,
 				883AA0A025641D51002AC14A /* OrderTableCell.swift in Sources */,
+				8864A33A257E949A00CA6889 /* CustomTabBarController.swift in Sources */,
 				886036FA255C3E7900C5ED1C /* OrderViewController.swift in Sources */,
+				8864A341257EC88B00CA6889 /* CustomTabBarViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

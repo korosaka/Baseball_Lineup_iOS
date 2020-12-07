@@ -11,8 +11,8 @@ import GRDB
 
 class OrderViewModel {
     var orderType: OrderType?
-    var cacheData: CacheOrderData
-    var helper: DatabaseHelper
+    var cacheData: CacheOrderData?
+    var helper: DatabaseHelper?
     var selectedPosition = Position.Non
     var writtenName = Constants.EMPTY
     
@@ -24,11 +24,6 @@ class OrderViewModel {
     var secondSelectedNum: OrderNum?
     
     var targetOrderNum = OrderNum(order: 0)
-    
-    init() {
-        helper = .init()
-        cacheData = .init()
-    }
     
     func getOrdeSize() -> Int {
         switch orderType {
@@ -42,7 +37,7 @@ class OrderViewModel {
     }
     
     func getStatingOrder() -> [StartingPlayer] {
-        cacheData.getOrder(orderType: orderType!)
+        cacheData!.getOrder(orderType: orderType!)
     }
     
     func getStatingPlayer(num: OrderNum) -> StartingPlayer {
@@ -75,11 +70,11 @@ class OrderViewModel {
     
     func exchangeStartingPlayers(_ selectedNum: OrderNum) {
         secondSelectedNum = selectedNum
-        cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+        cacheData!.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
-        let result = helper.inDatabase{(db) in
-            let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
-            let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
+        let result = helper!.inDatabase{(db) in
+            let player1 = cacheData!.getOrder(orderType: orderType!)[firstSelectedNum!.index]
+            let player2 = cacheData!.getOrder(orderType: orderType!)[secondSelectedNum!.index]
             try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
             try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
         }
@@ -103,18 +98,18 @@ class OrderViewModel {
     }
     
     func fetchData() {
-        cacheData.fetchOrderFromDB(orderType!, helper)
+        cacheData!.fetchOrderFromDB(orderType!, helper!)
     }
     
     func overWriteStatingPlayer() {
         let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
-        cacheData.overWriteStartingPlayer(type: orderType!,
-                                          orderNum: targetOrderNum,
-                                          player: newPlayer)
+        cacheData!.overWriteStartingPlayer(type: orderType!,
+                                           orderNum: targetOrderNum,
+                                           player: newPlayer)
         
-        let result = helper.inDatabase{(db) in
+        let result = helper!.inDatabase{(db) in
             try updateStartingTable(db, orderNum: targetOrderNum, newData: newPlayer)
         }
         

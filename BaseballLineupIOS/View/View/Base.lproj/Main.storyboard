@@ -73,14 +73,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="nPR-ES-wef"/>
                     <connections>
-                        <segue destination="Kpq-Ia-amI" kind="show" identifier="goOrderScreen" id="o9x-03-AeD"/>
+                        <segue destination="kiW-q2-IfE" kind="show" identifier="goOrderScreen" id="o9x-03-AeD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="138.61607142857142"/>
         </scene>
-        <!--Order View Controller-->
+        <!--Item-->
         <scene sceneID="gUb-ya-Jso">
             <objects>
                 <viewController id="Kpq-Ia-amI" customClass="OrderViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -250,6 +250,7 @@
                             <constraint firstItem="UjG-1o-HaF" firstAttribute="top" secondItem="Nzb-tf-Tg5" secondAttribute="bottom" constant="5" id="ziu-Eq-1fk"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
@@ -264,7 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea7-fD-gkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1918.840579710145" y="138.61607142857142"/>
+            <point key="canvasLocation" x="2771" y="-576"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PXi-Aj-IVK">
@@ -283,6 +284,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VhP-7l-N0H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="138.61607142857142"/>
+        </scene>
+        <!--Custom Tab Bar Controller-->
+        <scene sceneID="Anm-TG-Yar">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="kiW-q2-IfE" customClass="CustomTabBarController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="i7A-eI-ijK"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="l7r-P4-nYl">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Kpq-Ia-amI" kind="relationship" relationship="viewControllers" id="K9F-C3-eRN"/>
+                        <segue destination="nAA-yh-Lo4" kind="relationship" relationship="viewControllers" id="1kr-MJ-zCa"/>
+                        <segue destination="Ucb-Zj-KoS" kind="relationship" relationship="viewControllers" id="j0a-tM-rpN"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="haH-io-PPP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1918.840579710145" y="138.61607142857142"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="qS2-w4-ak7">
+            <objects>
+                <viewController id="nAA-yh-Lo4" customClass="SubMemberViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1sq-Nm-ygW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sub Member View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOL-Nn-zbS">
+                                <rect key="frame" x="127" y="436" width="160" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FXZ-G5-G82"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="21T-zg-Zrc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NcB-rZ-n05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2770" y="139"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="qpo-NO-SHW">
+            <objects>
+                <viewController id="Ucb-Zj-KoS" customClass="FieldViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LdG-AQ-dIA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Field View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqI-5C-EUb">
+                                <rect key="frame" x="154" y="434" width="106" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dLW-5g-h2U"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Ca9-7x-YZn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BNO-Gz-UYx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2770" y="867"/>
         </scene>
     </scenes>
     <resources>
