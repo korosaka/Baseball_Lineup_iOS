@@ -37,7 +37,7 @@ class OrderViewModel {
     }
     
     func getStatingOrder() -> [StartingPlayer] {
-        cacheData!.getOrder(orderType: orderType!)
+        cacheData!.getStartingOrder(orderType: orderType!)
     }
     
     func getStatingPlayer(num: OrderNum) -> StartingPlayer {
@@ -73,8 +73,8 @@ class OrderViewModel {
         cacheData!.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
         let result = helper!.inDatabase{(db) in
-            let player1 = cacheData!.getOrder(orderType: orderType!)[firstSelectedNum!.index]
-            let player2 = cacheData!.getOrder(orderType: orderType!)[secondSelectedNum!.index]
+            let player1 = cacheData!.getStartingOrder(orderType: orderType!)[firstSelectedNum!.index]
+            let player2 = cacheData!.getStartingOrder(orderType: orderType!)[secondSelectedNum!.index]
             try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
             try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
         }

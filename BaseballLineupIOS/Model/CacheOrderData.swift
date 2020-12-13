@@ -12,6 +12,25 @@ struct StartingPlayer {
     var name: PlayerName
 }
 
+struct SubPlayer {
+    let id: String
+    var name: PlayerName
+    var isPitcher: Int
+    var isHitter: Int
+    var isRunner: Int
+    var isFielder: Int
+}
+
+// MARK: in SQLite, there is not Bool type
+extension Int {
+    func convertToBool() -> Bool {
+        if self == 1 {
+            return true
+        }
+        return false
+    }
+}
+
 struct OrderNum {
     var order: Int
     var index: Int {
@@ -23,6 +42,7 @@ enum OrderType {
     case Normal, DH
 }
 
+// MARK: should use extention String,,,,,?
 struct PlayerName {
     var original: String
     var forDisplay: String {
@@ -99,6 +119,8 @@ enum Position {
 class CacheOrderData {
     var startingOrderNormal = [StartingPlayer]()
     var startingOrderDH = [StartingPlayer]()
+    var subOrderNormal = [SubPlayer]()
+    var subOrderDH = [SubPlayer]()
     let indexDHP = 9
     
     func fetchOrderFromDB(_ orderType: OrderType, _ helper: DatabaseHelper) {
@@ -140,12 +162,21 @@ class CacheOrderData {
     }
     
     // MARK: be careful, because in Swift, Array is value type,,,,
-    func getOrder(orderType: OrderType) -> [StartingPlayer] {
+    func getStartingOrder(orderType: OrderType) -> [StartingPlayer] {
         switch orderType {
         case .DH:
             return startingOrderDH
         default:
             return startingOrderNormal
+        }
+    }
+    
+    func getSubOrder(orderType: OrderType) -> [SubPlayer] {
+        switch orderType {
+        case .DH:
+            return subOrderDH
+        default:
+            return subOrderNormal
         }
     }
     
@@ -183,5 +214,14 @@ class CacheOrderData {
         let tmp = startingOrderDH[indexDHP].name
         startingOrderDH[indexDHP].name = startingOrderDH[fielderNum.index].name
         startingOrderDH[fielderNum.index].name = tmp
+    }
+    
+    func addSubPlayer(type: OrderType, player: SubPlayer) {
+        switch type {
+        case .DH:
+            subOrderDH.append(player)
+        default:
+            subOrderNormal.append(player)
+        }
     }
 }

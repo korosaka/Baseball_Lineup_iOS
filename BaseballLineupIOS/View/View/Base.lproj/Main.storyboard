@@ -446,18 +446,27 @@
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="CANCEL"/>
+                                        <connections>
+                                            <action selector="onClickCancel:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="IFK-eA-c0H"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6r-D9-zuk">
                                         <rect key="frame" x="139.5" y="0.0" width="129" height="40"/>
                                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="REGISTER"/>
+                                        <connections>
+                                            <action selector="onClickRegister:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="iIr-zs-VVh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BH1-6V-eis">
                                         <rect key="frame" x="278.5" y="0.0" width="129.5" height="40"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="EXCHANGE"/>
+                                        <connections>
+                                            <action selector="onClickExchange:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="2KL-Zf-Jj6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -465,7 +474,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kNR-Wd-YPG">
-                                <rect key="frame" x="3" y="311" width="408" height="499"/>
+                                <rect key="frame" x="3" y="311" width="408" height="456"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubPlayerTableCell" rowHeight="65" id="F3f-16-ETX" customClass="SubPlayerTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -584,10 +593,35 @@
                                 <color key="textColor" red="0.35294117650000001" green="0.94901960780000005" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="113" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
+                                <rect key="frame" x="3" y="772" width="408" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKv-3t-kRQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="36"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="ADD"/>
+                                        <connections>
+                                            <action selector="onClickAdd:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="yiV-oy-peI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYC-fg-PTw">
+                                        <rect key="frame" x="260.5" y="0.0" width="147.5" height="36"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="DELETE"/>
+                                        <connections>
+                                            <action selector="onClickDelete:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="aJz-G1-jT5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FXZ-G5-G82"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
+                            <constraint firstItem="qHO-2N-dEc" firstAttribute="top" secondItem="kNR-Wd-YPG" secondAttribute="bottom" constant="5" id="01p-Uk-LWs"/>
+                            <constraint firstItem="FXZ-G5-G82" firstAttribute="bottom" secondItem="qHO-2N-dEc" secondAttribute="bottom" constant="5" id="3Ru-Ku-PkK"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="jDL-tZ-Pus" secondAttribute="trailing" constant="3" id="9ST-Px-jd6"/>
                             <constraint firstItem="bOL-Nn-zbS" firstAttribute="top" secondItem="U8h-fJ-j1S" secondAttribute="bottom" constant="5" id="Ea0-ZD-HqB"/>
                             <constraint firstItem="U8h-fJ-j1S" firstAttribute="top" secondItem="jDL-tZ-Pus" secondAttribute="bottom" constant="15" id="Gcq-6Y-uPE"/>
@@ -599,12 +633,23 @@
                             <constraint firstItem="bOL-Nn-zbS" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="eMW-qd-5cC"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="U8h-fJ-j1S" secondAttribute="trailing" constant="3" id="glX-yG-Noo"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="bOL-Nn-zbS" secondAttribute="trailing" constant="3" id="jb1-yA-hvS"/>
+                            <constraint firstItem="qHO-2N-dEc" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="pEa-fI-S6H"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="kNR-Wd-YPG" secondAttribute="trailing" constant="3" id="rOL-Oc-5F2"/>
-                            <constraint firstItem="FXZ-G5-G82" firstAttribute="bottom" secondItem="kNR-Wd-YPG" secondAttribute="bottom" constant="3" id="yaS-5d-6BM"/>
+                            <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="qHO-2N-dEc" secondAttribute="trailing" constant="3" id="vwz-QF-xaK"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="21T-zg-Zrc"/>
                     <connections>
+                        <outlet property="addB" destination="fKv-3t-kRQ" id="S7d-kr-U8V"/>
+                        <outlet property="cancelB" destination="Tvf-eZ-Hee" id="tPj-9Y-rwC"/>
+                        <outlet property="deleteB" destination="vYC-fg-PTw" id="FBm-0r-xXh"/>
+                        <outlet property="exchangeB" destination="BH1-6V-eis" id="Z7D-Pf-9kx"/>
+                        <outlet property="fielderS" destination="bcs-Ee-RJE" id="Ssd-6e-RvA"/>
+                        <outlet property="hitterS" destination="edf-H3-gWl" id="Yk0-qY-wuS"/>
+                        <outlet property="nameTF" destination="VQE-HU-79G" id="ewx-Ta-PeX"/>
+                        <outlet property="pitcherS" destination="51r-8K-vSf" id="fcF-ri-9qp"/>
+                        <outlet property="registerB" destination="O6r-D9-zuk" id="pFj-At-AGS"/>
+                        <outlet property="runnerS" destination="ZUz-XB-Y63" id="wQc-Cl-2AY"/>
                         <outlet property="subPlayerTable" destination="kNR-Wd-YPG" id="ad4-KF-NPh"/>
                     </connections>
                 </viewController>

@@ -12,8 +12,30 @@ class SubMemberViewController: UIViewController {
     
     var viewModel: SubMemberViewModel?
     var parentViewModel: CustomTabBarViewModel?
-    
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var pitcherS: UISwitch!
+    @IBOutlet weak var hitterS: UISwitch!
+    @IBOutlet weak var runnerS: UISwitch!
+    @IBOutlet weak var fielderS: UISwitch!
+    @IBOutlet weak var cancelB: UIButton!
+    @IBOutlet weak var registerB: UIButton!
+    @IBOutlet weak var exchangeB: UIButton!
     @IBOutlet weak var subPlayerTable: UITableView!
+    
+    @IBOutlet weak var addB: UIButton!
+    @IBOutlet weak var deleteB: UIButton!
+    @IBAction func onClickCancel(_ sender: Any) {
+    }
+    @IBAction func onClickRegister(_ sender: Any) {
+    }
+    @IBAction func onClickExchange(_ sender: Any) {
+    }
+    @IBAction func onClickAdd(_ sender: Any) {
+        viewModel?.addNumOfSub()
+        subPlayerTable.reloadData()
+    }
+    @IBAction func onClickDelete(_ sender: Any) {
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -41,7 +63,7 @@ class SubMemberViewController: UIViewController {
 
 extension SubMemberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel?.getOrdeSize() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
