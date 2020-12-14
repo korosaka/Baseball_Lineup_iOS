@@ -12,6 +12,7 @@ class SubMemberViewController: UIViewController {
     
     var viewModel: SubMemberViewModel?
     var parentViewModel: CustomTabBarViewModel?
+    @IBOutlet weak var subL: UILabel!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var pitcherS: UISwitch!
     @IBOutlet weak var hitterS: UISwitch!
@@ -71,12 +72,14 @@ class SubMemberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subPlayerTable.dataSource = self
+        nameTF.delegate = self
         viewModel?.delegate = self
         setDefaultUIState()
     }
     
     func setDefaultUIState() {
         nameTF.placeholder = "控えを選択してください"
+        subL.textColor = .gray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
         pitcherS.setOn(false, animated: true)
@@ -148,6 +151,13 @@ extension SubMemberViewController: UITableViewDataSource {
     }
 }
 
+extension SubMemberViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTF.resignFirstResponder()
+        return true
+    }
+}
+
 extension SubMemberViewController: SubMemberVMDelegate {
     func reloadOrder() {
         subPlayerTable.reloadData()
@@ -159,6 +169,7 @@ extension SubMemberViewController: SubMemberVMDelegate {
         
         let currentPlayer = viewModel!.getSubPlayer(index: selected)
         nameTF.placeholder = "名前を入力してください"
+        subL.textColor = .red
         nameTF.text = currentPlayer.name.original
         pitcherS.setOn(currentPlayer.isPitcher.convertToBool(), animated: true)
         hitterS.setOn(currentPlayer.isHitter.convertToBool(), animated: true)

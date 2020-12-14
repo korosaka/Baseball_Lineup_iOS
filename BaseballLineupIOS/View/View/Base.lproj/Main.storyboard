@@ -169,7 +169,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0NS-fO-hfL">
                                                 <rect key="frame" x="0.0" y="60.5" width="248" height="55.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -326,10 +326,10 @@
                                                 <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="控えを選択してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-HU-79G">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="控えを選択してください" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-HU-79G">
                                                 <rect key="frame" x="0.0" y="62.5" width="245" height="57.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -650,6 +650,7 @@
                         <outlet property="pitcherS" destination="51r-8K-vSf" id="fcF-ri-9qp"/>
                         <outlet property="registerB" destination="O6r-D9-zuk" id="pFj-At-AGS"/>
                         <outlet property="runnerS" destination="ZUz-XB-Y63" id="wQc-Cl-2AY"/>
+                        <outlet property="subL" destination="8MJ-lN-SfP" id="dGo-tE-ojG"/>
                         <outlet property="subPlayerTable" destination="kNR-Wd-YPG" id="ad4-KF-NPh"/>
                         <outlet property="titleL" destination="bOL-Nn-zbS" id="Rjs-sz-gbj"/>
                     </connections>
