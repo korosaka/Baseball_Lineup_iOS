@@ -12,6 +12,9 @@ class SubMemberViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData?
     var helper: DatabaseHelper?
+    var isDeleting = false
+    
+    weak var delegate: SubMemberVMDelegate?
     
     func getOrdeSize() -> Int {
         return cacheData?.getSubOrder(orderType: orderType!).count ?? 0
@@ -31,4 +34,18 @@ class SubMemberViewModel {
                          isRunner: 0,
                          isFielder: 0)
     }
+    
+    func setDefault() {
+        isDeleting = false
+    }
+    
+    func removePlayer(index: Int) {
+        cacheData?.removeSubPlayer(type: orderType!, index)
+        delegate?.reloadOrder()
+    }
+}
+
+protocol SubMemberVMDelegate: class {
+//    func prepareRegistering()
+    func reloadOrder()
 }

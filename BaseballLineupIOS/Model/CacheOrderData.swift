@@ -224,4 +224,13 @@ class CacheOrderData {
             subOrderNormal.append(player)
         }
     }
+    
+    func removeSubPlayer(type: OrderType, _ index: Int) {
+        switch type {
+        case .DH:
+            subOrderDH.remove(at: index)
+        default:
+            subOrderNormal.remove(at: index)
+        }
+    }
 }

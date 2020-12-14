@@ -8,7 +8,8 @@
 
 import UIKit
 class SubPlayerTableCell: UITableViewCell {
-    
+    var viewModel: SubMemberViewModel?
+    var tableIndex: Int?
     
     @IBOutlet weak var pitcherLabel: UILabel!
     @IBOutlet weak var hitterLabel: UILabel!
@@ -17,6 +18,9 @@ class SubPlayerTableCell: UITableViewCell {
     @IBOutlet weak var nameText: UILabel!
     @IBOutlet weak var subButton: UIButton!
     @IBAction func onClickSUb(_ sender: Any) {
+        if viewModel!.isDeleting {
+            viewModel?.removePlayer(index: tableIndex!)
+        }
     }
     
     

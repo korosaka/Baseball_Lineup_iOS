@@ -21,6 +21,7 @@ class SubMemberViewController: UIViewController {
     @IBOutlet weak var registerB: UIButton!
     @IBOutlet weak var exchangeB: UIButton!
     @IBOutlet weak var subPlayerTable: UITableView!
+    @IBOutlet weak var titleL: UILabel!
     
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
@@ -35,6 +36,8 @@ class SubMemberViewController: UIViewController {
         subPlayerTable.reloadData()
     }
     @IBAction func onClickDelete(_ sender: Any) {
+        viewModel?.isDeleting = true
+        titleL.text = "select sub player to delete"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,11 +56,17 @@ class SubMemberViewController: UIViewController {
     
     func setup() {
         viewModel = .init()
+        viewModel?.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         subPlayerTable.dataSource = self
+    }
+    
+    func setDefaultUIState() {
+        titleL.text = "Sub Member"
+        viewModel?.setDefault()
     }
 }
 
@@ -71,7 +80,8 @@ extension SubMemberViewController: UITableViewDataSource {
         guard let subTableCell = tableView.dequeueReusableCell(withIdentifier: "SubPlayerTableCell", for: indexPath) as? SubPlayerTableCell else {
             fatalError("Could not create ReviewCell")
         }
-        
+        subTableCell.viewModel = self.viewModel
+        subTableCell.tableIndex = indexPath.row
         
         subTableCell.subButton.backgroundColor = .systemBlue
         subTableCell.subButton.layer.cornerRadius = 15
@@ -92,5 +102,12 @@ extension SubMemberViewController: UITableViewDataSource {
         uiLabel.clipsToBounds = true
         uiLabel.layer.borderColor = UIColor.black.cgColor
         uiLabel.layer.borderWidth = 0.7
+    }
+}
+
+extension SubMemberViewController: SubMemberVMDelegate {
+    func reloadOrder() {
+        subPlayerTable.reloadData()
+        setDefaultUIState()
     }
 }

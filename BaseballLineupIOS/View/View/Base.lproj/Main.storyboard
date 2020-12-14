@@ -651,6 +651,7 @@
                         <outlet property="registerB" destination="O6r-D9-zuk" id="pFj-At-AGS"/>
                         <outlet property="runnerS" destination="ZUz-XB-Y63" id="wQc-Cl-2AY"/>
                         <outlet property="subPlayerTable" destination="kNR-Wd-YPG" id="ad4-KF-NPh"/>
+                        <outlet property="titleL" destination="bOL-Nn-zbS" id="Rjs-sz-gbj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NcB-rZ-n05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
