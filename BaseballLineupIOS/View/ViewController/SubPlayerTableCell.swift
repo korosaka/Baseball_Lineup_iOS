@@ -20,6 +20,8 @@ class SubPlayerTableCell: UITableViewCell {
     @IBAction func onClickSUb(_ sender: Any) {
         if viewModel!.isDeleting {
             viewModel?.removePlayer(index: tableIndex!)
+        } else {
+            viewModel?.selectSubButton(index: tableIndex!)
         }
     }
     

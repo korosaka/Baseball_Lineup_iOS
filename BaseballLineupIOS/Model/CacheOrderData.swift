@@ -31,6 +31,15 @@ extension Int {
     }
 }
 
+extension Bool {
+    func convertToInt() -> Int {
+        if self == true {
+            return 1
+        }
+        return 0
+    }
+}
+
 struct OrderNum {
     var order: Int
     var index: Int {
@@ -186,6 +195,15 @@ class CacheOrderData {
             startingOrderDH[orderNum.index] = player
         default:
             startingOrderNormal[orderNum.index] = player
+        }
+    }
+    
+    func overWriteSubPlayer(type: OrderType, index: Int, player: SubPlayer) {
+        switch type {
+        case .DH:
+            subOrderDH[index] = player
+        default:
+            subOrderNormal[index] = player
         }
     }
     

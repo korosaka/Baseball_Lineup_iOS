@@ -73,14 +73,14 @@ class OrderViewController: UIViewController {
         numlabel.text = Constants.NO_NUM
         positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
-        setItemEnabled(isInput: false)
+        setItemsEnabled(false)
         nameTextField.placeholder = "打順を選択してください"
         titleLabel.text = "Starting Member"
         titleLabel.textColor = .green
         viewModel?.resetData()
     }
     
-    func setItemEnabled(isInput: Bool) {
+    func setItemsEnabled(_ isInput: Bool) {
         positionPicker.isUserInteractionEnabled = isInput
         nameTextField.isEnabled = isInput
         cancelButton.isEnabled = isInput
@@ -130,7 +130,7 @@ extension OrderViewController: OrderVMDelegate {
         
         numlabel.text = viewModel?.getNumButtonText(orderNum: selectedNum)
         viewModel?.selectedPosition = currentPlayer.position
-        setItemEnabled(isInput: true)
+        setItemsEnabled(true)
         if viewModel!.isDHPitcher(orderNum: selectedNum) {
             positionPicker.selectRow(Position.Pitcher.index, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
