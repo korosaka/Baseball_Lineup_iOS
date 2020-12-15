@@ -15,7 +15,8 @@ class OrderTableCell: UITableViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBAction func onClickNum(_ sender: Any) {
-        numButton.backgroundColor = orderVM!.getNumButtonColor(orderNum: orderNum!)
         orderVM?.selectNumButton(selectedNum: orderNum!)
+        // MARK: while reloading table, numButton's color will be changed (the reason why button color isn't changed here is because when more than 2 buttons are selected, every selected buttons' color will be changed)
+        orderVM?.delegate?.reloadOrder()
     }
 }

@@ -18,7 +18,6 @@ class OrderViewModel {
     
     weak var delegate: OrderVMDelegate?
     
-    var numButtonSelected = false
     var isExchanging = false
     var firstSelectedNum: OrderNum?
     var secondSelectedNum: OrderNum?
@@ -44,14 +43,6 @@ class OrderViewModel {
         return getStatingOrder()[num.index]
     }
     
-    func cancelExchange() {
-        firstSelectedNum = nil
-        secondSelectedNum = nil
-        isExchanging = false
-        // MARK: to reset button color
-        delegate?.reloadOrder()
-    }
-    
     func selectNumButton(selectedNum: OrderNum) {
         if isExchanging {
             if firstSelectedNum == nil {
@@ -62,7 +53,6 @@ class OrderViewModel {
                 exchangeStartingPlayers(selectedNum)
             }
         } else {
-            numButtonSelected = true
             targetOrderNum = selectedNum
             delegate?.prepareRegistering(selectedNum: selectedNum)
         }
@@ -82,8 +72,9 @@ class OrderViewModel {
             print("DB Error happened!!!!!!!!")
         }
         
+        resetData()
         delegate?.reloadOrder()
-        cancelExchange()
+        delegate?.setUIDefault()
     }
     
     func getPickerNum() -> Int {
@@ -138,9 +129,24 @@ class OrderViewModel {
     func resetData() {
         selectedPosition = Position.Non
         writtenName = Constants.EMPTY
-        numButtonSelected = false
         targetOrderNum = OrderNum(order: 0)
         isExchanging = false
+        firstSelectedNum = nil
+        secondSelectedNum = nil
+    }
+    
+    func isNumSelected() -> Bool {
+        return targetOrderNum.order != 0
+    }
+    
+    func getNumButtonColor(orderNum: OrderNum) -> UIColor {
+        if (isNumSelected() && orderNum.order == targetOrderNum.order) {
+            return .red
+        }
+        if (isExchanging && orderNum.order == firstSelectedNum?.order) {
+            return .red
+        }
+        return .systemBlue
     }
     
     func getNumButtonText(orderNum: OrderNum) -> String {
@@ -158,24 +164,10 @@ class OrderViewModel {
     func isDHFielder() -> Bool {
         return (targetOrderNum.order != 10) && (orderType == .DH)
     }
-    
-    func getNumButtonColor(orderNum: OrderNum) -> UIColor {
-        if isExchanging {
-            if firstSelectedNum == nil {
-                return .red
-            } else if firstSelectedNum!.order == orderNum.order {
-                return .systemBlue
-            } else {
-                return .red
-            }
-        } else {
-            return .systemBlue
-        }
-    }
-    
 }
 
 protocol OrderVMDelegate: class {
     func prepareRegistering(selectedNum: OrderNum)
     func reloadOrder()
+    func setUIDefault()
 }

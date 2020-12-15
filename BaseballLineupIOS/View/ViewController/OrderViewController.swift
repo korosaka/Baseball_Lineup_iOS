@@ -22,8 +22,9 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func onClickCancel(_ sender: Any) {
-        if viewModel!.isExchanging { viewModel?.cancelExchange() }
         setDefaultUIState()
+        // MARK: to back num button color
+        orderTable.reloadData()
     }
     @IBAction func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
@@ -33,7 +34,7 @@ class OrderViewController: UIViewController {
         titleLabel.textColor = .red
     }
     @IBAction func onClickRegister(_ sender: Any) {
-        if viewModel!.numButtonSelected {
+        if viewModel!.isNumSelected() {
             viewModel?.writtenName = nameTextField.text!
             viewModel?.overWriteStatingPlayer()
             orderTable.reloadData()
@@ -107,7 +108,7 @@ extension OrderViewController: UITableViewDataSource {
         guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return orderTableCell }
         orderTableCell.orderNum = orderNum
         orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
-        orderTableCell.numButton.backgroundColor = .systemBlue
+        orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
         orderTableCell.numButton.layer.cornerRadius = 15
         orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
         orderTableCell.numButton.layer.borderWidth = 2
@@ -122,6 +123,9 @@ extension OrderViewController: OrderVMDelegate {
     
     func reloadOrder() {
         orderTable.reloadData()
+    }
+    
+    func setUIDefault() {
         setDefaultUIState()
     }
     
