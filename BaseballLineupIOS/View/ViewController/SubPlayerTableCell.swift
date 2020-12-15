@@ -22,6 +22,7 @@ class SubPlayerTableCell: UITableViewCell {
             viewModel?.removePlayer(index: tableIndex!)
         } else {
             viewModel?.selectSubButton(index: tableIndex!)
+            viewModel?.delegate?.reloadOrder()
         }
     }
     

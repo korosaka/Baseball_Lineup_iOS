@@ -6,7 +6,7 @@
 //  Copyright © 2020 Koro Saka. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class SubMemberViewModel {
     var orderType: OrderType?
@@ -53,6 +53,13 @@ class SubMemberViewModel {
         return selectedIndex != -1
     }
     
+    func getNumButtonColor(index: Int) -> UIColor {
+        if (isSelected() && index == selectedIndex) {
+            return .red
+        }
+        return .systemBlue
+    }
+    
     func overWritePlayer(name: String,
                          isP: Bool,
                          isH: Bool,
@@ -84,6 +91,7 @@ class SubMemberViewModel {
     func removePlayer(index: Int) {
         cacheData?.removeSubPlayer(type: orderType!, index)
         delegate?.reloadOrder()
+        delegate?.setDefaultUI()
     }
     
     func selectSubButton(index: Int) {
@@ -95,4 +103,5 @@ class SubMemberViewModel {
 protocol SubMemberVMDelegate: class {
     func prepareRegistering(selected: Int)
     func reloadOrder()
+    func setDefaultUI()
 }

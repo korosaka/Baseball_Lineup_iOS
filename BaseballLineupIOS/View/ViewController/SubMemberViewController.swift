@@ -28,6 +28,7 @@ class SubMemberViewController: UIViewController {
     @IBOutlet weak var deleteB: UIButton!
     @IBAction func onClickCancel(_ sender: Any) {
         setDefaultUIState()
+        reloadOrder()
     }
     @IBAction func onClickRegister(_ sender: Any) {
         if viewModel!.isSelected() {
@@ -36,19 +37,21 @@ class SubMemberViewController: UIViewController {
                                        isH: hitterS.isOn,
                                        isR: runnerS.isOn,
                                        isF: fielderS.isOn)
-            subPlayerTable.reloadData()
             setDefaultUIState()
+            reloadOrder()
         }
     }
     @IBAction func onClickExchange(_ sender: Any) {
     }
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
-        subPlayerTable.reloadData()
+        setDefaultUIState()
+        reloadOrder()
     }
     @IBAction func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
         titleL.text = "select sub player to delete"
+        cancelB.isEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +118,7 @@ extension SubMemberViewController: UITableViewDataSource {
         subTableCell.viewModel = self.viewModel
         subTableCell.tableIndex = indexPath.row
         
-        subTableCell.subButton.backgroundColor = .systemBlue
+        subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
         subTableCell.subButton.layer.cornerRadius = 15
         subTableCell.subButton.layer.borderColor = UIColor.black.cgColor
         subTableCell.subButton.layer.borderWidth = 2
@@ -161,6 +164,9 @@ extension SubMemberViewController: UITextFieldDelegate {
 extension SubMemberViewController: SubMemberVMDelegate {
     func reloadOrder() {
         subPlayerTable.reloadData()
+    }
+    
+    func setDefaultUI() {
         setDefaultUIState()
     }
     
