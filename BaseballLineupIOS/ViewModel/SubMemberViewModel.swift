@@ -6,7 +6,8 @@
 //  Copyright © 2020 Koro Saka. All rights reserved.
 //
 
-import SwiftUI
+import UIKit
+import GRDB
 
 class SubMemberViewModel {
     var orderType: OrderType?
@@ -35,9 +36,20 @@ class SubMemberViewModel {
     }
     
     func addNumOfSub() {
+        let emptyPlayer = createEmptyPlayer()
         cacheData?.addSubPlayer(type: orderType!,
-                                player: createEmptyPlayer())
+                                player: emptyPlayer)
         
+        let result = helper!.inDatabase{(db) in
+            try insertSubTable(db, newData: emptyPlayer)
+        }
+        
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
+        
+        delegate?.setDefaultUI()
+        delegate?.reloadOrder()
     }
     
     func createEmptyPlayer() -> SubPlayer {
@@ -81,6 +93,17 @@ class SubMemberViewModel {
         cacheData?.overWriteSubPlayer(type: orderType!,
                                       index: targetIndex!,
                                       player: newPlayer)
+        
+        let result = helper!.inDatabase{(db) in
+            try updateSubTable(db, newData: newPlayer)
+        }
+        
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
+        
+        delegate?.setDefaultUI()
+        delegate?.reloadOrder()
     }
     
     func substituteNewData(origin: SubPlayer,
@@ -100,7 +123,17 @@ class SubMemberViewModel {
     }
     
     func removePlayer(index: Int) {
+        let playerToDelete = getSubPlayer(index: index)
         cacheData?.removeSubPlayer(type: orderType!, index)
+        
+        let result = helper!.inDatabase{(db) in
+            try deleteSubTable(db, id: playerToDelete.id)
+        }
+        
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
+        
         delegate?.setDefaultUI()
     }
     
@@ -128,10 +161,79 @@ class SubMemberViewModel {
                                     index1: firstSelectedIndex!,
                                     index2: secondSelectedIndex!)
         
-        // MARK: TODO DB exchange
+        let result = helper!.inDatabase{(db) in
+            let player1 = getSubPlayer(index: firstSelectedIndex!)
+            let player2 = getSubPlayer(index: secondSelectedIndex!)
+            try updateSubTable(db, newData: player1)
+            try updateSubTable(db, newData: player2)
+        }
+        
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
         
         delegate?.setDefaultUI()
         delegate?.reloadOrder()
+    }
+    
+    func insertSubTable(_ db: Database, newData: SubPlayer) throws {
+        
+        switch orderType {
+        case .Normal:
+            let playerNormal = SubNormalTable(id: newData.id,
+                                              name: newData.name.original,
+                                              is_pitcher: newData.isPitcher,
+                                              is_hitter: newData.isHitter,
+                                              is_runner: newData.isRunner,
+                                              is_fielder: newData.isFielder)
+            try playerNormal.insert(db)
+        case .DH:
+            let playerDH = SubDHTable(id: newData.id,
+                                      name: newData.name.original,
+                                      is_pitcher: newData.isPitcher,
+                                      is_hitter: newData.isHitter,
+                                      is_runner: newData.isRunner,
+                                      is_fielder: newData.isFielder)
+            try playerDH.insert(db)
+        default:
+            return
+        }
+    }
+    
+    func deleteSubTable(_ db: Database, id: String) throws {
+        switch orderType {
+        case .Normal:
+            let playerNormal = try SubNormalTable.fetchOne(db, key: id)
+            try playerNormal?.delete(db)
+        case .DH:
+            let playerDH = try SubDHTable.fetchOne(db, key: id)
+            try playerDH?.delete(db)
+        default:
+            return
+        }
+    }
+    
+    func updateSubTable(_ db: Database, newData: SubPlayer) throws {
+        switch orderType {
+        case .Normal:
+            let playerNormal = try SubNormalTable.fetchOne(db, key: newData.id)
+            playerNormal?.name = newData.name.original
+            playerNormal?.is_pitcher = newData.isPitcher
+            playerNormal?.is_hitter = newData.isHitter
+            playerNormal?.is_runner = newData.isRunner
+            playerNormal?.is_fielder = newData.isFielder
+            try playerNormal?.update(db)
+        case .DH:
+            let playerDH = try SubDHTable.fetchOne(db, key: newData.id)
+            playerDH?.name = newData.name.original
+            playerDH?.is_pitcher = newData.isPitcher
+            playerDH?.is_hitter = newData.isHitter
+            playerDH?.is_runner = newData.isRunner
+            playerDH?.is_fielder = newData.isFielder
+            try playerDH?.update(db)
+        default:
+            return
+        }
     }
 }
 

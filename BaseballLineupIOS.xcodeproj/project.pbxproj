@@ -27,6 +27,7 @@
 		886B35262550617C0056AB86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35242550617C0056AB86 /* Main.storyboard */; };
 		886B35282550617D0056AB86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B35272550617D0056AB86 /* Assets.xcassets */; };
 		886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35292550617D0056AB86 /* LaunchScreen.storyboard */; };
+		887DA0112589B838003E237E /* SubOrderTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887DA0102589B838003E237E /* SubOrderTable.swift */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
 		CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,7 @@
 		886B35272550617D0056AB86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		886B352A2550617D0056AB86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886B352C2550617D0056AB86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		887DA0102589B838003E237E /* SubOrderTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubOrderTable.swift; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseballLineupIOS.debug.xcconfig"; path = "Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaseballLineupIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 				888CD392256887820072CFA5 /* Constans.swift */,
 				884CEBC6257390270020C932 /* StartingOrderTable.swift */,
 				884CEBCC2573B2EC0020C932 /* DatabaseHelper.swift */,
+				887DA0102589B838003E237E /* SubOrderTable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				8864A337257E8FCC00CA6889 /* SubMemberViewController.swift in Sources */,
 				886036FC255C45F200C5ED1C /* OrderViewModel.swift in Sources */,
 				8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */,
+				887DA0112589B838003E237E /* SubOrderTable.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,
 				884CEBC7257390270020C932 /* StartingOrderTable.swift in Sources */,

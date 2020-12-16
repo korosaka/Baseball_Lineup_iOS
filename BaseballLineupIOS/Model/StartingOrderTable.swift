@@ -14,7 +14,7 @@ import GRDB
 class StartingNormalTable: Record {
     
     override static var databaseTableName: String {
-        return "staringNormal"
+        return "starting_normal"
     }
     
     var order: Int
@@ -59,7 +59,7 @@ class StartingNormalTable: Record {
 class StartingDHTable: Record {
     
     override static var databaseTableName: String {
-        return "staringDH"
+        return "starting_dh"
     }
     
     var order: Int

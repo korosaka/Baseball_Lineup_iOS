@@ -149,6 +149,20 @@ class CacheOrderData {
                         startingOrderNormal.append(emptyPlayer)
                     }
                 }
+                
+                subOrderNormal.removeAll()
+                var resultsSub: [SubNormalTable] = []
+                resultsSub = try SubNormalTable.fetchAll(db)
+                resultsSub.forEach { (resultSub) in
+                    let subPlayer = SubPlayer(id: resultSub.id,
+                                              name: PlayerName(original: resultSub.name),
+                                              isPitcher: resultSub.is_pitcher,
+                                              isHitter: resultSub.is_hitter,
+                                              isRunner: resultSub.is_runner,
+                                              isFielder: resultSub.is_fielder)
+                    subOrderNormal.append(subPlayer)
+                }
+                
             case .DH:
                 startingOrderDH.removeAll()
                 for order in 1...10 {
@@ -162,6 +176,19 @@ class CacheOrderData {
                                                          name: PlayerName(original: Constants.EMPTY))
                         startingOrderDH.append(emptyPlayer)
                     }
+                }
+                
+                subOrderDH.removeAll()
+                var resultsSub: [SubDHTable] = []
+                resultsSub = try SubDHTable.fetchAll(db)
+                resultsSub.forEach { (resultSub) in
+                    let subPlayer = SubPlayer(id: resultSub.id,
+                                              name: PlayerName(original: resultSub.name),
+                                              isPitcher: resultSub.is_pitcher,
+                                              isHitter: resultSub.is_hitter,
+                                              isRunner: resultSub.is_runner,
+                                              isFielder: resultSub.is_fielder)
+                    subOrderDH.append(subPlayer)
                 }
             }
         }
@@ -245,8 +272,16 @@ class CacheOrderData {
     
     func exchangeSubPlayers(order: inout [SubPlayer], _ index1: Int, _ index2: Int) {
         let tmp = order[index1]
-        order[index1] = order[index2]
-        order[index2] = tmp
+        order[index1].name = order[index2].name
+        order[index1].isPitcher = order[index2].isPitcher
+        order[index1].isHitter = order[index2].isHitter
+        order[index1].isRunner = order[index2].isRunner
+        order[index1].isFielder = order[index2].isFielder
+        order[index2].name = tmp.name
+        order[index2].isPitcher = tmp.isPitcher
+        order[index2].isHitter = tmp.isHitter
+        order[index2].isRunner = tmp.isRunner
+        order[index2].isFielder = tmp.isFielder
     }
     
     func addSubPlayer(type: OrderType, player: SubPlayer) {

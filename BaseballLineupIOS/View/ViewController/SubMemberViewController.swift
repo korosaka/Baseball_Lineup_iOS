@@ -37,8 +37,6 @@ class SubMemberViewController: UIViewController {
                                        isH: hitterS.isOn,
                                        isR: runnerS.isOn,
                                        isF: fielderS.isOn)
-            setDefaultUIState()
-            reloadOrder()
         }
     }
     @IBAction func onClickExchange(_ sender: Any) {
@@ -50,8 +48,6 @@ class SubMemberViewController: UIViewController {
     }
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
-        setDefaultUIState()
-        reloadOrder()
     }
     @IBAction func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
