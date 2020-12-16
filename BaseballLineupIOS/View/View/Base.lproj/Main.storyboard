@@ -191,8 +191,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="8ep-Qi-lUW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="CANCEL"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="キャンセル"/>
                                         <connections>
                                             <action selector="onClickCancel:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="fET-Ak-kZI"/>
                                         </connections>
@@ -203,8 +203,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Elm-lN-iXj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="REGISTER"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="登録"/>
                                         <connections>
                                             <action selector="onClickRegister:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="21e-1g-5sv"/>
                                         </connections>
@@ -215,8 +215,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Egm-JT-xVi"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="EXCHANGE"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="入替"/>
                                         <connections>
                                             <action selector="onClickExchange:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="AF2-41-tgj"/>
                                         </connections>
@@ -444,8 +444,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvf-eZ-Hee">
                                         <rect key="frame" x="0.0" y="0.0" width="129.5" height="40"/>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="CANCEL"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="キャンセル"/>
                                         <connections>
                                             <action selector="onClickCancel:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="IFK-eA-c0H"/>
                                         </connections>
@@ -453,8 +453,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6r-D9-zuk">
                                         <rect key="frame" x="139.5" y="0.0" width="129" height="40"/>
                                         <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="REGISTER"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="登録"/>
                                         <connections>
                                             <action selector="onClickRegister:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="iIr-zs-VVh"/>
                                         </connections>
@@ -462,8 +462,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BH1-6V-eis">
                                         <rect key="frame" x="278.5" y="0.0" width="129.5" height="40"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="EXCHANGE"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="入替"/>
                                         <connections>
                                             <action selector="onClickExchange:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="2KL-Zf-Jj6"/>
                                         </connections>
@@ -593,25 +593,34 @@
                                 <color key="textColor" red="0.35294117650000001" green="0.94901960780000005" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="113" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
                                 <rect key="frame" x="3" y="772" width="408" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKv-3t-kRQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="129.5" height="36"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <state key="normal" title="ADD"/>
+                                        <state key="normal" title="控え追加"/>
                                         <connections>
                                             <action selector="onClickAdd:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="yiV-oy-peI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYC-fg-PTw">
-                                        <rect key="frame" x="260.5" y="0.0" width="147.5" height="36"/>
+                                        <rect key="frame" x="139.5" y="0.0" width="129" height="36"/>
                                         <color key="backgroundColor" systemColor="systemRedColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <state key="normal" title="DELETE"/>
+                                        <state key="normal" title="控え削除"/>
                                         <connections>
                                             <action selector="onClickDelete:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="aJz-G1-jT5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALn-Nr-kP4">
+                                        <rect key="frame" x="278.5" y="0.0" width="129.5" height="36"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="先発入替"/>
+                                        <connections>
+                                            <action selector="onClickDelete:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="i31-XS-YMF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -644,6 +653,7 @@
                         <outlet property="cancelB" destination="Tvf-eZ-Hee" id="tPj-9Y-rwC"/>
                         <outlet property="deleteB" destination="vYC-fg-PTw" id="FBm-0r-xXh"/>
                         <outlet property="exchangeB" destination="BH1-6V-eis" id="Z7D-Pf-9kx"/>
+                        <outlet property="exchangeStartingSubB" destination="ALn-Nr-kP4" id="1tK-oP-X7O"/>
                         <outlet property="fielderS" destination="bcs-Ee-RJE" id="Ssd-6e-RvA"/>
                         <outlet property="hitterS" destination="edf-H3-gWl" id="Yk0-qY-wuS"/>
                         <outlet property="nameTF" destination="VQE-HU-79G" id="ewx-Ta-PeX"/>
@@ -694,6 +704,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

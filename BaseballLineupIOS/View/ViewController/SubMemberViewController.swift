@@ -26,6 +26,7 @@ class SubMemberViewController: UIViewController {
     
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
+    @IBOutlet weak var exchangeStartingSubB: UIButton!
     @IBAction func onClickCancel(_ sender: Any) {
         setDefaultUIState()
         reloadOrder()
