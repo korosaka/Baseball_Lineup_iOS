@@ -499,7 +499,7 @@
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="onClickSUb:" destination="F3f-16-ETX" eventType="touchUpInside" id="adz-5m-dG7"/>
+                                                                <action selector="onClickSub:" destination="F3f-16-ETX" eventType="touchUpInside" id="adz-5m-dG7"/>
                                                             </connections>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="O5O-Hn-NUy">

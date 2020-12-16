@@ -30,7 +30,7 @@ class OrderViewController: UIViewController {
         viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
-        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
     @IBAction func onClickRegister(_ sender: Any) {
@@ -78,6 +78,8 @@ class OrderViewController: UIViewController {
         nameTextField.placeholder = "打順を選択してください"
         titleLabel.text = "Starting Member"
         titleLabel.textColor = .green
+        
+        // MARK: should separate this function within here??
         viewModel?.resetData()
     }
     

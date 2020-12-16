@@ -175,7 +175,7 @@ class CacheOrderData {
         switch orderType {
         case .DH:
             return startingOrderDH
-        default:
+        case .Normal:
             return startingOrderNormal
         }
     }
@@ -184,7 +184,7 @@ class CacheOrderData {
         switch orderType {
         case .DH:
             return subOrderDH
-        default:
+        case .Normal:
             return subOrderNormal
         }
     }
@@ -193,7 +193,7 @@ class CacheOrderData {
         switch type {
         case .DH:
             startingOrderDH[orderNum.index] = player
-        default:
+        case .Normal:
             startingOrderNormal[orderNum.index] = player
         }
     }
@@ -202,12 +202,12 @@ class CacheOrderData {
         switch type {
         case .DH:
             subOrderDH[index] = player
-        default:
+        case .Normal:
             subOrderNormal[index] = player
         }
     }
     
-    func exchangeOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
+    func exchangeStartingOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
         switch orderType {
         case .DH:
             if num1.index == indexDHP {
@@ -217,7 +217,7 @@ class CacheOrderData {
             } else {
                 exchange2Players(order: &startingOrderDH, num1, num2)
             }
-        default:
+        case .Normal:
             exchange2Players(order: &startingOrderNormal, num1, num2)
         }
     }
@@ -234,11 +234,26 @@ class CacheOrderData {
         startingOrderDH[fielderNum.index].name = tmp
     }
     
+    func exchangeSubOrder(orderType: OrderType ,index1: Int, index2: Int) {
+        switch orderType {
+        case .DH:
+            exchangeSubPlayers(order: &subOrderDH, index1, index2)
+        case .Normal:
+            exchangeSubPlayers(order: &subOrderNormal, index1, index2)
+        }
+    }
+    
+    func exchangeSubPlayers(order: inout [SubPlayer], _ index1: Int, _ index2: Int) {
+        let tmp = order[index1]
+        order[index1] = order[index2]
+        order[index2] = tmp
+    }
+    
     func addSubPlayer(type: OrderType, player: SubPlayer) {
         switch type {
         case .DH:
             subOrderDH.append(player)
-        default:
+        case .Normal:
             subOrderNormal.append(player)
         }
     }
@@ -247,7 +262,7 @@ class CacheOrderData {
         switch type {
         case .DH:
             subOrderDH.remove(at: index)
-        default:
+        case .Normal:
             subOrderNormal.remove(at: index)
         }
     }

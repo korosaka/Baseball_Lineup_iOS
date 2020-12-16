@@ -17,13 +17,9 @@ class SubPlayerTableCell: UITableViewCell {
     @IBOutlet weak var runnerLabel: UILabel!
     @IBOutlet weak var nameText: UILabel!
     @IBOutlet weak var subButton: UIButton!
-    @IBAction func onClickSUb(_ sender: Any) {
-        if viewModel!.isDeleting {
-            viewModel?.removePlayer(index: tableIndex!)
-        } else {
-            viewModel?.selectSubButton(index: tableIndex!)
-            viewModel?.delegate?.reloadOrder()
-        }
+    @IBAction func onClickSub(_ sender: Any) {
+        viewModel?.selectSubButton(index: tableIndex!)
+        viewModel?.delegate?.reloadOrder()
     }
     
     

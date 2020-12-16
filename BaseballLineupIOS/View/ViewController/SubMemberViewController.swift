@@ -42,6 +42,11 @@ class SubMemberViewController: UIViewController {
         }
     }
     @IBAction func onClickExchange(_ sender: Any) {
+        viewModel?.isExchanging = true
+        exchangeB.isEnabled = false
+        cancelB.isEnabled = true
+        titleL.text = "入れ替える控えを2つ選択してください"
+        titleL.textColor = .red
     }
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
@@ -89,11 +94,13 @@ class SubMemberViewController: UIViewController {
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
         fielderS.setOn(false, animated: true)
-        setItemsEnabled(false)
+        setItemsDefaultEnabled(false)
+        
+        // MARK: should separate this function within here??
         viewModel?.setDefault()
     }
     
-    func setItemsEnabled(_ isInput: Bool) {
+    func setItemsDefaultEnabled(_ isInput: Bool) {
         nameTF.isEnabled = isInput
         pitcherS.isEnabled = isInput
         hitterS.isEnabled = isInput
@@ -171,7 +178,7 @@ extension SubMemberViewController: SubMemberVMDelegate {
     }
     
     func prepareRegistering(selected: Int) {
-        setItemsEnabled(true)
+        setItemsDefaultEnabled(true)
         
         let currentPlayer = viewModel!.getSubPlayer(index: selected)
         nameTF.placeholder = "名前を入力してください"

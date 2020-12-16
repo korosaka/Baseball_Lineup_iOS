@@ -19,6 +19,7 @@ class OrderViewModel {
     weak var delegate: OrderVMDelegate?
     
     var isExchanging = false
+    // MARK: this 2 num should be tupple?
     var firstSelectedNum: OrderNum?
     var secondSelectedNum: OrderNum?
     
@@ -50,7 +51,8 @@ class OrderViewModel {
             } else if firstSelectedNum?.order == selectedNum.order {
                 firstSelectedNum = nil
             } else {
-                exchangeStartingPlayers(selectedNum)
+                secondSelectedNum = selectedNum
+                exchangeStartingPlayers()
             }
         } else {
             targetOrderNum = selectedNum
@@ -58,9 +60,8 @@ class OrderViewModel {
         }
     }
     
-    func exchangeStartingPlayers(_ selectedNum: OrderNum) {
-        secondSelectedNum = selectedNum
-        cacheData!.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+    func exchangeStartingPlayers() {
+        cacheData!.exchangeStartingOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
         let result = helper!.inDatabase{(db) in
             let player1 = cacheData!.getStartingOrder(orderType: orderType!)[firstSelectedNum!.index]

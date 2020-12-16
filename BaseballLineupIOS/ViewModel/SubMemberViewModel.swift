@@ -13,7 +13,12 @@ class SubMemberViewModel {
     var cacheData: CacheOrderData?
     var helper: DatabaseHelper?
     var isDeleting = false
-    var selectedIndex = -1
+    var targetIndex: Int?
+    
+    var isExchanging = false
+    // MARK: this 2 num should be tupple?
+    var firstSelectedIndex: Int?
+    var secondSelectedIndex: Int?
     
     weak var delegate: SubMemberVMDelegate?
     
@@ -46,15 +51,21 @@ class SubMemberViewModel {
     
     func setDefault() {
         isDeleting = false
-        selectedIndex = -1
+        targetIndex = nil
+        isExchanging = false
+        firstSelectedIndex = nil
+        secondSelectedIndex = nil
     }
     
     func isSelected() -> Bool {
-        return selectedIndex != -1
+        return targetIndex != nil
     }
     
     func getNumButtonColor(index: Int) -> UIColor {
-        if (isSelected() && index == selectedIndex) {
+        if (isSelected() && index == targetIndex) {
+            return .red
+        }
+        if (isExchanging && index == firstSelectedIndex) {
             return .red
         }
         return .systemBlue
@@ -65,19 +76,19 @@ class SubMemberViewModel {
                          isH: Bool,
                          isR: Bool,
                          isF: Bool) {
-        let currentPlayer = getSubPlayer(index: selectedIndex)
+        let currentPlayer = getSubPlayer(index: targetIndex!)
         let newPlayer = substituteNewData(origin: currentPlayer, name, isP, isH, isR, isF)
         cacheData?.overWriteSubPlayer(type: orderType!,
-                                      index: selectedIndex,
+                                      index: targetIndex!,
                                       player: newPlayer)
     }
     
     func substituteNewData(origin: SubPlayer,
-                    _ name: String,
-                    _ isP: Bool,
-                    _ isH: Bool,
-                    _ isR: Bool,
-                    _ isF: Bool) -> SubPlayer {
+                           _ name: String,
+                           _ isP: Bool,
+                           _ isH: Bool,
+                           _ isR: Bool,
+                           _ isF: Bool) -> SubPlayer {
         var newPlayer = origin
         newPlayer.name = PlayerName(original: name)
         newPlayer.isPitcher = isP.convertToInt()
@@ -90,13 +101,37 @@ class SubMemberViewModel {
     
     func removePlayer(index: Int) {
         cacheData?.removeSubPlayer(type: orderType!, index)
-        delegate?.reloadOrder()
         delegate?.setDefaultUI()
     }
     
     func selectSubButton(index: Int) {
-        selectedIndex = index
-        delegate?.prepareRegistering(selected: index)
+        if isDeleting {
+            removePlayer(index: index)
+        } else if isExchanging {
+            if firstSelectedIndex == nil {
+                firstSelectedIndex = index
+            } else if firstSelectedIndex == index {
+                firstSelectedIndex = nil
+            } else {
+                secondSelectedIndex = index
+                exchangeSubPlayers()
+            }
+        } else {
+            targetIndex = index
+            delegate?.prepareRegistering(selected: index)
+        }
+        
+    }
+    
+    func exchangeSubPlayers() {
+        cacheData?.exchangeSubOrder(orderType: orderType!,
+                                    index1: firstSelectedIndex!,
+                                    index2: secondSelectedIndex!)
+        
+        // MARK: TODO DB exchange
+        
+        delegate?.setDefaultUI()
+        delegate?.reloadOrder()
     }
 }
 
