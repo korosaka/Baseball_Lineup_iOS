@@ -621,6 +621,7 @@
                                         <state key="normal" title="先発入替"/>
                                         <connections>
                                             <action selector="onClickDelete:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="i31-XS-YMF"/>
+                                            <action selector="onClickExchangeWithStarting:" destination="nAA-yh-Lo4" eventType="touchUpInside" id="b4C-ey-Dcu"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -653,7 +654,7 @@
                         <outlet property="cancelB" destination="Tvf-eZ-Hee" id="tPj-9Y-rwC"/>
                         <outlet property="deleteB" destination="vYC-fg-PTw" id="FBm-0r-xXh"/>
                         <outlet property="exchangeB" destination="BH1-6V-eis" id="Z7D-Pf-9kx"/>
-                        <outlet property="exchangeStartingSubB" destination="ALn-Nr-kP4" id="1tK-oP-X7O"/>
+                        <outlet property="exchangeWithStartingB" destination="ALn-Nr-kP4" id="1tK-oP-X7O"/>
                         <outlet property="fielderS" destination="bcs-Ee-RJE" id="Ssd-6e-RvA"/>
                         <outlet property="hitterS" destination="edf-H3-gWl" id="Yk0-qY-wuS"/>
                         <outlet property="nameTF" destination="VQE-HU-79G" id="ewx-Ta-PeX"/>

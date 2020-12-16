@@ -6,7 +6,7 @@
 //  Copyright © 2020 Koro Saka. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: for exchanging starting and sub members
 class CustomTabBarViewModel {
@@ -14,8 +14,38 @@ class CustomTabBarViewModel {
     var cacheData: CacheOrderData
     var helper: DatabaseHelper
     
+    weak var delegate: CustomTabBarVMDelegate?
+    
+    var isExchangingStartingSub = false
+    var subIndexToExchange: Int?
+    var startingOrderNumToExchange: OrderNum?
+    
     init() {
         cacheData = .init()
         helper = .init()
     }
+    
+    
+    func selectSubButton(index: Int) {
+        subIndexToExchange = index
+    }
+    
+    func getSubButtonColor(index: Int) -> UIColor {
+        guard let selectedIndex = subIndexToExchange else {
+            return .systemBlue
+        }
+        if index == selectedIndex {
+            return .red
+        } else {
+            return .systemBlue
+        }
+    }
+    
+    func switchScreen(screenIndex: Int) {
+        delegate?.switchScreen(screenIndex)
+    }
+}
+
+protocol CustomTabBarVMDelegate: class {
+    func switchScreen(_ screenIndex: Int)
 }

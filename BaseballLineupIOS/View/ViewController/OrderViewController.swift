@@ -90,6 +90,13 @@ class OrderViewController: UIViewController {
         registerButton.isEnabled = isInput
         exchangeButton.isEnabled = !isInput
     }
+    
+    func prepareToExchangeWithSub() {
+        exchangeButton.isEnabled = false
+        cancelButton.isEnabled = true
+        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.textColor = .red
+    }
 }
 
 extension OrderViewController: UITableViewDataSource {

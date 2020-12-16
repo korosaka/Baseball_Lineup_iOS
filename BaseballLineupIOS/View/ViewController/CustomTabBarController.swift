@@ -30,6 +30,7 @@ class CustomTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel?.delegate = self
         
         // MARK: child views
         for vc in self.viewControllers! {
@@ -37,16 +38,12 @@ class CustomTabBarController: UITabBarController {
                 controller.viewModel?.orderType = self.viewModel?.orderType
                 controller.viewModel?.cacheData = self.viewModel?.cacheData
                 controller.viewModel?.helper = self.viewModel?.helper
-                
-                // MARK: TODO
                 controller.parentViewModel = self.viewModel
             }
             if let controller: SubMemberViewController = vc as? SubMemberViewController {
                 controller.viewModel?.orderType = self.viewModel?.orderType
                 controller.viewModel?.cacheData = self.viewModel?.cacheData
                 controller.viewModel?.helper = self.viewModel?.helper
-                
-                // MARK: TODO
                 controller.parentViewModel = self.viewModel
             }
             if let controller: FieldViewController = vc as? FieldViewController {
@@ -54,5 +51,17 @@ class CustomTabBarController: UITabBarController {
                 controller.viewModel?.cacheData = self.viewModel?.cacheData
             }
         }
+    }
+}
+
+extension CustomTabBarController: CustomTabBarVMDelegate {
+    func switchScreen(_ screenIndex: Int) {
+        let controllerToGoTo = self.viewControllers?[screenIndex]
+        self.selectedViewController = controllerToGoTo
+        
+        if let controller: OrderViewController = selectedViewController as? OrderViewController {
+            controller.prepareToExchangeWithSub()
+        }
+        
     }
 }

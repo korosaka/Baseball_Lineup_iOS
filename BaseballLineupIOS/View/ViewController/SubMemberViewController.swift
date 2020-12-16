@@ -26,7 +26,7 @@ class SubMemberViewController: UIViewController {
     
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
-    @IBOutlet weak var exchangeStartingSubB: UIButton!
+    @IBOutlet weak var exchangeWithStartingB: UIButton!
     @IBAction func onClickCancel(_ sender: Any) {
         setDefaultUIState()
         reloadOrder()
@@ -54,6 +54,13 @@ class SubMemberViewController: UIViewController {
         viewModel?.isDeleting = true
         titleL.text = "select sub player to delete"
         cancelB.isEnabled = true
+    }
+    @IBAction func onClickExchangeWithStarting(_ sender: Any) {
+        parentViewModel?.isExchangingStartingSub = true
+        exchangeB.isEnabled = false
+        cancelB.isEnabled = true
+        titleL.text = "入れ替える控えを選択してください"
+        titleL.textColor = .red
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,9 +127,16 @@ extension SubMemberViewController: UITableViewDataSource {
             fatalError("Could not create ReviewCell")
         }
         subTableCell.viewModel = self.viewModel
+        subTableCell.parentViewModel = self.parentViewModel
         subTableCell.tableIndex = indexPath.row
         
-        subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
+        // MARK: Although it is not good to use "if" in View Controller, in this cace, 2 View Model are used,,,,,
+        if parentViewModel!.isExchangingStartingSub {
+            subTableCell.subButton.backgroundColor = parentViewModel!.getSubButtonColor(index: indexPath.row)
+        } else {
+            subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
+        }
+        
         subTableCell.subButton.layer.cornerRadius = 15
         subTableCell.subButton.layer.borderColor = UIColor.black.cgColor
         subTableCell.subButton.layer.borderWidth = 2
@@ -150,6 +164,8 @@ extension SubMemberViewController: UITableViewDataSource {
         uiLabel.clipsToBounds = true
         uiLabel.layer.borderColor = UIColor.black.cgColor
         uiLabel.layer.borderWidth = 0.7
+        
+        // MARK: TODO should do within VM,,,?
         if isOn {
             uiLabel.backgroundColor = color
         } else {
