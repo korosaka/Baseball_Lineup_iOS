@@ -30,7 +30,7 @@ class OrderViewController: UIViewController {
         } else {
             setDefaultUIState()
             // MARK: to back num button color
-            orderTable.reloadData()
+            reloadOrder()
         }
     }
     @IBAction func onClickExchange(_ sender: Any) {

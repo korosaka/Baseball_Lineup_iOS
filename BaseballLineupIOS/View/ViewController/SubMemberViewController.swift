@@ -101,6 +101,7 @@ class SubMemberViewController: UIViewController {
         subL.textColor = .gray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
+        titleL.textColor = .cyan
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
