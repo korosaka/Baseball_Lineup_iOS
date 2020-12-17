@@ -12,8 +12,8 @@ class TopViewModel {
     
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goOrderScreen" {
-            let orderViewController = segue.destination as! OrderViewController
-            orderViewController.orderVM?.orderType = sender as? OrderType
+            let tabBarController = segue.destination as! CustomTabBarController
+            tabBarController.viewModel?.orderType = sender as? OrderType
         }
     }
 }

@@ -10,7 +10,8 @@ import UIKit
 
 class OrderViewController: UIViewController {
     
-    var orderVM: OrderViewModel?
+    var viewModel: OrderViewModel?
+    var parentViewModel: CustomTabBarViewModel?
     @IBOutlet weak var orderTable: UITableView!
     @IBOutlet weak var numlabel: UILabel!
     @IBOutlet weak var positionPicker: UIPickerView!
@@ -21,20 +22,28 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func onClickCancel(_ sender: Any) {
-        if orderVM!.isExchanging { orderVM?.cancelExchange() }
-        setDefaultUIState()
+        guard let _parentVM = parentViewModel else { return print("error happened!") }
+        if _parentVM.isExchangingStartingSub {
+            _parentVM.resetData()
+            _parentVM.reloadTables()
+            _parentVM.resetUI()
+        } else {
+            setDefaultUIState()
+            // MARK: to back num button color
+            reloadOrder()
+        }
     }
     @IBAction func onClickExchange(_ sender: Any) {
-        orderVM?.isExchanging = true
+        viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
-        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
     @IBAction func onClickRegister(_ sender: Any) {
-        if orderVM!.numButtonSelected {
-            orderVM?.writtenName = nameTextField.text!
-            orderVM?.overWriteStatingPlayer()
+        if viewModel!.isNumSelected() {
+            viewModel?.writtenName = nameTextField.text!
+            viewModel?.overWriteStatingPlayer()
             orderTable.reloadData()
             setDefaultUIState()
         }
@@ -55,14 +64,14 @@ class OrderViewController: UIViewController {
     }
     
     func setup() {
-        orderVM = .init()
+        viewModel = .init()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        orderVM?.fetchData()
+        viewModel?.fetchData()
         orderTable.dataSource = self
-        orderVM?.delegate = self
+        viewModel?.delegate = self
         nameTextField.delegate = self
         positionPicker.delegate = self
         setDefaultUIState()
@@ -72,25 +81,35 @@ class OrderViewController: UIViewController {
         numlabel.text = Constants.NO_NUM
         positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
-        setItemEnabled(isInput: false)
+        setItemsEnabled(false)
         nameTextField.placeholder = "打順を選択してください"
         titleLabel.text = "Starting Member"
         titleLabel.textColor = .green
-        orderVM?.resetData()
+        
+        // MARK: should separate this function within here??
+        viewModel?.resetData()
     }
     
-    func setItemEnabled(isInput: Bool) {
+    func setItemsEnabled(_ isInput: Bool) {
         positionPicker.isUserInteractionEnabled = isInput
         nameTextField.isEnabled = isInput
         cancelButton.isEnabled = isInput
         registerButton.isEnabled = isInput
         exchangeButton.isEnabled = !isInput
     }
+    
+    func prepareToExchangeWithSub() {
+        setDefaultUIState()
+        exchangeButton.isEnabled = false
+        cancelButton.isEnabled = true
+        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.textColor = .red
+    }
 }
 
 extension OrderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableSize = orderVM?.getOrdeSize() else {
+        guard let tableSize = viewModel?.getOrdeSize() else {
             return 0
         }
         return tableSize
@@ -100,13 +119,14 @@ extension OrderViewController: UITableViewDataSource {
         guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as? OrderTableCell else {
             fatalError("Could not create ReviewCell")
         }
-        orderTableCell.orderVM = self.orderVM
+        orderTableCell.orderVM = self.viewModel
+        orderTableCell.parentViewModel = self.parentViewModel
         
         let orderNum = OrderNum(order: indexPath.row + 1)
-        guard let startingPlayer = orderVM?.getStatingPlayer(num: orderNum) else { return orderTableCell }
+        guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return orderTableCell }
         orderTableCell.orderNum = orderNum
-        orderTableCell.numButton.setTitle(orderVM!.getNumButtonText(orderNum: orderNum), for: .normal)
-        orderTableCell.numButton.backgroundColor = .systemBlue
+        orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
+        orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
         orderTableCell.numButton.layer.cornerRadius = 15
         orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
         orderTableCell.numButton.layer.borderWidth = 2
@@ -121,19 +141,22 @@ extension OrderViewController: OrderVMDelegate {
     
     func reloadOrder() {
         orderTable.reloadData()
+    }
+    
+    func setUIDefault() {
         setDefaultUIState()
     }
     
     func prepareRegistering(selectedNum: OrderNum) {
-        let currentPlayer = orderVM!.getStatingPlayer(num: selectedNum)
+        let currentPlayer = viewModel!.getStatingPlayer(num: selectedNum)
         
-        numlabel.text = orderVM?.getNumButtonText(orderNum: selectedNum)
-        orderVM?.selectedPosition = currentPlayer.position
-        setItemEnabled(isInput: true)
-        if orderVM!.isDHPitcher(orderNum: selectedNum) {
+        numlabel.text = viewModel?.getNumButtonText(orderNum: selectedNum)
+        viewModel?.selectedPosition = currentPlayer.position
+        setItemsEnabled(true)
+        if viewModel!.isDHPitcher(orderNum: selectedNum) {
             positionPicker.selectRow(Position.Pitcher.index, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
-            orderVM?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.index])
+            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.index])
         } else {
             positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = true
@@ -161,7 +184,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView,
                     numberOfRowsInComponent component: Int) -> Int {
-        guard let num = orderVM?.getPickerNum() else {
+        guard let num = viewModel?.getPickerNum() else {
             return 0
         }
         return num
@@ -171,12 +194,12 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                     didSelectRow row: Int,
                     inComponent component: Int) {
         // MARK: prevent set position P to fielder in DH
-        if (orderVM!.isDHFielder()) && (row == Position.Pitcher.index) {
-            orderVM?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.index])
+        if (viewModel!.isDHFielder()) && (row == Position.Pitcher.index) {
+            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.index])
             pickerView.selectRow(Position.Non.index, inComponent: 0, animated: true)
             return
         }
-        orderVM?.selectedPosition = Position(description: Constants.POSITIONS[row])
+        viewModel?.selectedPosition = Position(description: Constants.POSITIONS[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

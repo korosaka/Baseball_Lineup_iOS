@@ -11,24 +11,19 @@ import GRDB
 
 class OrderViewModel {
     var orderType: OrderType?
-    var cacheData: CacheOrderData
-    var helper: DatabaseHelper
+    var cacheData: CacheOrderData?
+    var helper: DatabaseHelper?
     var selectedPosition = Position.Non
     var writtenName = Constants.EMPTY
     
     weak var delegate: OrderVMDelegate?
     
-    var numButtonSelected = false
     var isExchanging = false
+    // MARK: this 2 num should be tupple?
     var firstSelectedNum: OrderNum?
     var secondSelectedNum: OrderNum?
     
     var targetOrderNum = OrderNum(order: 0)
-    
-    init() {
-        helper = .init()
-        cacheData = .init()
-    }
     
     func getOrdeSize() -> Int {
         switch orderType {
@@ -42,44 +37,35 @@ class OrderViewModel {
     }
     
     func getStatingOrder() -> [StartingPlayer] {
-        cacheData.getOrder(orderType: orderType!)
+        cacheData!.getStartingOrder(orderType: orderType!)
     }
     
     func getStatingPlayer(num: OrderNum) -> StartingPlayer {
         return getStatingOrder()[num.index]
     }
     
-    func cancelExchange() {
-        firstSelectedNum = nil
-        secondSelectedNum = nil
-        isExchanging = false
-        // MARK: to reset button color
-        delegate?.reloadOrder()
-    }
-    
-    func selectNumButton(selectedNum: OrderNum) {
+    func selectPlayer(selectedNum: OrderNum) {
         if isExchanging {
             if firstSelectedNum == nil {
                 firstSelectedNum = selectedNum
             } else if firstSelectedNum?.order == selectedNum.order {
                 firstSelectedNum = nil
             } else {
-                exchangeStartingPlayers(selectedNum)
+                secondSelectedNum = selectedNum
+                exchangeStartingPlayers()
             }
         } else {
-            numButtonSelected = true
             targetOrderNum = selectedNum
             delegate?.prepareRegistering(selectedNum: selectedNum)
         }
     }
     
-    func exchangeStartingPlayers(_ selectedNum: OrderNum) {
-        secondSelectedNum = selectedNum
-        cacheData.exchangeOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
+    func exchangeStartingPlayers() {
+        cacheData!.exchangeStartingOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
-        let result = helper.inDatabase{(db) in
-            let player1 = cacheData.getOrder(orderType: orderType!)[firstSelectedNum!.index]
-            let player2 = cacheData.getOrder(orderType: orderType!)[secondSelectedNum!.index]
+        let result = helper!.inDatabase{(db) in
+            let player1 = cacheData!.getStartingOrder(orderType: orderType!)[firstSelectedNum!.index]
+            let player2 = cacheData!.getStartingOrder(orderType: orderType!)[secondSelectedNum!.index]
             try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
             try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
         }
@@ -87,8 +73,9 @@ class OrderViewModel {
             print("DB Error happened!!!!!!!!")
         }
         
+        resetData()
         delegate?.reloadOrder()
-        cancelExchange()
+        delegate?.setUIDefault()
     }
     
     func getPickerNum() -> Int {
@@ -103,18 +90,18 @@ class OrderViewModel {
     }
     
     func fetchData() {
-        cacheData.fetchOrderFromDB(orderType!, helper)
+        cacheData!.fetchOrderFromDB(orderType!, helper!)
     }
     
     func overWriteStatingPlayer() {
         let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
-        cacheData.overWriteStartingPlayer(type: orderType!,
-                                          orderNum: targetOrderNum,
-                                          player: newPlayer)
+        cacheData!.overWriteStartingPlayer(type: orderType!,
+                                           orderNum: targetOrderNum,
+                                           player: newPlayer)
         
-        let result = helper.inDatabase{(db) in
+        let result = helper!.inDatabase{(db) in
             try updateStartingTable(db, orderNum: targetOrderNum, newData: newPlayer)
         }
         
@@ -143,9 +130,24 @@ class OrderViewModel {
     func resetData() {
         selectedPosition = Position.Non
         writtenName = Constants.EMPTY
-        numButtonSelected = false
         targetOrderNum = OrderNum(order: 0)
         isExchanging = false
+        firstSelectedNum = nil
+        secondSelectedNum = nil
+    }
+    
+    func isNumSelected() -> Bool {
+        return targetOrderNum.order != 0
+    }
+    
+    func getNumButtonColor(orderNum: OrderNum) -> UIColor {
+        if (isNumSelected() && orderNum.order == targetOrderNum.order) {
+            return .red
+        }
+        if (isExchanging && orderNum.order == firstSelectedNum?.order) {
+            return .red
+        }
+        return .systemBlue
     }
     
     func getNumButtonText(orderNum: OrderNum) -> String {
@@ -163,24 +165,10 @@ class OrderViewModel {
     func isDHFielder() -> Bool {
         return (targetOrderNum.order != 10) && (orderType == .DH)
     }
-    
-    func getNumButtonColor(orderNum: OrderNum) -> UIColor {
-        if isExchanging {
-            if firstSelectedNum == nil {
-                return .red
-            } else if firstSelectedNum!.order == orderNum.order {
-                return .systemBlue
-            } else {
-                return .red
-            }
-        } else {
-            return .systemBlue
-        }
-    }
-    
 }
 
 protocol OrderVMDelegate: class {
     func prepareRegistering(selectedNum: OrderNum)
     func reloadOrder()
+    func setUIDefault()
 }

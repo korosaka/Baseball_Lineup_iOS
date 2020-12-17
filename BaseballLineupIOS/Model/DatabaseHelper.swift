@@ -37,6 +37,9 @@ class DatabaseHelper {
             try StartingNormalTable.create(db)
             try StartingDHTable.create(db)
             try storeEmptyData(db)
+            
+            try SubNormalTable.create(db)
+            try SubDHTable.create(db)
         }
         
         if !result {
