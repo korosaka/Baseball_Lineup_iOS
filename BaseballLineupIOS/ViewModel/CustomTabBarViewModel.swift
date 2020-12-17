@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GRDB
 
 // MARK: for exchanging starting and sub members
 class CustomTabBarViewModel {
@@ -40,8 +41,18 @@ class CustomTabBarViewModel {
               let subIndex = subIndexToExchange else { return print("error") }
         cacheData.exchangeStartingSubOrder(orderType: _orderType, startingNum: startingNum, subIndex: subIndex)
         
-        // MARK: TODO DB exchange
+        let newStartingPlayer = cacheData.getStartingOrder(orderType: _orderType)[startingNum.index]
+        let newSubPlayer = cacheData.getSubOrder(orderType: _orderType)[subIndex]
+        let result = helper.inDatabase{(db) in
+            try delegate?.updateStartingSub(db: db,
+                                            startingNum: startingNum,
+                                            startingPlayer: newStartingPlayer,
+                                            subPlayer: newSubPlayer)
+        }
         
+        if !result {
+            print("DB Error happened!!!!!!!!")
+        }
         
         resetData()
         delegate?.setUIDefault()
@@ -74,6 +85,11 @@ protocol CustomTabBarVMDelegate: class {
     func switchScreen(_ screenIndex: Int)
     func reloadScreens()
     func setUIDefault()
+    
+    func updateStartingSub(db: Database,
+                           startingNum: OrderNum,
+                           startingPlayer: StartingPlayer,
+                           subPlayer: SubPlayer) throws
     
     // MARK: TODO cancel
 }

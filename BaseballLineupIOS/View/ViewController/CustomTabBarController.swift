@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GRDB
 class CustomTabBarController: UITabBarController {
     var viewModel: CustomTabBarViewModel?
     
@@ -83,6 +84,20 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
             }
             if let controller: SubMemberViewController = vc as? SubMemberViewController {
                 controller.setDefaultUI()
+            }
+        }
+    }
+    
+    func updateStartingSub(db: Database,
+                           startingNum: OrderNum,
+                           startingPlayer: StartingPlayer,
+                           subPlayer: SubPlayer) throws {
+        for vc in self.viewControllers! {
+            if let controller: OrderViewController = vc as? OrderViewController {
+                try controller.viewModel?.updateStartingTable(db, orderNum: startingNum, newData: startingPlayer)
+            }
+            if let controller: SubMemberViewController = vc as? SubMemberViewController {
+                try controller.viewModel?.updateSubTable(db, newData: subPlayer)
             }
         }
     }
