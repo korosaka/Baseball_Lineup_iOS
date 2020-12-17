@@ -25,14 +25,14 @@ class SubPlayerTableCell: UITableViewCell {
         guard let _VM = viewModel else { return }
         
         if _parentVM.isExchangingStartingSub {
-            _parentVM.selectSubButton(index: _index)
+            _parentVM.selectSubPlayer(index: _index)
             _VM.delegate?.reloadOrder()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 _parentVM.switchScreen(screenIndex: 0)
             }
             
         } else {
-            _VM.selectSubButton(index: _index)
+            _VM.selectPlayer(index: _index)
             _VM.delegate?.reloadOrder()
         }
         

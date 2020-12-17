@@ -64,4 +64,26 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
         }
         
     }
+    
+    func reloadScreens() {
+        for vc in self.viewControllers! {
+            if let controller: OrderViewController = vc as? OrderViewController {
+                controller.reloadOrder()
+            }
+            if let controller: SubMemberViewController = vc as? SubMemberViewController {
+                controller.reloadOrder()
+            }
+        }
+    }
+    
+    func setUIDefault() {
+        for vc in self.viewControllers! {
+            if let controller: OrderViewController = vc as? OrderViewController {
+                controller.setUIDefault()
+            }
+            if let controller: SubMemberViewController = vc as? SubMemberViewController {
+                controller.setDefaultUI()
+            }
+        }
+    }
 }

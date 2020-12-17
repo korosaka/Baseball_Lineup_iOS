@@ -238,24 +238,24 @@ class CacheOrderData {
         switch orderType {
         case .DH:
             if num1.index == indexDHP {
-                exchange2PlayersWithDHPitcher(fielderNum: num2)
+                exchangeStartingWithDHP(fielderNum: num2)
             } else if num2.index == indexDHP {
-                exchange2PlayersWithDHPitcher(fielderNum: num1)
+                exchangeStartingWithDHP(fielderNum: num1)
             } else {
-                exchange2Players(order: &startingOrderDH, num1, num2)
+                exchangeStartingWithoutDHP(order: &startingOrderDH, num1, num2)
             }
         case .Normal:
-            exchange2Players(order: &startingOrderNormal, num1, num2)
+            exchangeStartingWithoutDHP(order: &startingOrderNormal, num1, num2)
         }
     }
     
-    func exchange2Players(order: inout [StartingPlayer], _ num1: OrderNum, _ num2: OrderNum) {
+    func exchangeStartingWithoutDHP(order: inout [StartingPlayer], _ num1: OrderNum, _ num2: OrderNum) {
         let tmp = order[num1.index]
         order[num1.index] = order[num2.index]
         order[num2.index] = tmp
     }
     
-    func exchange2PlayersWithDHPitcher(fielderNum: OrderNum) {
+    func exchangeStartingWithDHP(fielderNum: OrderNum) {
         let tmp = startingOrderDH[indexDHP].name
         startingOrderDH[indexDHP].name = startingOrderDH[fielderNum.index].name
         startingOrderDH[fielderNum.index].name = tmp
@@ -283,6 +283,25 @@ class CacheOrderData {
         order[index2].isRunner = tmp.isRunner
         order[index2].isFielder = tmp.isFielder
     }
+    
+    func exchangeStartingSubOrder(orderType: OrderType ,startingNum: OrderNum, subIndex: Int) {
+        switch orderType {
+        case .DH:
+            exchangeStartingSubPlayers(&startingOrderDH, &subOrderDH, startingNum, subIndex)
+        case .Normal:
+            exchangeStartingSubPlayers(&startingOrderNormal, &subOrderNormal, startingNum, subIndex)
+        }
+    }
+    
+    func exchangeStartingSubPlayers(_ startingOrder: inout [StartingPlayer],
+                                    _ subOrder: inout [SubPlayer],
+                                    _ startingNum: OrderNum,
+                                    _ subIndex: Int) {
+        let tmp = startingOrder[startingNum.index]
+        startingOrder[startingNum.index].name = subOrder[subIndex].name
+        subOrder[subIndex].name = tmp.name
+    }
+    
     
     func addSubPlayer(type: OrderType, player: SubPlayer) {
         switch type {

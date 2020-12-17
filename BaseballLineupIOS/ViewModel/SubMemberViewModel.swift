@@ -137,7 +137,7 @@ class SubMemberViewModel {
         delegate?.setDefaultUI()
     }
     
-    func selectSubButton(index: Int) {
+    func selectPlayer(index: Int) {
         if isDeleting {
             removePlayer(index: index)
         } else if isExchanging {

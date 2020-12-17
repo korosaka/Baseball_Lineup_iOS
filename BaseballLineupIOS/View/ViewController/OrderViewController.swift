@@ -112,6 +112,7 @@ extension OrderViewController: UITableViewDataSource {
             fatalError("Could not create ReviewCell")
         }
         orderTableCell.orderVM = self.viewModel
+        orderTableCell.parentViewModel = self.parentViewModel
         
         let orderNum = OrderNum(order: indexPath.row + 1)
         guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return orderTableCell }

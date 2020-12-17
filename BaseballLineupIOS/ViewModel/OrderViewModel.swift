@@ -44,7 +44,7 @@ class OrderViewModel {
         return getStatingOrder()[num.index]
     }
     
-    func selectNumButton(selectedNum: OrderNum) {
+    func selectPlayer(selectedNum: OrderNum) {
         if isExchanging {
             if firstSelectedNum == nil {
                 firstSelectedNum = selectedNum

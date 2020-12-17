@@ -25,9 +25,27 @@ class CustomTabBarViewModel {
         helper = .init()
     }
     
+    func selectStartingPlayer(orderNum: OrderNum) {
+        startingOrderNumToExchange = orderNum
+        exchageStartingSub()
+    }
     
-    func selectSubButton(index: Int) {
+    func selectSubPlayer(index: Int) {
         subIndexToExchange = index
+    }
+    
+    func exchageStartingSub() {
+        guard let _orderType = orderType,
+              let startingNum = startingOrderNumToExchange,
+              let subIndex = subIndexToExchange else { return print("error") }
+        cacheData.exchangeStartingSubOrder(orderType: _orderType, startingNum: startingNum, subIndex: subIndex)
+        
+        // MARK: TODO DB exchange
+        
+        
+        resetData()
+        delegate?.setUIDefault()
+        delegate?.reloadScreens()
     }
     
     func getSubButtonColor(index: Int) -> UIColor {
@@ -44,8 +62,18 @@ class CustomTabBarViewModel {
     func switchScreen(screenIndex: Int) {
         delegate?.switchScreen(screenIndex)
     }
+    
+    func resetData() {
+        isExchangingStartingSub = false
+        subIndexToExchange = nil
+        startingOrderNumToExchange = nil
+    }
 }
 
 protocol CustomTabBarVMDelegate: class {
     func switchScreen(_ screenIndex: Int)
+    func reloadScreens()
+    func setUIDefault()
+    
+    // MARK: TODO cancel
 }
