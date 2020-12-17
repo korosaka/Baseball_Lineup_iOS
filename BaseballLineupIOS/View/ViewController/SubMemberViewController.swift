@@ -28,8 +28,15 @@ class SubMemberViewController: UIViewController {
     @IBOutlet weak var deleteB: UIButton!
     @IBOutlet weak var exchangeWithStartingB: UIButton!
     @IBAction func onClickCancel(_ sender: Any) {
-        setDefaultUIState()
-        reloadOrder()
+        guard let _parentVM = parentViewModel else { return print("error happened!") }
+        if _parentVM.isExchangingStartingSub {
+            _parentVM.resetData()
+            _parentVM.reloadTables()
+            _parentVM.resetUI()
+        } else {
+            setDefaultUIState()
+            reloadOrder()
+        }
     }
     @IBAction func onClickRegister(_ sender: Any) {
         if viewModel!.isSelected() {

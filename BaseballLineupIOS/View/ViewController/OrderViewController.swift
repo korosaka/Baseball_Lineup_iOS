@@ -22,9 +22,16 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func onClickCancel(_ sender: Any) {
-        setDefaultUIState()
-        // MARK: to back num button color
-        orderTable.reloadData()
+        guard let _parentVM = parentViewModel else { return print("error happened!") }
+        if _parentVM.isExchangingStartingSub {
+            _parentVM.resetData()
+            _parentVM.reloadTables()
+            _parentVM.resetUI()
+        } else {
+            setDefaultUIState()
+            // MARK: to back num button color
+            orderTable.reloadData()
+        }
     }
     @IBAction func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
@@ -92,6 +99,7 @@ class OrderViewController: UIViewController {
     }
     
     func prepareToExchangeWithSub() {
+        setDefaultUIState()
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "入れ替える打順を選択してください"

@@ -55,8 +55,8 @@ class CustomTabBarViewModel {
         }
         
         resetData()
-        delegate?.setUIDefault()
-        delegate?.reloadScreens()
+        resetUI()
+        reloadTables()
     }
     
     func getSubButtonColor(index: Int) -> UIColor {
@@ -79,17 +79,22 @@ class CustomTabBarViewModel {
         subIndexToExchange = nil
         startingOrderNumToExchange = nil
     }
+    
+    func resetUI() {
+        delegate?.setUIDefault()
+    }
+    
+    func reloadTables() {
+        delegate?.reloadTables()
+    }
 }
 
 protocol CustomTabBarVMDelegate: class {
     func switchScreen(_ screenIndex: Int)
-    func reloadScreens()
+    func reloadTables()
     func setUIDefault()
-    
     func updateStartingSub(db: Database,
                            startingNum: OrderNum,
                            startingPlayer: StartingPlayer,
                            subPlayer: SubPlayer) throws
-    
-    // MARK: TODO cancel
 }

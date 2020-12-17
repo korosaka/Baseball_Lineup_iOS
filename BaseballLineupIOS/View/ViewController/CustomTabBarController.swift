@@ -66,7 +66,7 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
         
     }
     
-    func reloadScreens() {
+    func reloadTables() {
         for vc in self.viewControllers! {
             if let controller: OrderViewController = vc as? OrderViewController {
                 controller.reloadOrder()
