@@ -45,6 +45,9 @@ struct OrderNum {
     var index: Int {
         return order - 1
     }
+    var forFieldDisplay: String {
+        return "[\(order)]"
+    }
 }
 
 enum OrderType {
