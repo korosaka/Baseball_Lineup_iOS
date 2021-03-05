@@ -74,51 +74,30 @@ class FieldViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //MARK: TODO do in VM!!!
-        guard let playersInfo = viewModel?.getStartingOrder() else { return }
-        let playerNum = viewModel?.orderType == OrderType.DH ? 10 : 9
-        for order in 1...playerNum {
-            let orderNum = OrderNum(order: order)
-            let player = playersInfo[orderNum.index]
-            switch player.position {
-            case .Pitcher:
-                if viewModel?.orderType == OrderType.DH {
-                    pitcherNum.text = "[P]"
-                } else {
-                    pitcherNum.text = orderNum.forFieldDisplay
-                }
-                pitcherName.text = player.name.forDisplay
-            case .Catcher:
-                catcherNum.text = orderNum.forFieldDisplay
-                catcherName.text = player.name.forDisplay
-            case .First:
-                firstNum.text = orderNum.forFieldDisplay
-                firstName.text = player.name.forDisplay
-            case .Second:
-                secondNum.text = orderNum.forFieldDisplay
-                secondName.text = player.name.forDisplay
-            case .Third:
-                thirdNum.text = orderNum.forFieldDisplay
-                thirdName.text = player.name.forDisplay
-            case .Short:
-                shortNum.text = orderNum.forFieldDisplay
-                shortName.text = player.name.forDisplay
-            case .Left:
-                leftNum.text = orderNum.forFieldDisplay
-                leftName.text = player.name.forDisplay
-            case .Center:
-                centerNum.text = orderNum.forFieldDisplay
-                centerName.text = player.name.forDisplay
-            case .Right:
-                rightNum.text = orderNum.forFieldDisplay
-                rightName.text = player.name.forDisplay
-            case .DH:
-                dh1Num.text = orderNum.forFieldDisplay
-                dh1Name.text = player.name.forDisplay
-            default:
-                print("do nothing")
-            }
-        }
+        viewModel?.loadOrderInfo()
+        displayOrder()
+    }
+    
+    private func displayOrder() {
+        pitcherNum.text = viewModel?.pitcherNum
+        pitcherName.text = viewModel?.pitcherName
+        catcherNum.text = viewModel?.catcherNum
+        catcherName.text = viewModel?.catcherName
+        firstNum.text = viewModel?.firstNum
+        firstName.text = viewModel?.firstName
+        secondNum.text = viewModel?.secondNum
+        secondName.text = viewModel?.secondName
+        thirdNum.text = viewModel?.thirdNum
+        thirdName.text = viewModel?.thirdName
+        shortNum.text = viewModel?.shortNum
+        shortName.text = viewModel?.shortName
+        leftNum.text = viewModel?.leftNum
+        leftName.text = viewModel?.leftName
+        centerNum.text = viewModel?.centerNum
+        centerName.text = viewModel?.centerName
+        rightNum.text = viewModel?.rightNum
+        rightName.text = viewModel?.rightName
+        dh1Num.text = viewModel?.dh1Num
+        dh1Name.text = viewModel?.dh1Name
     }
 }
