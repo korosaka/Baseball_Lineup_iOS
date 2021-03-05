@@ -11,4 +11,12 @@ import Foundation
 class FieldViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData?
+    
+    func getStartingOrder() -> [StartingPlayer]? {
+        guard let _orderType = orderType,
+              let _cacheData = cacheData
+        else { return nil }
+        
+        return _cacheData.getStartingOrder(orderType: _orderType)
+    }
 }
