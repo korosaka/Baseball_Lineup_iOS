@@ -80,7 +80,7 @@
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="138.61607142857142"/>
         </scene>
-        <!--Item-->
+        <!--スタメン-->
         <scene sceneID="gUb-ya-Jso">
             <objects>
                 <viewController id="Kpq-Ia-amI" customClass="OrderViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -250,7 +250,7 @@
                             <constraint firstItem="UjG-1o-HaF" firstAttribute="top" secondItem="Nzb-tf-Tg5" secondAttribute="bottom" constant="5" id="ziu-Eq-1fk"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="HzB-fb-CU8"/>
+                    <tabBarItem key="tabBarItem" title="スタメン" image="order_icon" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
@@ -669,7 +669,7 @@
             </objects>
             <point key="canvasLocation" x="2769.5652173913045" y="138.61607142857142"/>
         </scene>
-        <!--Item-->
+        <!--フィールド-->
         <scene sceneID="qpo-NO-SHW">
             <objects>
                 <viewController id="Ucb-Zj-KoS" customClass="FieldViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -1476,7 +1476,7 @@
                             <constraint firstItem="dLW-5g-h2U" firstAttribute="trailing" secondItem="3jg-ON-gs2" secondAttribute="trailing" id="zWL-9j-ty8"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Ca9-7x-YZn"/>
+                    <tabBarItem key="tabBarItem" title="フィールド" image="field_icon" id="Ca9-7x-YZn"/>
                     <connections>
                         <outlet property="catcherName" destination="s0H-pi-exX" id="vuU-oq-gFs"/>
                         <outlet property="catcherNum" destination="0lI-de-KlK" id="t1Q-Bx-Beo"/>
@@ -1516,7 +1516,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="field_icon" width="30" height="30"/>
         <image name="field_image" width="716" height="1096"/>
+        <image name="order_icon" width="30" height="30"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
