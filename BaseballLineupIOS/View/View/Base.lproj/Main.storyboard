@@ -80,7 +80,7 @@
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="138.61607142857142"/>
         </scene>
-        <!--Item-->
+        <!--スタメン-->
         <scene sceneID="gUb-ya-Jso">
             <objects>
                 <viewController id="Kpq-Ia-amI" customClass="OrderViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -222,9 +222,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="v4q-Tx-I6L"/>
-                                </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting Member" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UjG-1o-HaF">
                                 <rect key="frame" x="0.0" y="257" width="414" height="35"/>
@@ -250,7 +247,7 @@
                             <constraint firstItem="UjG-1o-HaF" firstAttribute="top" secondItem="Nzb-tf-Tg5" secondAttribute="bottom" constant="5" id="ziu-Eq-1fk"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="HzB-fb-CU8"/>
+                    <tabBarItem key="tabBarItem" title="スタメン" image="order_icon" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
@@ -298,7 +295,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="Kpq-Ia-amI" kind="relationship" relationship="viewControllers" id="K9F-C3-eRN"/>
-                        <segue destination="nAA-yh-Lo4" kind="relationship" relationship="viewControllers" id="1kr-MJ-zCa"/>
                         <segue destination="Ucb-Zj-KoS" kind="relationship" relationship="viewControllers" id="j0a-tM-rpN"/>
                     </connections>
                 </tabBarController>
@@ -315,7 +311,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDL-tZ-Pus">
-                                <rect key="frame" x="3" y="91" width="408" height="120"/>
+                                <rect key="frame" x="3" y="47" width="408" height="120"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bcx-mf-n2P">
                                         <rect key="frame" x="0.0" y="0.0" width="245" height="120"/>
@@ -439,7 +435,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U8h-fJ-j1S">
-                                <rect key="frame" x="3" y="226" width="408" height="40"/>
+                                <rect key="frame" x="3" y="182" width="408" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvf-eZ-Hee">
                                         <rect key="frame" x="0.0" y="0.0" width="129.5" height="40"/>
@@ -474,7 +470,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kNR-Wd-YPG">
-                                <rect key="frame" x="3" y="311" width="408" height="456"/>
+                                <rect key="frame" x="3" y="267" width="408" height="549"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubPlayerTableCell" rowHeight="65" id="F3f-16-ETX" customClass="SubPlayerTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -585,7 +581,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Member" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOL-Nn-zbS">
-                                <rect key="frame" x="3" y="271" width="408" height="35"/>
+                                <rect key="frame" x="3" y="227" width="408" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="TOr-HG-ggz"/>
                                 </constraints>
@@ -594,7 +590,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
-                                <rect key="frame" x="3" y="772" width="408" height="36"/>
+                                <rect key="frame" x="3" y="821" width="408" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKv-3t-kRQ">
                                         <rect key="frame" x="0.0" y="0.0" width="129.5" height="36"/>
@@ -670,7 +666,7 @@
             </objects>
             <point key="canvasLocation" x="2769.5652173913045" y="138.61607142857142"/>
         </scene>
-        <!--Item-->
+        <!--フィールド-->
         <scene sceneID="qpo-NO-SHW">
             <objects>
                 <viewController id="Ucb-Zj-KoS" customClass="FieldViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -1477,7 +1473,7 @@
                             <constraint firstItem="dLW-5g-h2U" firstAttribute="trailing" secondItem="3jg-ON-gs2" secondAttribute="trailing" id="zWL-9j-ty8"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Ca9-7x-YZn"/>
+                    <tabBarItem key="tabBarItem" title="フィールド" image="field_icon" id="Ca9-7x-YZn"/>
                     <connections>
                         <outlet property="catcherName" destination="s0H-pi-exX" id="vuU-oq-gFs"/>
                         <outlet property="catcherNum" destination="0lI-de-KlK" id="t1Q-Bx-Beo"/>
@@ -1517,7 +1513,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="field_icon" width="30" height="30"/>
         <image name="field_image" width="716" height="1096"/>
+        <image name="order_icon" width="30" height="30"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
