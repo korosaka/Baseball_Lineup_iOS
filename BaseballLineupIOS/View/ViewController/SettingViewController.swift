@@ -9,26 +9,42 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-
+    
+    @IBOutlet weak var policyLink: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        registerPolicyLink()
     }
+    
+    private func registerPolicyLink() {
+        //MARK: ref: https://qiita.com/shtnkgm/items/3c8b6b794219fbf087ba
+        let baseString = "プライバシーポリシー"
+        let policyURL = "https://korosaka.github.io/privacy_policy_for_baseball_lineup_ios/"
+        let attributedString = NSMutableAttributedString(string: baseString)
+        attributedString.addAttribute(.link,
+                                      value: policyURL,
+                                      range: NSString(string: baseString).range(of: baseString))
+        policyLink.attributedText = attributedString
+        policyLink.isSelectable = true
+        policyLink.isEditable = false
+        policyLink.delegate = self
+    }
+    
     
     @IBAction func onClickClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension SettingViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView,
+                  shouldInteractWith URL: URL,
+                  in characterRange: NSRange,
+                  interaction: UITextItemInteraction) -> Bool {
+        
+        UIApplication.shared.open(URL)
+        
+        return false
     }
-    */
-
 }
