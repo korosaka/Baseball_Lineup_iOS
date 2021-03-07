@@ -287,7 +287,9 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="kiW-q2-IfE" customClass="CustomTabBarController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="i7A-eI-ijK"/>
+                    <navigationItem key="navigationItem" id="i7A-eI-ijK">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="setting_icon" id="zhU-KD-01h"/>
+                    </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="l7r-P4-nYl">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1516,6 +1518,7 @@
         <image name="field_icon" width="30" height="30"/>
         <image name="field_image" width="716" height="1096"/>
         <image name="order_icon" width="30" height="30"/>
+        <image name="setting_icon" width="30" height="30"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
