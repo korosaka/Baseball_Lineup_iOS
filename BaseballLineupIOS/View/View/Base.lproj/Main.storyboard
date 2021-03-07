@@ -80,6 +80,46 @@
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="138.61607142857142"/>
         </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="Zfq-g6-nIK">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="HB8-ob-Ls9" customClass="SettingViewController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IgP-MM-qAO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FvV-FK-Ezq" userLabel="Modal">
+                                <rect key="frame" x="62" y="325.5" width="290" height="245"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMI-x2-Ryl">
+                                        <rect key="frame" x="5" y="5" width="48" height="30"/>
+                                        <state key="normal" title="CLOSE"/>
+                                        <connections>
+                                            <action selector="onClickClose:" destination="HB8-ob-Ls9" eventType="touchUpInside" id="9W1-QW-3ts"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstItem="XMI-x2-Ryl" firstAttribute="leading" secondItem="FvV-FK-Ezq" secondAttribute="leading" constant="5" id="AyO-dA-8qE"/>
+                                    <constraint firstItem="XMI-x2-Ryl" firstAttribute="top" secondItem="FvV-FK-Ezq" secondAttribute="top" constant="5" id="LFZ-nv-yIk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="khD-Q5-Iwn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FvV-FK-Ezq" firstAttribute="centerX" secondItem="IgP-MM-qAO" secondAttribute="centerX" id="2K1-wm-UBb"/>
+                            <constraint firstItem="FvV-FK-Ezq" firstAttribute="centerY" secondItem="IgP-MM-qAO" secondAttribute="centerY" id="4ej-o9-8eH"/>
+                            <constraint firstItem="FvV-FK-Ezq" firstAttribute="width" secondItem="khD-Q5-Iwn" secondAttribute="width" multiplier="0.7" id="5Ta-RZ-ZVE"/>
+                            <constraint firstItem="FvV-FK-Ezq" firstAttribute="height" secondItem="khD-Q5-Iwn" secondAttribute="height" multiplier="0.3" id="u29-2W-JU9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E6f-WP-wNL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1932" y="-577"/>
+        </scene>
         <!--スタメン-->
         <scene sceneID="gUb-ya-Jso">
             <objects>
@@ -288,7 +328,11 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="kiW-q2-IfE" customClass="CustomTabBarController" customModule="BaseballLineupIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="i7A-eI-ijK">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="setting_icon" id="zhU-KD-01h"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="setting_icon" id="zhU-KD-01h">
+                            <connections>
+                                <segue destination="HB8-ob-Ls9" kind="presentation" id="9IC-IM-zke"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="l7r-P4-nYl">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1527,6 +1571,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
