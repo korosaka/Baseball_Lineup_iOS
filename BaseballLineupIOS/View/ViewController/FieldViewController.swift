@@ -10,7 +10,7 @@ import UIKit
 class FieldViewController: UIViewController {
     var viewModel: FieldViewModel?
     
-    
+    private var nameLabels = [UILabel]()
     @IBOutlet weak var centerNum: UILabel!
     @IBOutlet weak var centerName: UILabel!
     @IBOutlet weak var leftNum: UILabel!
@@ -70,12 +70,39 @@ class FieldViewController: UIViewController {
             dh1Num.isHidden = false
             dh1Name.isHidden = false
         }
+        putNamesIntoArray()
+        customNameLabels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.loadOrderInfo()
         displayOrder()
+    }
+    
+    private func putNamesIntoArray() {
+        nameLabels.append(pitcherName)
+        nameLabels.append(catcherName)
+        nameLabels.append(firstName)
+        nameLabels.append(secondName)
+        nameLabels.append(thirdName)
+        nameLabels.append(shortName)
+        nameLabels.append(leftName)
+        nameLabels.append(centerName)
+        nameLabels.append(rightName)
+        nameLabels.append(dh1Name)
+    }
+    
+    private func customNameLabels() {
+        let radiusValue = CGFloat(10.0)
+        let borderWith = CGFloat(1.0)
+        let borderColor = UIColor.black.cgColor
+        
+        nameLabels.forEach { nameLabel in
+            nameLabel.layer.cornerRadius = radiusValue
+            nameLabel.layer.borderWidth = borderWith
+            nameLabel.layer.borderColor = borderColor
+        }
     }
     
     private func displayOrder() {
