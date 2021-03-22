@@ -46,7 +46,7 @@ struct OrderNum {
         return order - 1
     }
     var forFieldDisplay: String {
-        return "[\(order)]"
+        return "\(order)"
     }
 }
 
