@@ -59,9 +59,9 @@ class FieldViewModel {
             default:
                 if player.position.index < 1 { return }
                 //MARK: this index is different from Position.index (shifting by 1 for some reasons...)
-                let fieldIndex = player.position.index - 1
-                orderNums[fieldIndex] = orderNum.forFieldDisplay
-                playerNames[fieldIndex] = player.name.forDisplay
+                let positionFieldIndex = player.position.index - 1
+                orderNums[positionFieldIndex] = orderNum.forFieldDisplay
+                playerNames[positionFieldIndex] = player.name.forDisplay
                 
             }
         }
@@ -82,11 +82,11 @@ class FieldViewModel {
         }
     }
     
-    func getPlayerName(_ index: Int) -> String {
-        return playerNames[index]
+    func getPlayerName(_ positionFieldIndex: Int) -> String {
+        return playerNames[positionFieldIndex]
     }
     
-    func getOrderNum(_ index: Int) -> String {
-        return orderNums[index]
+    func getOrderNum(_ positionFieldIndex: Int) -> String {
+        return orderNums[positionFieldIndex]
     }
 }
