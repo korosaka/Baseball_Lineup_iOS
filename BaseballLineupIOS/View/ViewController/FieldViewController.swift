@@ -11,6 +11,7 @@ class FieldViewController: UIViewController {
     var viewModel: FieldViewModel?
     
     private var nameLabels = [UILabel]()
+    private var orderNumLabels = [UILabel]()
     @IBOutlet weak var centerNum: UILabel!
     @IBOutlet weak var centerName: UILabel!
     @IBOutlet weak var leftNum: UILabel!
@@ -70,7 +71,7 @@ class FieldViewController: UIViewController {
             dh1Num.isHidden = false
             dh1Name.isHidden = false
         }
-        putNamesIntoArray()
+        putUILabelsIntoArray()
         customNameLabels()
     }
     
@@ -80,7 +81,7 @@ class FieldViewController: UIViewController {
         displayOrder()
     }
     
-    private func putNamesIntoArray() {
+    private func putUILabelsIntoArray() {
         nameLabels.append(pitcherName)
         nameLabels.append(catcherName)
         nameLabels.append(firstName)
@@ -91,9 +92,21 @@ class FieldViewController: UIViewController {
         nameLabels.append(centerName)
         nameLabels.append(rightName)
         nameLabels.append(dh1Name)
+        
+        orderNumLabels.append(pitcherNum)
+        orderNumLabels.append(catcherNum)
+        orderNumLabels.append(firstNum)
+        orderNumLabels.append(secondNum)
+        orderNumLabels.append(thirdNum)
+        orderNumLabels.append(shortNum)
+        orderNumLabels.append(leftNum)
+        orderNumLabels.append(centerNum)
+        orderNumLabels.append(rightNum)
+        orderNumLabels.append(dh1Num)
     }
     
     private func customNameLabels() {
+        guard let vm = viewModel else { return }
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(1.0)
         let borderColor = UIColor.black.cgColor
@@ -103,41 +116,15 @@ class FieldViewController: UIViewController {
             label.layer.cornerRadius = radiusValue
             label.layer.borderWidth = borderWith
             label.layer.borderColor = borderColor
-            switch index {
-            case 0:
-                label.backgroundColor = UIColor.pitcherColor
-            case 1:
-                label.backgroundColor = UIColor.catcherColor
-            case 2...5:
-                label.backgroundColor = UIColor.infielderColor
-            case 6...8:
-                label.backgroundColor = UIColor.outfielderColor
-            default:
-                label.backgroundColor = UIColor.dhColor
-            }
+            label.backgroundColor = vm.getNameLabelColor(index)
         }
     }
     
     private func displayOrder() {
-        pitcherNum.text = viewModel?.pitcherNum
-        pitcherName.text = viewModel?.pitcherName
-        catcherNum.text = viewModel?.catcherNum
-        catcherName.text = viewModel?.catcherName
-        firstNum.text = viewModel?.firstNum
-        firstName.text = viewModel?.firstName
-        secondNum.text = viewModel?.secondNum
-        secondName.text = viewModel?.secondName
-        thirdNum.text = viewModel?.thirdNum
-        thirdName.text = viewModel?.thirdName
-        shortNum.text = viewModel?.shortNum
-        shortName.text = viewModel?.shortName
-        leftNum.text = viewModel?.leftNum
-        leftName.text = viewModel?.leftName
-        centerNum.text = viewModel?.centerNum
-        centerName.text = viewModel?.centerName
-        rightNum.text = viewModel?.rightNum
-        rightName.text = viewModel?.rightName
-        dh1Num.text = viewModel?.dh1Num
-        dh1Name.text = viewModel?.dh1Name
+        guard let vm = viewModel else { return }
+        for index in 0..<nameLabels.count {
+            nameLabels[index].text = vm.getPlayerName(index)
+            orderNumLabels[index].text = vm.getOrderNum(index)
+        }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FieldViewModel {
     var orderType: OrderType?
@@ -83,6 +84,71 @@ class FieldViewModel {
             default:
                 print("do nothing")
             }
+        }
+    }
+    
+    func getNameLabelColor(_ index: Int) -> UIColor {
+        switch index {
+        case 0:
+            return UIColor.pitcherColor
+        case 1:
+            return UIColor.catcherColor
+        case 2...5:
+            return UIColor.infielderColor
+        case 6...8:
+            return UIColor.outfielderColor
+        default:
+            return UIColor.dhColor
+        }
+    }
+    
+    func getPlayerName(_ index: Int) -> String {
+        switch index {
+        case 0:
+            return pitcherName
+        case 1:
+            return catcherName
+        case 2:
+            return firstName
+        case 3:
+            return secondName
+        case 4:
+            return thirdName
+        case 5:
+            return shortName
+        case 6:
+            return leftName
+        case 7:
+            return centerName
+        case 8:
+            return rightName
+        default:
+            return dh1Name
+        }
+    }
+    
+    func getOrderNum(_ index: Int) -> String {
+        switch index {
+        case 0:
+            return pitcherNum
+        case 1:
+            return catcherNum
+        case 2:
+            return firstNum
+        case 3:
+            return secondNum
+        case 4:
+            return thirdNum
+        case 5:
+            return shortNum
+        case 6:
+            return leftNum
+        case 7:
+            return centerNum
+        case 8:
+            return rightNum
+        default:
+            return dh1Num
         }
     }
 }
