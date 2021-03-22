@@ -12,6 +12,6 @@ struct Constants {
     static let EMPTY = ""
     static let NOT_REGISTERED = "----"
     static let NO_NUM = "---"
-    static let NO_NUM_FOR_FIELD = "[-]"
-    static let DH_PITCHER_NUM = "[P]"
+    static let NO_NUM_FOR_FIELD = "-"
+    static let DH_PITCHER_NUM = "P"
 }

@@ -72,7 +72,8 @@ class FieldViewController: UIViewController {
             dh1Name.isHidden = false
         }
         putUILabelsIntoArray()
-        customNameLabels()
+        customNameLabelDesign()
+        customNumLabelDesign()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +106,7 @@ class FieldViewController: UIViewController {
         orderNumLabels.append(dh1Num)
     }
     
-    private func customNameLabels() {
+    private func customNameLabelDesign() {
         guard let vm = viewModel else { return }
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(1.0)
@@ -117,6 +118,19 @@ class FieldViewController: UIViewController {
             label.layer.borderWidth = borderWith
             label.layer.borderColor = borderColor
             label.backgroundColor = vm.getNameLabelColor(index)
+        }
+    }
+    
+    private func customNumLabelDesign() {
+        let radiusValue = CGFloat(12.5)
+        let borderWith = CGFloat(1.0)
+        let borderColor = UIColor.black.cgColor
+        
+        orderNumLabels.forEach { numLabel in
+            numLabel.layer.cornerRadius = radiusValue
+            numLabel.layer.borderWidth = borderWith
+            numLabel.layer.borderColor = borderColor
+            numLabel.backgroundColor = UIColor.orderNumColor
         }
     }
     

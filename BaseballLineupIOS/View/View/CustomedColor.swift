@@ -13,4 +13,5 @@ extension UIColor {
     static var infielderColor: UIColor { return UIColor(red: 252.0 / 255.0, green: 200.0 / 255.0, blue: 0.0, alpha: 1.0) }
     static var outfielderColor: UIColor { return UIColor(red: 0.0, green: 204.0 / 255.0, blue: 0.0, alpha: 1.0) }
     static var dhColor: UIColor { return UIColor(red: 175.0 / 255.0, green: 96.0 / 255.0, blue: 1.0, alpha: 1.0) }
+    static var orderNumColor: UIColor { return UIColor(red: 169.0 / 255.0, green: 169.0 / 255.0, blue: 169.0 / 255.0, alpha: 1.0) }
 }
