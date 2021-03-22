@@ -98,10 +98,23 @@ class FieldViewController: UIViewController {
         let borderWith = CGFloat(1.0)
         let borderColor = UIColor.black.cgColor
         
-        nameLabels.forEach { nameLabel in
-            nameLabel.layer.cornerRadius = radiusValue
-            nameLabel.layer.borderWidth = borderWith
-            nameLabel.layer.borderColor = borderColor
+        for index in 0..<nameLabels.count {
+            let label = nameLabels[index]
+            label.layer.cornerRadius = radiusValue
+            label.layer.borderWidth = borderWith
+            label.layer.borderColor = borderColor
+            switch index {
+            case 0:
+                label.backgroundColor = UIColor.pitcherColor
+            case 1:
+                label.backgroundColor = UIColor.catcherColor
+            case 2...5:
+                label.backgroundColor = UIColor.infielderColor
+            case 6...8:
+                label.backgroundColor = UIColor.outfielderColor
+            default:
+                label.backgroundColor = UIColor.dhColor
+            }
         }
     }
     
