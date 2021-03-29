@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class OrderViewController: UIViewController {
     
@@ -20,6 +21,7 @@ class OrderViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var exchangeButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var bannerAD: GADBannerView!
     
     @IBAction func onClickCancel(_ sender: Any) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
@@ -75,6 +77,35 @@ class OrderViewController: UIViewController {
         nameTextField.delegate = self
         positionPicker.delegate = self
         setDefaultUIState()
+        
+        bannerAD.adUnitID = Constants.BANNER_ID
+        bannerAD.rootViewController = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadBannerAd()
+    }
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.loadBannerAd()
+        })
+    }
+    
+    func loadBannerAd() {
+        let frame = { () -> CGRect in
+            if #available(iOS 11.0, *) {
+                return view.frame.inset(by: view.safeAreaInsets)
+            } else {
+                return view.frame
+            }
+        }()
+        let viewWidth = frame.size.width
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {

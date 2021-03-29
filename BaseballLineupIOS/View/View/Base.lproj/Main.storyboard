@@ -144,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wBH-qL-PrY">
-                                <rect key="frame" x="3" y="297" width="408" height="513"/>
+                                <rect key="frame" x="3" y="297" width="408" height="460"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderCell" rowHeight="65" id="SLe-JY-Ham" customClass="OrderTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -285,15 +285,25 @@
                                 <color key="textColor" red="0.35294117650000001" green="0.94901960780000005" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAl-dH-4ze" userLabel="AD Banner" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="760" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="zWd-CH-yyZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eAy-rI-zYh"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
                             <constraint firstItem="bYu-yh-KXP" firstAttribute="top" secondItem="eAy-rI-zYh" secondAttribute="top" constant="3" id="148-Sq-7Li"/>
                             <constraint firstItem="eAy-rI-zYh" firstAttribute="trailing" secondItem="bYu-yh-KXP" secondAttribute="trailing" constant="3" id="4le-cI-w8s"/>
-                            <constraint firstItem="eAy-rI-zYh" firstAttribute="bottom" secondItem="wBH-qL-PrY" secondAttribute="bottom" constant="3" id="9HA-yd-KD6"/>
+                            <constraint firstItem="eAy-rI-zYh" firstAttribute="bottom" secondItem="HAl-dH-4ze" secondAttribute="bottom" constant="3" id="52k-8y-kbo"/>
+                            <constraint firstItem="HAl-dH-4ze" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" id="6ut-sC-b68"/>
+                            <constraint firstItem="HAl-dH-4ze" firstAttribute="trailing" secondItem="eAy-rI-zYh" secondAttribute="trailing" id="7g9-CG-yJN"/>
                             <constraint firstItem="Nzb-tf-Tg5" firstAttribute="top" secondItem="bYu-yh-KXP" secondAttribute="bottom" constant="5" id="P9o-LE-EAM"/>
                             <constraint firstItem="wBH-qL-PrY" firstAttribute="top" secondItem="UjG-1o-HaF" secondAttribute="bottom" constant="5" id="T4T-b2-IUe"/>
+                            <constraint firstItem="HAl-dH-4ze" firstAttribute="top" secondItem="wBH-qL-PrY" secondAttribute="bottom" constant="3" id="aeE-cS-zXh"/>
                             <constraint firstItem="Nzb-tf-Tg5" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" constant="3" id="dun-Vl-NFs"/>
                             <constraint firstItem="eAy-rI-zYh" firstAttribute="trailing" secondItem="Nzb-tf-Tg5" secondAttribute="trailing" constant="3" id="jl6-f1-lue"/>
                             <constraint firstItem="wBH-qL-PrY" firstAttribute="leading" secondItem="eAy-rI-zYh" secondAttribute="leading" constant="3" id="sBq-lh-fe9"/>
@@ -305,6 +315,7 @@
                     <tabBarItem key="tabBarItem" title="スタメン" image="order_icon" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
+                        <outlet property="bannerAD" destination="HAl-dH-4ze" id="UIN-Oc-A5l"/>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
                         <outlet property="exchangeButton" destination="UiB-H1-KzT" id="2KK-UA-UzU"/>
                         <outlet property="nameTextField" destination="0NS-fO-hfL" id="a3o-Pr-Ddq"/>
