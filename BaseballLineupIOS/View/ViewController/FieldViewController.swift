@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 class FieldViewController: UIViewController {
     var viewModel: FieldViewModel?
     
@@ -42,6 +43,7 @@ class FieldViewController: UIViewController {
     @IBOutlet weak var dh6Name: UILabel!
     @IBOutlet weak var catcherNum: UILabel!
     @IBOutlet weak var catcherName: UILabel!
+    @IBOutlet weak var bannerAD: GADBannerView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -74,12 +76,41 @@ class FieldViewController: UIViewController {
         putUILabelsIntoArray()
         customNameLabelDesign()
         customNumLabelDesign()
+        
+        bannerAD.adUnitID = Constants.BANNER_ID
+        bannerAD.rootViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.loadOrderInfo()
         displayOrder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadBannerAd()
+    }
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.loadBannerAd()
+        })
+    }
+    
+    func loadBannerAd() {
+        let frame = { () -> CGRect in
+            if #available(iOS 11.0, *) {
+                return view.frame.inset(by: view.safeAreaInsets)
+            } else {
+                return view.frame
+            }
+        }()
+        let viewWidth = frame.size.width
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerAD.load(GADRequest())
     }
     
     private func putUILabelsIntoArray() {
