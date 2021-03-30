@@ -542,7 +542,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kNR-Wd-YPG">
-                                <rect key="frame" x="3" y="267" width="408" height="549"/>
+                                <rect key="frame" x="3" y="267" width="408" height="504"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubPlayerTableCell" rowHeight="65" id="F3f-16-ETX" customClass="SubPlayerTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -662,7 +662,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
-                                <rect key="frame" x="3" y="821" width="408" height="36"/>
+                                <rect key="frame" x="3" y="776" width="408" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKv-3t-kRQ">
                                         <rect key="frame" x="0.0" y="0.0" width="129.5" height="36"/>
@@ -694,12 +694,19 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZ8-TV-24I" userLabel="BannerAD" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="815" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DYP-c5-Qdl"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FXZ-G5-G82"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
                             <constraint firstItem="qHO-2N-dEc" firstAttribute="top" secondItem="kNR-Wd-YPG" secondAttribute="bottom" constant="5" id="01p-Uk-LWs"/>
-                            <constraint firstItem="FXZ-G5-G82" firstAttribute="bottom" secondItem="qHO-2N-dEc" secondAttribute="bottom" constant="5" id="3Ru-Ku-PkK"/>
+                            <constraint firstItem="SZ8-TV-24I" firstAttribute="bottom" secondItem="FXZ-G5-G82" secondAttribute="bottom" constant="3" id="2b8-X5-yVK"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="jDL-tZ-Pus" secondAttribute="trailing" constant="3" id="9ST-Px-jd6"/>
                             <constraint firstItem="bOL-Nn-zbS" firstAttribute="top" secondItem="U8h-fJ-j1S" secondAttribute="bottom" constant="5" id="Ea0-ZD-HqB"/>
                             <constraint firstItem="U8h-fJ-j1S" firstAttribute="top" secondItem="jDL-tZ-Pus" secondAttribute="bottom" constant="15" id="Gcq-6Y-uPE"/>
@@ -707,8 +714,11 @@
                             <constraint firstItem="jDL-tZ-Pus" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="JiI-UT-V4q"/>
                             <constraint firstItem="kNR-Wd-YPG" firstAttribute="top" secondItem="bOL-Nn-zbS" secondAttribute="bottom" constant="5" id="OKK-yf-0M2"/>
                             <constraint firstItem="jDL-tZ-Pus" firstAttribute="top" secondItem="FXZ-G5-G82" secondAttribute="top" constant="3" id="Sid-7a-ZuT"/>
+                            <constraint firstItem="SZ8-TV-24I" firstAttribute="trailing" secondItem="FXZ-G5-G82" secondAttribute="trailing" id="UDv-V1-Mhy"/>
                             <constraint firstItem="kNR-Wd-YPG" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="Xx8-nc-PQe"/>
                             <constraint firstItem="bOL-Nn-zbS" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="eMW-qd-5cC"/>
+                            <constraint firstItem="SZ8-TV-24I" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" id="ewj-JX-8cc"/>
+                            <constraint firstItem="SZ8-TV-24I" firstAttribute="top" secondItem="qHO-2N-dEc" secondAttribute="bottom" constant="3" id="f69-ME-9Ac"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="U8h-fJ-j1S" secondAttribute="trailing" constant="3" id="glX-yG-Noo"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="bOL-Nn-zbS" secondAttribute="trailing" constant="3" id="jb1-yA-hvS"/>
                             <constraint firstItem="qHO-2N-dEc" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="pEa-fI-S6H"/>
@@ -719,6 +729,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="21T-zg-Zrc"/>
                     <connections>
                         <outlet property="addB" destination="fKv-3t-kRQ" id="S7d-kr-U8V"/>
+                        <outlet property="bannerAD" destination="SZ8-TV-24I" id="UEb-Wc-B9F"/>
                         <outlet property="cancelB" destination="Tvf-eZ-Hee" id="tPj-9Y-rwC"/>
                         <outlet property="deleteB" destination="vYC-fg-PTw" id="FBm-0r-xXh"/>
                         <outlet property="exchangeB" destination="BH1-6V-eis" id="Z7D-Pf-9kx"/>

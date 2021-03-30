@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GoogleMobileAds
 class SubMemberViewController: UIViewController {
     
     var viewModel: SubMemberViewModel?
@@ -70,6 +70,8 @@ class SubMemberViewController: UIViewController {
         titleL.textColor = .red
     }
     
+    @IBOutlet weak var bannerAD: GADBannerView!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -94,6 +96,32 @@ class SubMemberViewController: UIViewController {
         nameTF.delegate = self
         viewModel?.delegate = self
         setDefaultUIState()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadBannerAd()
+    }
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to:size, with:coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.loadBannerAd()
+        })
+    }
+    
+    func loadBannerAd() {
+        let frame = { () -> CGRect in
+            if #available(iOS 11.0, *) {
+                return view.frame.inset(by: view.safeAreaInsets)
+            } else {
+                return view.frame
+            }
+        }()
+        let viewWidth = frame.size.width
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
