@@ -7,4 +7,5 @@ target 'BaseballLineupIOS' do
 
   # Pods for BaseballLineupIOS
   pod 'GRDB.swift'
+  pod 'Google-Mobile-Ads-SDK'
 end
