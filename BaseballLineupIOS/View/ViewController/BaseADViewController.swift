@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
-class ADBaseViewController: UIViewController {
+class BaseADViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

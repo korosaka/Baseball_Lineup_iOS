@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
-class SubMemberViewController: ADBaseViewController {
+class SubMemberViewController: BaseADViewController {
     
     var viewModel: SubMemberViewModel?
     var parentViewModel: CustomTabBarViewModel?

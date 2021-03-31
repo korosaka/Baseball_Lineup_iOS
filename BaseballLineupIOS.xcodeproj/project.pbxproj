@@ -29,7 +29,7 @@
 		886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35292550617D0056AB86 /* LaunchScreen.storyboard */; };
 		88764A8625F4810500FA76EB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88764A8525F4810500FA76EB /* SettingViewController.swift */; };
 		887DA0112589B838003E237E /* SubOrderTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887DA0102589B838003E237E /* SubOrderTable.swift */; };
-		888BC24D2613BF6A004D49FE /* ADBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BC24C2613BF6A004D49FE /* ADBaseViewController.swift */; };
+		888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BC24C2613BF6A004D49FE /* BaseADViewController.swift */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
 		888F313226072001000CE0AB /* CustomedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F313126072001000CE0AB /* CustomedColor.swift */; };
 		CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */; };
@@ -61,7 +61,7 @@
 		886B352C2550617D0056AB86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88764A8525F4810500FA76EB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		887DA0102589B838003E237E /* SubOrderTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubOrderTable.swift; sourceTree = "<group>"; };
-		888BC24C2613BF6A004D49FE /* ADBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADBaseViewController.swift; sourceTree = "<group>"; };
+		888BC24C2613BF6A004D49FE /* BaseADViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseADViewController.swift; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		888F313126072001000CE0AB /* CustomedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedColor.swift; sourceTree = "<group>"; };
 		B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseballLineupIOS.debug.xcconfig"; path = "Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				8864A33D257EA60400CA6889 /* FieldViewController.swift */,
 				8864A349257F188000CA6889 /* SubPlayerTableCell.swift */,
 				88764A8525F4810500FA76EB /* SettingViewController.swift */,
-				888BC24C2613BF6A004D49FE /* ADBaseViewController.swift */,
+				888BC24C2613BF6A004D49FE /* BaseADViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 				8864A347257ECBCB00CA6889 /* FieldViewModel.swift in Sources */,
 				8864A344257ECB6500CA6889 /* SubMemberViewModel.swift in Sources */,
 				883AA0A325643346002AC14A /* CacheOrderData.swift in Sources */,
-				888BC24D2613BF6A004D49FE /* ADBaseViewController.swift in Sources */,
+				888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */,
 				8864A34A257F188000CA6889 /* SubPlayerTableCell.swift in Sources */,
 				888CD393256887820072CFA5 /* Constans.swift in Sources */,
 				884CEBCD2573B2EC0020C932 /* DatabaseHelper.swift in Sources */,

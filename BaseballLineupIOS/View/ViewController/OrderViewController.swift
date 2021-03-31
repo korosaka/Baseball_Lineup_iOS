@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-class OrderViewController: ADBaseViewController {
+class OrderViewController: BaseADViewController {
     
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
