@@ -54,6 +54,9 @@ class FieldViewController: BaseADViewController {
     private let INTERSTITIAL_FREQUENCY = 3
     private var isShowingIntersititialCount: Bool {
         //MARK: even when closing ad, this count will be increased
+        return viewAppearCount % (INTERSTITIAL_FREQUENCY + 1) == 2
+    }
+    private var isLoadingIntersititialCount: Bool {
         return viewAppearCount % (INTERSTITIAL_FREQUENCY + 1) == 1
     }
     
@@ -73,7 +76,6 @@ class FieldViewController: BaseADViewController {
     
     func setup() {
         viewModel = .init()
-        
     }
     
     override func viewDidLoad() {
@@ -98,9 +100,17 @@ class FieldViewController: BaseADViewController {
         viewAppearCount += 1
         viewModel?.loadOrderInfo()
         displayOrder()
-        if isShowingIntersititialCount {
+        if isLoadingIntersititialCount {
             loadInterstitialAd()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if isShowingIntersititialCount {
+            // this function couldn't work well from viewWillAppear
+            showInterstitial()
+        }
+        super.viewDidAppear(animated)
     }
     
     override func loadBannerAd() {
@@ -118,7 +128,6 @@ class FieldViewController: BaseADViewController {
                                     return
                                 }
                                 interstitial = ad
-                                showInterstitial()
                                }
         )
     }
