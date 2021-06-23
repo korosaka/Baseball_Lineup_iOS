@@ -8,3 +8,10 @@ Operability is simple and users can easily handle this app.
 # Why I created this app
 I created it for Japanese because in Japan, baseball is the most famouse sport.
 Not only professional players, but also many amatures are playing baseball in thier holiday.
+
+# Using
+- Swift
+- UIKit
+- Storyboard
+- GRDB(SQLite)
+- Google AdMob
