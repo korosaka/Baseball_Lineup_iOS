@@ -26,6 +26,8 @@
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>許可されると好みに合った広告が表示されやすくなります。</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
