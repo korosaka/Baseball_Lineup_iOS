@@ -50,8 +50,8 @@ class TopViewController: UIViewController {
     }
     
     private func onClickOrderType(type: OrderType) {
-        showInterstitial()
         if isDoneTrackingCheck {
+            showInterstitial()
             performSegue(withIdentifier: "goOrderScreen", sender: type)
         }
     }
