@@ -45,20 +45,6 @@ class FieldViewController: BaseADViewController {
     @IBOutlet weak var catcherName: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
     
-    /** Interstitial AD is used only in this class.
-     This is why this is written here.
-     When it is used even in other class, these code should be moved into BaseAd class
-     **/
-    private var interstitial: GADInterstitialAd?
-    private var viewAppearCount = 0
-    private let INTERSTITIAL_FREQUENCY = 3
-    private var isShowingIntersititialCount: Bool {
-        //MARK: even when closing ad, this count will be increased
-        return viewAppearCount % (INTERSTITIAL_FREQUENCY + 1) == 2
-    }
-    private var isLoadingIntersititialCount: Bool {
-        return viewAppearCount % (INTERSTITIAL_FREQUENCY + 1) == 1
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -97,47 +83,13 @@ class FieldViewController: BaseADViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewAppearCount += 1
         viewModel?.loadOrderInfo()
         displayOrder()
-        if isLoadingIntersititialCount {
-            loadInterstitialAd()
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if isShowingIntersititialCount {
-            // this function couldn't work well from viewWillAppear
-            showInterstitial()
-        }
-        super.viewDidAppear(animated)
     }
     
     override func loadBannerAd() {
         bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
         bannerAD.load(GADRequest())
-    }
-    
-    private func loadInterstitialAd() {
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: Constants.INTERSTITIAL_ID,
-                               request: request,
-                               completionHandler: { [self] ad, error in
-                                if let error = error {
-                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                                    return
-                                }
-                                interstitial = ad
-                               }
-        )
-    }
-    
-    private func showInterstitial() {
-        if interstitial != nil {
-            interstitial?.present(fromRootViewController: self)
-        } else {
-            print("Ad wasn't ready")
-        }
     }
     
     private func putUILabelsIntoArray() {

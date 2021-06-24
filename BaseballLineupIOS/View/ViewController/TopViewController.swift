@@ -9,32 +9,50 @@
 import UIKit
 import AppTrackingTransparency
 import AdSupport
+import GoogleMobileAds
 
 class TopViewController: UIViewController {
     
     var viewModel: TopViewModel?
-    var isDoneTrackingCheck = false
+    private var isDoneTrackingCheck = false
+    private var isShownInterstitial = false
+    private var interstitial: GADInterstitialAd?
+    private var indicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel = .init()
+        createIndicator()
+    }
+    
+    private func createIndicator() {
+        indicator = UIActivityIndicatorView()
+        if let _indicator = indicator {
+            _indicator.center = view.center
+            _indicator.style = .large
+            _indicator.color = .systemPink
+            view.addSubview(_indicator)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        requestIDFA()
+        if !isDoneTrackingCheck { requestIDFA() } // showing Interstitial is only once!
     }
     
     @IBAction func onClickNoDH(_ sender: Any) {
-        if isDoneTrackingCheck {
-            performSegue(withIdentifier: "goOrderScreen", sender: OrderType.Normal)
-        }
+        onClickOrderType(type: .Normal)
     }
     
     @IBAction func onClickDH(_ sender: Any) {
+        onClickOrderType(type: .DH)
+    }
+    
+    private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck {
-            performSegue(withIdentifier: "goOrderScreen", sender: OrderType.DH)
+            showInterstitial()
+            performSegue(withIdentifier: "goOrderScreen", sender: type)
         }
     }
     
@@ -46,15 +64,39 @@ class TopViewController: UIViewController {
      ref: https://developers.google.com/admob/ios/ios14#request
      */
     func requestIDFA() {
+        indicator?.startAnimating()
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-                self.isDoneTrackingCheck = true
-                // Tracking authorization completed. Start loading ads here.
-                // loadAd()
+                self.loadInterstitialAd()
             })
         } else {
-            isDoneTrackingCheck = true
-            // Fallback on earlier versions
+            loadInterstitialAd()
+        }
+    }
+    
+    private func loadInterstitialAd() {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID: Constants.INTERSTITIAL_ID,
+                               request: request,
+                               completionHandler: { [self] ad, error in
+                                self.isDoneTrackingCheck = true
+                                indicator?.stopAnimating()
+                                if let error = error {
+                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                                    return
+                                }
+                                interstitial = ad
+                               }
+        )
+    }
+    
+    private func showInterstitial() {
+        if isShownInterstitial { return }
+        if let _interstitial = interstitial {
+            _interstitial.present(fromRootViewController: self)
+            isShownInterstitial = true
+        } else {
+            print("Ad wasn't ready")
         }
     }
 }
