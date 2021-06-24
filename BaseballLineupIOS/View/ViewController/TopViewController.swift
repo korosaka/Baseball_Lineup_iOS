@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AppTrackingTransparency
+import AdSupport
 
 class TopViewController: UIViewController {
     
@@ -16,6 +18,11 @@ class TopViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel = .init()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        requestIDFA()
     }
     
     @IBAction func onClickNoDH(_ sender: Any) {
@@ -28,6 +35,20 @@ class TopViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         viewModel?.informOrderType(segue: segue, sender: sender)
+    }
+    
+    /*
+     ref: https://developers.google.com/admob/ios/ios14#request
+     */
+    func requestIDFA() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                // Tracking authorization completed. Start loading ads here.
+                // loadAd()
+            })
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
