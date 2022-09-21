@@ -62,6 +62,7 @@ class SubMemberViewController: BaseADViewController {
     @IBAction func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
         titleL.text = "削除する選手を選択してください"
+        titleL.textColor = .red
         cancelB.isEnabled = true
     }
     @IBAction func onClickExchangeWithStarting(_ sender: Any) {
