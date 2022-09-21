@@ -53,6 +53,8 @@ class SubMemberViewController: BaseADViewController {
         cancelB.isEnabled = true
         titleL.text = "入れ替える控えを2つ選択してください"
         titleL.textColor = .red
+        
+        setBottomButtonsEnabled(false)
     }
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
@@ -131,6 +133,13 @@ class SubMemberViewController: BaseADViewController {
         cancelB.isEnabled = isInput
         registerB.isEnabled = isInput
         exchangeB.isEnabled = !isInput
+        setBottomButtonsEnabled(!isInput)
+    }
+    
+    func setBottomButtonsEnabled(_ isInput: Bool) {
+        addB.isEnabled = isInput
+        deleteB.isEnabled = isInput
+        exchangeWithStartingB.isEnabled = isInput
     }
 }
 
@@ -219,5 +228,6 @@ extension SubMemberViewController: SubMemberVMDelegate {
         hitterS.setOn(currentPlayer.isHitter.convertToBool(), animated: true)
         runnerS.setOn(currentPlayer.isRunner.convertToBool(), animated: true)
         fielderS.setOn(currentPlayer.isFielder.convertToBool(), animated: true)
+        setBottomButtonsEnabled(false)
     }
 }
