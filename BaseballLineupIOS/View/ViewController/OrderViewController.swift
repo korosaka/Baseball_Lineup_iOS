@@ -113,7 +113,7 @@ class OrderViewController: BaseADViewController {
         reloadOrder()
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
-        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
     }
 }

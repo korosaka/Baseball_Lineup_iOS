@@ -69,7 +69,7 @@ class SubMemberViewController: BaseADViewController {
         parentViewModel?.isExchangingStartingSub = true
         exchangeB.isEnabled = false
         cancelB.isEnabled = true
-        titleL.text = "入れ替える控えを選択してください"
+        titleL.text = "スタメンと入れ替える控えを選択してください"
         titleL.textColor = .red
     }
     
@@ -172,16 +172,16 @@ extension SubMemberViewController: UITableViewDataSource {
         let player = viewModel!.getSubPlayer(index: indexPath.row)
         designRoleLabel(uiLabel: subTableCell.pitcherLabel,
                         isOn: player.isPitcher.convertToBool(),
-                        color: .red)
+                        color: UIColor.pitcherRoleColor)
         designRoleLabel(uiLabel: subTableCell.hitterLabel,
                         isOn: player.isHitter.convertToBool(),
-                        color: .green)
+                        color: UIColor.hitterRoleColor)
         designRoleLabel(uiLabel: subTableCell.runnerLabel,
                         isOn: player.isRunner.convertToBool(),
-                        color: .blue)
+                        color: UIColor.runnerRoleColor)
         designRoleLabel(uiLabel: subTableCell.fielderLabel,
                         isOn: player.isFielder.convertToBool(),
-                        color: .yellow)
+                        color: UIColor.fielderRoleColor)
         subTableCell.nameText.text = player.name.forDisplay
         
         return subTableCell
@@ -196,8 +196,10 @@ extension SubMemberViewController: UITableViewDataSource {
         // MARK: TODO should do within VM,,,?
         if isOn {
             uiLabel.backgroundColor = color
+            uiLabel.textColor = .black
         } else {
             uiLabel.backgroundColor = .gray
+            uiLabel.textColor = UIColor.offTextColor
         }
     }
 }
