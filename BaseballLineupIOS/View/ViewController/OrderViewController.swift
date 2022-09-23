@@ -110,6 +110,7 @@ class OrderViewController: BaseADViewController {
     
     func prepareToExchangeWithSub() {
         setDefaultUIState()
+        reloadOrder()
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "入れ替える打順を選択してください"
