@@ -130,6 +130,7 @@ extension OrderViewController: UITableViewDataSource {
         guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as? OrderTableCell else {
             fatalError("Could not create ReviewCell")
         }
+        orderTableCell.selectionStyle = .none
         orderTableCell.orderVM = self.viewModel
         orderTableCell.parentViewModel = self.parentViewModel
         

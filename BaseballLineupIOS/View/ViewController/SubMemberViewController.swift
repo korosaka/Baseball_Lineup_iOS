@@ -154,6 +154,7 @@ extension SubMemberViewController: UITableViewDataSource {
         guard let subTableCell = tableView.dequeueReusableCell(withIdentifier: "SubPlayerTableCell", for: indexPath) as? SubPlayerTableCell else {
             fatalError("Could not create ReviewCell")
         }
+        subTableCell.selectionStyle = .none
         subTableCell.viewModel = self.viewModel
         subTableCell.parentViewModel = self.parentViewModel
         subTableCell.tableIndex = indexPath.row
