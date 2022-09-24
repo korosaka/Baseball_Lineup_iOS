@@ -53,20 +53,23 @@ class SubMemberViewController: BaseADViewController {
         cancelB.isEnabled = true
         titleL.text = "入れ替える控えを2つ選択してください"
         titleL.textColor = .red
+        
+        setBottomButtonsEnabled(false)
     }
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
     }
     @IBAction func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
-        titleL.text = "select sub player to delete"
+        titleL.text = "削除する選手を選択してください"
+        titleL.textColor = .red
         cancelB.isEnabled = true
     }
     @IBAction func onClickExchangeWithStarting(_ sender: Any) {
         parentViewModel?.isExchangingStartingSub = true
         exchangeB.isEnabled = false
         cancelB.isEnabled = true
-        titleL.text = "入れ替える控えを選択してください"
+        titleL.text = "スタメンと入れ替える控えを選択してください"
         titleL.textColor = .red
     }
     
@@ -131,6 +134,13 @@ class SubMemberViewController: BaseADViewController {
         cancelB.isEnabled = isInput
         registerB.isEnabled = isInput
         exchangeB.isEnabled = !isInput
+        setBottomButtonsEnabled(!isInput)
+    }
+    
+    func setBottomButtonsEnabled(_ isInput: Bool) {
+        addB.isEnabled = isInput
+        deleteB.isEnabled = isInput
+        exchangeWithStartingB.isEnabled = isInput
     }
 }
 
@@ -144,6 +154,7 @@ extension SubMemberViewController: UITableViewDataSource {
         guard let subTableCell = tableView.dequeueReusableCell(withIdentifier: "SubPlayerTableCell", for: indexPath) as? SubPlayerTableCell else {
             fatalError("Could not create ReviewCell")
         }
+        subTableCell.selectionStyle = .none
         subTableCell.viewModel = self.viewModel
         subTableCell.parentViewModel = self.parentViewModel
         subTableCell.tableIndex = indexPath.row
@@ -162,16 +173,16 @@ extension SubMemberViewController: UITableViewDataSource {
         let player = viewModel!.getSubPlayer(index: indexPath.row)
         designRoleLabel(uiLabel: subTableCell.pitcherLabel,
                         isOn: player.isPitcher.convertToBool(),
-                        color: .red)
+                        color: UIColor.pitcherRoleColor)
         designRoleLabel(uiLabel: subTableCell.hitterLabel,
                         isOn: player.isHitter.convertToBool(),
-                        color: .green)
+                        color: UIColor.hitterRoleColor)
         designRoleLabel(uiLabel: subTableCell.runnerLabel,
                         isOn: player.isRunner.convertToBool(),
-                        color: .blue)
+                        color: UIColor.runnerRoleColor)
         designRoleLabel(uiLabel: subTableCell.fielderLabel,
                         isOn: player.isFielder.convertToBool(),
-                        color: .yellow)
+                        color: UIColor.fielderRoleColor)
         subTableCell.nameText.text = player.name.forDisplay
         
         return subTableCell
@@ -186,8 +197,10 @@ extension SubMemberViewController: UITableViewDataSource {
         // MARK: TODO should do within VM,,,?
         if isOn {
             uiLabel.backgroundColor = color
+            uiLabel.textColor = .black
         } else {
             uiLabel.backgroundColor = .gray
+            uiLabel.textColor = UIColor.offTextColor
         }
     }
 }
@@ -219,5 +232,6 @@ extension SubMemberViewController: SubMemberVMDelegate {
         hitterS.setOn(currentPlayer.isHitter.convertToBool(), animated: true)
         runnerS.setOn(currentPlayer.isRunner.convertToBool(), animated: true)
         fielderS.setOn(currentPlayer.isFielder.convertToBool(), animated: true)
+        setBottomButtonsEnabled(false)
     }
 }
