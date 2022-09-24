@@ -292,7 +292,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting Member" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjG-1o-HaF">
-                                <rect key="frame" x="0.0" y="250" width="414" height="30"/>
+                                <rect key="frame" x="3" y="250" width="414" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xcx-Ub-PC8"/>
                                 </constraints>
@@ -556,7 +556,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kNR-Wd-YPG">
-                                <rect key="frame" x="3" y="280" width="408" height="436"/>
+                                <rect key="frame" x="3" y="280" width="408" height="429"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubPlayerTableCell" rowHeight="65" id="F3f-16-ETX" customClass="SubPlayerTableCell" customModule="BaseballLineupIOS" customModuleProvider="target">
@@ -676,7 +676,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qHO-2N-dEc" userLabel="AddDeleteStack">
-                                <rect key="frame" x="3" y="721" width="408" height="36"/>
+                                <rect key="frame" x="3" y="714" width="408" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKv-3t-kRQ">
                                         <rect key="frame" x="0.0" y="0.0" width="129.5" height="36"/>
@@ -731,13 +731,13 @@
                             <constraint firstItem="kNR-Wd-YPG" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="Xx8-nc-PQe"/>
                             <constraint firstItem="bOL-Nn-zbS" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="eMW-qd-5cC"/>
                             <constraint firstItem="SZ8-TV-24I" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" id="ewj-JX-8cc"/>
-                            <constraint firstItem="SZ8-TV-24I" firstAttribute="top" secondItem="qHO-2N-dEc" secondAttribute="bottom" constant="3" id="f69-ME-9Ac"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="U8h-fJ-j1S" secondAttribute="trailing" constant="3" id="glX-yG-Noo"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="bOL-Nn-zbS" secondAttribute="trailing" constant="3" id="jb1-yA-hvS"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="bottom" secondItem="SZ8-TV-24I" secondAttribute="bottom" constant="3" id="mSD-YS-Xyg"/>
                             <constraint firstItem="qHO-2N-dEc" firstAttribute="leading" secondItem="FXZ-G5-G82" secondAttribute="leading" constant="3" id="pEa-fI-S6H"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="kNR-Wd-YPG" secondAttribute="trailing" constant="3" id="rOL-Oc-5F2"/>
                             <constraint firstItem="FXZ-G5-G82" firstAttribute="trailing" secondItem="qHO-2N-dEc" secondAttribute="trailing" constant="3" id="vwz-QF-xaK"/>
+                            <constraint firstItem="SZ8-TV-24I" firstAttribute="top" secondItem="qHO-2N-dEc" secondAttribute="bottom" constant="10" id="xjv-UA-Slo"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="ベンチ" image="sub_icon" id="21T-zg-Zrc"/>
