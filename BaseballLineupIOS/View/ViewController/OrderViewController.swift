@@ -110,9 +110,10 @@ class OrderViewController: BaseADViewController {
     
     func prepareToExchangeWithSub() {
         setDefaultUIState()
+        reloadOrder()
         exchangeButton.isEnabled = false
         cancelButton.isEnabled = true
-        titleLabel.text = "入れ替える打順を選択してください"
+        titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
     }
 }
@@ -129,6 +130,7 @@ extension OrderViewController: UITableViewDataSource {
         guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as? OrderTableCell else {
             fatalError("Could not create ReviewCell")
         }
+        orderTableCell.selectionStyle = .none
         orderTableCell.orderVM = self.viewModel
         orderTableCell.parentViewModel = self.parentViewModel
         
