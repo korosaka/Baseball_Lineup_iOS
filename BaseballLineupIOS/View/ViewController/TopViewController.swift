@@ -65,6 +65,7 @@ class TopViewController: UIViewController {
      */
     func requestIDFA() {
         indicator?.startAnimating()
+        Thread.sleep(forTimeInterval: 0.1) //to fix the bug of not showing tracking request: https://qiita.com/renave/items/b408aad151df722be747
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                 self.loadInterstitialAd()
