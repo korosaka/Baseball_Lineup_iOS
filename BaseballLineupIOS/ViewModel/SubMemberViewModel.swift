@@ -195,6 +195,9 @@ class SubMemberViewModel {
                                       is_runner: newData.isRunner,
                                       is_fielder: newData.isFielder)
             try playerDH.insert(db)
+        case .Special:
+            //TODO: DB
+            print("do later")
         default:
             return
         }
@@ -208,6 +211,9 @@ class SubMemberViewModel {
         case .DH:
             let playerDH = try SubDHTable.fetchOne(db, key: id)
             try playerDH?.delete(db)
+        case .Special:
+            //TODO: DB
+            print("do later")
         default:
             return
         }
@@ -231,6 +237,9 @@ class SubMemberViewModel {
             playerDH?.is_runner = newData.isRunner
             playerDH?.is_fielder = newData.isFielder
             try playerDH?.update(db)
+        case .Special:
+            //TODO: DB
+            print("do later")
         default:
             return
         }

@@ -27,7 +27,7 @@ class OrderViewModel {
     
     func getOrdeSize() -> Int {
         switch orderType {
-        case .Normal:
+        case .Normal, .Special:
             return 9
         case .DH:
             return 10
@@ -82,7 +82,7 @@ class OrderViewModel {
         switch orderType {
         case .Normal:
             return 10
-        case .DH:
+        case .DH, .Special:
             return 11
         default:
             return 0
@@ -122,6 +122,9 @@ class OrderViewModel {
             playerDH?.position = newData.position.description
             playerDH?.name = newData.name.original
             try playerDH?.update(db)
+        case.Special:
+            //TODO: DB
+            print("do later")
         default:
             return
         }

@@ -51,7 +51,7 @@ struct OrderNum {
 }
 
 enum OrderType {
-    case Normal, DH
+    case Normal, DH, Special
 }
 
 // MARK: should use extention String,,,,,?
@@ -131,10 +131,12 @@ enum Position {
 class CacheOrderData {
     var startingOrderNormal = [StartingPlayer]()
     var startingOrderDH = [StartingPlayer]()
+    var startingOrderSpecial = [StartingPlayer]()
     var subOrderNormal = [SubPlayer]()
     var subOrderDH = [SubPlayer]()
+    var subOrderSpecial = [SubPlayer]()
     let indexDHP = 9
-    
+    //
     func fetchOrderFromDB(_ orderType: OrderType, _ helper: DatabaseHelper) {
         let result = helper.inDatabase{(db) in
             switch orderType {
@@ -193,6 +195,9 @@ class CacheOrderData {
                                               isFielder: resultSub.is_fielder)
                     subOrderDH.append(subPlayer)
                 }
+            case .Special:
+                startingOrderDH.removeAll()
+                //TODO: all hitter
             }
         }
         if !result {
@@ -207,6 +212,8 @@ class CacheOrderData {
             return startingOrderDH
         case .Normal:
             return startingOrderNormal
+        case .Special:
+            return startingOrderSpecial
         }
     }
     
@@ -216,6 +223,8 @@ class CacheOrderData {
             return subOrderDH
         case .Normal:
             return subOrderNormal
+        case .Special:
+            return subOrderSpecial
         }
     }
     
@@ -225,6 +234,8 @@ class CacheOrderData {
             startingOrderDH[orderNum.index] = player
         case .Normal:
             startingOrderNormal[orderNum.index] = player
+        case .Special:
+            startingOrderSpecial[orderNum.index] = player
         }
     }
     
@@ -234,6 +245,8 @@ class CacheOrderData {
             subOrderDH[index] = player
         case .Normal:
             subOrderNormal[index] = player
+        case .Special:
+            subOrderSpecial[index] = player
         }
     }
     
@@ -247,7 +260,8 @@ class CacheOrderData {
             } else {
                 exchangeStartingWithoutDHP(order: &startingOrderDH, num1, num2)
             }
-        case .Normal:
+            //TODO: test carefully!
+        case .Normal, .Special:
             exchangeStartingWithoutDHP(order: &startingOrderNormal, num1, num2)
         }
     }
@@ -265,16 +279,21 @@ class CacheOrderData {
     }
     
     func exchangeSubOrder(orderType: OrderType ,index1: Int, index2: Int) {
+        //TODO: refactor
         switch orderType {
         case .DH:
             exchangeSubPlayers(order: &subOrderDH, index1, index2)
         case .Normal:
             exchangeSubPlayers(order: &subOrderNormal, index1, index2)
+        case .Special:
+            exchangeSubPlayers(order: &subOrderSpecial, index1, index2)
         }
     }
     
     func exchangeSubPlayers(order: inout [SubPlayer], _ index1: Int, _ index2: Int) {
         let tmp = order[index1]
+        
+        //TODO: refactor?
         order[index1].name = order[index2].name
         order[index1].isPitcher = order[index2].isPitcher
         order[index1].isHitter = order[index2].isHitter
@@ -288,11 +307,14 @@ class CacheOrderData {
     }
     
     func exchangeStartingSubOrder(orderType: OrderType ,startingNum: OrderNum, subIndex: Int) {
+        //TODO: refactor?
         switch orderType {
         case .DH:
             exchangeStartingSubPlayers(&startingOrderDH, &subOrderDH, startingNum, subIndex)
         case .Normal:
             exchangeStartingSubPlayers(&startingOrderNormal, &subOrderNormal, startingNum, subIndex)
+        case .Special:
+            exchangeStartingSubPlayers(&startingOrderSpecial, &subOrderSpecial, startingNum, subIndex)
         }
     }
     
@@ -312,6 +334,8 @@ class CacheOrderData {
             subOrderDH.append(player)
         case .Normal:
             subOrderNormal.append(player)
+        case .Special:
+            subOrderSpecial.append(player)
         }
     }
     
@@ -321,6 +345,8 @@ class CacheOrderData {
             subOrderDH.remove(at: index)
         case .Normal:
             subOrderNormal.remove(at: index)
+        case .Special:
+            subOrderSpecial.remove(at: index)
         }
     }
 }
