@@ -13,22 +13,29 @@ class FieldViewModel {
     var orderType: OrderType?
     var cacheData: CacheOrderData?
     
-    private var orderNums = [String]()
-    private var playerNames = [String]()
+    private var playersInfo = [PlayerInfoForField]()
     
-    init() {
-        let maxPlayerNum = 10
-        for _ in 0..<maxPlayerNum {
-            orderNums.append(Constants.NO_NUM_FOR_FIELD)
-            playerNames.append(Constants.NOT_REGISTERED)
+    private func clearData() {
+        for index in 0..<playersInfo.count {
+            playersInfo[index] = createEmptyPlayer()
         }
     }
-    private func clearData() {
-        for index in 0..<orderNums.count {
-            orderNums[index] = Constants.NO_NUM_FOR_FIELD
+    
+    func setup() {
+        playersInfo.removeAll() //to avoid unexpected bugs
+        var maxPlayerNum = 0
+        switch orderType {
+        case .Normal:
+            maxPlayerNum = 9
+        case .DH:
+            maxPlayerNum = 10
+        case .Special:
+            maxPlayerNum = 15
+        case nil:
+            break
         }
-        for index in 0..<playerNames.count {
-            playerNames[index] = Constants.NOT_REGISTERED
+        for _ in 0..<maxPlayerNum {
+            playersInfo.append(createEmptyPlayer())
         }
     }
     
@@ -37,32 +44,31 @@ class FieldViewModel {
         guard let _orderType = orderType,
               let _cacheData = cacheData
         else { return }
-        
+        //TODO: fix for All Hitter
         let playerNum = _orderType == .DH ? 10 : 9
-        let playersInfo = _cacheData.getStartingOrder(orderType: _orderType)
+        let cachedPlayersInfo = _cacheData.getStartingOrder(orderType: _orderType)
         
         for order in 1...playerNum {
             let orderNum = OrderNum(order: order)
-            let player = playersInfo[orderNum.index]
+            let player = cachedPlayersInfo[orderNum.index]
             switch player.position {
             case .Non:
                 print("do nothing")
             case .Pitcher:
                 let pitcherFieldIndex = 0
                 if _orderType == .DH {
-                    orderNums[pitcherFieldIndex] = Constants.DH_PITCHER_NUM
+                    playersInfo[pitcherFieldIndex].orderNum = Constants.DH_PITCHER_NUM
                 } else {
-                    orderNums[pitcherFieldIndex] = orderNum.forFieldDisplay
+                    playersInfo[pitcherFieldIndex].orderNum = orderNum.forFieldDisplay
                 }
-                playerNames[pitcherFieldIndex] = player.name.forDisplay
+                playersInfo[pitcherFieldIndex].playerName = player.name.forDisplay
             //MARK: TODO when implementing ALL HITTER, the code must be fixed
             default:
                 if player.position.index < 1 { return }
                 //MARK: this index is different from Position.index (shifting by 1 for some reasons...)
                 let positionFieldIndex = player.position.index - 1
-                orderNums[positionFieldIndex] = orderNum.forFieldDisplay
-                playerNames[positionFieldIndex] = player.name.forDisplay
-                
+                playersInfo[positionFieldIndex].orderNum = orderNum.forFieldDisplay
+                playersInfo[positionFieldIndex].playerName = player.name.forDisplay
             }
         }
     }
@@ -83,10 +89,24 @@ class FieldViewModel {
     }
     
     func getPlayerName(_ positionFieldIndex: Int) -> String {
-        return playerNames[positionFieldIndex]
+        return playersInfo[positionFieldIndex].playerName
     }
     
     func getOrderNum(_ positionFieldIndex: Int) -> String {
-        return orderNums[positionFieldIndex]
+        return playersInfo[positionFieldIndex].orderNum
+    }
+    
+    func getPlayersCount() -> Int {
+        return playersInfo.count
+    }
+    
+    private struct PlayerInfoForField {
+        var orderNum: String
+        var playerName: String
+    }
+    
+    private func createEmptyPlayer() -> PlayerInfoForField {
+        return PlayerInfoForField(orderNum: Constants.NO_NUM_FOR_FIELD,
+                                  playerName: Constants.NOT_REGISTERED)
     }
 }

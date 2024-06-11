@@ -50,6 +50,7 @@ class CustomTabBarController: UITabBarController {
             if let controller: FieldViewController = vc as? FieldViewController {
                 controller.viewModel?.orderType = self.viewModel?.orderType
                 controller.viewModel?.cacheData = self.viewModel?.cacheData
+                controller.viewModel?.setup()
             }
         }
     }
