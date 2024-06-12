@@ -66,14 +66,10 @@ class FieldViewController: BaseADViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let orderType = viewModel?.orderType else {
-            return
-        }
         
         putUILabelsIntoArray()
         customNameLabelDesign()
         customNumLabelDesign()
-        showDHLabels(orderType)
         
         bannerAD.adUnitID = Constants.BANNER_ID
         bannerAD.rootViewController = self
@@ -88,8 +84,8 @@ class FieldViewController: BaseADViewController {
             dh1Name.isHidden = false
         case .Special:
             guard let vm = viewModel else { break }
-            let firstDHIndex = 9
-            for index in firstDHIndex..<vm.getPlayersCount() {
+            let availableDHRange = FieldViewModel.PositionInField.DH1.index..<vm.getPlayersCount()
+            for index in availableDHRange {
                 nameLabels[index].isHidden = false
                 orderNumLabels[index].isHidden = false
             }
@@ -98,7 +94,13 @@ class FieldViewController: BaseADViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        guard let orderType = viewModel?.orderType else {
+            return
+        }
+        
         viewModel?.loadOrderInfo()
+        showDHLabels(orderType)
         displayOrder()
     }
     
