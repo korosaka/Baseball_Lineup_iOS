@@ -26,13 +26,14 @@ class OrderViewModel {
     var targetOrderNum = OrderNum(order: 0)
     
     func getOrdeSize() -> Int {
-        switch orderType {
-        case .Normal, .Special:
-            return 9
+        guard let _orderType = orderType else { return 0 }
+        switch _orderType {
+        case .Normal:
+            return cacheData?.startingOrderNormal.count ?? 0
         case .DH:
-            return 10
-        default:
-            return 0
+            return cacheData?.startingOrderDH.count ?? 0
+        case .Special:
+            return cacheData?.startingOrderSpecial.count ?? 0
         }
     }
     
