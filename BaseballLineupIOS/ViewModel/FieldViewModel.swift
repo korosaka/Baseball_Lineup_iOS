@@ -64,10 +64,9 @@ class FieldViewModel {
         }
     }
     
-    private var maxPlayersCount = 0
-    
     func setup() {
         playersInField.removeAll() //to avoid unexpected bugs
+        var maxPlayersCount = 0
         switch orderType {
         case .Normal:
             maxPlayersCount = PositionInField.Right.count
@@ -91,7 +90,7 @@ class FieldViewModel {
         
         let cachedPlayersInfo = _cacheData.getStartingOrder(orderType: _orderType)
         let firstHitterOrder = 1
-        for order in firstHitterOrder...maxPlayersCount {
+        for order in firstHitterOrder...cachedPlayersInfo.count {
             let orderNum = OrderNum(order: order)
             let cachedPlayerInfo = cachedPlayersInfo[orderNum.index]
             switch cachedPlayerInfo.position {
