@@ -67,6 +67,7 @@ class FieldViewModel {
         
         appendEmptyPlayers(cachedPlayersInfo.count)
         
+        var dhCounter = 0
         let firstHitterOrder = 1
         for order in firstHitterOrder...cachedPlayersInfo.count {
             let orderNum = OrderNum(order: order)
@@ -81,7 +82,21 @@ class FieldViewModel {
                     playersInField[PositionInField.Pitcher.index].orderNum = orderNum.forFieldDisplay
                 }
                 playersInField[PositionInField.Pitcher.index].playerName = cachedPlayerInfo.name.forDisplay
-                //MARK: TODO when implementing ALL HITTER, the code must be fixed
+            case .DH:
+                let isNonDHCase = playersInField.count < 10
+                if isNonDHCase { continue }
+                
+                var index = PositionInField.DH1.index + dhCounter
+                dhCounter += 1
+                
+                //when more DH hitters are registered than DH positions
+                if index >= playersInField.count {
+                    let lastDHIndex = playersInField.count - 1
+                    index = lastDHIndex
+                }
+                
+                playersInField[index].orderNum = orderNum.forFieldDisplay
+                playersInField[index].playerName = cachedPlayerInfo.name.forDisplay
             default:
                 if cachedPlayerInfo.position.index < Position.Pitcher.index { return }
                 ///This index is different from Position.index (shifting by 1 for because there is "No-Pisition" in Position, but not in PositionInField)
