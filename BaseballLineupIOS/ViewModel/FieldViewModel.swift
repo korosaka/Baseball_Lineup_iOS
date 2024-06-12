@@ -58,37 +58,15 @@ class FieldViewModel {
     
     private var playersInField = [PlayerInfoForField]()
     
-    private func clearData() {
-        for i in 0..<playersInField.count {
-            playersInField[i] = createEmptyPlayer()
-        }
-    }
-    
-    func setup() {
-        playersInField.removeAll() //to avoid unexpected bugs
-        var maxPlayersCount = 0
-        switch orderType {
-        case .Normal:
-            maxPlayersCount = PositionInField.Right.count
-        case .DH:
-            maxPlayersCount = PositionInField.DH1.count
-        case .Special:
-            maxPlayersCount = PositionInField.DH6.count
-        case nil:
-            break
-        }
-        for _ in 0..<maxPlayersCount {
-            playersInField.append(createEmptyPlayer())
-        }
-    }
-    
     func loadOrderInfo() {
-        clearData()
         guard let _orderType = orderType,
               let _cacheData = cacheData
         else { return }
         
         let cachedPlayersInfo = _cacheData.getStartingOrder(orderType: _orderType)
+        
+        appendEmptyPlayers(cachedPlayersInfo.count)
+        
         let firstHitterOrder = 1
         for order in firstHitterOrder...cachedPlayersInfo.count {
             let orderNum = OrderNum(order: order)
@@ -111,6 +89,13 @@ class FieldViewModel {
                 playersInField[positionFieldIndex].orderNum = orderNum.forFieldDisplay
                 playersInField[positionFieldIndex].playerName = cachedPlayerInfo.name.forDisplay
             }
+        }
+    }
+    
+    private func appendEmptyPlayers(_ playersCount: Int) {
+        playersInField.removeAll()
+        for _ in 0..<playersCount {
+            playersInField.append(createEmptyPlayer())
         }
     }
     
