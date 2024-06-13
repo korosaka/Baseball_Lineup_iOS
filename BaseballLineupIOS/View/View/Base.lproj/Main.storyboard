@@ -60,6 +60,9 @@
                                 <state key="normal" title="全員打ち">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="onClickSpecial:" destination="BYZ-38-t0r" eventType="touchUpInside" id="why-eg-i63"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -84,6 +87,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="nPR-ES-wef"/>
                     <connections>
+                        <outlet property="specialOrderButton" destination="rXT-qr-3Qx" id="h0P-Lr-h8k"/>
                         <segue destination="kiW-q2-IfE" kind="show" identifier="goOrderScreen" id="o9x-03-AeD"/>
                     </connections>
                 </viewController>

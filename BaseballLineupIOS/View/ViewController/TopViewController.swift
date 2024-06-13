@@ -19,6 +19,8 @@ class TopViewController: UIViewController {
     private var interstitial: GADInterstitialAd?
     private var indicator: UIActivityIndicatorView?
     
+    @IBOutlet weak var specialOrderButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -48,6 +50,11 @@ class TopViewController: UIViewController {
     @IBAction func onClickDH(_ sender: Any) {
         onClickOrderType(type: .DH)
     }
+    
+    @IBAction func onClickSpecial(_ sender: Any) {
+        onClickOrderType(type: .Special)
+    }
+    
     
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck {
