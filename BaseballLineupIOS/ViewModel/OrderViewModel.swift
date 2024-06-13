@@ -79,6 +79,25 @@ class OrderViewModel {
         delegate?.setUIDefault()
     }
     
+    func addOrder() {
+        //TODO: DB
+        guard let _orderType = orderType,
+              let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
+              playersCount < 15 else { return }
+        let emptyPlayer = StartingPlayer(position: Position.Non,
+                                         name: PlayerName(original: Constants.EMPTY))
+        cacheData?.addStartingPlayer(type: _orderType, player: emptyPlayer)
+    }
+    
+    func deleteOrder() {
+        //TODO: DB
+        guard let _orderType = orderType,
+              let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
+              playersCount > 9 else { return }
+        cacheData?.deleteStartingPlayer(type: _orderType)
+    }
+    
+    //TODO: when All Hitter, it can be 10
     func getPickerNum() -> Int {
         switch orderType {
         case .Normal:
@@ -91,6 +110,7 @@ class OrderViewModel {
     }
     
     func fetchData() {
+    //TODO: don't use forced unwrapping
         cacheData!.fetchOrderFromDB(orderType!, helper!)
     }
     
@@ -98,6 +118,7 @@ class OrderViewModel {
         let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
+        //TODO: should be after updating DB succeed
         cacheData!.overWriteStartingPlayer(type: orderType!,
                                            orderNum: targetOrderNum,
                                            player: newPlayer)

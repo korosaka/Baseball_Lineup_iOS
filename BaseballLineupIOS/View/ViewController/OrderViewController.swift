@@ -58,10 +58,14 @@ class OrderViewController: BaseADViewController {
     
     
     @IBAction func onClickAdd(_ sender: Any) {
+        viewModel?.addOrder()
+        reloadOrder()
     }
     
     
     @IBAction func onClickDelete(_ sender: Any) {
+        viewModel?.deleteOrder()
+        reloadOrder()
     }
     
     required init?(coder aDecoder: NSCoder) {

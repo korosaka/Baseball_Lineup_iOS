@@ -196,8 +196,15 @@ class CacheOrderData {
                     subOrderDH.append(subPlayer)
                 }
             case .Special:
-                startingOrderDH.removeAll()
-                //TODO: all hitter
+                //TODO: DB
+                startingOrderSpecial.removeAll()
+                
+                //MARK: MOCK
+                //                for _ in 1...13 {
+                //                    let emptyPlayer = StartingPlayer(position: Position.Non,
+                //                                                     name: PlayerName(original: Constants.EMPTY))
+                //                    startingOrderSpecial.append(emptyPlayer)
+                //                }
             }
         }
         if !result {
@@ -327,6 +334,16 @@ class CacheOrderData {
         subOrder[subIndex].name = tmp.name
     }
     
+    
+    func addStartingPlayer(type: OrderType, player: StartingPlayer) {
+        guard type == .Special else { return }
+        startingOrderSpecial.append(player)
+    }
+    
+    func deleteStartingPlayer(type: OrderType) {
+        guard type == .Special else { return }
+        startingOrderSpecial.removeLast()
+    }
     
     func addSubPlayer(type: OrderType, player: SubPlayer) {
         switch type {
