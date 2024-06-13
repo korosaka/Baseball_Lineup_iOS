@@ -69,6 +69,7 @@ class FieldViewModel {
         
         var dhCounter = 0
         let firstHitterOrder = 1
+        if cachedPlayersInfo.count < Constants.MIN_PLAYERS_NUMBER_SPECIAL { return } //to avoid unexpected bugs
         for order in firstHitterOrder...cachedPlayersInfo.count {
             let orderNum = OrderNum(order: order)
             let cachedPlayerInfo = cachedPlayersInfo[orderNum.index]
