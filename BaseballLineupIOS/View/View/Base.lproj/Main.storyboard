@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OP-hb-Btw">
-                                <rect key="frame" x="50" y="334" width="314" height="46"/>
+                                <rect key="frame" x="50" y="304" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHなし">
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m16-2K-wdV">
-                                <rect key="frame" x="50" y="450" width="314" height="46"/>
+                                <rect key="frame" x="50" y="420" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHあり">
@@ -53,19 +53,30 @@
                                     <action selector="onClickDH:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rXe-tK-Hzx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-qr-3Qx">
+                                <rect key="frame" x="50" y="536" width="314" height="46"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="全員打ち">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rXT-qr-3Qx" secondAttribute="trailing" constant="50" id="28c-Lb-ted"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="top" secondItem="QwL-gl-IBV" secondAttribute="bottom" id="7Et-bo-yZw"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZF-GN-aAW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m16-2K-wdV" secondAttribute="trailing" constant="50" id="9hZ-zs-rq9"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="70" id="GRG-Zi-Szf"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LGT-bf-kDT"/>
-                            <constraint firstItem="QwL-gl-IBV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="SKr-Uf-4Jb"/>
-                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="100" id="V7B-yu-5EM"/>
+                            <constraint firstItem="rXT-qr-3Qx" firstAttribute="top" secondItem="m16-2K-wdV" secondAttribute="bottom" constant="70" id="P4e-pY-U6E"/>
+                            <constraint firstItem="QwL-gl-IBV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="SKr-Uf-4Jb" userLabel="野球スタメン.top = Safe Area.top + 50"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OP-hb-Btw" secondAttribute="trailing" constant="50" id="aq8-yT-FzP"/>
+                            <constraint firstItem="rXT-qr-3Qx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="eDi-rc-dqW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QwL-gl-IBV" secondAttribute="trailing" id="m9A-mE-i8y"/>
+                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="70" id="rO5-p1-SOP"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="tIp-yA-Wts"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0gK-Og-2hJ" secondAttribute="trailing" id="tSG-gz-WA2"/>
                             <constraint firstItem="4OP-hb-Btw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="thn-JT-cly"/>
