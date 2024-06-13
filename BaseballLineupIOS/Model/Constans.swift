@@ -19,4 +19,11 @@ struct Constants {
     static let NO_NUM = "---"
     static let NO_NUM_FOR_FIELD = "-"
     static let DH_PITCHER_NUM = "P"
+    
+    static let FIRST_ORDER = 1
+    static let PLAYERS_NUMBER_NORMAL = 9
+    static let PLAYERS_NUMBER_DH = 10
+    static let SUPPOSED_DHP_ORDER = 10
+    static let MAX_PLAYERS_NUMBER_SPECIAL = 15
+    static let MIN_PLAYERS_NUMBER_SPECIAL = 9
 }

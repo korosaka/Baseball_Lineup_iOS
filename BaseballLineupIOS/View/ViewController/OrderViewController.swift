@@ -110,7 +110,7 @@ class OrderViewController: BaseADViewController {
     
     func setDefaultUIState() {
         numlabel.text = Constants.NO_NUM
-        positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
+        positionPicker.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
         setItemsEnabled(false)
         nameTextField.placeholder = "打順を選択してください"
@@ -187,11 +187,11 @@ extension OrderViewController: OrderVMDelegate {
         viewModel?.selectedPosition = currentPlayer.position
         setItemsEnabled(true)
         if viewModel!.isDHPitcher(orderNum: selectedNum) {
-            positionPicker.selectRow(Position.Pitcher.index, inComponent: 0, animated: true)
+            positionPicker.selectRow(Position.Pitcher.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
-            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.index])
+            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.indexForOrder])
         } else {
-            positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
+            positionPicker.selectRow(currentPlayer.position.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = true
         }
         
@@ -227,9 +227,9 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                     didSelectRow row: Int,
                     inComponent component: Int) {
         // MARK: prevent set position P to fielder in DH
-        if (viewModel!.isDHFielder()) && (row == Position.Pitcher.index) {
-            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.index])
-            pickerView.selectRow(Position.Non.index, inComponent: 0, animated: true)
+        if (viewModel!.isHitterWhenDH()) && (row == Position.Pitcher.indexForOrder) {
+            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.indexForOrder])
+            pickerView.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
             return
         }
         viewModel?.selectedPosition = Position(description: Constants.POSITIONS[row])

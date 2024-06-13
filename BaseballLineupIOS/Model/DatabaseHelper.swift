@@ -50,16 +50,16 @@ class DatabaseHelper {
     }
     
     private func storeEmptyData(_ db: Database) throws {
-        for order in 1...9 {
+        for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_NORMAL {
             let playerNormal = StartingNormalTable(order: order,
-                                                   position: Constants.POSITIONS[Position.Non.index],
+                                                   position: Constants.POSITIONS[Position.Non.indexForOrder],
                                                    name: Constants.EMPTY)
             try playerNormal.insert(db)
         }
         
-        for order in 1...10 {
+        for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_DH {
             let playerDH = StartingDHTable(order: order,
-                                           position: Constants.POSITIONS[Position.Non.index],
+                                           position: Constants.POSITIONS[Position.Non.indexForOrder],
                                            name: Constants.EMPTY)
             try playerDH.insert(db)
         }

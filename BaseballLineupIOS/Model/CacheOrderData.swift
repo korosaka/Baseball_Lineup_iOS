@@ -97,11 +97,13 @@ enum Position {
     }
     
     var description: String {
-        return Constants.POSITIONS[index]
+        return Constants.POSITIONS[indexForOrder]
     }
     
-    var index: Int {
+    var indexForOrder: Int {
         switch self {
+        case .Non:
+            return 0
         case .Pitcher:
             return 1
         case .Catcher:
@@ -122,8 +124,6 @@ enum Position {
             return 9
         case .DH:
             return 10
-        default:
-            return 0
         }
     }
 }
@@ -135,14 +135,14 @@ class CacheOrderData {
     var subOrderNormal = [SubPlayer]()
     var subOrderDH = [SubPlayer]()
     var subOrderSpecial = [SubPlayer]()
-    let indexDHP = 9
+    let indexForDHP = Constants.SUPPOSED_DHP_ORDER - 1
     //
     func fetchOrderFromDB(_ orderType: OrderType, _ helper: DatabaseHelper) {
         let result = helper.inDatabase{(db) in
             switch orderType {
             case .Normal:
                 startingOrderNormal.removeAll()
-                for order in 1...9 {
+                for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_NORMAL {
                     let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
                     if playerNormal != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerNormal!.position),
@@ -170,7 +170,7 @@ class CacheOrderData {
                 
             case .DH:
                 startingOrderDH.removeAll()
-                for order in 1...10 {
+                for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_DH {
                     let playerDH = try StartingDHTable.fetchOne(db, key: order)
                     if playerDH != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerDH!.position),
@@ -260,9 +260,9 @@ class CacheOrderData {
     func exchangeStartingOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
         switch orderType {
         case .DH:
-            if num1.index == indexDHP {
+            if num1.index == indexForDHP {
                 exchangeStartingWithDHP(fielderNum: num2)
-            } else if num2.index == indexDHP {
+            } else if num2.index == indexForDHP {
                 exchangeStartingWithDHP(fielderNum: num1)
             } else {
                 exchangeStartingWithoutDHP(order: &startingOrderDH, num1, num2)
@@ -280,8 +280,8 @@ class CacheOrderData {
     }
     
     func exchangeStartingWithDHP(fielderNum: OrderNum) {
-        let tmp = startingOrderDH[indexDHP].name
-        startingOrderDH[indexDHP].name = startingOrderDH[fielderNum.index].name
+        let tmp = startingOrderDH[indexForDHP].name
+        startingOrderDH[indexForDHP].name = startingOrderDH[fielderNum.index].name
         startingOrderDH[fielderNum.index].name = tmp
     }
     

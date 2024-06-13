@@ -83,7 +83,7 @@ class OrderViewModel {
         //TODO: DB
         guard let _orderType = orderType,
               let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
-              playersCount < 15 else { return }
+              playersCount < Constants.MAX_PLAYERS_NUMBER_SPECIAL else { return }
         let emptyPlayer = StartingPlayer(position: Position.Non,
                                          name: PlayerName(original: Constants.EMPTY))
         cacheData?.addStartingPlayer(type: _orderType, player: emptyPlayer)
@@ -93,7 +93,7 @@ class OrderViewModel {
         //TODO: DB
         guard let _orderType = orderType,
               let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
-              playersCount > 9 else { return }
+              playersCount > Constants.MIN_PLAYERS_NUMBER_SPECIAL else { return }
         cacheData?.deleteStartingPlayer(type: _orderType)
     }
     
@@ -101,9 +101,9 @@ class OrderViewModel {
     func getPickerNum() -> Int {
         switch orderType {
         case .Normal:
-            return 10
+            return Position.Right.indexForOrder + 1
         case .DH, .Special:
-            return 11
+            return Position.DH.indexForOrder + 1
         default:
             return 0
         }
@@ -184,11 +184,11 @@ class OrderViewModel {
     }
     
     func isDHPitcher(orderNum: OrderNum) -> Bool {
-        return (orderNum.order == 10) && (orderType == .DH)
+        return (orderNum.order == Constants.SUPPOSED_DHP_ORDER) && (orderType == .DH)
     }
     
-    func isDHFielder() -> Bool {
-        return (targetOrderNum.order != 10) && (orderType == .DH)
+    func isHitterWhenDH() -> Bool {
+        return (targetOrderNum.order != Constants.SUPPOSED_DHP_ORDER) && (orderType == .DH)
     }
 }
 

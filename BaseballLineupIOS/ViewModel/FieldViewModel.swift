@@ -83,7 +83,7 @@ class FieldViewModel {
                 }
                 playersInField[PositionInField.Pitcher.index].playerName = cachedPlayerInfo.name.forDisplay
             case .DH:
-                let isNonDHCase = playersInField.count < 10
+                let isNonDHCase = playersInField.count < Constants.PLAYERS_NUMBER_DH
                 if isNonDHCase { continue }
                 
                 var index = PositionInField.DH1.index + dhCounter
@@ -98,9 +98,9 @@ class FieldViewModel {
                 playersInField[index].orderNum = orderNum.forFieldDisplay
                 playersInField[index].playerName = cachedPlayerInfo.name.forDisplay
             default:
-                if cachedPlayerInfo.position.index < Position.Pitcher.index { return }
+                if cachedPlayerInfo.position.indexForOrder < Position.Pitcher.indexForOrder { return }
                 ///This index is different from Position.index (shifting by 1 for because there is "No-Pisition" in Position, but not in PositionInField)
-                let positionFieldIndex = cachedPlayerInfo.position.index - 1
+                let positionFieldIndex = cachedPlayerInfo.position.indexForOrder - 1
                 playersInField[positionFieldIndex].orderNum = orderNum.forFieldDisplay
                 playersInField[positionFieldIndex].playerName = cachedPlayerInfo.name.forDisplay
             }
