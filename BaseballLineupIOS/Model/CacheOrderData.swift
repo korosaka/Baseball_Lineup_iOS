@@ -260,9 +260,10 @@ class CacheOrderData {
             } else {
                 exchangeStartingWithoutDHP(order: &startingOrderDH, num1, num2)
             }
-            //TODO: test carefully!
-        case .Normal, .Special:
+        case .Normal:
             exchangeStartingWithoutDHP(order: &startingOrderNormal, num1, num2)
+        case .Special:
+            exchangeStartingWithoutDHP(order: &startingOrderSpecial, num1, num2)
         }
     }
     
