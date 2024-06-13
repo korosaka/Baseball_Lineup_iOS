@@ -198,13 +198,6 @@ class CacheOrderData {
             case .Special:
                 //TODO: DB
                 startingOrderSpecial.removeAll()
-                
-                //MARK: MOCK
-                //                for _ in 1...13 {
-                //                    let emptyPlayer = StartingPlayer(position: Position.Non,
-                //                                                     name: PlayerName(original: Constants.EMPTY))
-                //                    startingOrderSpecial.append(emptyPlayer)
-                //                }
             }
         }
         if !result {
