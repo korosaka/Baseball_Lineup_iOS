@@ -190,7 +190,7 @@
                                         </constraints>
                                     </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.35294117650000001" green="0.94901960780000005" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Nzb-tf-Tg5" userLabel="ButtonsStack">
                                 <rect key="frame" x="3" y="210" width="408" height="40"/>
@@ -233,7 +233,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HF8-l7-fHg" userLabel="Add Button">
                                         <rect key="frame" x="248" y="0.0" width="77.5" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="MQh-aa-DoW"/>
                                         </constraints>
@@ -245,7 +245,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E40-xt-0Ve" userLabel="Delete Button">
                                         <rect key="frame" x="330.5" y="0.0" width="77.5" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="gFx-bW-Vzh"/>
                                         </constraints>
@@ -559,7 +559,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.35294117650000001" green="0.94901960780000005" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U8h-fJ-j1S">
                                 <rect key="frame" x="3" y="210" width="408" height="40"/>
@@ -1890,9 +1890,6 @@
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
