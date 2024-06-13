@@ -75,19 +75,20 @@ class FieldViewController: BaseADViewController {
         bannerAD.rootViewController = self
     }
     
-    private func showDHLabels(_ orderType: OrderType) {
+    private func showHideDHLabels(_ orderType: OrderType) {
         switch orderType {
         case .Normal:
-            break
+            return
         case .DH:
             dh1Num.isHidden = false
             dh1Name.isHidden = false
         case .Special:
-            guard let vm = viewModel else { break }
-            let availableDHRange = FieldViewModel.PositionInField.DH1.index..<vm.getPlayersCount()
-            for index in availableDHRange {
-                nameLabels[index].isHidden = false
-                orderNumLabels[index].isHidden = false
+            guard let playersCount = viewModel?.getPlayersCount() else { return }
+            let dhIndexRange = FieldViewModel.PositionInField.DH1.index...FieldViewModel.PositionInField.DH6.index
+            for dhIndex in dhIndexRange {
+                let isAvailableIndex = dhIndex < playersCount
+                nameLabels[dhIndex].isHidden = !isAvailableIndex
+                orderNumLabels[dhIndex].isHidden = !isAvailableIndex
             }
         }
     }
@@ -100,7 +101,7 @@ class FieldViewController: BaseADViewController {
         }
         
         viewModel?.loadOrderInfo()
-        showDHLabels(orderType)
+        showHideDHLabels(orderType)
         displayOrder()
     }
     
