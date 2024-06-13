@@ -22,8 +22,8 @@ class OrderViewController: BaseADViewController {
     @IBOutlet weak var exchangeButton: UIButton!
     
     //For All Hitter
-    @IBOutlet weak var AddOrderButton: UIButton!
-    @IBOutlet weak var DeleteOrderButton: UIButton!
+    @IBOutlet weak var addOrderButton: UIButton!
+    @IBOutlet weak var deleteOrderButton: UIButton!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
@@ -43,6 +43,8 @@ class OrderViewController: BaseADViewController {
     @IBAction func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
+        addOrderButton.isEnabled = false
+        deleteOrderButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
@@ -107,8 +109,8 @@ class OrderViewController: BaseADViewController {
         positionPicker.delegate = self
         setDefaultUIState()
         if viewModel?.orderType != .Special {
-            AddOrderButton.isHidden = true
-            DeleteOrderButton.isHidden = true
+            addOrderButton.isHidden = true
+            deleteOrderButton.isHidden = true
         }
         
         bannerAD.adUnitID = Constants.BANNER_ID
@@ -139,12 +141,16 @@ class OrderViewController: BaseADViewController {
         cancelButton.isEnabled = isInput
         registerButton.isEnabled = isInput
         exchangeButton.isEnabled = !isInput
+        addOrderButton.isEnabled = !isInput
+        deleteOrderButton.isEnabled = !isInput
     }
     
     func prepareToExchangeWithSub() {
         setDefaultUIState()
         reloadOrder()
         exchangeButton.isEnabled = false
+        addOrderButton.isEnabled = false
+        deleteOrderButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red

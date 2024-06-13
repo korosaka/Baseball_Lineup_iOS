@@ -364,10 +364,10 @@
                     <tabBarItem key="tabBarItem" title="スタメン" image="order_icon" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
-                        <outlet property="AddOrderButton" destination="HF8-l7-fHg" id="Trk-RS-haf"/>
-                        <outlet property="DeleteOrderButton" destination="E40-xt-0Ve" id="e2g-i6-bO5"/>
+                        <outlet property="addOrderButton" destination="HF8-l7-fHg" id="Trk-RS-haf"/>
                         <outlet property="bannerAD" destination="HAl-dH-4ze" id="UIN-Oc-A5l"/>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
+                        <outlet property="deleteOrderButton" destination="E40-xt-0Ve" id="e2g-i6-bO5"/>
                         <outlet property="exchangeButton" destination="UiB-H1-KzT" id="2KK-UA-UzU"/>
                         <outlet property="nameTextField" destination="0NS-fO-hfL" id="a3o-Pr-Ddq"/>
                         <outlet property="numlabel" destination="H19-a2-qPi" id="IB4-0V-16W"/>
