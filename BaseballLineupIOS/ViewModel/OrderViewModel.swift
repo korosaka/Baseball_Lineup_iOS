@@ -109,9 +109,6 @@ class OrderViewModel {
         return players.count == Constants.PLAYERS_NUMBER_DH
     }
     
-    
-    
-    //TODO: when All Hitter, it can be 10
     func getPickerNum() -> Int {
         guard let _orderType = orderType else { return 0 }
         let excludeDH = Position.Right.indexForOrder + 1
