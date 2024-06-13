@@ -108,13 +108,16 @@ class OrderViewController: BaseADViewController {
         nameTextField.delegate = self
         positionPicker.delegate = self
         setDefaultUIState()
-        if viewModel?.orderType != .Special {
-            addOrderButton.isHidden = true
-            deleteOrderButton.isHidden = true
-        }
         
         bannerAD.adUnitID = Constants.BANNER_ID
         bannerAD.rootViewController = self
+        
+        if viewModel?.orderType == .Special {
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        } else {
+            addOrderButton.isHidden = true
+            deleteOrderButton.isHidden = true
+        }
     }
     
     override func loadBannerAd() {
