@@ -20,6 +20,11 @@ class OrderViewController: BaseADViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var exchangeButton: UIButton!
+    
+    //For All Hitter
+    @IBOutlet weak var AddOrderButton: UIButton!
+    @IBOutlet weak var DeleteOrderButton: UIButton!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
     
@@ -51,6 +56,14 @@ class OrderViewController: BaseADViewController {
         }
     }
     
+    
+    @IBAction func onClickAdd(_ sender: Any) {
+    }
+    
+    
+    @IBAction func onClickDelete(_ sender: Any) {
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -77,6 +90,10 @@ class OrderViewController: BaseADViewController {
         nameTextField.delegate = self
         positionPicker.delegate = self
         setDefaultUIState()
+        if viewModel?.orderType != .Special {
+            AddOrderButton.isHidden = true
+            DeleteOrderButton.isHidden = true
+        }
         
         bannerAD.adUnitID = Constants.BANNER_ID
         bannerAD.rootViewController = self

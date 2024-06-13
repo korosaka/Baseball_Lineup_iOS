@@ -224,6 +224,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="追加"/>
+                                        <connections>
+                                            <action selector="onClickAdd:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="CEx-Ta-QVY"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E40-xt-0Ve" userLabel="Delete Button">
                                         <rect key="frame" x="330.5" y="0.0" width="77.5" height="40"/>
@@ -233,6 +236,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="削除"/>
+                                        <connections>
+                                            <action selector="onClickDelete:" destination="Kpq-Ia-amI" eventType="touchUpInside" id="vWC-yy-0Hg"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -343,6 +349,8 @@
                     <tabBarItem key="tabBarItem" title="スタメン" image="order_icon" id="HzB-fb-CU8"/>
                     <navigationItem key="navigationItem" id="KZx-WB-Lur"/>
                     <connections>
+                        <outlet property="AddOrderButton" destination="HF8-l7-fHg" id="Trk-RS-haf"/>
+                        <outlet property="DeleteOrderButton" destination="E40-xt-0Ve" id="e2g-i6-bO5"/>
                         <outlet property="bannerAD" destination="HAl-dH-4ze" id="UIN-Oc-A5l"/>
                         <outlet property="cancelButton" destination="k6W-xX-AZ9" id="veS-hw-8mA"/>
                         <outlet property="exchangeButton" destination="UiB-H1-KzT" id="2KK-UA-UzU"/>
