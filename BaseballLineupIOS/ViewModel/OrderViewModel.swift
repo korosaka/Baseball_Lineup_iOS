@@ -97,20 +97,44 @@ class OrderViewModel {
         cacheData?.deleteStartingPlayer(type: _orderType)
     }
     
+    func shouldRemoveDH() -> Bool {
+        guard let _orderType = orderType, _orderType == .Special,
+                let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+        return players.count < Constants.PLAYERS_NUMBER_DH
+    }
+    
+    func shouldAddDH() -> Bool {
+        guard let _orderType = orderType, _orderType == .Special,
+                let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+        return players.count == Constants.PLAYERS_NUMBER_DH
+    }
+    
+    
+    
     //TODO: when All Hitter, it can be 10
     func getPickerNum() -> Int {
-        switch orderType {
+        guard let _orderType = orderType else { return 0 }
+        let excludeDH = Position.Right.indexForOrder + 1
+        let includeDH = Position.DH.indexForOrder + 1
+        
+        switch _orderType {
         case .Normal:
-            return Position.Right.indexForOrder + 1
-        case .DH, .Special:
-            return Position.DH.indexForOrder + 1
-        default:
-            return 0
+            return excludeDH
+        case .DH:
+            return includeDH
+        case .Special:
+            guard let playersNum =
+                    cacheData?.getStartingOrder(orderType: _orderType).count else { return 0 }
+            if playersNum > Constants.MIN_PLAYERS_NUMBER_SPECIAL {
+                return includeDH
+            } else {
+                return excludeDH
+            }
         }
     }
     
     func fetchData() {
-    //TODO: don't use forced unwrapping
+        //TODO: don't use forced unwrapping
         cacheData!.fetchOrderFromDB(orderType!, helper!)
     }
     

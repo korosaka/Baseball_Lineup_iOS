@@ -58,14 +58,26 @@ class OrderViewController: BaseADViewController {
     
     
     @IBAction func onClickAdd(_ sender: Any) {
-        viewModel?.addOrder()
+        guard let vm = viewModel else { return }
+        
+        vm.addOrder()
         reloadOrder()
+        
+        if vm.shouldAddDH() {
+            positionPicker.reloadAllComponents()
+        }
     }
     
     
     @IBAction func onClickDelete(_ sender: Any) {
-        viewModel?.deleteOrder()
+        guard let vm = viewModel else { return }
+        
+        vm.deleteOrder()
         reloadOrder()
+        
+        if vm.shouldRemoveDH() {
+            positionPicker.reloadAllComponents()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
