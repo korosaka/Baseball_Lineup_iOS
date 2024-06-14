@@ -80,14 +80,33 @@ class OrderViewModel {
     }
     
     func addOrder() {
-        //TODO: DB
         guard let _orderType = orderType,
+              _orderType == .Special,
+              let _helper = helper,
               let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
               playersCount < Constants.MAX_PLAYERS_NUMBER_SPECIAL else { return }
+        
         let emptyPlayer = StartingPlayer(position: Position.Non,
                                          name: PlayerName(original: Constants.EMPTY))
-        cacheData?.addStartingPlayer(type: _orderType, player: emptyPlayer)
+        
+        let result = _helper.inDatabase{(db) in
+            try insertSpecialTable(db, newData: emptyPlayer, order: playersCount + 1)
+        }
+        
+        if result {
+            cacheData?.addStartingPlayer(type: _orderType, player: emptyPlayer)
+        }
     }
+    
+    private func insertSpecialTable(_ db: Database, newData: StartingPlayer, order: Int) throws {
+        guard orderType == .Special else { return }
+        
+        let playerSpecial = StartingSpecialTable(order: order, position: newData.position.description, name: newData.name.original)
+        
+        try playerSpecial.insert(db)
+    }
+    
+    
     
     func deleteOrder() {
         guard let _orderType = orderType,
@@ -234,6 +253,7 @@ class OrderViewModel {
     }
 }
 
+//TODO: deprecated
 protocol OrderVMDelegate: class {
     func prepareRegistering(selectedNum: OrderNum)
     func reloadOrder()
