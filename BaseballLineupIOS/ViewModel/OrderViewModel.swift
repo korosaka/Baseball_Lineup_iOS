@@ -169,8 +169,10 @@ class OrderViewModel {
             playerDH?.name = newData.name.original
             try playerDH?.update(db)
         case.Special:
-            //TODO: DB
-            print("do later")
+            let playerSpecial = try StartingSpecialTable.fetchOne(db, key: orderNum.order)
+            playerSpecial?.position = newData.position.description
+            playerSpecial?.name = newData.name.original
+            try playerSpecial?.update(db)
         default:
             return
         }
