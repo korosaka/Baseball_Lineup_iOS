@@ -62,16 +62,22 @@ class OrderViewModel {
     }
     
     func exchangeStartingPlayers() {
-        cacheData!.exchangeStartingOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
-        let result = helper!.inDatabase{(db) in
-            let player1 = cacheData!.getStartingOrder(orderType: orderType!)[firstSelectedNum!.index]
-            let player2 = cacheData!.getStartingOrder(orderType: orderType!)[secondSelectedNum!.index]
-            try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
-            try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
-        }
-        if !result {
-            print("DB Error happened!!!!!!!!")
+        if let _helper = helper,
+           let _cacheData = cacheData,
+           let _orderType = orderType,
+           let firstSelect = firstSelectedNum,
+           let secondSelect = secondSelectedNum {
+            let result = _helper.inDatabase{(db) in
+                let player1 = _cacheData.getStartingOrder(orderType: _orderType)[firstSelect.index]
+                let player2 = _cacheData.getStartingOrder(orderType: _orderType)[secondSelect.index]
+                try updateStartingTable(db, orderNum: firstSelect, newData: player2)
+                try updateStartingTable(db, orderNum: secondSelect, newData: player1)
+            }
+            
+            if result {
+                _cacheData.exchangeStartingOrder(orderType: _orderType, num1: firstSelect, num2: secondSelect)
+            }
         }
         
         resetData()
