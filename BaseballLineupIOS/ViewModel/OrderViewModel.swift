@@ -99,13 +99,13 @@ class OrderViewModel {
     
     func shouldRemoveDH() -> Bool {
         guard let _orderType = orderType, _orderType == .Special,
-                let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+              let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
         return players.count < Constants.PLAYERS_NUMBER_DH
     }
     
     func shouldAddDH() -> Bool {
         guard let _orderType = orderType, _orderType == .Special,
-                let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+              let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
         return players.count == Constants.PLAYERS_NUMBER_DH
     }
     
@@ -136,19 +136,22 @@ class OrderViewModel {
     }
     
     func overWriteStatingPlayer() {
+        guard let _helper = helper,
+              let _cacheData = cacheData,
+              let _orderType = orderType else { return }
+        
         let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
-        //TODO: should be after updating DB succeed
-        cacheData!.overWriteStartingPlayer(type: orderType!,
-                                           orderNum: targetOrderNum,
-                                           player: newPlayer)
-        
-        let result = helper!.inDatabase{(db) in
+        let result = _helper.inDatabase{(db) in
             try updateStartingTable(db, orderNum: targetOrderNum, newData: newPlayer)
         }
         
-        if !result {
+        if result {
+            _cacheData.overWriteStartingPlayer(type: _orderType,
+                                               orderNum: targetOrderNum,
+                                               player: newPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
     }
