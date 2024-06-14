@@ -54,7 +54,7 @@ class SubMemberViewModel {
     
     func createEmptyPlayer() -> SubPlayer {
         return SubPlayer(id: UUID().uuidString,
-                         name: PlayerName(original: Constants.EMPTY),
+                         name: PlayerName(),
                          isPitcher: 0,
                          isHitter: 0,
                          isRunner: 0,

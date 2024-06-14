@@ -86,8 +86,7 @@ class OrderViewModel {
               let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
               playersCount < Constants.MAX_PLAYERS_NUMBER_SPECIAL else { return }
         
-        let emptyPlayer = StartingPlayer(position: Position.Non,
-                                         name: PlayerName(original: Constants.EMPTY))
+        let emptyPlayer = StartingPlayer()
         
         let result = _helper.inDatabase{(db) in
             try insertSpecialTable(db, newData: emptyPlayer, order: playersCount + 1)

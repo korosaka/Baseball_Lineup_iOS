@@ -10,6 +10,12 @@ import Foundation
 struct StartingPlayer {
     var position: Position
     var name: PlayerName
+    
+    init(position: Position = Position.Non,
+         name: PlayerName = PlayerName()) {
+        self.position = position
+        self.name = name
+    }
 }
 
 struct SubPlayer {
@@ -63,6 +69,10 @@ struct PlayerName {
         } else {
             return original
         }
+    }
+    
+    init(original: String = Constants.EMPTY) {
+        self.original = original
     }
 }
 
@@ -150,9 +160,7 @@ class CacheOrderData {
                         startingOrderNormal.append(startingPlayer)
                     } else {
                         //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
-                        let emptyPlayer = StartingPlayer(position: Position.Non,
-                                                         name: PlayerName(original: Constants.EMPTY))
-                        startingOrderNormal.append(emptyPlayer)
+                        startingOrderNormal.append(StartingPlayer())
                     }
                 }
                 
@@ -179,9 +187,7 @@ class CacheOrderData {
                         startingOrderDH.append(startingPlayer)
                     } else {
                         //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
-                        let emptyPlayer = StartingPlayer(position: Position.Non,
-                                                         name: PlayerName(original: Constants.EMPTY))
-                        startingOrderDH.append(emptyPlayer)
+                        startingOrderDH.append(StartingPlayer())
                     }
                 }
                 
