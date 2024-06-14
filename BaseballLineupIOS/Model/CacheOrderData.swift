@@ -149,6 +149,7 @@ class CacheOrderData {
                                                             name: PlayerName(original: playerNormal!.name))
                         startingOrderNormal.append(startingPlayer)
                     } else {
+                        //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
                         let emptyPlayer = StartingPlayer(position: Position.Non,
                                                          name: PlayerName(original: Constants.EMPTY))
                         startingOrderNormal.append(emptyPlayer)
@@ -177,6 +178,7 @@ class CacheOrderData {
                                                             name: PlayerName(original: playerDH!.name))
                         startingOrderDH.append(startingPlayer)
                     } else {
+                        //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
                         let emptyPlayer = StartingPlayer(position: Position.Non,
                                                          name: PlayerName(original: Constants.EMPTY))
                         startingOrderDH.append(emptyPlayer)
@@ -196,8 +198,18 @@ class CacheOrderData {
                     subOrderDH.append(subPlayer)
                 }
             case .Special:
-                //TODO: DB
                 startingOrderSpecial.removeAll()
+                for order in Constants.ORDER_FIRST...Constants.MAX_PLAYERS_NUMBER_SPECIAL {
+                    do {
+                        let playerSpecial = try StartingSpecialTable.fetchOne(db, key: order)
+                        guard let player = playerSpecial else { break }
+                        let startingPlayer = StartingPlayer(position: Position(description: player.position),
+                                                            name: PlayerName(original: player.name))
+                        startingOrderSpecial.append(startingPlayer)
+                    } catch _ {
+                        break
+                    }
+                }
             }
         }
         if !result {
