@@ -142,7 +142,7 @@ class CacheOrderData {
             switch orderType {
             case .Normal:
                 startingOrderNormal.removeAll()
-                for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_NORMAL {
+                for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_NORMAL {
                     let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
                     if playerNormal != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerNormal!.position),
@@ -170,7 +170,7 @@ class CacheOrderData {
                 
             case .DH:
                 startingOrderDH.removeAll()
-                for order in Constants.FIRST_ORDER...Constants.PLAYERS_NUMBER_DH {
+                for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_DH {
                     let playerDH = try StartingDHTable.fetchOne(db, key: order)
                     if playerDH != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerDH!.position),

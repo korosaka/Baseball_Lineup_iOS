@@ -20,7 +20,7 @@ struct Constants {
     static let NO_NUM_FOR_FIELD = "-"
     static let DH_PITCHER_NUM = "P"
     
-    static let FIRST_ORDER = 1
+    static let ORDER_FIRST = 1
     static let PLAYERS_NUMBER_NORMAL = 9
     static let PLAYERS_NUMBER_DH = 10
     static let SUPPOSED_DHP_ORDER = 10
