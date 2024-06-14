@@ -90,11 +90,27 @@ class OrderViewModel {
     }
     
     func deleteOrder() {
-        //TODO: DB
         guard let _orderType = orderType,
-              let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
-              playersCount > Constants.MIN_PLAYERS_NUMBER_SPECIAL else { return }
-        cacheData?.deleteStartingPlayer(type: _orderType)
+              _orderType == .Special,
+              let _helper = helper,
+              let lastOrder = cacheData?.getStartingOrder(orderType: _orderType).count,
+              lastOrder > Constants.MIN_PLAYERS_NUMBER_SPECIAL else { return }
+        
+        let targetId = String(lastOrder)
+        let result = _helper.inDatabase{(db) in
+            try deleteOrder(db, id: targetId)
+        }
+        
+        if result {
+            cacheData?.deleteStartingPlayer(type: _orderType)
+        }
+    }
+    
+    private func deleteOrder(_ db: Database, id: String) throws {
+        guard orderType == .Special else { return }
+        
+        let player = try StartingSpecialTable.fetchOne(db, key: id)
+        try player?.delete(db)
     }
     
     func shouldRemoveDH() -> Bool {
