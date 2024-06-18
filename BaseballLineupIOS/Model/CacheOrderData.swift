@@ -216,6 +216,19 @@ class CacheOrderData {
                         break
                     }
                 }
+                
+                subOrderSpecial.removeAll()
+                var resultsSub: [SubSpecialTable] = []
+                resultsSub = try SubSpecialTable.fetchAll(db)
+                resultsSub.forEach { (resultSub) in
+                    let subPlayer = SubPlayer(id: resultSub.id,
+                                              name: PlayerName(original: resultSub.name),
+                                              isPitcher: resultSub.is_pitcher,
+                                              isHitter: resultSub.is_hitter,
+                                              isRunner: resultSub.is_runner,
+                                              isFielder: resultSub.is_fielder)
+                    subOrderSpecial.append(subPlayer)
+                }
             }
         }
         if !result {
