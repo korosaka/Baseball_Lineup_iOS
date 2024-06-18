@@ -54,14 +54,15 @@ class SubMemberViewModel {
         delegate?.setDefaultUI()
         delegate?.reloadOrder()
     }
-    //TODO: refacotring
+    
     func createEmptyPlayer() -> SubPlayer {
+        let falseNum = false.convertToInt()
         return SubPlayer(id: UUID().uuidString,
                          name: PlayerName(),
-                         isPitcher: 0,
-                         isHitter: 0,
-                         isRunner: 0,
-                         isFielder: 0)
+                         isPitcher: falseNum,
+                         isHitter: falseNum,
+                         isRunner: falseNum,
+                         isFielder: falseNum)
     }
     
     func setDefault() {
@@ -200,11 +201,11 @@ class SubMemberViewModel {
             try playerDH.insert(db)
         case .Special:
             let playerSpecial = SubSpecialTable(id: newData.id,
-                                      name: newData.name.original,
-                                      is_pitcher: newData.isPitcher,
-                                      is_hitter: newData.isHitter,
-                                      is_runner: newData.isRunner,
-                                      is_fielder: newData.isFielder)
+                                                name: newData.name.original,
+                                                is_pitcher: newData.isPitcher,
+                                                is_hitter: newData.isHitter,
+                                                is_runner: newData.isRunner,
+                                                is_fielder: newData.isFielder)
             try playerSpecial.insert(db)
         default:
             return
