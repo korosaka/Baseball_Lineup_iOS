@@ -36,22 +36,25 @@ class SubMemberViewModel {
     }
     
     func addNumOfSub() {
-        let emptyPlayer = createEmptyPlayer()
-        cacheData?.addSubPlayer(type: orderType!,
-                                player: emptyPlayer)
+        guard let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let emptyPlayer = createEmptyPlayer()
+        let result = _helper.inDatabase{(db) in
             try insertSubTable(db, newData: emptyPlayer)
         }
         
-        if !result {
+        if result {
+            cacheData?.addSubPlayer(type: _orderType,
+                                    player: emptyPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
         delegate?.setDefaultUI()
         delegate?.reloadOrder()
     }
-    
+    //TODO: refacotring
     func createEmptyPlayer() -> SubPlayer {
         return SubPlayer(id: UUID().uuidString,
                          name: PlayerName(),
@@ -196,8 +199,13 @@ class SubMemberViewModel {
                                       is_fielder: newData.isFielder)
             try playerDH.insert(db)
         case .Special:
-            //TODO: DB
-            print("do later")
+            let playerSpecial = SubSpecialTable(id: newData.id,
+                                      name: newData.name.original,
+                                      is_pitcher: newData.isPitcher,
+                                      is_hitter: newData.isHitter,
+                                      is_runner: newData.isRunner,
+                                      is_fielder: newData.isFielder)
+            try playerSpecial.insert(db)
         default:
             return
         }
