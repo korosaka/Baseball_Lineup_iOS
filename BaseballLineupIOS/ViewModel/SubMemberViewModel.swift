@@ -92,17 +92,22 @@ class SubMemberViewModel {
                          isH: Bool,
                          isR: Bool,
                          isF: Bool) {
-        let currentPlayer = getSubPlayer(index: targetIndex!)
-        let newPlayer = substituteNewData(origin: currentPlayer, name, isP, isH, isR, isF)
-        cacheData?.overWriteSubPlayer(type: orderType!,
-                                      index: targetIndex!,
-                                      player: newPlayer)
+        guard let _targetIndex = targetIndex,
+              let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let currentPlayer = getSubPlayer(index: _targetIndex)
+        let newPlayer = substituteNewData(origin: currentPlayer, name, isP, isH, isR, isF)
+        
+        let result = _helper.inDatabase{(db) in
             try updateSubTable(db, newData: newPlayer)
         }
         
-        if !result {
+        if result {
+            cacheData?.overWriteSubPlayer(type: _orderType,
+                                          index: _targetIndex,
+                                          player: newPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -247,8 +252,13 @@ class SubMemberViewModel {
             playerDH?.is_fielder = newData.isFielder
             try playerDH?.update(db)
         case .Special:
-            //TODO: DB
-            print("do later")
+            let playerSpecial = try SubSpecialTable.fetchOne(db, key: newData.id)
+            playerSpecial?.name = newData.name.original
+            playerSpecial?.is_pitcher = newData.isPitcher
+            playerSpecial?.is_hitter = newData.isHitter
+            playerSpecial?.is_runner = newData.isRunner
+            playerSpecial?.is_fielder = newData.isFielder
+            try playerSpecial?.update(db)
         default:
             return
         }
