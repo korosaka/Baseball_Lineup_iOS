@@ -170,18 +170,37 @@ class SubMemberViewModel {
     }
     
     func exchangeSubPlayers() {
-        cacheData?.exchangeSubOrder(orderType: orderType!,
-                                    index1: firstSelectedIndex!,
-                                    index2: secondSelectedIndex!)
+        guard let _orderType = orderType,
+              let _helper = helper,
+              let fisrtSelect = firstSelectedIndex,
+              let secondSelect = secondSelectedIndex else { return }
         
-        let result = helper!.inDatabase{(db) in
-            let player1 = getSubPlayer(index: firstSelectedIndex!)
-            let player2 = getSubPlayer(index: secondSelectedIndex!)
-            try updateSubTable(db, newData: player1)
-            try updateSubTable(db, newData: player2)
+        let result = _helper.inDatabase{(db) in
+            let player1 = getSubPlayer(index: fisrtSelect)
+            let player2 = getSubPlayer(index: secondSelect)
+            
+            let newPlayer1 = SubPlayer(id: player1.id,
+                                       name: player2.name,
+                                       isPitcher: player2.isPitcher,
+                                       isHitter: player2.isHitter,
+                                       isRunner: player2.isRunner,
+                                       isFielder: player2.isFielder)
+            let newPlayer2 = SubPlayer(id: player2.id,
+                                       name: player1.name,
+                                       isPitcher: player1.isPitcher,
+                                       isHitter: player1.isHitter,
+                                       isRunner: player1.isRunner,
+                                       isFielder: player1.isFielder)
+            
+            try updateSubTable(db, newData: newPlayer1)
+            try updateSubTable(db, newData: newPlayer2)
         }
         
-        if !result {
+        if result {
+            cacheData?.exchangeSubOrder(orderType: _orderType,
+                                        index1: fisrtSelect,
+                                        index2: secondSelect)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
