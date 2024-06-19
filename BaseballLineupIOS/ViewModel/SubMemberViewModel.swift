@@ -132,14 +132,18 @@ class SubMemberViewModel {
     }
     
     func removePlayer(index: Int) {
-        let playerToDelete = getSubPlayer(index: index)
-        cacheData?.removeSubPlayer(type: orderType!, index)
+        guard let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let playerToDelete = getSubPlayer(index: index)
+        
+        let result = _helper.inDatabase{(db) in
             try deleteSubTable(db, id: playerToDelete.id)
         }
         
-        if !result {
+        if result {
+            cacheData?.removeSubPlayer(type: _orderType, index)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -226,8 +230,8 @@ class SubMemberViewModel {
             let playerDH = try SubDHTable.fetchOne(db, key: id)
             try playerDH?.delete(db)
         case .Special:
-            //TODO: DB
-            print("do later")
+            let playerSpecial = try SubSpecialTable.fetchOne(db, key: id)
+            try playerSpecial?.delete(db)
         default:
             return
         }
