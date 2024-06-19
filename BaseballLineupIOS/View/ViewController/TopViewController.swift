@@ -20,6 +20,7 @@ class TopViewController: UIViewController {
     private var indicator: UIActivityIndicatorView?
     
     @IBOutlet weak var specialOrderButton: UIButton!
+    @IBOutlet weak var purchaseButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,9 @@ class TopViewController: UIViewController {
         onClickOrderType(type: .Special)
     }
     
+    
+    @IBAction func onClickPurchase(_ sender: Any) {
+    }
     
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck {
