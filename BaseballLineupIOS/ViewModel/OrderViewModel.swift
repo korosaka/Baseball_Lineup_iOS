@@ -258,8 +258,7 @@ class OrderViewModel {
     }
 }
 
-//TODO: deprecated
-protocol OrderVMDelegate: class {
+protocol OrderVMDelegate: AnyObject {
     func prepareRegistering(selectedNum: OrderNum)
     func reloadOrder()
     func setUIDefault()

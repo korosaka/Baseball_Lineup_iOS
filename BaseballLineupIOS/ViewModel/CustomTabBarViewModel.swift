@@ -100,7 +100,7 @@ class CustomTabBarViewModel {
     }
 }
 
-protocol CustomTabBarVMDelegate: class {
+protocol CustomTabBarVMDelegate: AnyObject {
     func switchScreen(_ screenIndex: Int)
     func reloadTables()
     func setUIDefault()

@@ -288,7 +288,7 @@ class SubMemberViewModel {
     }
 }
 
-protocol SubMemberVMDelegate: class {
+protocol SubMemberVMDelegate: AnyObject {
     func prepareRegistering(selected: Int)
     func reloadOrder()
     func setDefaultUI()
