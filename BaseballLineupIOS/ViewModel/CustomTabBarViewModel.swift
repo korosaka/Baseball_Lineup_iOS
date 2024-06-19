@@ -39,10 +39,19 @@ class CustomTabBarViewModel {
         guard let _orderType = orderType,
               let startingNum = startingOrderNumToExchange,
               let subIndex = subIndexToExchange else { return print("error") }
-        cacheData.exchangeStartingSubOrder(orderType: _orderType, startingNum: startingNum, subIndex: subIndex)
         
-        let newStartingPlayer = cacheData.getStartingOrder(orderType: _orderType)[startingNum.index]
-        let newSubPlayer = cacheData.getSubOrder(orderType: _orderType)[subIndex]
+        let currentStartingPlayer = cacheData.getStartingOrder(orderType: _orderType)[startingNum.index]
+        let currentSubPlayer = cacheData.getSubOrder(orderType: _orderType)[subIndex]
+        
+        let newStartingPlayer = StartingPlayer(position: currentStartingPlayer.position,
+                                               name: currentSubPlayer.name)
+        let newSubPlayer = SubPlayer(id: currentSubPlayer.id,
+                                     name: currentStartingPlayer.name,
+                                     isPitcher: currentSubPlayer.isPitcher,
+                                     isHitter: currentSubPlayer.isHitter,
+                                     isRunner: currentSubPlayer.isRunner,
+                                     isFielder: currentSubPlayer.isFielder)
+        
         let result = helper.inDatabase{(db) in
             try delegate?.updateStartingSub(db: db,
                                             startingNum: startingNum,
@@ -50,7 +59,9 @@ class CustomTabBarViewModel {
                                             subPlayer: newSubPlayer)
         }
         
-        if !result {
+        if result {
+            cacheData.exchangeStartingSubOrder(orderType: _orderType, startingNum: startingNum, subIndex: subIndex)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
