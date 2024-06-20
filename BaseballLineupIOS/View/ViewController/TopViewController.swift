@@ -10,6 +10,7 @@ import UIKit
 import AppTrackingTransparency
 import AdSupport
 import GoogleMobileAds
+import StoreKit
 
 class TopViewController: UIViewController {
     
@@ -58,6 +59,37 @@ class TopViewController: UIViewController {
     
     
     @IBAction func onClickPurchase(_ sender: Any) {
+        
+        Task {
+            var alertDialog: UIAlertController? = nil
+            
+            await viewModel?.getAllHitterProduct { result in
+                switch result {
+                case .success(let product):
+                    alertDialog = UIAlertController(title:product.displayName, message:"\(product.description) \n\n価格:\(product.displayPrice)\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。", preferredStyle:UIAlertController.Style.alert)
+                    
+                    alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
+                        (action:UIAlertAction)in
+                        
+                    })
+                    
+                    alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel){
+                        (action:UIAlertAction)in
+                        
+                    })
+                case .failure(_):
+                    alertDialog = UIAlertController(title: "エラー",
+                                                  message: "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。",
+                                                  preferredStyle: UIAlertController.Style.alert)
+                    alertDialog?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                }
+            }
+            
+            Task {@MainActor in
+                guard let _dialog = alertDialog else { return }
+                self.present(_dialog, animated: true, completion:nil)
+            }
+        }
     }
     
     private func onClickOrderType(type: OrderType) {

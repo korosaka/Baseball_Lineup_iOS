@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import StoreKit
 
 class TopViewModel {
+    
+    private let productIds = ["all_hitter_rule"]
     
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goOrderScreen" {
@@ -16,4 +19,22 @@ class TopViewModel {
             tabBarController.viewModel?.orderType = sender as? OrderType
         }
     }
+    
+    func getAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
+        do {
+            let products = try await Product.products(for: productIds)
+            if products.isEmpty {
+                throw CustomError.noProductError
+            } else {
+                completion(.success(products[0]))
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+}
+
+enum CustomError: Error {
+    case noProductError
 }
