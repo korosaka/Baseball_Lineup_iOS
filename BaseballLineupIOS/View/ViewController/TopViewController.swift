@@ -72,15 +72,12 @@ class TopViewController: UIViewController {
                         (action:UIAlertAction)in
                         
                     })
+                    alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel, handler: nil))
                     
-                    alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel){
-                        (action:UIAlertAction)in
-                        
-                    })
                 case .failure(_):
                     alertDialog = UIAlertController(title: "エラー",
-                                                  message: "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。",
-                                                  preferredStyle: UIAlertController.Style.alert)
+                                                    message: "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。",
+                                                    preferredStyle: UIAlertController.Style.alert)
                     alertDialog?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 }
             }
