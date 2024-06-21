@@ -33,6 +33,36 @@ class TopViewModel {
         }
     }
     
+    func purchaseItem(_ product: Product, completion: @escaping (String, String) -> Void) async {
+        var title = ""
+        var message = ""
+        do {
+            let result = try await product.purchase()
+            switch result {
+            case let .success(.verified(transaction)):
+                await transaction.finish()
+                UsingUserDefaults.purchasedSpecial()
+                title = "完了"
+                message = "購入が完了いたしました。\nありがとうございました。"
+            case let .success(.unverified(_, error)):
+                break
+            case .pending:
+                title = "保留"
+                message = "購入は保留されています。"
+            case .userCancelled:
+                title = "キャンセル"
+                message = "購入は中止されました。"
+            @unknown default:
+                title = "エラー"
+                message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
+            }
+        } catch _ {
+            title = "エラー"
+            message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
+        }
+        completion(title, message)
+    }
+    
 }
 
 enum CustomError: Error {

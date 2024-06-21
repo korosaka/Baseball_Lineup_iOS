@@ -10,6 +10,7 @@ import Foundation
 class UsingUserDefaults {
     
     static let keyForCreatingSpecialTable = "table_for_special"
+    static let keyForPurchasingSpecial = "purchase_special"
    
     static func createdStartingSpecialTable() {
         UserDefaults.standard.set(true, forKey: keyForCreatingSpecialTable)
@@ -19,6 +20,16 @@ class UsingUserDefaults {
         get {
             //if there is no value, return false: https://developer.apple.com/documentation/foundation/userdefaults/1416388-bool
             return UserDefaults.standard.bool(forKey: keyForCreatingSpecialTable)
+        }
+    }
+    
+    static func purchasedSpecial() {
+        UserDefaults.standard.set(true, forKey: keyForPurchasingSpecial)
+    }
+    
+    static var isSpecialPurchased: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: keyForPurchasingSpecial)
         }
     }
 }

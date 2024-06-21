@@ -71,6 +71,17 @@ class TopViewController: UIViewController {
                     alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
                         (action:UIAlertAction)in
                         
+                        Task {
+                            await self.viewModel?.purchaseItem(product) { title, message in
+                                let completionDialog = UIAlertController(title: title,
+                                                                         message: message,
+                                                                         preferredStyle: UIAlertController.Style.alert)
+                                completionDialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                Task {@MainActor in
+                                    self.present(completionDialog, animated: true, completion:nil)
+                                }
+                            }
+                        }
                     })
                     alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel, handler: nil))
                     
