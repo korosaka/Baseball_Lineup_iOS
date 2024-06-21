@@ -38,24 +38,15 @@ class TopViewModel {
         do {
             try await AppStore.sync()
         } catch {
-            Task {@MainActor in
-                completion("エラー", "復元が失敗しました。")
-            }
+            completion("エラー", "復元が失敗しました。")
             return
         }
         
-        for await result in Transaction.currentEntitlements {
-            guard case .verified(let transaction) = result else {
-                continue
-            }
-            if transaction.productID == productIds[allHitterIndex] {
-                UsingUserDefaults.purchasedSpecial()
-                completion("完了", "購入履歴の復元が完了いたしました。")
-                return
-            }
-        }
-        
-        Task {@MainActor in
+        let verificationResult = await Transaction.currentEntitlement(for: productIds[allHitterIndex])
+        if case .verified = verificationResult {
+            UsingUserDefaults.purchasedSpecial()
+            completion("完了", "購入履歴の復元が完了いたしました。")
+        } else {
             completion("完了", "対象の購入履歴はありませんでした。")
         }
     }

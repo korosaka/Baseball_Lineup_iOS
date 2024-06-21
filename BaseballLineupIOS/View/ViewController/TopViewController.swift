@@ -75,10 +75,10 @@ class TopViewController: UIViewController {
         guard isDoneTrackingCheck, let vm = viewModel else { return }
         Task {
             await vm.restore { title, message in
-                self.checkPurchasingState()
                 let completionDialog = self.createSimpleAlert(title, message)
                 self.addOKToAlert(completionDialog)
                 Task {@MainActor in
+                    self.checkPurchasingState()
                     self.present(completionDialog, animated: true, completion:nil)
                 }
             }
