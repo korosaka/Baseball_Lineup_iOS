@@ -22,6 +22,7 @@ class TopViewController: UIViewController {
     
     @IBOutlet weak var specialOrderButton: UIButton!
     @IBOutlet weak var purchaseButton: UIButton!
+    @IBOutlet weak var restoreButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class TopViewController: UIViewController {
         specialOrderButton.setTitle(vm.getSpecialOrderButttonText(purchased: purchased), for: .normal)
         specialOrderButton.isEnabled = purchased
         purchaseButton.isHidden = purchased
+        restoreButton.isHidden = purchased
         specialOrderButton.setTitleColor(vm.getSpecialOrderButttonTextColor(purchased: purchased), for: .normal)
         specialOrderButton.backgroundColor = vm.getSpecialOrderButttonColor(purchased: purchased)
     }
@@ -68,6 +70,9 @@ class TopViewController: UIViewController {
         onClickOrderType(type: .Special)
     }
     
+    
+    @IBAction func onClickRestore(_ sender: Any) {
+    }
     
     @IBAction func onClickPurchase(_ sender: Any) {
         if !isDoneTrackingCheck { return }

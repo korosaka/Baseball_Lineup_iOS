@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OP-hb-Btw">
-                                <rect key="frame" x="50" y="229" width="314" height="46"/>
+                                <rect key="frame" x="50" y="259" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHなし">
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m16-2K-wdV">
-                                <rect key="frame" x="50" y="335" width="314" height="46"/>
+                                <rect key="frame" x="50" y="365" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHあり">
@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-qr-3Qx">
-                                <rect key="frame" x="50" y="441" width="314" height="46"/>
+                                <rect key="frame" x="50" y="471" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="全員打ち">
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-ew-REp">
-                                <rect key="frame" x="244.5" y="517" width="119.5" height="35"/>
+                                <rect key="frame" x="244.5" y="547" width="119.5" height="35"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="全員打ちとは">
@@ -75,21 +75,34 @@
                                     <action selector="onClickPurchase:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C0B-cd-rsQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSL-to-vff">
+                                <rect key="frame" x="50" y="547" width="104" height="35"/>
+                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="購入を復元">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onClickRestore:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SQX-ME-wMW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="oSL-to-vff" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="1YW-Ni-RWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rXT-qr-3Qx" secondAttribute="trailing" constant="50" id="28c-Lb-ted"/>
+                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="80" id="4Es-4I-tGg"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="top" secondItem="QwL-gl-IBV" secondAttribute="bottom" id="7Et-bo-yZw"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZF-GN-aAW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m16-2K-wdV" secondAttribute="trailing" constant="50" id="9hZ-zs-rq9"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="BSj-vg-yiJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tbM-ew-REp" secondAttribute="trailing" constant="50" id="IuA-cG-emz"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LGT-bf-kDT"/>
+                            <constraint firstItem="oSL-to-vff" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="MNS-8A-6ed"/>
                             <constraint firstItem="tbM-ew-REp" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="UWi-Yv-Ks0"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="60" id="W9O-12-gry"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OP-hb-Btw" secondAttribute="trailing" constant="50" id="aq8-yT-FzP"/>
-                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="50" id="au5-bn-7od"/>
                             <constraint firstItem="rXT-qr-3Qx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="eDi-rc-dqW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QwL-gl-IBV" secondAttribute="trailing" id="m9A-mE-i8y"/>
                             <constraint firstItem="rXT-qr-3Qx" firstAttribute="top" secondItem="m16-2K-wdV" secondAttribute="bottom" constant="60" id="tIB-ay-TyF"/>
@@ -101,6 +114,7 @@
                     <navigationItem key="navigationItem" id="nPR-ES-wef"/>
                     <connections>
                         <outlet property="purchaseButton" destination="tbM-ew-REp" id="ExO-GY-tlf"/>
+                        <outlet property="restoreButton" destination="oSL-to-vff" id="wT8-Hf-kRI"/>
                         <outlet property="specialOrderButton" destination="rXT-qr-3Qx" id="h0P-Lr-h8k"/>
                         <segue destination="kiW-q2-IfE" kind="show" identifier="goOrderScreen" id="o9x-03-AeD"/>
                     </connections>
