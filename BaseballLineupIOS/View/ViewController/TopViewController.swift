@@ -99,16 +99,7 @@ class TopViewController: UIViewController {
                     
                     alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
                         (action:UIAlertAction)in
-                        
-                        Task {
-                            await self.viewModel?.purchaseItem(product) { title, message in
-                                let completionDialog = self.createSimpleAlert(title, message)
-                                self.addOKToAlert(completionDialog)
-                                Task {@MainActor in
-                                    self.present(completionDialog, animated: true, completion:nil)
-                                }
-                            }
-                        }
+                        self.startPurchaseFlow(product: product)
                     })
                     alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel, handler: nil))
                     
@@ -133,6 +124,18 @@ class TopViewController: UIViewController {
     
     private func addOKToAlert(_ alert: UIAlertController?) {
         alert?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    }
+    
+    private func startPurchaseFlow(product: Product) {
+        Task {
+            await self.viewModel?.purchaseItem(product) { title, message in
+                let completionDialog = self.createSimpleAlert(title, message)
+                self.addOKToAlert(completionDialog)
+                Task {@MainActor in
+                    self.present(completionDialog, animated: true, completion:nil)
+                }
+            }
+        }
     }
     
     private func onClickOrderType(type: OrderType) {
