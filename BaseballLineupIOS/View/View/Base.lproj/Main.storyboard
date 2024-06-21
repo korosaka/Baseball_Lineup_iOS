@@ -65,10 +65,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-ew-REp">
-                                <rect key="frame" x="267" y="777" width="97" height="35"/>
+                                <rect key="frame" x="244.5" y="517" width="119.5" height="35"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="購入/復元">
+                                <buttonConfiguration key="configuration" style="plain" title="全員打ちとは">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -79,7 +79,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tbM-ew-REp" secondAttribute="bottom" constant="50" id="0CJ-ZJ-mOg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rXT-qr-3Qx" secondAttribute="trailing" constant="50" id="28c-Lb-ted"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="top" secondItem="QwL-gl-IBV" secondAttribute="bottom" id="7Et-bo-yZw"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZF-GN-aAW"/>
@@ -87,6 +86,7 @@
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="BSj-vg-yiJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tbM-ew-REp" secondAttribute="trailing" constant="50" id="IuA-cG-emz"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LGT-bf-kDT"/>
+                            <constraint firstItem="tbM-ew-REp" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="UWi-Yv-Ks0"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="60" id="W9O-12-gry"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OP-hb-Btw" secondAttribute="trailing" constant="50" id="aq8-yT-FzP"/>
                             <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="50" id="au5-bn-7od"/>
