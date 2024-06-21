@@ -12,6 +12,7 @@ import StoreKit
 class TopViewModel {
     
     private let productIds = ["all_hitter_rule"]
+    private let allHitterIndex = 0
     
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goOrderScreen" {
@@ -26,7 +27,7 @@ class TopViewModel {
             if products.isEmpty {
                 throw CustomError.noProductError
             } else {
-                completion(.success(products[0]))
+                completion(.success(products[allHitterIndex]))
             }
         } catch {
             completion(.failure(error))
@@ -47,7 +48,7 @@ class TopViewModel {
             guard case .verified(let transaction) = result else {
                 continue
             }
-            if transaction.productID == "all_hitter_rule" {
+            if transaction.productID == productIds[allHitterIndex] {
                 UsingUserDefaults.purchasedSpecial()
                 completion("完了", "購入履歴の復元が完了いたしました。")
                 return
@@ -63,6 +64,7 @@ class TopViewModel {
         var title = ""
         var message = ""
         do {
+            //TODO: handle alert!
             let result = try await product.purchase()
             switch result {
             case let .success(.verified(transaction)):
