@@ -45,6 +45,7 @@ class TopViewModel {
                 title = "完了"
                 message = "購入が完了いたしました。\nありがとうございました。"
             case let .success(.unverified(_, error)):
+                //TODO:
                 break
             case .pending:
                 title = "保留"
@@ -61,6 +62,30 @@ class TopViewModel {
             message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
         }
         completion(title, message)
+    }
+    
+    func getSpecialOrderButttonText(purchased: Bool) -> String {
+        if purchased {
+            return "全員打ち"
+        } else {
+            return "全員打ち(有料)"
+        }
+    }
+    
+    func getSpecialOrderButttonTextColor(purchased: Bool) -> UIColor {
+        if purchased {
+            return .white
+        } else {
+            return .lightGray
+        }
+    }
+    
+    func getSpecialOrderButttonColor(purchased: Bool) -> UIColor {
+        if purchased {
+            return .systemYellow
+        } else {
+            return .gray
+        }
     }
     
 }

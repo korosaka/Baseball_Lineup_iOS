@@ -28,6 +28,7 @@ class TopViewController: UIViewController {
         // Do any additional setup after loading the view.
         viewModel = .init()
         createIndicator()
+        checkPurchasingState()
     }
     
     private func createIndicator() {
@@ -38,6 +39,16 @@ class TopViewController: UIViewController {
             _indicator.color = .systemPink
             view.addSubview(_indicator)
         }
+    }
+    
+    private func checkPurchasingState() {
+        guard let vm = viewModel else { return }
+        let purchased = UsingUserDefaults.isSpecialPurchased
+        specialOrderButton.setTitle(vm.getSpecialOrderButttonText(purchased: purchased), for: .normal)
+        specialOrderButton.isEnabled = purchased
+        purchaseButton.isHidden = purchased
+        specialOrderButton.setTitleColor(vm.getSpecialOrderButttonTextColor(purchased: purchased), for: .normal)
+        specialOrderButton.backgroundColor = vm.getSpecialOrderButttonColor(purchased: purchased)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,13 +70,15 @@ class TopViewController: UIViewController {
     
     
     @IBAction func onClickPurchase(_ sender: Any) {
-        
+        if !isDoneTrackingCheck { return }
         Task {
             var alertDialog: UIAlertController? = nil
             
             await viewModel?.getAllHitterProduct { result in
                 switch result {
                 case .success(let product):
+                    //TODO: set Privacy policy and terms of service
+                    //https://qiita.com/alt_yamamoto/items/334daaa33ff12758d114#%E6%A6%82%E8%A6%81%E6%AC%84%E3%81%AB%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%A8%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%98%E8%BC%89%E3%81%99%E3%82%8B
                     alertDialog = UIAlertController(title:product.displayName, message:"\(product.description) \n\n価格:\(product.displayPrice)\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。", preferredStyle:UIAlertController.Style.alert)
                     
                     alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
