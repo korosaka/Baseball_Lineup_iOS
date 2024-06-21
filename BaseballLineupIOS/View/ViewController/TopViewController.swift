@@ -81,11 +81,13 @@ class TopViewController: UIViewController {
     @IBAction func onClickRestore(_ sender: Any) {
         
         guard !isIndicatorAnimating, let vm = viewModel else { return }
+        indicator?.startAnimating()
         Task {
             await vm.restore { title, message in
                 let completionDialog = self.createSimpleAlert(title, message)
                 self.addOKToAlert(completionDialog)
                 Task {@MainActor in
+                    self.indicator?.stopAnimating()
                     self.checkPurchasingState()
                     self.present(completionDialog, animated: true, completion:nil)
                 }
@@ -94,11 +96,13 @@ class TopViewController: UIViewController {
     }
     
     @IBAction func onClickPurchase(_ sender: Any) {
-        if isIndicatorAnimating { return }
+        guard !isIndicatorAnimating, let vm = viewModel else { return }
+        
+        indicator?.startAnimating()
         Task {
             var alertDialog: UIAlertController? = nil
             
-            await viewModel?.getAllHitterProduct { result in
+            await vm.getAllHitterProduct { result in
                 switch result {
                 case .success(let product):
                     //TODO: set Privacy policy and terms of service
@@ -118,6 +122,7 @@ class TopViewController: UIViewController {
             }
             
             Task {@MainActor in
+                self.indicator?.stopAnimating()
                 guard let _dialog = alertDialog else { return }
                 self.present(_dialog, animated: true, completion:nil)
             }
@@ -135,11 +140,14 @@ class TopViewController: UIViewController {
     }
     
     private func startPurchaseFlow(product: Product) {
+        guard !isIndicatorAnimating, let vm = viewModel else { return }
+        indicator?.startAnimating()
         Task {
-            await self.viewModel?.purchaseItem(product) { title, message in
+            await vm.purchaseItem(product) { title, message in
                 let completionDialog = self.createSimpleAlert(title, message)
                 self.addOKToAlert(completionDialog)
                 Task {@MainActor in
+                    self.indicator?.stopAnimating()
                     self.present(completionDialog, animated: true, completion:nil)
                 }
             }
@@ -147,7 +155,7 @@ class TopViewController: UIViewController {
     }
     
     private func onClickOrderType(type: OrderType) {
-        if isDoneTrackingCheck {
+        if isDoneTrackingCheck, !isIndicatorAnimating {
             showInterstitial()
             performSegue(withIdentifier: "goOrderScreen", sender: type)
         }
