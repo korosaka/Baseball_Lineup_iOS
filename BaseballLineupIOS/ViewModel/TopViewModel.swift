@@ -33,6 +33,32 @@ class TopViewModel {
         }
     }
     
+    func restore(completion: @escaping (String, String) -> Void) async {
+        do {
+            try await AppStore.sync()
+        } catch {
+            Task {@MainActor in
+                completion("エラー", "復元が失敗しました。")
+            }
+            return
+        }
+        
+        for await result in Transaction.currentEntitlements {
+            guard case .verified(let transaction) = result else {
+                continue
+            }
+            if transaction.productID == "all_hitter_rule" {
+                UsingUserDefaults.purchasedSpecial()
+                completion("完了", "購入履歴の復元が完了いたしました。")
+                return
+            }
+        }
+        
+        Task {@MainActor in
+            completion("完了", "対象の購入履歴はありませんでした。")
+        }
+    }
+    
     func purchaseItem(_ product: Product, completion: @escaping (String, String) -> Void) async {
         var title = ""
         var message = ""

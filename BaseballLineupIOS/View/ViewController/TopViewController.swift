@@ -72,6 +72,17 @@ class TopViewController: UIViewController {
     
     
     @IBAction func onClickRestore(_ sender: Any) {
+        guard isDoneTrackingCheck, let vm = viewModel else { return }
+        Task {
+            await vm.restore { title, message in
+                self.checkPurchasingState()
+                let completionDialog = self.createSimpleAlert(title, message)
+                self.addOKToAlert(completionDialog)
+                Task {@MainActor in
+                    self.present(completionDialog, animated: true, completion:nil)
+                }
+            }
+        }
     }
     
     @IBAction func onClickPurchase(_ sender: Any) {
@@ -84,17 +95,15 @@ class TopViewController: UIViewController {
                 case .success(let product):
                     //TODO: set Privacy policy and terms of service
                     //https://qiita.com/alt_yamamoto/items/334daaa33ff12758d114#%E6%A6%82%E8%A6%81%E6%AC%84%E3%81%AB%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%A8%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%98%E8%BC%89%E3%81%99%E3%82%8B
-                    alertDialog = UIAlertController(title:product.displayName, message:"\(product.description) \n\n価格:\(product.displayPrice)\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。", preferredStyle:UIAlertController.Style.alert)
+                    alertDialog = self.createSimpleAlert(product.displayName, "\(product.description) \n\n価格:\(product.displayPrice)\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。")
                     
                     alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
                         (action:UIAlertAction)in
                         
                         Task {
                             await self.viewModel?.purchaseItem(product) { title, message in
-                                let completionDialog = UIAlertController(title: title,
-                                                                         message: message,
-                                                                         preferredStyle: UIAlertController.Style.alert)
-                                completionDialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                let completionDialog = self.createSimpleAlert(title, message)
+                                self.addOKToAlert(completionDialog)
                                 Task {@MainActor in
                                     self.present(completionDialog, animated: true, completion:nil)
                                 }
@@ -104,10 +113,8 @@ class TopViewController: UIViewController {
                     alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel, handler: nil))
                     
                 case .failure(_):
-                    alertDialog = UIAlertController(title: "エラー",
-                                                    message: "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。",
-                                                    preferredStyle: UIAlertController.Style.alert)
-                    alertDialog?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    alertDialog = self.createSimpleAlert("エラー", "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。")
+                    self.addOKToAlert(alertDialog)
                 }
             }
             
@@ -116,6 +123,16 @@ class TopViewController: UIViewController {
                 self.present(_dialog, animated: true, completion:nil)
             }
         }
+    }
+    
+    private func createSimpleAlert(_ title: String, _ message: String) -> UIAlertController {
+        UIAlertController(title: title,
+                          message: message,
+                          preferredStyle: UIAlertController.Style.alert)
+    }
+    
+    private func addOKToAlert(_ alert: UIAlertController?) {
+        alert?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     }
     
     private func onClickOrderType(type: OrderType) {
