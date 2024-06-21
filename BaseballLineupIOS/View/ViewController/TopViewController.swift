@@ -42,6 +42,13 @@ class TopViewController: UIViewController {
         }
     }
     
+    private var isIndicatorAnimating: Bool {
+        get {
+            guard let _indicator = indicator else { return false }
+            return _indicator.isAnimating
+        }
+    }
+    
     private func checkPurchasingState() {
         guard let vm = viewModel else { return }
         let purchased = UsingUserDefaults.isSpecialPurchased
@@ -72,7 +79,8 @@ class TopViewController: UIViewController {
     
     
     @IBAction func onClickRestore(_ sender: Any) {
-        guard isDoneTrackingCheck, let vm = viewModel else { return }
+        
+        guard !isIndicatorAnimating, let vm = viewModel else { return }
         Task {
             await vm.restore { title, message in
                 let completionDialog = self.createSimpleAlert(title, message)
@@ -86,7 +94,7 @@ class TopViewController: UIViewController {
     }
     
     @IBAction func onClickPurchase(_ sender: Any) {
-        if !isDoneTrackingCheck { return }
+        if isIndicatorAnimating { return }
         Task {
             var alertDialog: UIAlertController? = nil
             
