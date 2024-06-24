@@ -102,7 +102,7 @@ class TopViewController: UIViewController {
         Task {
             var alertDialog: UIAlertController? = nil
             
-            await vm.getAllHitterProduct { result in
+            await vm.fetchAllHitterProduct { result in
                 switch result {
                 case .success(let product):
                     //TODO: set Privacy policy and terms of service
@@ -149,7 +149,7 @@ class TopViewController: UIViewController {
         guard !isIndicatorAnimating, let vm = viewModel else { return }
         indicator?.startAnimating()
         Task {
-            await vm.purchaseItem(product) { title, message in
+            await vm.purchaseProduct(product) { title, message in
                 let completionDialog = self.createSimpleAlert(title, message)
                 self.addOKToAlert(completionDialog)
                 Task {@MainActor in

@@ -21,8 +21,7 @@ class TopViewModel {
         }
     }
     
-    //TODO: rename
-    func getAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
+    func fetchAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
         do {
             let products = try await Product.products(for: productIds)
             if products.isEmpty {
@@ -52,7 +51,7 @@ class TopViewModel {
         }
     }
     
-    func purchaseItem(_ product: Product, completion: @escaping (String, String) -> Void) async {
+    func purchaseProduct(_ product: Product, completion: @escaping (String, String) -> Void) async {
         var title = Constants.EMPTY
         var message = Constants.EMPTY
         do {
