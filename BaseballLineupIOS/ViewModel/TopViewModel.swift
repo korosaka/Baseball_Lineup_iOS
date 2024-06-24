@@ -11,7 +11,7 @@ import StoreKit
 
 class TopViewModel {
     
-    private let productIds = ["all_hitter_rule"]
+    private let productIds = [Constants.ALL_HITTER_ID]
     private let allHitterIndex = 0
     
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
@@ -21,6 +21,7 @@ class TopViewModel {
         }
     }
     
+    //TODO: rename
     func getAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
         do {
             let products = try await Product.products(for: productIds)
@@ -38,22 +39,22 @@ class TopViewModel {
         do {
             try await AppStore.sync()
         } catch {
-            completion("エラー", "復元が失敗しました。")
+            completion(Constants.TITLE_ERROR, Constants.FAIL_RESTORE)
             return
         }
         
         let verificationResult = await Transaction.currentEntitlement(for: productIds[allHitterIndex])
         if case .verified = verificationResult {
             UsingUserDefaults.purchasedSpecial()
-            completion("完了", "購入履歴の復元が完了いたしました。")
+            completion(Constants.TITLE_COMPLETE, Constants.SUCCESS_RESTORE)
         } else {
-            completion("完了", "対象の購入履歴はありませんでした。")
+            completion(Constants.TITLE_COMPLETE, Constants.EMPTY_RESTORE)
         }
     }
     
     func purchaseItem(_ product: Product, completion: @escaping (String, String) -> Void) async {
-        var title = ""
-        var message = ""
+        var title = Constants.EMPTY
+        var message = Constants.EMPTY
         do {
             //TODO: handle alert!
             let result = try await product.purchase()
@@ -61,34 +62,34 @@ class TopViewModel {
             case let .success(.verified(transaction)):
                 await transaction.finish()
                 UsingUserDefaults.purchasedSpecial()
-                title = "完了"
-                message = "購入が完了いたしました。\nありがとうございました。"
+                title = Constants.TITLE_COMPLETE
+                message = Constants.SUCCESS_PURCHASE
             case .success(.unverified(_, _)):
                 //TODO: check before release
-                title = "エラー"
-                message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
+                title = Constants.TITLE_ERROR
+                message = Constants.FAIL_PURCHASE
             case .pending:
-                title = "保留"
-                message = "購入は保留されています。"
+                title = Constants.TITLE_PENDING
+                message = Constants.PENDING_PURCHASE
             case .userCancelled:
-                title = "キャンセル"
-                message = "購入は中止されました。"
+                title = Constants.TITLE_CANCEL
+                message = Constants.CANCEL_PURCHASE
             @unknown default:
-                title = "エラー"
-                message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
+                title = Constants.TITLE_ERROR
+                message = Constants.FAIL_PURCHASE
             }
         } catch _ {
-            title = "エラー"
-            message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
+            title = Constants.TITLE_ERROR
+            message = Constants.FAIL_PURCHASE
         }
         completion(title, message)
     }
     
     func getSpecialOrderButttonText(purchased: Bool) -> String {
         if purchased {
-            return "全員打ち"
+            return Constants.ALL_HITTER_AVAILABLE
         } else {
-            return "全員打ち(有料)"
+            return Constants.ALL_HITTER_UNAVAILABLE
         }
     }
     

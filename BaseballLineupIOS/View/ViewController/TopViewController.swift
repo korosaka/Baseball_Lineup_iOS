@@ -107,16 +107,22 @@ class TopViewController: UIViewController {
                 case .success(let product):
                     //TODO: set Privacy policy and terms of service
                     //https://qiita.com/alt_yamamoto/items/334daaa33ff12758d114#%E6%A6%82%E8%A6%81%E6%AC%84%E3%81%AB%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%A8%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%98%E8%BC%89%E3%81%99%E3%82%8B
-                    alertDialog = self.createSimpleAlert(product.displayName, "\(product.description) \n\n価格:\(product.displayPrice)\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。")
+                    let allHitterDescription =
+                    product.description
+                    + Constants.ALL_HITTER_DESC_1
+                    + product.displayPrice
+                    + Constants.ALL_HITTER_DESC_2
                     
-                    alertDialog?.addAction(UIAlertAction(title: "購入手続へ", style:UIAlertAction.Style.default){
+                    alertDialog = self.createSimpleAlert(product.displayName, allHitterDescription)
+                    
+                    alertDialog?.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
                         (action:UIAlertAction)in
                         self.startPurchaseFlow(product: product)
                     })
-                    alertDialog?.addAction(UIAlertAction(title: "キャンセル", style:UIAlertAction.Style.cancel, handler: nil))
+                    alertDialog?.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
                     
                 case .failure(_):
-                    alertDialog = self.createSimpleAlert("エラー", "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。")
+                    alertDialog = self.createSimpleAlert(Constants.TITLE_ERROR, Constants.FAIL_FETCH_PRODUCT)
                     self.addOKToAlert(alertDialog)
                 }
             }
@@ -136,7 +142,7 @@ class TopViewController: UIViewController {
     }
     
     private func addOKToAlert(_ alert: UIAlertController?) {
-        alert?.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert?.addAction(UIAlertAction(title: Constants.OK, style: .default, handler: nil))
     }
     
     private func startPurchaseFlow(product: Product) {
@@ -185,14 +191,14 @@ class TopViewController: UIViewController {
         GADInterstitialAd.load(withAdUnitID: Constants.INTERSTITIAL_ID,
                                request: request,
                                completionHandler: { [self] ad, error in
-                                self.isDoneTrackingCheck = true
-                                indicator?.stopAnimating()
-                                if let error = error {
-                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                                    return
-                                }
-                                interstitial = ad
-                               }
+            self.isDoneTrackingCheck = true
+            indicator?.stopAnimating()
+            if let error = error {
+                print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                return
+            }
+            interstitial = ad
+        }
         )
     }
     
