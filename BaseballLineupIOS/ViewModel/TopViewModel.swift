@@ -63,9 +63,10 @@ class TopViewModel {
                 UsingUserDefaults.purchasedSpecial()
                 title = "完了"
                 message = "購入が完了いたしました。\nありがとうございました。"
-            case let .success(.unverified(_, error)):
-                //TODO:
-                break
+            case .success(.unverified(_, _)):
+                //TODO: check before release
+                title = "エラー"
+                message = "購入に失敗しました。\nまたお時間をおいてお試しください。"
             case .pending:
                 title = "保留"
                 message = "購入は保留されています。"
