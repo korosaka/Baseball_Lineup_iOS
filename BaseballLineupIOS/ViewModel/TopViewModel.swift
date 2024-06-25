@@ -11,9 +11,6 @@ import StoreKit
 
 class TopViewModel {
     
-    private let productIds = [Constants.ALL_HITTER_ID]
-    private let allHitterIndex = 0
-    
     func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goOrderScreen" {
             let tabBarController = segue.destination as! CustomTabBarController
@@ -22,6 +19,9 @@ class TopViewModel {
     }
     
     func fetchAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
+        let productIds = [Constants.ALL_HITTER_ID]
+        guard let allHitterIndex = productIds.firstIndex(of: Constants.ALL_HITTER_ID) else { return }
+        
         do {
             let products = try await Product.products(for: productIds)
             if products.isEmpty {
@@ -42,7 +42,7 @@ class TopViewModel {
             return
         }
         
-        let verificationResult = await Transaction.currentEntitlement(for: productIds[allHitterIndex])
+        let verificationResult = await Transaction.currentEntitlement(for: Constants.ALL_HITTER_ID)
         if case .verified = verificationResult {
             UsingUserDefaults.purchasedSpecial()
             completion(Constants.TITLE_COMPLETE, Constants.SUCCESS_RESTORE)
@@ -55,7 +55,6 @@ class TopViewModel {
         var title = Constants.EMPTY
         var message = Constants.EMPTY
         do {
-            //TODO: handle alert!
             let result = try await product.purchase()
             switch result {
             case let .success(.verified(transaction)):
