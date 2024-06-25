@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OP-hb-Btw">
-                                <rect key="frame" x="50" y="259" width="314" height="46"/>
+                                <rect key="frame" x="50" y="239" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHなし">
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m16-2K-wdV">
-                                <rect key="frame" x="50" y="365" width="314" height="46"/>
+                                <rect key="frame" x="50" y="345" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHあり">
@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-qr-3Qx">
-                                <rect key="frame" x="50" y="471" width="314" height="46"/>
+                                <rect key="frame" x="50" y="451" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="全員打ち">
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-ew-REp">
-                                <rect key="frame" x="244.5" y="547" width="119.5" height="35"/>
+                                <rect key="frame" x="244.5" y="527" width="119.5" height="35"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="全員打ちとは">
@@ -76,7 +76,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSL-to-vff">
-                                <rect key="frame" x="50" y="547" width="104" height="35"/>
+                                <rect key="frame" x="50" y="527" width="104" height="34.5"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="購入を復元">
@@ -86,13 +86,20 @@
                                     <action selector="onClickRestore:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SQX-ME-wMW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※購入が反映されない時は復元ボタンをお試しください。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esr-Ps-nO5">
+                                <rect key="frame" x="50" y="582" width="314" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="esr-Ps-nO5" firstAttribute="top" secondItem="tbM-ew-REp" secondAttribute="bottom" constant="20" id="11u-Lc-fUG"/>
                             <constraint firstItem="oSL-to-vff" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="1YW-Ni-RWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rXT-qr-3Qx" secondAttribute="trailing" constant="50" id="28c-Lb-ted"/>
-                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="80" id="4Es-4I-tGg"/>
+                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="60" id="4Es-4I-tGg"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="top" secondItem="QwL-gl-IBV" secondAttribute="bottom" id="7Et-bo-yZw"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZF-GN-aAW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m16-2K-wdV" secondAttribute="trailing" constant="50" id="9hZ-zs-rq9"/>
@@ -103,12 +110,15 @@
                             <constraint firstItem="tbM-ew-REp" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="UWi-Yv-Ks0"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="60" id="W9O-12-gry"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OP-hb-Btw" secondAttribute="trailing" constant="50" id="aq8-yT-FzP"/>
+                            <constraint firstItem="esr-Ps-nO5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="c60-27-f1C"/>
                             <constraint firstItem="rXT-qr-3Qx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="eDi-rc-dqW"/>
+                            <constraint firstItem="esr-Ps-nO5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="efF-de-l0V"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QwL-gl-IBV" secondAttribute="trailing" id="m9A-mE-i8y"/>
                             <constraint firstItem="rXT-qr-3Qx" firstAttribute="top" secondItem="m16-2K-wdV" secondAttribute="bottom" constant="60" id="tIB-ay-TyF"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="tIp-yA-Wts"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0gK-Og-2hJ" secondAttribute="trailing" id="tSG-gz-WA2"/>
                             <constraint firstItem="4OP-hb-Btw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="thn-JT-cly"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="esr-Ps-nO5" secondAttribute="trailing" constant="50" id="v7d-kl-vfP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nPR-ES-wef"/>
