@@ -37,7 +37,7 @@ class TopViewController: UIViewController {
         if let _indicator = indicator {
             _indicator.center = view.center
             _indicator.style = .large
-            _indicator.color = .systemPink
+            _indicator.color = .green
             view.addSubview(_indicator)
         }
     }
