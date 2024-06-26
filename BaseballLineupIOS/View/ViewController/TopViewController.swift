@@ -23,6 +23,8 @@ class TopViewController: UIViewController {
     @IBOutlet weak var specialOrderButton: UIButton!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var restoreButton: UIButton!
+    @IBOutlet weak var descriptionText1: UILabel!
+    @IBOutlet weak var descriptionText2: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,8 @@ class TopViewController: UIViewController {
         specialOrderButton.isEnabled = purchased
         purchaseButton.isHidden = purchased
         restoreButton.isHidden = purchased
+        descriptionText1.isHidden = purchased
+        descriptionText2.isHidden = purchased
         specialOrderButton.setTitleColor(vm.getSpecialOrderButttonTextColor(purchased: purchased), for: .normal)
         specialOrderButton.backgroundColor = vm.getSpecialOrderButttonColor(purchased: purchased)
     }
