@@ -33,6 +33,7 @@ struct Constants {
     static let TITLE_ERROR = "エラー"
     static let TITLE_PENDING = "保留"
     static let TITLE_CANCEL = "キャンセル"
+    static let TITLE_PURCHASED = "購入済み"
     static let FAIL_RESTORE = "復元が失敗しました。"
     static let SUCCESS_RESTORE = "購入履歴の復元が完了いたしました。"
     static let EMPTY_RESTORE = "対象の購入履歴はありませんでした。"
@@ -40,6 +41,7 @@ struct Constants {
     static let SUCCESS_PURCHASE = "購入が完了いたしました。\nありがとうございました。"
     static let PENDING_PURCHASE = "購入は保留されています。"
     static let CANCEL_PURCHASE = "購入は中止されました。"
+    static let HAD_PURCHASED = "お客様は既に購入済みでした。\n(お支払いは不要です)"
     static let GO_TO_PURCHASE = "購入手続へ"
     static let FAIL_FETCH_PRODUCT = "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。"
     

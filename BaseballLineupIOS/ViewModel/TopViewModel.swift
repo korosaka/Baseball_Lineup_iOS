@@ -54,32 +54,42 @@ class TopViewModel {
     func purchaseProduct(_ product: Product, completion: @escaping (String, String) -> Void) async {
         var title = Constants.EMPTY
         var message = Constants.EMPTY
+        
         do {
-            let result = try await product.purchase()
-            switch result {
-            case let .success(.verified(transaction)):
-                await transaction.finish()
+            try await AppStore.sync()
+            let verificationResult = await Transaction.currentEntitlement(for: Constants.ALL_HITTER_ID)
+            if case .verified = verificationResult {
+                //when user has already purchased before
                 UsingUserDefaults.purchasedSpecial()
-                title = Constants.TITLE_COMPLETE
-                message = Constants.SUCCESS_PURCHASE
-            case .success(.unverified(_, _)):
-                //TODO: check before release
-                title = Constants.TITLE_ERROR
-                message = Constants.FAIL_PURCHASE
-            case .pending:
-                title = Constants.TITLE_PENDING
-                message = Constants.PENDING_PURCHASE
-            case .userCancelled:
-                title = Constants.TITLE_CANCEL
-                message = Constants.CANCEL_PURCHASE
-            @unknown default:
-                title = Constants.TITLE_ERROR
-                message = Constants.FAIL_PURCHASE
+                title = Constants.TITLE_PURCHASED
+                message = Constants.HAD_PURCHASED
+            } else {
+                let result = try await product.purchase()
+                switch result {
+                case let .success(.verified(transaction)):
+                    await transaction.finish()
+                    UsingUserDefaults.purchasedSpecial()
+                    title = Constants.TITLE_COMPLETE
+                    message = Constants.SUCCESS_PURCHASE
+                case .success(.unverified(_, _)):
+                    title = Constants.TITLE_ERROR
+                    message = Constants.FAIL_PURCHASE
+                case .pending:
+                    title = Constants.TITLE_PENDING
+                    message = Constants.PENDING_PURCHASE
+                case .userCancelled:
+                    title = Constants.TITLE_CANCEL
+                    message = Constants.CANCEL_PURCHASE
+                @unknown default:
+                    title = Constants.TITLE_ERROR
+                    message = Constants.FAIL_PURCHASE
+                }
             }
-        } catch _ {
+        } catch {
             title = Constants.TITLE_ERROR
             message = Constants.FAIL_PURCHASE
         }
+        
         completion(title, message)
     }
     
