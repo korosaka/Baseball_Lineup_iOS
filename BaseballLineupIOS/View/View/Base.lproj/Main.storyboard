@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OP-hb-Btw">
-                                <rect key="frame" x="50" y="239" width="314" height="46"/>
+                                <rect key="frame" x="50" y="279" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHなし">
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m16-2K-wdV">
-                                <rect key="frame" x="50" y="345" width="314" height="46"/>
+                                <rect key="frame" x="50" y="375" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="DHあり">
@@ -54,7 +54,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rXT-qr-3Qx">
-                                <rect key="frame" x="50" y="451" width="314" height="46"/>
+                                <rect key="frame" x="50" y="471" width="314" height="46"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="全員打ち">
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-ew-REp">
-                                <rect key="frame" x="244.5" y="527" width="119.5" height="35"/>
+                                <rect key="frame" x="244.5" y="731.5" width="119.5" height="35"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="全員打ちとは">
@@ -76,8 +76,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSL-to-vff">
-                                <rect key="frame" x="50" y="527" width="104" height="34.5"/>
-                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                <rect key="frame" x="50" y="732" width="104" height="34.5"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="購入を復元">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -87,7 +87,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※購入が反映されない時は復元ボタンをお試しください。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esr-Ps-nO5">
-                                <rect key="frame" x="50" y="582" width="314" height="33.5"/>
+                                <rect key="frame" x="50" y="786.5" width="314" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※購入は紫のボタンから可能です。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7A-me-TfA">
+                                <rect key="frame" x="50" y="825" width="200" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,25 +102,27 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="esr-Ps-nO5" firstAttribute="top" secondItem="tbM-ew-REp" secondAttribute="bottom" constant="20" id="11u-Lc-fUG"/>
-                            <constraint firstItem="oSL-to-vff" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="1YW-Ni-RWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rXT-qr-3Qx" secondAttribute="trailing" constant="50" id="28c-Lb-ted"/>
-                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="60" id="4Es-4I-tGg"/>
+                            <constraint firstItem="4OP-hb-Btw" firstAttribute="top" secondItem="0gK-Og-2hJ" secondAttribute="bottom" constant="100" id="4Es-4I-tGg"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="top" secondItem="QwL-gl-IBV" secondAttribute="bottom" id="7Et-bo-yZw"/>
                             <constraint firstItem="0gK-Og-2hJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZF-GN-aAW"/>
+                            <constraint firstItem="X7A-me-TfA" firstAttribute="top" secondItem="esr-Ps-nO5" secondAttribute="bottom" constant="5" id="9hU-7l-X1h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m16-2K-wdV" secondAttribute="trailing" constant="50" id="9hZ-zs-rq9"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="BSj-vg-yiJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tbM-ew-REp" secondAttribute="trailing" constant="50" id="IuA-cG-emz"/>
                             <constraint firstItem="QwL-gl-IBV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LGT-bf-kDT"/>
                             <constraint firstItem="oSL-to-vff" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="MNS-8A-6ed"/>
-                            <constraint firstItem="tbM-ew-REp" firstAttribute="top" secondItem="rXT-qr-3Qx" secondAttribute="bottom" constant="30" id="UWi-Yv-Ks0"/>
-                            <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="60" id="W9O-12-gry"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="X7A-me-TfA" secondAttribute="bottom" constant="20" id="VIL-Z9-mdo"/>
+                            <constraint firstItem="m16-2K-wdV" firstAttribute="top" secondItem="4OP-hb-Btw" secondAttribute="bottom" constant="50" id="W9O-12-gry"/>
+                            <constraint firstItem="esr-Ps-nO5" firstAttribute="top" secondItem="tbM-ew-REp" secondAttribute="bottom" constant="20" id="Y9U-F4-r8p"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4OP-hb-Btw" secondAttribute="trailing" constant="50" id="aq8-yT-FzP"/>
                             <constraint firstItem="esr-Ps-nO5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="c60-27-f1C"/>
                             <constraint firstItem="rXT-qr-3Qx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="eDi-rc-dqW"/>
                             <constraint firstItem="esr-Ps-nO5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="efF-de-l0V"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QwL-gl-IBV" secondAttribute="trailing" id="m9A-mE-i8y"/>
-                            <constraint firstItem="rXT-qr-3Qx" firstAttribute="top" secondItem="m16-2K-wdV" secondAttribute="bottom" constant="60" id="tIB-ay-TyF"/>
+                            <constraint firstItem="X7A-me-TfA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="q7E-gi-MS3"/>
+                            <constraint firstItem="esr-Ps-nO5" firstAttribute="top" secondItem="oSL-to-vff" secondAttribute="bottom" constant="20" id="qdt-sj-I8W"/>
+                            <constraint firstItem="rXT-qr-3Qx" firstAttribute="top" secondItem="m16-2K-wdV" secondAttribute="bottom" constant="50" id="tIB-ay-TyF"/>
                             <constraint firstItem="m16-2K-wdV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="tIp-yA-Wts"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0gK-Og-2hJ" secondAttribute="trailing" id="tSG-gz-WA2"/>
                             <constraint firstItem="4OP-hb-Btw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="thn-JT-cly"/>
@@ -1922,6 +1930,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
