@@ -105,21 +105,53 @@ class TopViewController: UIViewController {
             await vm.fetchAllHitterProduct { result in
                 switch result {
                 case .success(let product):
-                    //TODO: set Privacy policy and terms of service
-                    //https://qiita.com/alt_yamamoto/items/334daaa33ff12758d114#%E6%A6%82%E8%A6%81%E6%AC%84%E3%81%AB%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%A8%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%98%E8%BC%89%E3%81%99%E3%82%8B
+                    
                     let allHitterDescription =
                     product.description
                     + Constants.ALL_HITTER_DESC_1
                     + product.displayPrice
                     + Constants.ALL_HITTER_DESC_2
+                    + "\n\n"
+                    + Constants.PRIVACY_POLICY
+                    + "\n\n"
+                    + Constants.TERMS_OF_USE
                     
-                    alertDialog = self.createSimpleAlert(product.displayName, allHitterDescription)
-                    
-                    alertDialog?.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
-                        (action:UIAlertAction)in
-                        self.startPurchaseFlow(product: product)
-                    })
-                    alertDialog?.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
+                    Task {@MainActor in
+                        //To make the link interactive, UITextView is used within UIAlertController
+                        let textView = UITextView()
+                        textView.isEditable = false
+                        textView.isScrollEnabled = false
+                        textView.dataDetectorTypes = .link
+                        
+                        let attributedString = NSMutableAttributedString(string: allHitterDescription)
+                        
+                        attributedString.addAttribute(.link,
+                                                      value: URL(string: Constants.PRIVACY_POLICY_URL)!,
+                                                      range: NSString(string: allHitterDescription).range(of: Constants.PRIVACY_POLICY))
+                        
+                        attributedString.addAttribute(.link,
+                                                      value: URL(string: Constants.TERMS_OF_USE_URL)!,
+                                                      range: NSString(string: allHitterDescription).range(of: Constants.TERMS_OF_USE))
+                        
+                        textView.attributedText = attributedString
+                        
+                        alertDialog = self.createSimpleAlert(product.displayName, Constants.EMPTY)
+                        guard let  _dialog = alertDialog else { return }
+                        
+                        _dialog.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
+                            (action:UIAlertAction)in
+                            self.startPurchaseFlow(product: product)
+                        })
+                        _dialog.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
+                        _dialog.view.addSubview(textView)
+                        textView.translatesAutoresizingMaskIntoConstraints = false
+                        textView.centerXAnchor.constraint(equalTo: _dialog.view.centerXAnchor).isActive = true
+                        textView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+                        textView.widthAnchor.constraint(equalToConstant: 220).isActive = true
+                        textView.topAnchor.constraint(equalTo: _dialog.view.topAnchor, constant: 50).isActive = true
+                        textView.bottomAnchor.constraint(equalTo: _dialog.view.bottomAnchor, constant: -50).isActive = true
+                        textView.backgroundColor = .clear
+                    }
                     
                 case .failure(_):
                     alertDialog = self.createSimpleAlert(Constants.TITLE_ERROR, Constants.FAIL_FETCH_PRODUCT)

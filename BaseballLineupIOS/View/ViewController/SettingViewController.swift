@@ -19,8 +19,8 @@ class SettingViewController: UIViewController {
     
     private func registerPolicyLink() {
         //MARK: ref: https://qiita.com/shtnkgm/items/3c8b6b794219fbf087ba
-        let baseString = "プライバシーポリシー"
-        let policyURL = "https://korosaka.github.io/privacy_policy_for_baseball_lineup_ios/"
+        let baseString = Constants.PRIVACY_POLICY
+        let policyURL = Constants.PRIVACY_POLICY_URL
         let attributedString = NSMutableAttributedString(string: baseString)
         attributedString.addAttribute(.link,
                                       value: policyURL,

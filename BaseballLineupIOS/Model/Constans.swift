@@ -49,4 +49,10 @@ struct Constants {
     static let ALL_HITTER_UNAVAILABLE = "全員打ち(有料)"
     static let ALL_HITTER_DESC_1 = "\n\n価格:"
     static let ALL_HITTER_DESC_2 = "\n買い切りですので支払いは1度きりです。\nサブスクではありませんのでご安心ください。"
+    
+    //Policy
+    static let PRIVACY_POLICY = "プライバシーポリシー"
+    static let PRIVACY_POLICY_URL = "https://korosaka.github.io/privacy_policy_for_baseball_lineup_ios/"
+    static let TERMS_OF_USE = "利用規約"
+    static let TERMS_OF_USE_URL = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
 }
