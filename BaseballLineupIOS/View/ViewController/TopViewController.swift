@@ -191,6 +191,7 @@ class TopViewController: UIViewController {
                 Task {@MainActor in
                     self.indicator?.stopAnimating()
                     self.present(completionDialog, animated: true, completion:nil)
+                    self.checkPurchasingState()
                 }
             }
         }
