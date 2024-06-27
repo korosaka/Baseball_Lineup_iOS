@@ -26,13 +26,14 @@ class OrderViewModel {
     var targetOrderNum = OrderNum(order: 0)
     
     func getOrdeSize() -> Int {
-        switch orderType {
+        guard let _orderType = orderType else { return 0 }
+        switch _orderType {
         case .Normal:
-            return 9
+            return cacheData?.startingOrderNormal.count ?? 0
         case .DH:
-            return 10
-        default:
-            return 0
+            return cacheData?.startingOrderDH.count ?? 0
+        case .Special:
+            return cacheData?.startingOrderSpecial.count ?? 0
         }
     }
     
@@ -61,16 +62,22 @@ class OrderViewModel {
     }
     
     func exchangeStartingPlayers() {
-        cacheData!.exchangeStartingOrder(orderType: orderType!, num1: firstSelectedNum!, num2: secondSelectedNum!)
         
-        let result = helper!.inDatabase{(db) in
-            let player1 = cacheData!.getStartingOrder(orderType: orderType!)[firstSelectedNum!.index]
-            let player2 = cacheData!.getStartingOrder(orderType: orderType!)[secondSelectedNum!.index]
-            try updateStartingTable(db, orderNum: firstSelectedNum!, newData: player1)
-            try updateStartingTable(db, orderNum: secondSelectedNum!, newData: player2)
-        }
-        if !result {
-            print("DB Error happened!!!!!!!!")
+        if let _helper = helper,
+           let _cacheData = cacheData,
+           let _orderType = orderType,
+           let firstSelect = firstSelectedNum,
+           let secondSelect = secondSelectedNum {
+            let result = _helper.inDatabase{(db) in
+                let player1 = _cacheData.getStartingOrder(orderType: _orderType)[firstSelect.index]
+                let player2 = _cacheData.getStartingOrder(orderType: _orderType)[secondSelect.index]
+                try updateStartingTable(db, orderNum: firstSelect, newData: player2)
+                try updateStartingTable(db, orderNum: secondSelect, newData: player1)
+            }
+            
+            if result {
+                _cacheData.exchangeStartingOrder(orderType: _orderType, num1: firstSelect, num2: secondSelect)
+            }
         }
         
         resetData()
@@ -78,34 +85,115 @@ class OrderViewModel {
         delegate?.setUIDefault()
     }
     
+    func addOrder() {
+        guard let _orderType = orderType,
+              _orderType == .Special,
+              let _helper = helper,
+              let playersCount = cacheData?.getStartingOrder(orderType: _orderType).count,
+              playersCount < Constants.MAX_PLAYERS_NUMBER_SPECIAL else { return }
+        
+        let emptyPlayer = StartingPlayer()
+        
+        let result = _helper.inDatabase{(db) in
+            try insertSpecialTable(db, newData: emptyPlayer, order: playersCount + 1)
+        }
+        
+        if result {
+            cacheData?.addStartingPlayer(type: _orderType, player: emptyPlayer)
+        }
+    }
+    
+    private func insertSpecialTable(_ db: Database, newData: StartingPlayer, order: Int) throws {
+        guard orderType == .Special else { return }
+        
+        let playerSpecial = StartingSpecialTable(order: order, position: newData.position.description, name: newData.name.original)
+        
+        try playerSpecial.insert(db)
+    }
+    
+    
+    
+    func deleteOrder() {
+        guard let _orderType = orderType,
+              _orderType == .Special,
+              let _helper = helper,
+              let lastOrder = cacheData?.getStartingOrder(orderType: _orderType).count,
+              lastOrder > Constants.MIN_PLAYERS_NUMBER_SPECIAL else { return }
+        
+        let targetId = String(lastOrder)
+        let result = _helper.inDatabase{(db) in
+            try deleteOrder(db, id: targetId)
+        }
+        
+        if result {
+            cacheData?.deleteStartingPlayer(type: _orderType)
+        }
+    }
+    
+    private func deleteOrder(_ db: Database, id: String) throws {
+        guard orderType == .Special else { return }
+        
+        let player = try StartingSpecialTable.fetchOne(db, key: id)
+        try player?.delete(db)
+    }
+    
+    func shouldRemoveDH() -> Bool {
+        guard let _orderType = orderType, _orderType == .Special,
+              let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+        return players.count < Constants.PLAYERS_NUMBER_DH
+    }
+    
+    func shouldAddDH() -> Bool {
+        guard let _orderType = orderType, _orderType == .Special,
+              let players = cacheData?.getStartingOrder(orderType: _orderType) else { return false }
+        return players.count == Constants.PLAYERS_NUMBER_DH
+    }
+    
     func getPickerNum() -> Int {
-        switch orderType {
+        guard let _orderType = orderType else { return 0 }
+        let excludeDH = Position.Right.indexForOrder + 1
+        let includeDH = Position.DH.indexForOrder + 1
+        
+        switch _orderType {
         case .Normal:
-            return 10
+            return excludeDH
         case .DH:
-            return 11
-        default:
-            return 0
+            return includeDH
+        case .Special:
+            guard let playersNum =
+                    cacheData?.getStartingOrder(orderType: _orderType).count else { return 0 }
+            if playersNum > Constants.MIN_PLAYERS_NUMBER_SPECIAL {
+                return includeDH
+            } else {
+                return excludeDH
+            }
         }
     }
     
     func fetchData() {
-        cacheData!.fetchOrderFromDB(orderType!, helper!)
+        guard let _helper = helper,
+              let _cacheData = cacheData,
+              let _orderType = orderType else { return }
+        _cacheData.fetchOrderFromDB(_orderType, _helper)
     }
     
     func overWriteStatingPlayer() {
+        guard let _helper = helper,
+              let _cacheData = cacheData,
+              let _orderType = orderType else { return }
+        
         let newPlayer = StartingPlayer(position: selectedPosition,
                                        name: PlayerName(original: writtenName))
         
-        cacheData!.overWriteStartingPlayer(type: orderType!,
-                                           orderNum: targetOrderNum,
-                                           player: newPlayer)
-        
-        let result = helper!.inDatabase{(db) in
+        let result = _helper.inDatabase{(db) in
             try updateStartingTable(db, orderNum: targetOrderNum, newData: newPlayer)
         }
         
-        if !result {
+        if result {
+            _cacheData.overWriteStartingPlayer(type: _orderType,
+                                               orderNum: targetOrderNum,
+                                               player: newPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
     }
@@ -122,6 +210,11 @@ class OrderViewModel {
             playerDH?.position = newData.position.description
             playerDH?.name = newData.name.original
             try playerDH?.update(db)
+        case.Special:
+            let playerSpecial = try StartingSpecialTable.fetchOne(db, key: orderNum.order)
+            playerSpecial?.position = newData.position.description
+            playerSpecial?.name = newData.name.original
+            try playerSpecial?.update(db)
         default:
             return
         }
@@ -159,15 +252,15 @@ class OrderViewModel {
     }
     
     func isDHPitcher(orderNum: OrderNum) -> Bool {
-        return (orderNum.order == 10) && (orderType == .DH)
+        return (orderNum.order == Constants.SUPPOSED_DHP_ORDER) && (orderType == .DH)
     }
     
-    func isDHFielder() -> Bool {
-        return (targetOrderNum.order != 10) && (orderType == .DH)
+    func isHitterWhenDH() -> Bool {
+        return (targetOrderNum.order != Constants.SUPPOSED_DHP_ORDER) && (orderType == .DH)
     }
 }
 
-protocol OrderVMDelegate: class {
+protocol OrderVMDelegate: AnyObject {
     func prepareRegistering(selectedNum: OrderNum)
     func reloadOrder()
     func setUIDefault()

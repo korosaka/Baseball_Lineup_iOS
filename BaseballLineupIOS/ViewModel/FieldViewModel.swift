@@ -10,72 +10,120 @@ import Foundation
 import UIKit
 
 class FieldViewModel {
+    enum PositionInField {
+        case Pitcher, Catcher, First, Second, Third, Short, Left, Center, Right, DH1, DH2, DH3, DH4, DH5, DH6
+        
+        var index: Int {
+            switch self {
+            case .Pitcher:
+                return 0
+            case .Catcher:
+                return 1
+            case .First:
+                return 2
+            case .Second:
+                return 3
+            case .Third:
+                return 4
+            case .Short:
+                return 5
+            case .Left:
+                return 6
+            case .Center:
+                return 7
+            case .Right:
+                return 8
+            case .DH1:
+                return 9
+            case .DH2:
+                return 10
+            case .DH3:
+                return 11
+            case .DH4:
+                return 12
+            case .DH5:
+                return 13
+            case .DH6:
+                return 14
+            }
+        }
+        
+        var count: Int {
+            return self.index + 1
+        }
+    }
+    
     var orderType: OrderType?
     var cacheData: CacheOrderData?
     
-    private var orderNums = [String]()
-    private var playerNames = [String]()
-    
-    init() {
-        let maxPlayerNum = 10
-        for _ in 0..<maxPlayerNum {
-            orderNums.append(Constants.NO_NUM_FOR_FIELD)
-            playerNames.append(Constants.NOT_REGISTERED)
-        }
-    }
-    private func clearData() {
-        for index in 0..<orderNums.count {
-            orderNums[index] = Constants.NO_NUM_FOR_FIELD
-        }
-        for index in 0..<playerNames.count {
-            playerNames[index] = Constants.NOT_REGISTERED
-        }
-    }
+    private var playersInField = [PlayerInfoForField]()
     
     func loadOrderInfo() {
-        clearData()
         guard let _orderType = orderType,
               let _cacheData = cacheData
         else { return }
         
-        let playerNum = _orderType == .DH ? 10 : 9
-        let playersInfo = _cacheData.getStartingOrder(orderType: _orderType)
+        let cachedPlayersInfo = _cacheData.getStartingOrder(orderType: _orderType)
         
-        for order in 1...playerNum {
+        appendEmptyPlayers(cachedPlayersInfo.count)
+        
+        var dhCounter = 0
+        let firstHitterOrder = 1
+        if cachedPlayersInfo.count < Constants.MIN_PLAYERS_NUMBER_SPECIAL { return } //to avoid unexpected bugs
+        for order in firstHitterOrder...cachedPlayersInfo.count {
             let orderNum = OrderNum(order: order)
-            let player = playersInfo[orderNum.index]
-            switch player.position {
+            let cachedPlayerInfo = cachedPlayersInfo[orderNum.index]
+            switch cachedPlayerInfo.position {
             case .Non:
                 print("do nothing")
             case .Pitcher:
-                let pitcherFieldIndex = 0
                 if _orderType == .DH {
-                    orderNums[pitcherFieldIndex] = Constants.DH_PITCHER_NUM
+                    playersInField[PositionInField.Pitcher.index].orderNum = Constants.DH_PITCHER_NUM
                 } else {
-                    orderNums[pitcherFieldIndex] = orderNum.forFieldDisplay
+                    playersInField[PositionInField.Pitcher.index].orderNum = orderNum.forFieldDisplay
                 }
-                playerNames[pitcherFieldIndex] = player.name.forDisplay
-            //MARK: TODO when implementing ALL HITTER, the code must be fixed
-            default:
-                if player.position.index < 1 { return }
-                //MARK: this index is different from Position.index (shifting by 1 for some reasons...)
-                let positionFieldIndex = player.position.index - 1
-                orderNums[positionFieldIndex] = orderNum.forFieldDisplay
-                playerNames[positionFieldIndex] = player.name.forDisplay
+                playersInField[PositionInField.Pitcher.index].playerName = cachedPlayerInfo.name.forDisplay
+            case .DH:
+                let isNonDHCase = playersInField.count < Constants.PLAYERS_NUMBER_DH
+                if isNonDHCase { continue }
                 
+                var index = PositionInField.DH1.index + dhCounter
+                dhCounter += 1
+                
+                //when more DH hitters are registered than DH positions
+                if index >= playersInField.count {
+                    let lastDHIndex = playersInField.count - 1
+                    index = lastDHIndex
+                }
+                
+                playersInField[index].orderNum = orderNum.forFieldDisplay
+                playersInField[index].playerName = cachedPlayerInfo.name.forDisplay
+            default:
+                if cachedPlayerInfo.position.indexForOrder < Position.Pitcher.indexForOrder { return }
+                ///This index is different from Position.index (shifting by 1 for because there is "No-Pisition" in Position, but not in PositionInField)
+                let positionFieldIndex = cachedPlayerInfo.position.indexForOrder - 1
+                playersInField[positionFieldIndex].orderNum = orderNum.forFieldDisplay
+                playersInField[positionFieldIndex].playerName = cachedPlayerInfo.name.forDisplay
             }
+        }
+    }
+    
+    private func appendEmptyPlayers(_ playersCount: Int) {
+        playersInField.removeAll()
+        for _ in 0..<playersCount {
+            playersInField.append(createEmptyPlayer())
         }
     }
     
     func getNameLabelColor(_ index: Int) -> UIColor {
         switch index {
-        case 0:
+        case PositionInField.Pitcher.index:
             return UIColor.pitcherColor
-        case 1:
+        case PositionInField.Catcher.index:
             return UIColor.catcherColor
-        case 2...5:
+        case PositionInField.First.index...PositionInField.Short.index:
             return UIColor.infielderColor
-        case 6...8:
+        case PositionInField.Left.index...PositionInField.Right.index:
             return UIColor.outfielderColor
         default:
             return UIColor.dhColor
@@ -83,10 +131,24 @@ class FieldViewModel {
     }
     
     func getPlayerName(_ positionFieldIndex: Int) -> String {
-        return playerNames[positionFieldIndex]
+        return playersInField[positionFieldIndex].playerName
     }
     
     func getOrderNum(_ positionFieldIndex: Int) -> String {
-        return orderNums[positionFieldIndex]
+        return playersInField[positionFieldIndex].orderNum
+    }
+    
+    func getPlayersCount() -> Int {
+        return playersInField.count
+    }
+    
+    private struct PlayerInfoForField {
+        var orderNum: String
+        var playerName: String
+    }
+    
+    private func createEmptyPlayer() -> PlayerInfoForField {
+        return PlayerInfoForField(orderNum: Constants.NO_NUM_FOR_FIELD,
+                                  playerName: Constants.NOT_REGISTERED)
     }
 }

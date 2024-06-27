@@ -32,6 +32,9 @@
 		888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BC24C2613BF6A004D49FE /* BaseADViewController.swift */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
 		888F313226072001000CE0AB /* CustomedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F313126072001000CE0AB /* CustomedColor.swift */; };
+		B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */; };
+		B2DF26722C240BED0004D941 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DF26712C240BED0004D941 /* StoreKit.framework */; };
+		B2DF26742C2413390004D941 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B2DF26732C2413390004D941 /* StoreConfiguration.storekit */; };
 		CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,9 @@
 		888BC24C2613BF6A004D49FE /* BaseADViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseADViewController.swift; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		888F313126072001000CE0AB /* CustomedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedColor.swift; sourceTree = "<group>"; };
+		B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsingUserDefaults.swift; sourceTree = "<group>"; };
+		B2DF26712C240BED0004D941 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B2DF26732C2413390004D941 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = StoreConfiguration.storekit; path = BaseballLineupIOS/StoreConfiguration.storekit; sourceTree = "<group>"; };
 		B90DC2B9007AB3A665140DA9 /* Pods-BaseballLineupIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseballLineupIOS.debug.xcconfig"; path = "Target Support Files/Pods-BaseballLineupIOS/Pods-BaseballLineupIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaseballLineupIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1D2CE0CACE588DB52EB430 /* Pods_BaseballLineupIOS.framework in Frameworks */,
+				B2DF26722C240BED0004D941 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +90,7 @@
 		0D9F13E55E470BA0F7E15421 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2DF26712C240BED0004D941 /* StoreKit.framework */,
 				C637DDB23114960271C88B76 /* Pods_BaseballLineupIOS.framework */,
 			);
 			name = Frameworks;
@@ -105,6 +113,7 @@
 				884CEBC6257390270020C932 /* StartingOrderTable.swift */,
 				884CEBCC2573B2EC0020C932 /* DatabaseHelper.swift */,
 				887DA0102589B838003E237E /* SubOrderTable.swift */,
+				B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,6 +167,7 @@
 		886B35122550617C0056AB86 = {
 			isa = PBXGroup;
 			children = (
+				B2DF26732C2413390004D941 /* StoreConfiguration.storekit */,
 				886B351D2550617C0056AB86 /* BaseballLineupIOS */,
 				886B351C2550617C0056AB86 /* Products */,
 				30208541CC82CB0ACAD48DFC /* Pods */,
@@ -251,6 +261,7 @@
 				886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */,
 				886B35282550617D0056AB86 /* Assets.xcassets in Resources */,
 				886B35262550617C0056AB86 /* Main.storyboard in Resources */,
+				B2DF26742C2413390004D941 /* StoreConfiguration.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +328,7 @@
 				8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */,
 				887DA0112589B838003E237E /* SubOrderTable.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
+				B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,
 				884CEBC7257390270020C932 /* StartingOrderTable.swift in Sources */,
 				88764A8625F4810500FA76EB /* SettingViewController.swift in Sources */,
@@ -400,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -454,7 +466,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -470,14 +482,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202404091;
+				CURRENT_PROJECT_VERSION = 202406271;
 				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ciccc.ca.korosaka.BaseballLineupIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -491,14 +503,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202404091;
+				CURRENT_PROJECT_VERSION = 202406271;
 				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ciccc.ca.korosaka.BaseballLineupIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

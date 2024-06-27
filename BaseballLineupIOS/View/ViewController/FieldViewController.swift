@@ -66,13 +66,7 @@ class FieldViewController: BaseADViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let orderType = viewModel?.orderType else {
-            return
-        }
-        if orderType == .DH {
-            dh1Num.isHidden = false
-            dh1Name.isHidden = false
-        }
+        
         putUILabelsIntoArray()
         customNameLabelDesign()
         customNumLabelDesign()
@@ -81,9 +75,33 @@ class FieldViewController: BaseADViewController {
         bannerAD.rootViewController = self
     }
     
+    private func showHideDHLabels(_ orderType: OrderType) {
+        switch orderType {
+        case .Normal:
+            return
+        case .DH:
+            dh1Num.isHidden = false
+            dh1Name.isHidden = false
+        case .Special:
+            guard let playersCount = viewModel?.getPlayersCount() else { return }
+            let dhIndexRange = FieldViewModel.PositionInField.DH1.index...FieldViewModel.PositionInField.DH6.index
+            for dhIndex in dhIndexRange {
+                let isAvailableIndex = dhIndex < playersCount
+                nameLabels[dhIndex].isHidden = !isAvailableIndex
+                orderNumLabels[dhIndex].isHidden = !isAvailableIndex
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        guard let orderType = viewModel?.orderType else {
+            return
+        }
+        
         viewModel?.loadOrderInfo()
+        showHideDHLabels(orderType)
         displayOrder()
     }
     
@@ -103,6 +121,11 @@ class FieldViewController: BaseADViewController {
         nameLabels.append(centerName)
         nameLabels.append(rightName)
         nameLabels.append(dh1Name)
+        nameLabels.append(dh2Name)
+        nameLabels.append(dh3Name)
+        nameLabels.append(dh4Name)
+        nameLabels.append(dh5Name)
+        nameLabels.append(dh6Name)
         
         orderNumLabels.append(pitcherNum)
         orderNumLabels.append(catcherNum)
@@ -114,6 +137,11 @@ class FieldViewController: BaseADViewController {
         orderNumLabels.append(centerNum)
         orderNumLabels.append(rightNum)
         orderNumLabels.append(dh1Num)
+        orderNumLabels.append(dh2Num)
+        orderNumLabels.append(dh3Num)
+        orderNumLabels.append(dh4Num)
+        orderNumLabels.append(dh5Num)
+        orderNumLabels.append(dh6Num)
     }
     
     private func customNameLabelDesign() {
@@ -146,7 +174,7 @@ class FieldViewController: BaseADViewController {
     
     private func displayOrder() {
         guard let vm = viewModel else { return }
-        for index in 0..<nameLabels.count {
+        for index in 0..<vm.getPlayersCount() {
             nameLabels[index].text = vm.getPlayerName(index)
             orderNumLabels[index].text = vm.getOrderNum(index)
         }
