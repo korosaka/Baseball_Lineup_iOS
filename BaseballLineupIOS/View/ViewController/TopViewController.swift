@@ -142,6 +142,9 @@ class TopViewController: UIViewController {
                         alertDialog = self.createSimpleAlert(product.displayName, Constants.EMPTY)
                         guard let  _dialog = alertDialog else { return }
                         
+                        //TODO: this is the temporary dealing (should be dealt depending on Light/Dark mode)
+                        _dialog.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.darkGray
+                        
                         _dialog.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
                             (action:UIAlertAction)in
                             self.startPurchaseFlow(product: product)
