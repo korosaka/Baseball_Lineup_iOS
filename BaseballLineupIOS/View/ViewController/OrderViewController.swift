@@ -247,13 +247,14 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
+        guard let vm = viewModel else { return }
         // MARK: prevent set position P to fielder in DH
-        if (viewModel!.isHitterWhenDH()) && (row == Position.Pitcher.indexForOrder) {
-            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.indexForOrder])
+        if (vm.isHitterWhenDH()) && (row == Position.Pitcher.indexForOrder) {
+            vm.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.indexForOrder])
             pickerView.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
             return
         }
-        viewModel?.selectedPosition = Position(description: Constants.POSITIONS[row])
+        vm.selectedPosition = Position(description: Constants.POSITIONS[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
