@@ -171,8 +171,10 @@ class OrderViewModel {
     }
     
     func fetchData() {
-        //TODO: don't use forced unwrapping
-        cacheData!.fetchOrderFromDB(orderType!, helper!)
+        guard let _helper = helper,
+              let _cacheData = cacheData,
+              let _orderType = orderType else { return }
+        _cacheData.fetchOrderFromDB(_orderType, _helper)
     }
     
     func overWriteStatingPlayer() {
