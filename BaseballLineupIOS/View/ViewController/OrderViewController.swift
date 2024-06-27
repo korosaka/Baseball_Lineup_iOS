@@ -20,6 +20,11 @@ class OrderViewController: BaseADViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var exchangeButton: UIButton!
+    
+    //For All Hitter
+    @IBOutlet weak var addOrderButton: UIButton!
+    @IBOutlet weak var deleteOrderButton: UIButton!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
     
@@ -38,6 +43,8 @@ class OrderViewController: BaseADViewController {
     @IBAction func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
+        addOrderButton.isEnabled = false
+        deleteOrderButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
@@ -48,6 +55,30 @@ class OrderViewController: BaseADViewController {
             viewModel?.overWriteStatingPlayer()
             orderTable.reloadData()
             setDefaultUIState()
+        }
+    }
+    
+    
+    @IBAction func onClickAdd(_ sender: Any) {
+        guard let vm = viewModel else { return }
+        
+        vm.addOrder()
+        reloadOrder()
+        
+        if vm.shouldAddDH() {
+            positionPicker.reloadAllComponents()
+        }
+    }
+    
+    
+    @IBAction func onClickDelete(_ sender: Any) {
+        guard let vm = viewModel else { return }
+        
+        vm.deleteOrder()
+        reloadOrder()
+        
+        if vm.shouldRemoveDH() {
+            positionPicker.reloadAllComponents()
         }
     }
     
@@ -80,6 +111,13 @@ class OrderViewController: BaseADViewController {
         
         bannerAD.adUnitID = Constants.BANNER_ID
         bannerAD.rootViewController = self
+        
+        if viewModel?.orderType == .Special {
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        } else {
+            addOrderButton.isHidden = true
+            deleteOrderButton.isHidden = true
+        }
     }
     
     override func loadBannerAd() {
@@ -89,7 +127,7 @@ class OrderViewController: BaseADViewController {
     
     func setDefaultUIState() {
         numlabel.text = Constants.NO_NUM
-        positionPicker.selectRow(Position.Non.index, inComponent: 0, animated: true)
+        positionPicker.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
         setItemsEnabled(false)
         nameTextField.placeholder = "打順を選択してください"
@@ -106,12 +144,16 @@ class OrderViewController: BaseADViewController {
         cancelButton.isEnabled = isInput
         registerButton.isEnabled = isInput
         exchangeButton.isEnabled = !isInput
+        addOrderButton.isEnabled = !isInput
+        deleteOrderButton.isEnabled = !isInput
     }
     
     func prepareToExchangeWithSub() {
         setDefaultUIState()
         reloadOrder()
         exchangeButton.isEnabled = false
+        addOrderButton.isEnabled = false
+        deleteOrderButton.isEnabled = false
         cancelButton.isEnabled = true
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
@@ -166,11 +208,11 @@ extension OrderViewController: OrderVMDelegate {
         viewModel?.selectedPosition = currentPlayer.position
         setItemsEnabled(true)
         if viewModel!.isDHPitcher(orderNum: selectedNum) {
-            positionPicker.selectRow(Position.Pitcher.index, inComponent: 0, animated: true)
+            positionPicker.selectRow(Position.Pitcher.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
-            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.index])
+            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.indexForOrder])
         } else {
-            positionPicker.selectRow(currentPlayer.position.index, inComponent: 0, animated: true)
+            positionPicker.selectRow(currentPlayer.position.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = true
         }
         
@@ -205,13 +247,14 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
+        guard let vm = viewModel else { return }
         // MARK: prevent set position P to fielder in DH
-        if (viewModel!.isDHFielder()) && (row == Position.Pitcher.index) {
-            viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.index])
-            pickerView.selectRow(Position.Non.index, inComponent: 0, animated: true)
+        if (vm.isHitterWhenDH()) && (row == Position.Pitcher.indexForOrder) {
+            vm.selectedPosition = Position(description: Constants.POSITIONS[Position.Non.indexForOrder])
+            pickerView.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
             return
         }
-        viewModel?.selectedPosition = Position(description: Constants.POSITIONS[row])
+        vm.selectedPosition = Position(description: Constants.POSITIONS[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {

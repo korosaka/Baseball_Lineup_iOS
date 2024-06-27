@@ -10,6 +10,12 @@ import Foundation
 struct StartingPlayer {
     var position: Position
     var name: PlayerName
+    
+    init(position: Position = Position.Non,
+         name: PlayerName = PlayerName()) {
+        self.position = position
+        self.name = name
+    }
 }
 
 struct SubPlayer {
@@ -51,7 +57,7 @@ struct OrderNum {
 }
 
 enum OrderType {
-    case Normal, DH
+    case Normal, DH, Special
 }
 
 // MARK: should use extention String,,,,,?
@@ -63,6 +69,10 @@ struct PlayerName {
         } else {
             return original
         }
+    }
+    
+    init(original: String = Constants.EMPTY) {
+        self.original = original
     }
 }
 
@@ -97,11 +107,13 @@ enum Position {
     }
     
     var description: String {
-        return Constants.POSITIONS[index]
+        return Constants.POSITIONS[indexForOrder]
     }
     
-    var index: Int {
+    var indexForOrder: Int {
         switch self {
+        case .Non:
+            return 0
         case .Pitcher:
             return 1
         case .Catcher:
@@ -122,8 +134,6 @@ enum Position {
             return 9
         case .DH:
             return 10
-        default:
-            return 0
         }
     }
 }
@@ -131,25 +141,26 @@ enum Position {
 class CacheOrderData {
     var startingOrderNormal = [StartingPlayer]()
     var startingOrderDH = [StartingPlayer]()
+    var startingOrderSpecial = [StartingPlayer]()
     var subOrderNormal = [SubPlayer]()
     var subOrderDH = [SubPlayer]()
-    let indexDHP = 9
-    
+    var subOrderSpecial = [SubPlayer]()
+    let indexForDHP = Constants.SUPPOSED_DHP_ORDER - 1
+    //
     func fetchOrderFromDB(_ orderType: OrderType, _ helper: DatabaseHelper) {
         let result = helper.inDatabase{(db) in
             switch orderType {
             case .Normal:
                 startingOrderNormal.removeAll()
-                for order in 1...9 {
+                for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_NORMAL {
                     let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
                     if playerNormal != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerNormal!.position),
                                                             name: PlayerName(original: playerNormal!.name))
                         startingOrderNormal.append(startingPlayer)
                     } else {
-                        let emptyPlayer = StartingPlayer(position: Position.Non,
-                                                         name: PlayerName(original: Constants.EMPTY))
-                        startingOrderNormal.append(emptyPlayer)
+                        //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
+                        startingOrderNormal.append(StartingPlayer())
                     }
                 }
                 
@@ -168,16 +179,15 @@ class CacheOrderData {
                 
             case .DH:
                 startingOrderDH.removeAll()
-                for order in 1...10 {
+                for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_DH {
                     let playerDH = try StartingDHTable.fetchOne(db, key: order)
                     if playerDH != nil {
                         let startingPlayer = StartingPlayer(position: Position(description: playerDH!.position),
                                                             name: PlayerName(original: playerDH!.name))
                         startingOrderDH.append(startingPlayer)
                     } else {
-                        let emptyPlayer = StartingPlayer(position: Position.Non,
-                                                         name: PlayerName(original: Constants.EMPTY))
-                        startingOrderDH.append(emptyPlayer)
+                        //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
+                        startingOrderDH.append(StartingPlayer())
                     }
                 }
                 
@@ -193,6 +203,32 @@ class CacheOrderData {
                                               isFielder: resultSub.is_fielder)
                     subOrderDH.append(subPlayer)
                 }
+            case .Special:
+                startingOrderSpecial.removeAll()
+                for order in Constants.ORDER_FIRST...Constants.MAX_PLAYERS_NUMBER_SPECIAL {
+                    do {
+                        let playerSpecial = try StartingSpecialTable.fetchOne(db, key: order)
+                        guard let player = playerSpecial else { break }
+                        let startingPlayer = StartingPlayer(position: Position(description: player.position),
+                                                            name: PlayerName(original: player.name))
+                        startingOrderSpecial.append(startingPlayer)
+                    } catch _ {
+                        break
+                    }
+                }
+                
+                subOrderSpecial.removeAll()
+                var resultsSub: [SubSpecialTable] = []
+                resultsSub = try SubSpecialTable.fetchAll(db)
+                resultsSub.forEach { (resultSub) in
+                    let subPlayer = SubPlayer(id: resultSub.id,
+                                              name: PlayerName(original: resultSub.name),
+                                              isPitcher: resultSub.is_pitcher,
+                                              isHitter: resultSub.is_hitter,
+                                              isRunner: resultSub.is_runner,
+                                              isFielder: resultSub.is_fielder)
+                    subOrderSpecial.append(subPlayer)
+                }
             }
         }
         if !result {
@@ -207,6 +243,8 @@ class CacheOrderData {
             return startingOrderDH
         case .Normal:
             return startingOrderNormal
+        case .Special:
+            return startingOrderSpecial
         }
     }
     
@@ -216,6 +254,8 @@ class CacheOrderData {
             return subOrderDH
         case .Normal:
             return subOrderNormal
+        case .Special:
+            return subOrderSpecial
         }
     }
     
@@ -225,6 +265,8 @@ class CacheOrderData {
             startingOrderDH[orderNum.index] = player
         case .Normal:
             startingOrderNormal[orderNum.index] = player
+        case .Special:
+            startingOrderSpecial[orderNum.index] = player
         }
     }
     
@@ -234,21 +276,25 @@ class CacheOrderData {
             subOrderDH[index] = player
         case .Normal:
             subOrderNormal[index] = player
+        case .Special:
+            subOrderSpecial[index] = player
         }
     }
     
     func exchangeStartingOrder(orderType: OrderType ,num1: OrderNum, num2: OrderNum) {
         switch orderType {
         case .DH:
-            if num1.index == indexDHP {
+            if num1.index == indexForDHP {
                 exchangeStartingWithDHP(fielderNum: num2)
-            } else if num2.index == indexDHP {
+            } else if num2.index == indexForDHP {
                 exchangeStartingWithDHP(fielderNum: num1)
             } else {
                 exchangeStartingWithoutDHP(order: &startingOrderDH, num1, num2)
             }
         case .Normal:
             exchangeStartingWithoutDHP(order: &startingOrderNormal, num1, num2)
+        case .Special:
+            exchangeStartingWithoutDHP(order: &startingOrderSpecial, num1, num2)
         }
     }
     
@@ -259,22 +305,27 @@ class CacheOrderData {
     }
     
     func exchangeStartingWithDHP(fielderNum: OrderNum) {
-        let tmp = startingOrderDH[indexDHP].name
-        startingOrderDH[indexDHP].name = startingOrderDH[fielderNum.index].name
+        let tmp = startingOrderDH[indexForDHP].name
+        startingOrderDH[indexForDHP].name = startingOrderDH[fielderNum.index].name
         startingOrderDH[fielderNum.index].name = tmp
     }
     
     func exchangeSubOrder(orderType: OrderType ,index1: Int, index2: Int) {
+        //TODO: refactor
         switch orderType {
         case .DH:
             exchangeSubPlayers(order: &subOrderDH, index1, index2)
         case .Normal:
             exchangeSubPlayers(order: &subOrderNormal, index1, index2)
+        case .Special:
+            exchangeSubPlayers(order: &subOrderSpecial, index1, index2)
         }
     }
     
     func exchangeSubPlayers(order: inout [SubPlayer], _ index1: Int, _ index2: Int) {
         let tmp = order[index1]
+        
+        //TODO: refactor?
         order[index1].name = order[index2].name
         order[index1].isPitcher = order[index2].isPitcher
         order[index1].isHitter = order[index2].isHitter
@@ -288,11 +339,14 @@ class CacheOrderData {
     }
     
     func exchangeStartingSubOrder(orderType: OrderType ,startingNum: OrderNum, subIndex: Int) {
+        //TODO: refactor?
         switch orderType {
         case .DH:
             exchangeStartingSubPlayers(&startingOrderDH, &subOrderDH, startingNum, subIndex)
         case .Normal:
             exchangeStartingSubPlayers(&startingOrderNormal, &subOrderNormal, startingNum, subIndex)
+        case .Special:
+            exchangeStartingSubPlayers(&startingOrderSpecial, &subOrderSpecial, startingNum, subIndex)
         }
     }
     
@@ -306,12 +360,24 @@ class CacheOrderData {
     }
     
     
+    func addStartingPlayer(type: OrderType, player: StartingPlayer) {
+        guard type == .Special else { return }
+        startingOrderSpecial.append(player)
+    }
+    
+    func deleteStartingPlayer(type: OrderType) {
+        guard type == .Special else { return }
+        startingOrderSpecial.removeLast()
+    }
+    
     func addSubPlayer(type: OrderType, player: SubPlayer) {
         switch type {
         case .DH:
             subOrderDH.append(player)
         case .Normal:
             subOrderNormal.append(player)
+        case .Special:
+            subOrderSpecial.append(player)
         }
     }
     
@@ -321,6 +387,8 @@ class CacheOrderData {
             subOrderDH.remove(at: index)
         case .Normal:
             subOrderNormal.remove(at: index)
+        case .Special:
+            subOrderSpecial.remove(at: index)
         }
     }
 }

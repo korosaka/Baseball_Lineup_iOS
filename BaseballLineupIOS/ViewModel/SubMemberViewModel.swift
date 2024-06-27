@@ -36,15 +36,18 @@ class SubMemberViewModel {
     }
     
     func addNumOfSub() {
-        let emptyPlayer = createEmptyPlayer()
-        cacheData?.addSubPlayer(type: orderType!,
-                                player: emptyPlayer)
+        guard let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let emptyPlayer = createEmptyPlayer()
+        let result = _helper.inDatabase{(db) in
             try insertSubTable(db, newData: emptyPlayer)
         }
         
-        if !result {
+        if result {
+            cacheData?.addSubPlayer(type: _orderType,
+                                    player: emptyPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -53,12 +56,13 @@ class SubMemberViewModel {
     }
     
     func createEmptyPlayer() -> SubPlayer {
+        let falseNum = false.convertToInt()
         return SubPlayer(id: UUID().uuidString,
-                         name: PlayerName(original: Constants.EMPTY),
-                         isPitcher: 0,
-                         isHitter: 0,
-                         isRunner: 0,
-                         isFielder: 0)
+                         name: PlayerName(),
+                         isPitcher: falseNum,
+                         isHitter: falseNum,
+                         isRunner: falseNum,
+                         isFielder: falseNum)
     }
     
     func setDefault() {
@@ -88,17 +92,22 @@ class SubMemberViewModel {
                          isH: Bool,
                          isR: Bool,
                          isF: Bool) {
-        let currentPlayer = getSubPlayer(index: targetIndex!)
-        let newPlayer = substituteNewData(origin: currentPlayer, name, isP, isH, isR, isF)
-        cacheData?.overWriteSubPlayer(type: orderType!,
-                                      index: targetIndex!,
-                                      player: newPlayer)
+        guard let _targetIndex = targetIndex,
+              let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let currentPlayer = getSubPlayer(index: _targetIndex)
+        let newPlayer = substituteNewData(origin: currentPlayer, name, isP, isH, isR, isF)
+        
+        let result = _helper.inDatabase{(db) in
             try updateSubTable(db, newData: newPlayer)
         }
         
-        if !result {
+        if result {
+            cacheData?.overWriteSubPlayer(type: _orderType,
+                                          index: _targetIndex,
+                                          player: newPlayer)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -123,14 +132,18 @@ class SubMemberViewModel {
     }
     
     func removePlayer(index: Int) {
-        let playerToDelete = getSubPlayer(index: index)
-        cacheData?.removeSubPlayer(type: orderType!, index)
+        guard let _orderType = orderType,
+              let _helper = helper else { return }
         
-        let result = helper!.inDatabase{(db) in
+        let playerToDelete = getSubPlayer(index: index)
+        
+        let result = _helper.inDatabase{(db) in
             try deleteSubTable(db, id: playerToDelete.id)
         }
         
-        if !result {
+        if result {
+            cacheData?.removeSubPlayer(type: _orderType, index)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -157,18 +170,37 @@ class SubMemberViewModel {
     }
     
     func exchangeSubPlayers() {
-        cacheData?.exchangeSubOrder(orderType: orderType!,
-                                    index1: firstSelectedIndex!,
-                                    index2: secondSelectedIndex!)
+        guard let _orderType = orderType,
+              let _helper = helper,
+              let fisrtSelect = firstSelectedIndex,
+              let secondSelect = secondSelectedIndex else { return }
         
-        let result = helper!.inDatabase{(db) in
-            let player1 = getSubPlayer(index: firstSelectedIndex!)
-            let player2 = getSubPlayer(index: secondSelectedIndex!)
-            try updateSubTable(db, newData: player1)
-            try updateSubTable(db, newData: player2)
+        let result = _helper.inDatabase{(db) in
+            let player1 = getSubPlayer(index: fisrtSelect)
+            let player2 = getSubPlayer(index: secondSelect)
+            
+            let newPlayer1 = SubPlayer(id: player1.id,
+                                       name: player2.name,
+                                       isPitcher: player2.isPitcher,
+                                       isHitter: player2.isHitter,
+                                       isRunner: player2.isRunner,
+                                       isFielder: player2.isFielder)
+            let newPlayer2 = SubPlayer(id: player2.id,
+                                       name: player1.name,
+                                       isPitcher: player1.isPitcher,
+                                       isHitter: player1.isHitter,
+                                       isRunner: player1.isRunner,
+                                       isFielder: player1.isFielder)
+            
+            try updateSubTable(db, newData: newPlayer1)
+            try updateSubTable(db, newData: newPlayer2)
         }
         
-        if !result {
+        if result {
+            cacheData?.exchangeSubOrder(orderType: _orderType,
+                                        index1: fisrtSelect,
+                                        index2: secondSelect)
+        } else {
             print("DB Error happened!!!!!!!!")
         }
         
@@ -195,6 +227,14 @@ class SubMemberViewModel {
                                       is_runner: newData.isRunner,
                                       is_fielder: newData.isFielder)
             try playerDH.insert(db)
+        case .Special:
+            let playerSpecial = SubSpecialTable(id: newData.id,
+                                                name: newData.name.original,
+                                                is_pitcher: newData.isPitcher,
+                                                is_hitter: newData.isHitter,
+                                                is_runner: newData.isRunner,
+                                                is_fielder: newData.isFielder)
+            try playerSpecial.insert(db)
         default:
             return
         }
@@ -208,6 +248,9 @@ class SubMemberViewModel {
         case .DH:
             let playerDH = try SubDHTable.fetchOne(db, key: id)
             try playerDH?.delete(db)
+        case .Special:
+            let playerSpecial = try SubSpecialTable.fetchOne(db, key: id)
+            try playerSpecial?.delete(db)
         default:
             return
         }
@@ -231,13 +274,21 @@ class SubMemberViewModel {
             playerDH?.is_runner = newData.isRunner
             playerDH?.is_fielder = newData.isFielder
             try playerDH?.update(db)
+        case .Special:
+            let playerSpecial = try SubSpecialTable.fetchOne(db, key: newData.id)
+            playerSpecial?.name = newData.name.original
+            playerSpecial?.is_pitcher = newData.isPitcher
+            playerSpecial?.is_hitter = newData.isHitter
+            playerSpecial?.is_runner = newData.isRunner
+            playerSpecial?.is_fielder = newData.isFielder
+            try playerSpecial?.update(db)
         default:
             return
         }
     }
 }
 
-protocol SubMemberVMDelegate: class {
+protocol SubMemberVMDelegate: AnyObject {
     func prepareRegistering(selected: Int)
     func reloadOrder()
     func setDefaultUI()
