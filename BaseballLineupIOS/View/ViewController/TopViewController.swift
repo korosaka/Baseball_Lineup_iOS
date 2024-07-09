@@ -20,18 +20,165 @@ class TopViewController: UIViewController {
     private var interstitial: GADInterstitialAd?
     private var indicator: UIActivityIndicatorView?
     
-    @IBOutlet weak var specialOrderButton: UIButton!
-    @IBOutlet weak var purchaseButton: UIButton!
-    @IBOutlet weak var restoreButton: UIButton!
-    @IBOutlet weak var descriptionText1: UILabel!
-    @IBOutlet weak var descriptionText2: UILabel!
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.text = Constants.TITLE_TOP
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 36)
+        label.backgroundColor = .systemGreen
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var nonDHOrderButton: UIButton = {
+        return createOrderButton(.Normal)
+    }()
+    
+    private lazy var dhOrderButton: UIButton = {
+        return createOrderButton(.DH)
+    }()
+    
+    private lazy var specialOrderButton: UIButton = {
+        return createOrderButton(.Special)
+    }()
+    
+    private func createOrderButton(_ type: OrderButtonType) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(type.buttonTitle , for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
+        button.tag = type.buttonTag
+        button.backgroundColor = type.buttonColor
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }
+    
+    private lazy var restoreButton: UIButton = {
+        let button = createStoreButton(title: Constants.RESTORE_PURCHASE, color: .systemIndigo)
+        button.addTarget(self, action: #selector(onClickRestore), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var purchaseButton: UIButton = {
+        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemPurple)
+        button.addTarget(self, action: #selector(onClickPurchase), for: .touchUpInside)
+        return button
+    }()
+    
+    private func createStoreButton(title: String, color: UIColor) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(title , for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.backgroundColor = color
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }
+    
+    private lazy var orderButtons: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .center
+        
+        stackView.addArrangedSubview(UIView())
+        stackView.addArrangedSubview(nonDHOrderButton)
+        stackView.addArrangedSubview(dhOrderButton)
+        stackView.addArrangedSubview(specialOrderButton)
+        stackView.addArrangedSubview(UIView())
+        
+        return stackView
+    }()
+    
+    private lazy var buttonsAboutStore: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 30
+        stackView.alignment = .center
+        stackView.addArrangedSubview(restoreButton)
+        stackView.addArrangedSubview(purchaseButton)
+        
+        return stackView
+    }()
+    
+    private func createDescription(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        return label
+    }
+    
+    private lazy var descriptions: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        stackView.alignment = .leading
+        
+        stackView.addArrangedSubview(createDescription(Constants.DESCRIPTION_1))
+        stackView.addArrangedSubview(createDescription(Constants.DESCRIPTION_2))
+        stackView.addArrangedSubview(createDescription(Constants.DESCRIPTION_3))
+        
+        return stackView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel = .init()
+        setupView()
         createIndicator()
         checkPurchasingState()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = .white
+        view.addSubview(titleLabel)
+        view.addSubview(orderButtons)
+        view.addSubview(buttonsAboutStore)
+        view.addSubview(descriptions)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            
+            orderButtons.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            orderButtons.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            orderButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            orderButtons.bottomAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
+            nonDHOrderButton.heightAnchor.constraint(equalToConstant: 50),
+            nonDHOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
+            nonDHOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
+            dhOrderButton.heightAnchor.constraint(equalToConstant: 50),
+            dhOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
+            dhOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
+            specialOrderButton.heightAnchor.constraint(equalToConstant: 50),
+            specialOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
+            specialOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
+            
+            buttonsAboutStore.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            buttonsAboutStore.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            buttonsAboutStore.bottomAnchor.constraint(equalTo: descriptions.topAnchor, constant: -10),
+            buttonsAboutStore.heightAnchor.constraint(equalToConstant: 40),
+            restoreButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
+            restoreButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor, constant: 0),
+            purchaseButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
+            purchaseButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor, constant: 0),
+            
+            descriptions.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            descriptions.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            descriptions.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
     }
     
     private func createIndicator() {
@@ -58,8 +205,7 @@ class TopViewController: UIViewController {
         specialOrderButton.isEnabled = purchased
         purchaseButton.isHidden = purchased
         restoreButton.isHidden = purchased
-        descriptionText1.isHidden = purchased
-        descriptionText2.isHidden = purchased
+        descriptions.isHidden = purchased
         specialOrderButton.setTitleColor(vm.getSpecialOrderButttonTextColor(purchased: purchased), for: .normal)
         specialOrderButton.backgroundColor = vm.getSpecialOrderButttonColor(purchased: purchased)
     }
@@ -69,21 +215,7 @@ class TopViewController: UIViewController {
         if !isDoneTrackingCheck { requestIDFA() } // showing Interstitial is only once!
     }
     
-    @IBAction func onClickNoDH(_ sender: Any) {
-        onClickOrderType(type: .Normal)
-    }
-    
-    @IBAction func onClickDH(_ sender: Any) {
-        onClickOrderType(type: .DH)
-    }
-    
-    @IBAction func onClickSpecial(_ sender: Any) {
-        onClickOrderType(type: .Special)
-    }
-    
-    
-    @IBAction func onClickRestore(_ sender: Any) {
-        
+    @objc private func onClickRestore(_ sender: UIButton) {
         guard !isIndicatorAnimating, let vm = viewModel else { return }
         indicator?.startAnimating()
         Task {
@@ -99,7 +231,7 @@ class TopViewController: UIViewController {
         }
     }
     
-    @IBAction func onClickPurchase(_ sender: Any) {
+    @objc private func onClickPurchase(_ sender: UIButton) {
         guard !isIndicatorAnimating, let vm = viewModel else { return }
         
         indicator?.startAnimating()
@@ -200,10 +332,25 @@ class TopViewController: UIViewController {
         }
     }
     
+    @objc private func onClickOrderButton(_ sender:UIButton) {
+        switch sender.tag {
+        case OrderButtonType.Normal.buttonTag:
+            onClickOrderType(type: .Normal)
+        case OrderButtonType.DH.buttonTag:
+            onClickOrderType(type: .DH)
+        case OrderButtonType.Special.buttonTag:
+            onClickOrderType(type: .Special)
+        default:
+            return
+        }
+    }
+    
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck, !isIndicatorAnimating {
             showInterstitial()
-            performSegue(withIdentifier: "goOrderScreen", sender: type)
+            let customTabBarController = CustomTabBarController()
+            customTabBarController.viewModel?.orderType = type
+            self.navigationController?.pushViewController(customTabBarController, animated: true)
         }
     }
     
@@ -249,6 +396,43 @@ class TopViewController: UIViewController {
             isShownInterstitial = true
         } else {
             print("Ad wasn't ready")
+        }
+    }
+    
+    private enum OrderButtonType {
+        case Normal, DH, Special
+        
+        var buttonTag: Int {
+            switch self {
+            case .Normal:
+                return 0
+            case .DH:
+                return 1
+            case .Special:
+                return 2
+            }
+        }
+        
+        var buttonTitle: String {
+            switch self {
+            case .Normal:
+                return Constants.NON_DH
+            case .DH:
+                return Constants.USE_DH
+            case .Special:
+                return Constants.ALL_HITTER_AVAILABLE
+            }
+        }
+        
+        var buttonColor: UIColor {
+            switch self {
+            case .Normal:
+                return .blue
+            case .DH:
+                return .red
+            case .Special:
+                return .systemYellow
+            }
         }
     }
 }
