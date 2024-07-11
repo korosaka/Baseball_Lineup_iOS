@@ -14,14 +14,6 @@ class OrderViewController: BaseADViewController {
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
     @IBOutlet weak var orderTable: UITableView!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var exchangeButton: UIButton!
-    
-    //For All Hitter
-    @IBOutlet weak var addOrderButton: UIButton!
-    @IBOutlet weak var deleteOrderButton: UIButton!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
     
@@ -86,6 +78,49 @@ class OrderViewController: BaseADViewController {
             numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7),
         ])
         
+        return stackView
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        return createOperationButton(title: "キャンセル")
+    }()
+    
+    private lazy var registerButton: UIButton = {
+        return createOperationButton(title: "登録")
+    }()
+    
+    private lazy var exchangeButton: UIButton = {
+        return createOperationButton(title: "入替")
+    }()
+    
+    private lazy var addOrderButton: UIButton = {
+        return createOperationButton(title: "追加")
+    }()
+    
+    private lazy var deleteOrderButton: UIButton = {
+        return createOperationButton(title: "削除")
+    }()
+    
+    private func createOperationButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(title , for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        return button
+    }
+    
+    private lazy var operationButtonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.addArrangedSubview(cancelButton)
+        stackView.addArrangedSubview(registerButton)
+        stackView.addArrangedSubview(exchangeButton)
+        stackView.addArrangedSubview(addOrderButton)
+        stackView.addArrangedSubview(deleteOrderButton)
         return stackView
     }()
     
@@ -178,21 +213,26 @@ class OrderViewController: BaseADViewController {
 //        bannerAD.rootViewController = self
         
         if viewModel?.orderType == .Special {
-//            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         } else {
-//            addOrderButton.isHidden = true
-//            deleteOrderButton.isHidden = true
+            addOrderButton.isHidden = true
+            deleteOrderButton.isHidden = true
         }
     }
     
     private func setupView() {
         view.addSubview(registeringStack)
+        view.addSubview(operationButtonsStack)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             registeringStack.heightAnchor.constraint(equalToConstant: 90),
+            operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
+            operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         view.backgroundColor = .green
@@ -219,11 +259,22 @@ class OrderViewController: BaseADViewController {
     func setItemsEnabled(_ isInput: Bool) {
         positionPicker.isUserInteractionEnabled = isInput
         nameTextField.isEnabled = isInput
-//        cancelButton.isEnabled = isInput
-//        registerButton.isEnabled = isInput
-//        exchangeButton.isEnabled = !isInput
-//        addOrderButton.isEnabled = !isInput
-//        deleteOrderButton.isEnabled = !isInput
+        setButtonEnability(operationButton: cancelButton, isEnabled: isInput, buttonColor: .systemYellow)
+        setButtonEnability(operationButton: registerButton, isEnabled: isInput, buttonColor: .systemPink)
+        setButtonEnability(operationButton: exchangeButton, isEnabled: !isInput, buttonColor: .systemTeal)
+        setButtonEnability(operationButton: addOrderButton, isEnabled: !isInput, buttonColor: .systemOrange)
+        setButtonEnability(operationButton: deleteOrderButton, isEnabled: !isInput, buttonColor: .systemOrange)
+    }
+    
+    private func setButtonEnability(operationButton button: UIButton, isEnabled: Bool, buttonColor: UIColor) {
+        button.isEnabled = isEnabled
+        if isEnabled {
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = buttonColor
+        } else {
+            button.setTitleColor(.lightGray, for: .normal)
+            button.backgroundColor = .gray
+        }
     }
     
     func prepareToExchangeWithSub() {
