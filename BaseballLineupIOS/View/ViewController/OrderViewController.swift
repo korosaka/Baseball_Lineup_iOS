@@ -259,22 +259,11 @@ class OrderViewController: BaseADViewController {
     func setItemsEnabled(_ isInput: Bool) {
         positionPicker.isUserInteractionEnabled = isInput
         nameTextField.isEnabled = isInput
-        setButtonEnability(operationButton: cancelButton, isEnabled: isInput, buttonColor: .systemYellow)
-        setButtonEnability(operationButton: registerButton, isEnabled: isInput, buttonColor: .systemPink)
-        setButtonEnability(operationButton: exchangeButton, isEnabled: !isInput, buttonColor: .systemTeal)
-        setButtonEnability(operationButton: addOrderButton, isEnabled: !isInput, buttonColor: .systemOrange)
-        setButtonEnability(operationButton: deleteOrderButton, isEnabled: !isInput, buttonColor: .systemOrange)
-    }
-    
-    private func setButtonEnability(operationButton button: UIButton, isEnabled: Bool, buttonColor: UIColor) {
-        button.isEnabled = isEnabled
-        if isEnabled {
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = buttonColor
-        } else {
-            button.setTitleColor(.lightGray, for: .normal)
-            button.backgroundColor = .gray
-        }
+        cancelButton.setAvailability(isEnabled: isInput, backgroundColor: .systemYellow)
+        registerButton.setAvailability(isEnabled: isInput, backgroundColor: .systemPink)
+        exchangeButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemTeal)
+        addOrderButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemOrange)
+        deleteOrderButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemOrange)
     }
     
     func prepareToExchangeWithSub() {
