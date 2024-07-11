@@ -14,7 +14,6 @@ class OrderViewController: BaseADViewController {
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
     @IBOutlet weak var orderTable: UITableView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bannerAD: GADBannerView!
     
     private let numlabel: UILabel = {
@@ -134,6 +133,15 @@ class OrderViewController: BaseADViewController {
         return stackView
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Starting Member"
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        return label
+    }()
+    
     @objc private func onClickCancel(_ sender: UIButton) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
         if _parentVM.isExchangingStartingSub {
@@ -146,6 +154,7 @@ class OrderViewController: BaseADViewController {
             reloadOrder()
         }
     }
+    
     @objc private func onClickExchange(_ sender: UIButton) {
         viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
@@ -155,6 +164,7 @@ class OrderViewController: BaseADViewController {
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
+    
     @objc private func onClickRegister(_ sender: UIButton) {
         if viewModel!.isNumSelected() {
             viewModel?.writtenName = nameTextField.text!
@@ -210,7 +220,7 @@ class OrderViewController: BaseADViewController {
         super.viewDidLoad()
         setupView()
         viewModel?.fetchData()
-//        orderTable.dataSource = self
+        //        orderTable.dataSource = self
         viewModel?.delegate = self
         
         
@@ -219,8 +229,8 @@ class OrderViewController: BaseADViewController {
         positionPicker.delegate = self
         setDefaultUIState()
         
-//        bannerAD.adUnitID = Constants.BANNER_ID
-//        bannerAD.rootViewController = self
+        //        bannerAD.adUnitID = Constants.BANNER_ID
+        //        bannerAD.rootViewController = self
         
         if viewModel?.orderType == .Special {
             cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -231,8 +241,10 @@ class OrderViewController: BaseADViewController {
     }
     
     private func setupView() {
+        view.backgroundColor = .systemGreen
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
+        view.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -243,14 +255,15 @@ class OrderViewController: BaseADViewController {
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
             operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            titleLabel.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])
-        
-        view.backgroundColor = .green
     }
     
     override func loadBannerAd() {
-//        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-//        bannerAD.load(GADRequest())
+        //        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
+        //        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
@@ -259,8 +272,8 @@ class OrderViewController: BaseADViewController {
         nameTextField.text = Constants.EMPTY
         setItemsEnabled(false)
         nameTextField.placeholder = "打順を選択してください"
-//        titleLabel.text = "Starting Member"
-//        titleLabel.textColor = .green
+        titleLabel.text = "Starting Member"
+        titleLabel.textColor = .green
         
         // MARK: should separate this function within here??
         viewModel?.resetData()
