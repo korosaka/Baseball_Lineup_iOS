@@ -82,23 +82,33 @@ class OrderViewController: BaseADViewController {
     }()
     
     private lazy var cancelButton: UIButton = {
-        return createOperationButton(title: "キャンセル")
+        let button = createOperationButton(title: "キャンセル")
+        button.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
+        return button
     }()
     
     private lazy var registerButton: UIButton = {
-        return createOperationButton(title: "登録")
+        let button = createOperationButton(title: "登録")
+        button.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
+        return button
     }()
     
     private lazy var exchangeButton: UIButton = {
-        return createOperationButton(title: "入替")
+        let button = createOperationButton(title: "入替")
+        button.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
+        return button
     }()
     
     private lazy var addOrderButton: UIButton = {
-        return createOperationButton(title: "追加")
+        let button = createOperationButton(title: "追加")
+        button.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
+        return button
     }()
     
     private lazy var deleteOrderButton: UIButton = {
-        return createOperationButton(title: "削除")
+        let button = createOperationButton(title: "削除")
+        button.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
+        return button
     }()
     
     private func createOperationButton(title: String) -> UIButton {
@@ -124,7 +134,7 @@ class OrderViewController: BaseADViewController {
         return stackView
     }()
     
-    @IBAction func onClickCancel(_ sender: Any) {
+    @objc private func onClickCancel(_ sender: UIButton) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
         if _parentVM.isExchangingStartingSub {
             _parentVM.resetData()
@@ -136,7 +146,7 @@ class OrderViewController: BaseADViewController {
             reloadOrder()
         }
     }
-    @IBAction func onClickExchange(_ sender: Any) {
+    @objc private func onClickExchange(_ sender: UIButton) {
         viewModel?.isExchanging = true
         exchangeButton.isEnabled = false
         addOrderButton.isEnabled = false
@@ -145,7 +155,7 @@ class OrderViewController: BaseADViewController {
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
-    @IBAction func onClickRegister(_ sender: Any) {
+    @objc private func onClickRegister(_ sender: UIButton) {
         if viewModel!.isNumSelected() {
             viewModel?.writtenName = nameTextField.text!
             viewModel?.overWriteStatingPlayer()
@@ -155,7 +165,7 @@ class OrderViewController: BaseADViewController {
     }
     
     
-    @IBAction func onClickAdd(_ sender: Any) {
+    @objc private func onClickAdd(_ sender: UIButton) {
         guard let vm = viewModel else { return }
         
         vm.addOrder()
@@ -167,7 +177,7 @@ class OrderViewController: BaseADViewController {
     }
     
     
-    @IBAction func onClickDelete(_ sender: Any) {
+    @objc private func onClickDelete(_ sender: UIButton) {
         guard let vm = viewModel else { return }
         
         vm.deleteOrder()
