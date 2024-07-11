@@ -349,7 +349,7 @@ class TopViewController: UIViewController {
         if isDoneTrackingCheck, !isIndicatorAnimating {
             showInterstitial()
             let customTabBarController = CustomTabBarController()
-            customTabBarController.viewModel?.orderType = type
+            customTabBarController.setupViewControllers(type)
             self.navigationController?.pushViewController(customTabBarController, animated: true)
         }
     }
