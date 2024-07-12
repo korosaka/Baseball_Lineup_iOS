@@ -13,7 +13,6 @@ class OrderViewController: BaseADViewController {
     
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
-    @IBOutlet weak var bannerAD: GADBannerView!
     
     private let numlabel: UILabel = {
         let label = UILabel()
@@ -143,9 +142,15 @@ class OrderViewController: BaseADViewController {
     
     private let orderTable: UITableView = {
         let table = UITableView()
-            table.translatesAutoresizingMaskIntoConstraints = false
-            table.register(OrderTableCell.self, forCellReuseIdentifier: "OrderCell")
-            return table
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(OrderTableCell.self, forCellReuseIdentifier: "OrderCell")
+        return table
+    }()
+    
+    private let bannerAD: GADBannerView = {
+        let banner = GADBannerView()
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        return banner
     }()
     
     @objc private func onClickCancel(_ sender: UIButton) {
@@ -235,8 +240,8 @@ class OrderViewController: BaseADViewController {
         positionPicker.delegate = self
         setDefaultUIState()
         
-        //        bannerAD.adUnitID = Constants.BANNER_ID
-        //        bannerAD.rootViewController = self
+        bannerAD.adUnitID = Constants.BANNER_ID
+        bannerAD.rootViewController = self
         
         if viewModel?.orderType == .Special {
             cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -252,6 +257,7 @@ class OrderViewController: BaseADViewController {
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
+        view.addSubview(bannerAD)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -268,13 +274,15 @@ class OrderViewController: BaseADViewController {
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            orderTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            orderTable.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -3),
+            bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
     }
     
     override func loadBannerAd() {
-        //        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        //        bannerAD.load(GADRequest())
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
+        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
