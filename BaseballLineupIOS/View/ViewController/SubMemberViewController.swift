@@ -12,12 +12,135 @@ class SubMemberViewController: BaseADViewController {
     
     var viewModel: SubMemberViewModel?
     var parentViewModel: CustomTabBarViewModel?
-    @IBOutlet weak var subL: UILabel!
-    @IBOutlet weak var nameTF: UITextField!
-    @IBOutlet weak var pitcherS: UISwitch!
-    @IBOutlet weak var hitterS: UISwitch!
-    @IBOutlet weak var runnerS: UISwitch!
-    @IBOutlet weak var fielderS: UISwitch!
+    
+    private let subL: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = .white
+        label.text = "控え"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let nameTF: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.backgroundColor = .white
+        tf.font = UIFont.boldSystemFont(ofSize: 18)
+        return tf
+    }()
+    
+    private lazy var labelAndTF: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        
+        let spacer = UIView()
+        stackView.addArrangedSubview(subL)
+        stackView.addArrangedSubview(nameTF)
+        stackView.addArrangedSubview(spacer)
+        
+        NSLayoutConstraint.activate([
+            subL.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 9/20),
+            nameTF.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 10/20),
+            spacer.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
+        ])
+        
+        return stackView
+    }()
+    
+    private let pitcherS: UISwitch = {
+        let pSwitch = UISwitch()
+        pSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return pSwitch
+    }()
+    
+    private let hitterS: UISwitch = {
+        let pSwitch = UISwitch()
+        pSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return pSwitch
+    }()
+    
+    private let runnerS: UISwitch = {
+        let pSwitch = UISwitch()
+        pSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return pSwitch
+    }()
+    
+    private let fielderS: UISwitch = {
+        let pSwitch = UISwitch()
+        pSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return pSwitch
+    }()
+    
+    private lazy var pitcherAndRuunerStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.addArrangedSubview(createRoleSwitch("投", pitcherS))
+        stackView.addArrangedSubview(createRoleSwitch("走", runnerS))
+        return stackView
+    }()
+    
+    private lazy var hitterAndfielderStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.addArrangedSubview(createRoleSwitch("打", hitterS))
+        stackView.addArrangedSubview(createRoleSwitch("守", fielderS))
+        return stackView
+    }()
+    
+    private func createRoleSwitch(_ text: String, _ uiSwitch: UISwitch) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        
+        let label = UILabel()
+        label.text = text
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(uiSwitch)
+        
+        return stackView
+    }
+    
+    private lazy var registeringStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 0
+        stackView.backgroundColor = .systemBlue
+        
+        let spacer = UIView()
+        stackView.addArrangedSubview(spacer)
+        stackView.addArrangedSubview(labelAndTF)
+        stackView.addArrangedSubview(pitcherAndRuunerStack)
+        stackView.addArrangedSubview(hitterAndfielderStack)
+        
+        NSLayoutConstraint.activate([
+            labelAndTF.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/100),
+            labelAndTF.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 55/100),
+            pitcherAndRuunerStack.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 22/100),
+            hitterAndfielderStack.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 22/100),
+        ])
+        
+        return stackView
+    }()
+    
     @IBOutlet weak var cancelB: UIButton!
     @IBOutlet weak var registerB: UIButton!
     @IBOutlet weak var exchangeB: UIButton!
@@ -95,26 +218,39 @@ class SubMemberViewController: BaseADViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        subPlayerTable.dataSource = self
+        setupView()
+        //        subPlayerTable.dataSource = self
         nameTF.delegate = self
         viewModel?.delegate = self
         setDefaultUIState()
         
-        bannerAD.adUnitID = Constants.BANNER_ID
-        bannerAD.rootViewController = self
+        //        bannerAD.adUnitID = Constants.BANNER_ID
+        //        bannerAD.rootViewController = self
+    }
+    
+    private func setupView() {
+        view.backgroundColor = .systemGreen
+        view.addSubview(registeringStack)
+        
+        NSLayoutConstraint.activate([
+            registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            registeringStack.heightAnchor.constraint(equalToConstant: 85),
+        ])
     }
     
     override func loadBannerAd() {
-        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        bannerAD.load(GADRequest())
+        //        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
+        //        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
         nameTF.placeholder = "控えを選択してください"
         subL.textColor = .gray
         nameTF.text = Constants.EMPTY
-        titleL.text = "Sub Member"
-        titleL.textColor = .cyan
+        //        titleL.text = "Sub Member"
+        //        titleL.textColor = .cyan
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
@@ -131,16 +267,16 @@ class SubMemberViewController: BaseADViewController {
         hitterS.isEnabled = isInput
         runnerS.isEnabled = isInput
         fielderS.isEnabled = isInput
-        cancelB.isEnabled = isInput
-        registerB.isEnabled = isInput
-        exchangeB.isEnabled = !isInput
+        //        cancelB.isEnabled = isInput
+        //        registerB.isEnabled = isInput
+        //        exchangeB.isEnabled = !isInput
         setBottomButtonsEnabled(!isInput)
     }
     
     func setBottomButtonsEnabled(_ isInput: Bool) {
-        addB.isEnabled = isInput
-        deleteB.isEnabled = isInput
-        exchangeWithStartingB.isEnabled = isInput
+        //        addB.isEnabled = isInput
+        //        deleteB.isEnabled = isInput
+        //        exchangeWithStartingB.isEnabled = isInput
     }
 }
 
