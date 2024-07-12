@@ -18,8 +18,8 @@ class OrderViewController: BaseADViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.NO_NUM
-        label.font = UIFont.boldSystemFont(ofSize: 32)
-        label.textColor = .blue
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = .white
         label.textAlignment = .center
         return label
     }()
@@ -28,6 +28,7 @@ class OrderViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
+        tf.font = UIFont.boldSystemFont(ofSize: 20)
         return tf
     }()
     
@@ -72,7 +73,7 @@ class OrderViewController: BaseADViewController {
         stackView.addArrangedSubview(positionPicker)
         
         NSLayoutConstraint.activate([
-            numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7),
+            numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.65),
         ])
         
         return stackView
@@ -420,9 +421,10 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         let pickerLabel = UILabel()
-        pickerLabel.font = UIFont(name:"Helvetica", size: 26)
+        pickerLabel.font = UIFont.boldSystemFont(ofSize: 26)
         pickerLabel.textAlignment = .center
         pickerLabel.text = Constants.POSITIONS[row]
+        pickerLabel.textColor = .white
         
         return pickerLabel
     }
