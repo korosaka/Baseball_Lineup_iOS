@@ -18,7 +18,7 @@ class OrderViewController: BaseADViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.NO_NUM
-        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = .blue
         label.textAlignment = .center
         return label
@@ -50,8 +50,8 @@ class OrderViewController: BaseADViewController {
         stackView.addArrangedSubview(spacer)
         
         NSLayoutConstraint.activate([
-            numlabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 8/20),
-            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 11/20),
+            numlabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 9/20),
+            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 10/20),
             spacer.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
         ])
         
@@ -263,7 +263,7 @@ class OrderViewController: BaseADViewController {
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            registeringStack.heightAnchor.constraint(equalToConstant: 90),
+            registeringStack.heightAnchor.constraint(equalToConstant: 85),
             operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
