@@ -141,7 +141,7 @@ class OrderViewController: BaseADViewController {
         return label
     }()
     
-    private var orderTable: UITableView = {
+    private let orderTable: UITableView = {
         let table = UITableView()
             table.translatesAutoresizingMaskIntoConstraints = false
             table.register(OrderTableCell.self, forCellReuseIdentifier: "OrderCell")
