@@ -13,7 +13,6 @@ class OrderViewController: BaseADViewController {
     
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
-    @IBOutlet weak var orderTable: UITableView!
     @IBOutlet weak var bannerAD: GADBannerView!
     
     private let numlabel: UILabel = {
@@ -142,6 +141,13 @@ class OrderViewController: BaseADViewController {
         return label
     }()
     
+    private var orderTable: UITableView = {
+        let table = UITableView()
+            table.translatesAutoresizingMaskIntoConstraints = false
+            table.register(OrderTableCell.self, forCellReuseIdentifier: "OrderCell")
+            return table
+    }()
+    
     @objc private func onClickCancel(_ sender: UIButton) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
         if _parentVM.isExchangingStartingSub {
@@ -220,7 +226,7 @@ class OrderViewController: BaseADViewController {
         super.viewDidLoad()
         setupView()
         viewModel?.fetchData()
-        //        orderTable.dataSource = self
+        orderTable.dataSource = self
         viewModel?.delegate = self
         
         
@@ -245,6 +251,7 @@ class OrderViewController: BaseADViewController {
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
+        view.addSubview(orderTable)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -258,6 +265,10 @@ class OrderViewController: BaseADViewController {
             titleLabel.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
+            orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            orderTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
     
