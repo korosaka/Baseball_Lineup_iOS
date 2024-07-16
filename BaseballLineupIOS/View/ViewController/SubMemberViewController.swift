@@ -282,7 +282,11 @@ class SubMemberViewController: BaseADViewController {
         titleL.textColor = .red
     }
     
-    @IBOutlet weak var bannerAD: GADBannerView!
+    private let bannerAD: GADBannerView = {
+        let banner = GADBannerView()
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        return banner
+    }()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -310,8 +314,8 @@ class SubMemberViewController: BaseADViewController {
         viewModel?.delegate = self
         setDefaultUIState()
         
-        //        bannerAD.adUnitID = Constants.BANNER_ID
-        //        bannerAD.rootViewController = self
+        bannerAD.adUnitID = Constants.BANNER_ID
+        bannerAD.rootViewController = self
     }
     
     private func setupView() {
@@ -321,6 +325,7 @@ class SubMemberViewController: BaseADViewController {
         view.addSubview(titleL)
         view.addSubview(subPlayerTable)
         view.addSubview(bottomOperationButtonsStack)
+        view.addSubview(bannerAD)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -340,14 +345,16 @@ class SubMemberViewController: BaseADViewController {
             bottomOperationButtonsStack.topAnchor.constraint(equalTo: subPlayerTable.bottomAnchor, constant: 5),
             bottomOperationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             bottomOperationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            bottomOperationButtonsStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
             bottomOperationButtonsStack.heightAnchor.constraint(equalToConstant: 35),
+            bottomOperationButtonsStack.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -10),
+            bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
     }
     
     override func loadBannerAd() {
-        //        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        //        bannerAD.load(GADRequest())
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
+        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
