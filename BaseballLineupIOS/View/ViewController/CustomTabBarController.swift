@@ -27,6 +27,7 @@ class CustomTabBarController: UITabBarController {
     
     func setup() {
         viewModel = .init()
+        viewModel?.delegate = self
     }
     
     func setupViewControllers(_ orderType: OrderType) {
@@ -55,11 +56,6 @@ class CustomTabBarController: UITabBarController {
         subMemberVC.tabBarItem = UITabBarItem(title: "ベンチ", image: UIImage(named: "sub_icon"), tag: subTabTag)
         
         viewControllers = [orderVC, fieldVC, subMemberVC]
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel?.delegate = self
     }
 }
 
