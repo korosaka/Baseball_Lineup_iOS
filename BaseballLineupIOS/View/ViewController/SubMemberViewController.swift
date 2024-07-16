@@ -250,8 +250,8 @@ class SubMemberViewController: BaseADViewController {
     
     @objc func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
-        exchangeB.isEnabled = false
-        cancelB.isEnabled = true
+        switchExchangeB(false)
+        switchCancelB(true)
         titleL.text = "入れ替える控えを2つ選択してください"
         titleL.textColor = .red
         
@@ -261,16 +261,20 @@ class SubMemberViewController: BaseADViewController {
     @objc func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
     }
+    
     @objc func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
+        //TODO: should unenable bottom buttons and exchange one
         titleL.text = "削除する選手を選択してください"
         titleL.textColor = .red
-        cancelB.isEnabled = true
+        switchCancelB(true)
     }
+    
     @objc func onClickExchangeWithStarting(_ sender: Any) {
         parentViewModel?.isExchangingStartingSub = true
-        exchangeB.isEnabled = false
-        cancelB.isEnabled = true
+        switchExchangeB(false)
+        switchCancelB(true)
+        //TODO: should unenable bottom buttons
         titleL.text = "スタメンと入れ替える控えを選択してください"
         titleL.textColor = .red
     }
@@ -365,9 +369,9 @@ class SubMemberViewController: BaseADViewController {
         hitterS.isEnabled = isInput
         runnerS.isEnabled = isInput
         fielderS.isEnabled = isInput
-        cancelB.setAvailability(isEnabled: isInput, backgroundColor: .systemYellow)
-        registerB.setAvailability(isEnabled: isInput, backgroundColor: .systemPink)
-        exchangeB.setAvailability(isEnabled: !isInput, backgroundColor: .systemTeal)
+        switchCancelB(isInput)
+        switchRegisterB(isInput)
+        switchExchangeB(!isInput)
         setBottomButtonsEnabled(!isInput)
     }
     
@@ -376,6 +380,19 @@ class SubMemberViewController: BaseADViewController {
         deleteB.setAvailability(isEnabled: isInput, backgroundColor: .systemRed)
         exchangeWithStartingB.setAvailability(isEnabled: isInput, backgroundColor: .systemOrange)
     }
+    
+    private func switchCancelB(_ isEnabled: Bool) {
+        cancelB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+    }
+    
+    private func switchRegisterB(_ isEnabled: Bool) {
+        registerB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+    }
+    
+    private func switchExchangeB(_ isEnabled: Bool) {
+        exchangeB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+    }
+    
 }
 
 extension SubMemberViewController: UITableViewDataSource {

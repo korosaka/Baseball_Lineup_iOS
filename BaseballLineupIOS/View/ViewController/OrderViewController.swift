@@ -169,10 +169,11 @@ class OrderViewController: BaseADViewController {
     
     @objc private func onClickExchange(_ sender: UIButton) {
         viewModel?.isExchanging = true
-        exchangeButton.isEnabled = false
-        addOrderButton.isEnabled = false
-        deleteOrderButton.isEnabled = false
-        cancelButton.isEnabled = true
+        switchCancelB(true)
+        switchRegisterB(false)
+        switchExchangeB(false)
+        switchAddOrderB(false)
+        switchDeleteOrderB(false)
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
@@ -302,22 +303,44 @@ class OrderViewController: BaseADViewController {
     func setItemsEnabled(_ isInput: Bool) {
         positionPicker.isUserInteractionEnabled = isInput
         nameTextField.isEnabled = isInput
-        cancelButton.setAvailability(isEnabled: isInput, backgroundColor: .systemYellow)
-        registerButton.setAvailability(isEnabled: isInput, backgroundColor: .systemPink)
-        exchangeButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemTeal)
-        addOrderButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemOrange)
-        deleteOrderButton.setAvailability(isEnabled: !isInput, backgroundColor: .systemOrange)
+        switchCancelB(isInput)
+        switchRegisterB(isInput)
+        switchExchangeB(!isInput)
+        switchAddOrderB(!isInput)
+        switchDeleteOrderB(!isInput)
     }
     
     func prepareToExchangeWithSub() {
         setDefaultUIState()
         reloadOrder()
-        exchangeButton.isEnabled = false
-        addOrderButton.isEnabled = false
-        deleteOrderButton.isEnabled = false
-        cancelButton.isEnabled = true
+        switchRegisterB(false)
+        switchExchangeB(false)
+        switchAddOrderB(false)
+        switchDeleteOrderB(false)
+        switchCancelB(true)
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
+        //TODO: should unenable exchange button
+    }
+    
+    private func switchCancelB(_ isEnabled: Bool) {
+        cancelButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+    }
+    
+    private func switchRegisterB(_ isEnabled: Bool) {
+        registerButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+    }
+    
+    private func switchExchangeB(_ isEnabled: Bool) {
+        exchangeButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+    }
+    
+    private func switchAddOrderB(_ isEnabled: Bool) {
+        addOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
+    }
+    
+    private func switchDeleteOrderB(_ isEnabled: Bool) {
+        deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
     }
 }
 
