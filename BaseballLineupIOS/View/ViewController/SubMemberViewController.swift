@@ -188,7 +188,13 @@ class SubMemberViewController: BaseADViewController {
         return label
     }()
     
-    @IBOutlet weak var subPlayerTable: UITableView!
+    private let subPlayerTable: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(SubPlayerTableCell.self, forCellReuseIdentifier: "SubPlayerTableCell")
+        return table
+    }()
+
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
     @IBOutlet weak var exchangeWithStartingB: UIButton!
@@ -265,7 +271,7 @@ class SubMemberViewController: BaseADViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        //        subPlayerTable.dataSource = self
+        subPlayerTable.dataSource = self
         nameTF.delegate = self
         viewModel?.delegate = self
         setDefaultUIState()
@@ -279,6 +285,7 @@ class SubMemberViewController: BaseADViewController {
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(titleL)
+        view.addSubview(subPlayerTable)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -292,6 +299,11 @@ class SubMemberViewController: BaseADViewController {
             titleL.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 8),
             titleL.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             titleL.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            subPlayerTable.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 3),
+            subPlayerTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            subPlayerTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            subPlayerTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
+//            subPlayerTable.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -3),
         ])
     }
     
@@ -374,7 +386,7 @@ extension SubMemberViewController: UITableViewDataSource {
         designRoleLabel(uiLabel: subTableCell.fielderLabel,
                         isOn: player.isFielder.convertToBool(),
                         color: UIColor.fielderRoleColor)
-        subTableCell.nameText.text = player.name.forDisplay
+        subTableCell.nameLabel.text = player.name.forDisplay
         
         return subTableCell
     }
