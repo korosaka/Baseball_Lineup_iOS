@@ -141,16 +141,53 @@ class SubMemberViewController: BaseADViewController {
         return stackView
     }()
     
-    @IBOutlet weak var cancelB: UIButton!
-    @IBOutlet weak var registerB: UIButton!
-    @IBOutlet weak var exchangeB: UIButton!
+    private lazy var cancelB: UIButton = {
+        let button = createOperationButton(title: "キャンセル")
+        button.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var registerB: UIButton = {
+        let button = createOperationButton(title: "登録")
+        button.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var exchangeB: UIButton = {
+        let button = createOperationButton(title: "入替")
+        button.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
+        return button
+    }()
+    
+    private func createOperationButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(title , for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        return button
+    }
+    
+    private lazy var operationButtonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.addArrangedSubview(cancelB)
+        stackView.addArrangedSubview(registerB)
+        stackView.addArrangedSubview(exchangeB)
+        return stackView
+    }()
+    
     @IBOutlet weak var subPlayerTable: UITableView!
     @IBOutlet weak var titleL: UILabel!
     
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
     @IBOutlet weak var exchangeWithStartingB: UIButton!
-    @IBAction func onClickCancel(_ sender: Any) {
+    
+    @objc func onClickCancel(_ sender: Any) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
         if _parentVM.isExchangingStartingSub {
             _parentVM.resetData()
@@ -161,7 +198,8 @@ class SubMemberViewController: BaseADViewController {
             reloadOrder()
         }
     }
-    @IBAction func onClickRegister(_ sender: Any) {
+    
+    @objc func onClickRegister(_ sender: Any) {
         if viewModel!.isSelected() {
             viewModel!.overWritePlayer(name: nameTF.text!,
                                        isP: pitcherS.isOn,
@@ -170,7 +208,8 @@ class SubMemberViewController: BaseADViewController {
                                        isF: fielderS.isOn)
         }
     }
-    @IBAction func onClickExchange(_ sender: Any) {
+    
+    @objc func onClickExchange(_ sender: Any) {
         viewModel?.isExchanging = true
         exchangeB.isEnabled = false
         cancelB.isEnabled = true
@@ -179,6 +218,7 @@ class SubMemberViewController: BaseADViewController {
         
         setBottomButtonsEnabled(false)
     }
+    
     @IBAction func onClickAdd(_ sender: Any) {
         viewModel?.addNumOfSub()
     }
@@ -231,12 +271,17 @@ class SubMemberViewController: BaseADViewController {
     private func setupView() {
         view.backgroundColor = .systemGreen
         view.addSubview(registeringStack)
+        view.addSubview(operationButtonsStack)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             registeringStack.heightAnchor.constraint(equalToConstant: 85),
+            operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
+            operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
@@ -267,9 +312,9 @@ class SubMemberViewController: BaseADViewController {
         hitterS.isEnabled = isInput
         runnerS.isEnabled = isInput
         fielderS.isEnabled = isInput
-        //        cancelB.isEnabled = isInput
-        //        registerB.isEnabled = isInput
-        //        exchangeB.isEnabled = !isInput
+        cancelB.setAvailability(isEnabled: isInput, backgroundColor: .systemYellow)
+        registerB.setAvailability(isEnabled: isInput, backgroundColor: .systemPink)
+        exchangeB.setAvailability(isEnabled: !isInput, backgroundColor: .systemTeal)
         setBottomButtonsEnabled(!isInput)
     }
     
