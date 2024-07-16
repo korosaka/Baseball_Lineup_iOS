@@ -264,17 +264,20 @@ class SubMemberViewController: BaseADViewController {
     
     @objc func onClickDelete(_ sender: Any) {
         viewModel?.isDeleting = true
-        //TODO: should unenable bottom buttons and exchange one
         titleL.text = "削除する選手を選択してください"
         titleL.textColor = .red
         switchCancelB(true)
+        switchExchangeB(false)
+        switchRegisterB(false)
+        setBottomButtonsEnabled(false)
     }
     
     @objc func onClickExchangeWithStarting(_ sender: Any) {
         parentViewModel?.isExchangingStartingSub = true
         switchExchangeB(false)
+        switchRegisterB(false)
         switchCancelB(true)
-        //TODO: should unenable bottom buttons
+        setBottomButtonsEnabled(false)
         titleL.text = "スタメンと入れ替える控えを選択してください"
         titleL.textColor = .red
     }

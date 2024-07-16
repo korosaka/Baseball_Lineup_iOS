@@ -320,7 +320,6 @@ class OrderViewController: BaseADViewController {
         switchCancelB(true)
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
-        //TODO: should unenable exchange button
     }
     
     private func switchCancelB(_ isEnabled: Bool) {
