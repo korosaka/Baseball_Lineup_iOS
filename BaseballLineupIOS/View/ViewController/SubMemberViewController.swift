@@ -180,9 +180,15 @@ class SubMemberViewController: BaseADViewController {
         return stackView
     }()
     
-    @IBOutlet weak var subPlayerTable: UITableView!
-    @IBOutlet weak var titleL: UILabel!
+    private let titleL: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        return label
+    }()
     
+    @IBOutlet weak var subPlayerTable: UITableView!
     @IBOutlet weak var addB: UIButton!
     @IBOutlet weak var deleteB: UIButton!
     @IBOutlet weak var exchangeWithStartingB: UIButton!
@@ -272,6 +278,7 @@ class SubMemberViewController: BaseADViewController {
         view.backgroundColor = .systemGreen
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
+        view.addSubview(titleL)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -282,6 +289,9 @@ class SubMemberViewController: BaseADViewController {
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
             operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            titleL.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 8),
+            titleL.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            titleL.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])
     }
     
@@ -294,8 +304,8 @@ class SubMemberViewController: BaseADViewController {
         nameTF.placeholder = "控えを選択してください"
         subL.textColor = .gray
         nameTF.text = Constants.EMPTY
-        //        titleL.text = "Sub Member"
-        //        titleL.textColor = .cyan
+        titleL.text = "Sub Member"
+        titleL.textColor = .green
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
