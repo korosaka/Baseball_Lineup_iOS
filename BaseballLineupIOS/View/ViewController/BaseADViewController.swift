@@ -10,6 +10,18 @@ import UIKit
 import GoogleMobileAds
 class BaseADViewController: UIViewController {
     
+    let bannerAD: GADBannerView = {
+        let banner = GADBannerView()
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        return banner
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bannerAD.adUnitID = Constants.BANNER_ID
+        bannerAD.rootViewController = self
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadBannerAd()
@@ -23,11 +35,12 @@ class BaseADViewController: UIViewController {
         })
     }
     
-    func loadBannerAd() {
-        print("this function must be overridden.")
+    private func loadBannerAd() {
+        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
+        bannerAD.load(GADRequest())
     }
     
-    func getViewWidth() -> CGFloat {
+    private func getViewWidth() -> CGFloat {
         let frame = { () -> CGRect in
             if #available(iOS 11.0, *) {
                 return view.frame.inset(by: view.safeAreaInsets)

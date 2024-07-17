@@ -282,12 +282,6 @@ class SubMemberViewController: BaseADViewController {
         titleL.textColor = .red
     }
     
-    private let bannerAD: GADBannerView = {
-        let banner = GADBannerView()
-        banner.translatesAutoresizingMaskIntoConstraints = false
-        return banner
-    }()
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -313,9 +307,6 @@ class SubMemberViewController: BaseADViewController {
         nameTF.delegate = self
         viewModel?.delegate = self
         setDefaultUIState()
-        
-        bannerAD.adUnitID = Constants.BANNER_ID
-        bannerAD.rootViewController = self
     }
     
     private func setupView() {
@@ -350,11 +341,6 @@ class SubMemberViewController: BaseADViewController {
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
-    }
-    
-    override func loadBannerAd() {
-        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {

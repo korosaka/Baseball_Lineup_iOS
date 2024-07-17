@@ -225,14 +225,6 @@ class FieldViewController: BaseADViewController {
         return stackView
     }
     
-    private let bannerAD: GADBannerView = {
-        let banner = GADBannerView()
-        banner.translatesAutoresizingMaskIntoConstraints = false
-        return banner
-    }()
-
-    
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -258,9 +250,6 @@ class FieldViewController: BaseADViewController {
         putUILabelsIntoArray()
         customNameLabelDesign()
         customNumLabelDesign()
-        
-        bannerAD.adUnitID = Constants.BANNER_ID
-        bannerAD.rootViewController = self
     }
     
     private func setupView() {
@@ -384,11 +373,6 @@ class FieldViewController: BaseADViewController {
         viewModel?.loadOrderInfo()
         showHideDHLabels(orderType)
         displayOrder()
-    }
-    
-    override func loadBannerAd() {
-        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        bannerAD.load(GADRequest())
     }
     
     private func putUILabelsIntoArray() {

@@ -148,12 +148,6 @@ class OrderViewController: BaseADViewController {
         return table
     }()
     
-    private let bannerAD: GADBannerView = {
-        let banner = GADBannerView()
-        banner.translatesAutoresizingMaskIntoConstraints = false
-        return banner
-    }()
-    
     @objc private func onClickCancel(_ sender: UIButton) {
         guard let _parentVM = parentViewModel else { return print("error happened!") }
         if _parentVM.isExchangingStartingSub {
@@ -242,9 +236,6 @@ class OrderViewController: BaseADViewController {
         positionPicker.delegate = self
         setDefaultUIState()
         
-        bannerAD.adUnitID = Constants.BANNER_ID
-        bannerAD.rootViewController = self
-        
         if viewModel?.orderType == .Special {
             cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         } else {
@@ -280,11 +271,6 @@ class OrderViewController: BaseADViewController {
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
-    }
-    
-    override func loadBannerAd() {
-        bannerAD.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(getViewWidth())
-        bannerAD.load(GADRequest())
     }
     
     func setDefaultUIState() {
