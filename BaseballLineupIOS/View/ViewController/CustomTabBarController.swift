@@ -33,6 +33,7 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setRightBarButtonItem()
+        tabBar.backgroundColor = .white
     }
     
     func setupViewControllers(_ orderType: OrderType) {
