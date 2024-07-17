@@ -30,6 +30,11 @@ class CustomTabBarController: UITabBarController {
         viewModel?.delegate = self
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setRightBarButtonItem()
+    }
+    
     func setupViewControllers(_ orderType: OrderType) {
         viewModel?.orderType = orderType
         
@@ -56,6 +61,17 @@ class CustomTabBarController: UITabBarController {
         subMemberVC.tabBarItem = UITabBarItem(title: "ベンチ", image: UIImage(named: "sub_icon"), tag: subTabTag)
         
         viewControllers = [orderVC, fieldVC, subMemberVC]
+    }
+    
+    private func setRightBarButtonItem() {
+        let iconImage = UIImage(named: "setting_icon")
+        let rightBarButtonItem = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(onClickSetting))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    @objc private func onClickSetting() {
+        //TODO: show setting VC
+        print("Right bar button tapped")
     }
 }
 
