@@ -70,8 +70,8 @@ class CustomTabBarController: UITabBarController {
     }
     
     @objc private func onClickSetting() {
-        //TODO: show setting VC
-        print("Right bar button tapped")
+        let settingVC = SettingViewController()
+        navigationController?.pushViewController(settingVC, animated: true)
     }
 }
 
