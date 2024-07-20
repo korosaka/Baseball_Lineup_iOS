@@ -25,7 +25,7 @@ class CustomTabBarController: UITabBarController {
         self.init(nibName: nil, bundle: nil)
     }
     
-    func setup() {
+    private func setup() {
         viewModel = .init()
         viewModel?.delegate = self
     }
