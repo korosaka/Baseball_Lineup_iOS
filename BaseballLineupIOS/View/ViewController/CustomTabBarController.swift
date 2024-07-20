@@ -25,33 +25,54 @@ class CustomTabBarController: UITabBarController {
         self.init(nibName: nil, bundle: nil)
     }
     
-    func setup() {
+    private func setup() {
         viewModel = .init()
+        viewModel?.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.delegate = self
+        setRightBarButtonItem()
+        tabBar.backgroundColor = .white
+    }
+    
+    func setupViewControllers(_ orderType: OrderType) {
+        viewModel?.orderType = orderType
         
-        // MARK: child views
-        for vc in self.viewControllers! {
-            if let controller: OrderViewController = vc as? OrderViewController {
-                controller.viewModel?.orderType = self.viewModel?.orderType
-                controller.viewModel?.cacheData = self.viewModel?.cacheData
-                controller.viewModel?.helper = self.viewModel?.helper
-                controller.parentViewModel = self.viewModel
-            }
-            if let controller: SubMemberViewController = vc as? SubMemberViewController {
-                controller.viewModel?.orderType = self.viewModel?.orderType
-                controller.viewModel?.cacheData = self.viewModel?.cacheData
-                controller.viewModel?.helper = self.viewModel?.helper
-                controller.parentViewModel = self.viewModel
-            }
-            if let controller: FieldViewController = vc as? FieldViewController {
-                controller.viewModel?.orderType = self.viewModel?.orderType
-                controller.viewModel?.cacheData = self.viewModel?.cacheData
-            }
-        }
+        let orderVC = OrderViewController()
+        orderVC.viewModel?.orderType = orderType
+        orderVC.viewModel?.cacheData = viewModel?.cacheData
+        orderVC.viewModel?.helper = viewModel?.helper
+        orderVC.parentViewModel = viewModel
+        let orderTabTag = 0
+        orderVC.tabBarItem = UITabBarItem(title: "スタメン", image: UIImage(named: "order_icon"), tag: orderTabTag)
+        
+        let  fieldVC = FieldViewController()
+        fieldVC.viewModel?.orderType = orderType
+        fieldVC.viewModel?.cacheData = viewModel?.cacheData
+        let fieldTabTag = 1
+        fieldVC.tabBarItem = UITabBarItem(title: "フィールド", image: UIImage(named: "field_icon"), tag: fieldTabTag)
+        
+        let subMemberVC = SubMemberViewController()
+        subMemberVC.viewModel?.orderType = orderType
+        subMemberVC.viewModel?.cacheData = viewModel?.cacheData
+        subMemberVC.viewModel?.helper = viewModel?.helper
+        subMemberVC.parentViewModel = viewModel
+        let subTabTag = 2
+        subMemberVC.tabBarItem = UITabBarItem(title: "ベンチ", image: UIImage(named: "sub_icon"), tag: subTabTag)
+        
+        viewControllers = [orderVC, fieldVC, subMemberVC]
+    }
+    
+    private func setRightBarButtonItem() {
+        let iconImage = UIImage(named: "setting_icon")
+        let rightBarButtonItem = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(onClickSetting))
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    @objc private func onClickSetting() {
+        let settingVC = SettingViewController()
+        navigationController?.pushViewController(settingVC, animated: true)
     }
 }
 
@@ -67,6 +88,7 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
     }
     
     func reloadTables() {
+        //TODO: don't use force wrapping
         for vc in self.viewControllers! {
             if let controller: OrderViewController = vc as? OrderViewController {
                 controller.reloadOrder()
@@ -78,6 +100,7 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
     }
     
     func setUIDefault() {
+        //TODO: don't use force wrapping
         for vc in self.viewControllers! {
             if let controller: OrderViewController = vc as? OrderViewController {
                 controller.setUIDefault()
@@ -92,6 +115,7 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
                            startingNum: OrderNum,
                            startingPlayer: StartingPlayer,
                            subPlayer: SubPlayer) throws {
+        //TODO: don't use force wrapping
         for vc in self.viewControllers! {
             if let controller: OrderViewController = vc as? OrderViewController {
                 try controller.viewModel?.updateStartingTable(db, orderNum: startingNum, newData: startingPlayer)

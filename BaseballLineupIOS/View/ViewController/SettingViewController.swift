@@ -10,11 +10,56 @@ import UIKit
 
 class SettingViewController: UIViewController {
     
-    @IBOutlet weak var policyLink: UITextView!
+    private let modal: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        return view
+    }()
+    
+    private let closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("閉じる" , for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(onClickClose), for: .touchUpInside)
+        return button
+    }()
+    
+    private let policyLink: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.boldSystemFont(ofSize: 20)
+        textView.textAlignment = .center
+        textView.backgroundColor = .clear
+        return textView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        setupView()
         registerPolicyLink()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        view.addSubview(modal)
+        view.addSubview(closeButton)
+        view.addSubview(policyLink)
+        
+        NSLayoutConstraint.activate([
+            modal.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modal.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            modal.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.3),
+            modal.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7),
+            closeButton.topAnchor.constraint(equalTo: modal.topAnchor, constant: 3),
+            closeButton.leadingAnchor.constraint(equalTo: modal.leadingAnchor, constant: 3),
+            policyLink.centerYAnchor.constraint(equalTo: modal.centerYAnchor),
+            policyLink.heightAnchor.constraint(equalToConstant: 20),
+            policyLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
+            policyLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
+        ])
     }
     
     private func registerPolicyLink() {
@@ -31,9 +76,8 @@ class SettingViewController: UIViewController {
         policyLink.delegate = self
     }
     
-    
-    @IBAction func onClickClose(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @objc func onClickClose(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
