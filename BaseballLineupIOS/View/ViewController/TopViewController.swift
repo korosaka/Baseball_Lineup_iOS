@@ -147,36 +147,40 @@ class TopViewController: UIViewController {
         view.addSubview(buttonsAboutStore)
         view.addSubview(descriptions)
         
+        let defaultLeadingSpace = 50.0
+        let defaultTrailingSpace = -1.0 * defaultLeadingSpace
+        let orderButtonHeight = 50.0
+        
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            orderButtons.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
-            orderButtons.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            orderButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            orderButtons.bottomAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
-            nonDHOrderButton.heightAnchor.constraint(equalToConstant: 50),
-            nonDHOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
-            nonDHOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
-            dhOrderButton.heightAnchor.constraint(equalToConstant: 50),
-            dhOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
-            dhOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
-            specialOrderButton.heightAnchor.constraint(equalToConstant: 50),
-            specialOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor, constant: 0),
-            specialOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor, constant: 0),
+            orderButtons.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            orderButtons.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: defaultLeadingSpace),
+            orderButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: defaultTrailingSpace),
+            orderButtons.bottomAnchor.constraint(equalTo: buttonsAboutStore.topAnchor),
+            nonDHOrderButton.heightAnchor.constraint(equalToConstant: orderButtonHeight),
+            nonDHOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor),
+            nonDHOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor),
+            dhOrderButton.heightAnchor.constraint(equalToConstant: orderButtonHeight),
+            dhOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor),
+            dhOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor),
+            specialOrderButton.heightAnchor.constraint(equalToConstant: orderButtonHeight),
+            specialOrderButton.leadingAnchor.constraint(equalTo: orderButtons.leadingAnchor),
+            specialOrderButton.trailingAnchor.constraint(equalTo: orderButtons.trailingAnchor),
             
-            buttonsAboutStore.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            buttonsAboutStore.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            buttonsAboutStore.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: defaultLeadingSpace),
+            buttonsAboutStore.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: defaultTrailingSpace),
             buttonsAboutStore.bottomAnchor.constraint(equalTo: descriptions.topAnchor, constant: -10),
             buttonsAboutStore.heightAnchor.constraint(equalToConstant: 40),
-            restoreButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
-            restoreButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor, constant: 0),
-            purchaseButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor, constant: 0),
-            purchaseButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor, constant: 0),
+            restoreButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor),
+            restoreButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor),
+            purchaseButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor),
+            purchaseButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor),
             
-            descriptions.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            descriptions.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            descriptions.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: defaultLeadingSpace),
+            descriptions.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: defaultTrailingSpace),
             descriptions.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }

@@ -141,10 +141,12 @@ class OrderViewController: BaseADViewController {
         return label
     }()
     
-    private let orderTable: UITableView = {
+    private let cellIdentifier = "OrderCell"
+    
+    private lazy var orderTable: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(OrderTableCell.self, forCellReuseIdentifier: "OrderCell")
+        table.register(OrderTableCell.self, forCellReuseIdentifier: cellIdentifier)
         return table
     }()
     
@@ -229,9 +231,6 @@ class OrderViewController: BaseADViewController {
         viewModel?.fetchData()
         orderTable.dataSource = self
         viewModel?.delegate = self
-        
-        
-        
         nameTextField.delegate = self
         positionPicker.delegate = self
         setDefaultUIState()
@@ -338,7 +337,7 @@ extension OrderViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as? OrderTableCell else {
+        guard let orderTableCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? OrderTableCell else {
             fatalError("Could not create ReviewCell")
         }
         orderTableCell.selectionStyle = .none

@@ -188,10 +188,12 @@ class SubMemberViewController: BaseADViewController {
         return label
     }()
     
-    private let subPlayerTable: UITableView = {
+    private let cellIdentifier = "SubPlayerTableCell"
+    
+    private lazy var subPlayerTable: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(SubPlayerTableCell.self, forCellReuseIdentifier: "SubPlayerTableCell")
+        table.register(SubPlayerTableCell.self, forCellReuseIdentifier: cellIdentifier)
         return table
     }()
     
@@ -398,7 +400,7 @@ extension SubMemberViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let subTableCell = tableView.dequeueReusableCell(withIdentifier: "SubPlayerTableCell", for: indexPath) as? SubPlayerTableCell else {
+        guard let subTableCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SubPlayerTableCell else {
             fatalError("Could not create ReviewCell")
         }
         subTableCell.selectionStyle = .none
