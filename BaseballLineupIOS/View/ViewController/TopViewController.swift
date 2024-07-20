@@ -354,10 +354,6 @@ class TopViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        viewModel?.informOrderType(segue: segue, sender: sender)
-    }
-    
     /*
      ref: https://developers.google.com/admob/ios/ios14#request
      */
