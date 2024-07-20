@@ -197,7 +197,7 @@ class FieldViewController: BaseADViewController {
     private func createLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .black
         label.textAlignment = .center
         return label

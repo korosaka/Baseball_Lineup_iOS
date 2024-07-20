@@ -95,7 +95,7 @@ class SubPlayerTableCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 26)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .tintColor
         label.textAlignment = .center
         return label
