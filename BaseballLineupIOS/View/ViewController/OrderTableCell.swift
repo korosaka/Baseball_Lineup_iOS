@@ -49,6 +49,7 @@ class OrderTableCell: UITableViewCell {
     }()
     
     private func setupView() {
+        contentView.backgroundColor = .white
         contentView.addSubview(numButton)
         contentView.addSubview(positionLabel)
         contentView.addSubview(nameLabel)

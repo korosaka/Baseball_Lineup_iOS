@@ -198,6 +198,7 @@ class SubMemberViewController: BaseADViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(SubPlayerTableCell.self, forCellReuseIdentifier: cellIdentifier)
         table.layer.cornerRadius = 8
+        table.backgroundColor = .white
         return table
     }()
     

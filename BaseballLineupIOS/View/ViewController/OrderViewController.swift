@@ -151,6 +151,7 @@ class OrderViewController: BaseADViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(OrderTableCell.self, forCellReuseIdentifier: cellIdentifier)
         table.layer.cornerRadius = 8
+        table.backgroundColor = .white
         return table
     }()
     

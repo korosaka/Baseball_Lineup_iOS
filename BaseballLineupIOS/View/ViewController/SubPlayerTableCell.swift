@@ -102,6 +102,7 @@ class SubPlayerTableCell: UITableViewCell {
     }()
     
     private func setupView() {
+        contentView.backgroundColor = .white
         contentView.addSubview(subButton)
         contentView.addSubview(roleLabels)
         contentView.addSubview(nameLabel)
