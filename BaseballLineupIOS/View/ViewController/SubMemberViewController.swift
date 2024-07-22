@@ -355,7 +355,7 @@ class SubMemberViewController: BaseADViewController {
     
     func setDefaultUIState() {
         nameTF.placeholder = Constants.SELECT_SUB
-        subL.textColor = .gray
+        subL.textColor = .lightGray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
         titleL.textColor = .green
@@ -490,7 +490,7 @@ extension SubMemberViewController: SubMemberVMDelegate {
         
         let currentPlayer = viewModel!.getSubPlayer(index: selected)
         nameTF.placeholder = "名前を入力してください"
-        subL.textColor = .red
+        subL.textColor = .white
         nameTF.text = currentPlayer.name.original
         pitcherS.setOn(currentPlayer.isPitcher.convertToBool(), animated: true)
         hitterS.setOn(currentPlayer.isHitter.convertToBool(), animated: true)
