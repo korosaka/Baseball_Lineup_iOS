@@ -13,7 +13,7 @@ class SettingViewController: UIViewController {
     private let modal: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .lightGray
         return view
     }()
     
@@ -56,7 +56,7 @@ class SettingViewController: UIViewController {
             closeButton.topAnchor.constraint(equalTo: modal.topAnchor, constant: 3),
             closeButton.leadingAnchor.constraint(equalTo: modal.leadingAnchor, constant: 3),
             policyLink.centerYAnchor.constraint(equalTo: modal.centerYAnchor),
-            policyLink.heightAnchor.constraint(equalToConstant: 20),
+            policyLink.heightAnchor.constraint(equalToConstant: 50),
             policyLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
             policyLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
         ])
