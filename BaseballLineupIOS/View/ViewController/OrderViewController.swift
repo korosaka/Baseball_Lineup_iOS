@@ -29,6 +29,9 @@ class OrderViewController: BaseADViewController {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
         tf.layer.cornerRadius = 6
+        tf.textColor = .black
+        tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         tf.font = UIFont.boldSystemFont(ofSize: 20)
         return tf
     }()
@@ -282,7 +285,7 @@ class OrderViewController: BaseADViewController {
         positionPicker.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
         setItemsEnabled(false)
-        nameTextField.placeholder = "打順を選択してください"
+        nameTextField.placeholder = Constants.SELECT_ORDER_NUM
         titleLabel.text = "Starting Member"
         titleLabel.textColor = .green
         

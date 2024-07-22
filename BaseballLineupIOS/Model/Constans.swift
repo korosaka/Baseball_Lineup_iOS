@@ -67,4 +67,8 @@ struct Constants {
     static let DESCRIPTION_1 = "※購入が反映されない時は復元ボタンをお試しください"
     static let DESCRIPTION_2 = "※購入は紫のボタンから可能です"
     static let DESCRIPTION_3 = "※上記操作はインターネット環境が必要となります"
+    
+    //Order&Sub Order
+    static let SELECT_ORDER_NUM = "打順を選択してください"
+    static let SELECT_SUB = "控えを選択してください"
 }

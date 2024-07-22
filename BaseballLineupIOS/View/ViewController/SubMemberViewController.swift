@@ -29,6 +29,9 @@ class SubMemberViewController: BaseADViewController {
         tf.backgroundColor = .white
         tf.font = UIFont.boldSystemFont(ofSize: 18)
         tf.layer.cornerRadius = 6
+        tf.textColor = .black
+        tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         return tf
     }()
     
@@ -351,7 +354,7 @@ class SubMemberViewController: BaseADViewController {
     }
     
     func setDefaultUIState() {
-        nameTF.placeholder = "控えを選択してください"
+        nameTF.placeholder = Constants.SELECT_SUB
         subL.textColor = .gray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
