@@ -287,13 +287,12 @@ class TopViewController: UIViewController {
                         alertDialog = self.createSimpleAlert(product.displayName, Constants.EMPTY)
                         guard let  _dialog = alertDialog else { return }
                         
-                        //TODO: this is the temporary dealing (should be dealt depending on Light/Dark mode)
-                        _dialog.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.darkGray
-                        
+                        _dialog.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.dialogColor
                         _dialog.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
                             (action:UIAlertAction)in
                             self.startPurchaseFlow(product: product)
                         })
+                        _dialog.setValue(NSAttributedString(string: product.displayName, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]), forKey: "attributedTitle")
                         _dialog.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
                         _dialog.view.addSubview(textView)
                         textView.translatesAutoresizingMaskIntoConstraints = false
