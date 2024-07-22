@@ -48,11 +48,12 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(type.buttonTitle , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
         button.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
         button.tag = type.buttonTag
         button.backgroundColor = type.buttonColor
         button.setTitleColor(.white, for: .normal)
+        button.addLargeButtonDesign()
         return button
     }
     
@@ -72,9 +73,10 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = color
         button.setTitleColor(.white, for: .normal)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -207,6 +209,13 @@ class TopViewController: UIViewController {
         let purchased = UsingUserDefaults.isSpecialPurchased
         specialOrderButton.setTitle(vm.getSpecialOrderButttonText(purchased: purchased), for: .normal)
         specialOrderButton.isEnabled = purchased
+        if purchased {
+            specialOrderButton.addLargeButtonDesign()
+        } else {
+            specialOrderButton.layer.shadowOpacity = 0
+            specialOrderButton.layer.shadowRadius = 0
+            specialOrderButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        }
         purchaseButton.isHidden = purchased
         restoreButton.isHidden = purchased
         descriptions.isHidden = purchased

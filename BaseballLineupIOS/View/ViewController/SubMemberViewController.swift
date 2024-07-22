@@ -164,6 +164,7 @@ class SubMemberViewController: BaseADViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -415,9 +416,7 @@ extension SubMemberViewController: UITableViewDataSource {
             subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
         }
         
-        subTableCell.subButton.layer.cornerRadius = 15
-        subTableCell.subButton.layer.borderColor = UIColor.black.cgColor
-        subTableCell.subButton.layer.borderWidth = 2
+        subTableCell.subButton.addNumButtonDesign()
         
         let player = viewModel!.getSubPlayer(index: indexPath.row)
         designRoleLabel(uiLabel: subTableCell.pitcherLabel,

@@ -114,6 +114,7 @@ class OrderViewController: BaseADViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -349,9 +350,7 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.orderNum = orderNum
         orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
         orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
-        orderTableCell.numButton.layer.cornerRadius = 15
-        orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
-        orderTableCell.numButton.layer.borderWidth = 2
+        orderTableCell.numButton.addNumButtonDesign()
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
