@@ -218,8 +218,8 @@ class FieldViewController: BaseADViewController {
         
         NSLayoutConstraint.activate([
             orderNum.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 18/100),
-            spacer.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 2/100),
-            playerName.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 80/100),
+            spacer.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/100),
+            playerName.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 81/100),
         ])
         
         return stackView
@@ -417,6 +417,7 @@ class FieldViewController: BaseADViewController {
         
         for index in 0..<nameLabels.count {
             let label = nameLabels[index]
+            label.clipsToBounds = true
             label.layer.cornerRadius = radiusValue
             label.layer.borderWidth = borderWith
             label.layer.borderColor = borderColor
@@ -425,11 +426,12 @@ class FieldViewController: BaseADViewController {
     }
     
     private func customNumLabelDesign() {
-        let radiusValue = CGFloat(12.5)
+        let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(1.0)
         let borderColor = UIColor.black.cgColor
         
         orderNumLabels.forEach { numLabel in
+            numLabel.clipsToBounds = true
             numLabel.layer.cornerRadius = radiusValue
             numLabel.layer.borderWidth = borderWith
             numLabel.layer.borderColor = borderColor
