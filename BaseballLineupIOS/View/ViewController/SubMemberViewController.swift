@@ -432,7 +432,16 @@ extension SubMemberViewController: UITableViewDataSource {
         designRoleLabel(uiLabel: subTableCell.fielderLabel,
                         isOn: player.isFielder.convertToBool(),
                         color: UIColor.fielderRoleColor)
-        subTableCell.nameLabel.text = player.name.forDisplay
+        
+        let name = player.name.forDisplay
+        if name.count < 8 {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        } else if name.count == 8 {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        } else {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        }
+        subTableCell.nameLabel.text = name
         
         return subTableCell
     }

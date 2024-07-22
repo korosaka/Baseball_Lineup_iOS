@@ -353,7 +353,16 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
         orderTableCell.numButton.layer.borderWidth = 2
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
-        orderTableCell.nameLabel.text = "\(startingPlayer.name.forDisplay)"
+        
+        let name = startingPlayer.name.forDisplay
+        if name.count < 8 {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        } else if name.count == 8 {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        } else {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        }
+        orderTableCell.nameLabel.text = name
         
         return orderTableCell
     }

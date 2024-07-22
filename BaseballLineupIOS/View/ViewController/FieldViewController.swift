@@ -442,7 +442,15 @@ class FieldViewController: BaseADViewController {
     private func displayOrder() {
         guard let vm = viewModel else { return }
         for index in 0..<vm.getPlayersCount() {
-            nameLabels[index].text = vm.getPlayerName(index)
+            let name = vm.getPlayerName(index)
+            if name.count < 7 {
+                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 18)
+            } else if name.count == 7 {
+                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 16)
+            } else {
+                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 12)
+            }
+            nameLabels[index].text = name
             orderNumLabels[index].text = vm.getOrderNum(index)
         }
     }
