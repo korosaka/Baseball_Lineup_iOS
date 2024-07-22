@@ -28,6 +28,7 @@ class SubMemberViewController: BaseADViewController {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
         tf.font = UIFont.boldSystemFont(ofSize: 18)
+        tf.layer.cornerRadius = 6
         return tf
     }()
     
@@ -124,6 +125,7 @@ class SubMemberViewController: BaseADViewController {
         stackView.alignment = .fill
         stackView.spacing = 0
         stackView.backgroundColor = .systemBlue
+        stackView.layer.cornerRadius = 6
         
         let spacer = UIView()
         stackView.addArrangedSubview(spacer)
@@ -195,6 +197,7 @@ class SubMemberViewController: BaseADViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(SubPlayerTableCell.self, forCellReuseIdentifier: cellIdentifier)
+        table.layer.cornerRadius = 8
         return table
     }()
     
@@ -323,8 +326,8 @@ class SubMemberViewController: BaseADViewController {
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
             registeringStack.heightAnchor.constraint(equalToConstant: 85),
             topOperationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             topOperationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),

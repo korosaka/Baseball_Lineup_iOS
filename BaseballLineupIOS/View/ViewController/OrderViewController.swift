@@ -28,6 +28,7 @@ class OrderViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
+        tf.layer.cornerRadius = 6
         tf.font = UIFont.boldSystemFont(ofSize: 20)
         return tf
     }()
@@ -71,6 +72,7 @@ class OrderViewController: BaseADViewController {
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
         stackView.addArrangedSubview(positionPicker)
+        stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
             numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.65),
@@ -148,6 +150,7 @@ class OrderViewController: BaseADViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(OrderTableCell.self, forCellReuseIdentifier: cellIdentifier)
+        table.layer.cornerRadius = 8
         return table
     }()
     
@@ -254,8 +257,8 @@ class OrderViewController: BaseADViewController {
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
             registeringStack.heightAnchor.constraint(equalToConstant: 85),
             operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
