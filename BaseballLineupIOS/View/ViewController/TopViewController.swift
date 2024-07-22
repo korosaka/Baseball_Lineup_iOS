@@ -113,6 +113,7 @@ class TopViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
+        label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
         return label
