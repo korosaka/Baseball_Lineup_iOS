@@ -412,7 +412,7 @@ class FieldViewController: BaseADViewController {
     private func customNameLabelDesign() {
         guard let vm = viewModel else { return }
         let radiusValue = CGFloat(10.0)
-        let borderWith = CGFloat(1.0)
+        let borderWith = CGFloat(2.0)
         let borderColor = UIColor.black.cgColor
         
         for index in 0..<nameLabels.count {
@@ -427,7 +427,7 @@ class FieldViewController: BaseADViewController {
     
     private func customNumLabelDesign() {
         let radiusValue = CGFloat(10.0)
-        let borderWith = CGFloat(1.0)
+        let borderWith = CGFloat(2.0)
         let borderColor = UIColor.black.cgColor
         
         orderNumLabels.forEach { numLabel in

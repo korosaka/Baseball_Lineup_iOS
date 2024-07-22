@@ -22,5 +22,9 @@ extension UIColor {
     static var fielderRoleColor: UIColor { return UIColor(red: 1.0, green: 1.0, blue: 0.0 / 255.0, alpha: 1.0) }
     static var offTextColor: UIColor { return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3) }
     
+    //MARK: TOP
     static var dialogColor: UIColor { return UIColor(red: 239.0 / 255.0, green: 224.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    
+    //MARK: ORDER TABLE
+    static var labelTextColor: UIColor { return UIColor(red: 0.0 / 255.0, green: 51.0 / 255.0, blue: 204.0 / 255.0, alpha: 1.0) }
 }
