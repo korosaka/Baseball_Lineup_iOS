@@ -64,7 +64,7 @@ class TopViewController: UIViewController {
     }()
     
     private lazy var purchaseButton: UIButton = {
-        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemPurple)
+        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemIndigo)
         button.addTarget(self, action: #selector(onClickPurchase), for: .touchUpInside)
         return button
     }()

@@ -65,7 +65,7 @@ struct Constants {
     static let RESTORE_PURCHASE = "購入を復元"
     static let WHAT_IS_ALL_HITTER = "全員打ちとは"
     static let DESCRIPTION_1 = "※購入が反映されない時は復元ボタンをお試しください"
-    static let DESCRIPTION_2 = "※購入は紫のボタンから可能です"
+    static let DESCRIPTION_2 = "※購入は「\(WHAT_IS_ALL_HITTER)」から可能です"
     static let DESCRIPTION_3 = "※上記操作はインターネット環境が必要となります"
     
     //Order&Sub Order

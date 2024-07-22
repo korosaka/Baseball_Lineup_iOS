@@ -41,8 +41,8 @@ extension UIButton {
     
     func addLargeButtonDesign() {
         layer.cornerRadius = 15
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 2
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.borderWidth = 1
         layer.shadowOpacity = 0.7
         layer.shadowRadius = 2
         layer.shadowColor = UIColor.black.cgColor
