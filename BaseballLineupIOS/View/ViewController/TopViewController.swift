@@ -27,7 +27,7 @@ class TopViewController: UIViewController {
         label.text = Constants.TITLE_TOP
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 36)
-        label.backgroundColor = .systemGreen
+        label.backgroundColor = .appTitleColor
         label.textColor = .white
         return label
     }()
@@ -144,7 +144,7 @@ class TopViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(titleLabel)
         view.addSubview(orderButtons)
         view.addSubview(buttonsAboutStore)
@@ -436,11 +436,11 @@ class TopViewController: UIViewController {
         var buttonColor: UIColor {
             switch self {
             case .Normal:
-                return .blue
+                return .largeButtonColor
             case .DH:
-                return .red
+                return .largeButtonColor
             case .Special:
-                return .systemYellow
+                return .largeButtonColor
             }
         }
     }

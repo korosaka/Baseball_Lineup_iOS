@@ -104,7 +104,7 @@ class TopViewModel {
     
     func getSpecialOrderButttonColor(purchased: Bool) -> UIColor {
         if purchased {
-            return .systemYellow
+            return .largeButtonColor
         } else {
             return .gray
         }

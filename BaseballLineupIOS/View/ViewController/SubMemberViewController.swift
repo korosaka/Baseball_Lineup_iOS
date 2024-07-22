@@ -27,7 +27,7 @@ class SubMemberViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
-        tf.font = UIFont.boldSystemFont(ofSize: 18)
+        tf.font = UIFont.boldSystemFont(ofSize: 16)
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
@@ -127,7 +127,7 @@ class SubMemberViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 0
-        stackView.backgroundColor = .systemBlue
+        stackView.backgroundColor = .registeringBoxColor
         stackView.layer.cornerRadius = 6
         
         let spacer = UIView()
@@ -320,7 +320,7 @@ class SubMemberViewController: BaseADViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(registeringStack)
         view.addSubview(topOperationButtonsStack)
         view.addSubview(titleL)
@@ -358,7 +358,7 @@ class SubMemberViewController: BaseADViewController {
         subL.textColor = .lightGray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
-        titleL.textColor = .green
+        titleL.textColor = .registeringBoxColor
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
@@ -382,21 +382,21 @@ class SubMemberViewController: BaseADViewController {
     }
     
     func setBottomButtonsEnabled(_ isInput: Bool) {
-        addB.setAvailability(isEnabled: isInput, backgroundColor: .systemTeal)
-        deleteB.setAvailability(isEnabled: isInput, backgroundColor: .systemRed)
-        exchangeWithStartingB.setAvailability(isEnabled: isInput, backgroundColor: .systemOrange)
+        addB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
+        deleteB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
+        exchangeWithStartingB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
     }
     
     private func switchCancelB(_ isEnabled: Bool) {
-        cancelB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+        cancelB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchRegisterB(_ isEnabled: Bool) {
-        registerB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+        registerB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchExchangeB(_ isEnabled: Bool) {
-        exchangeB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+        exchangeB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
 }

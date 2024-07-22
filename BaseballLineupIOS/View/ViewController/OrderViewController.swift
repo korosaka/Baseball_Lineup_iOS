@@ -32,7 +32,7 @@ class OrderViewController: BaseADViewController {
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
                                                              attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        tf.font = UIFont.boldSystemFont(ofSize: 20)
+        tf.font = UIFont.boldSystemFont(ofSize: 16)
         return tf
     }()
     
@@ -70,7 +70,7 @@ class OrderViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .center
         stackView.spacing = 5
-        stackView.backgroundColor = .systemBlue
+        stackView.backgroundColor = .registeringBoxColor
         
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
@@ -252,7 +252,7 @@ class OrderViewController: BaseADViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
@@ -287,7 +287,7 @@ class OrderViewController: BaseADViewController {
         setItemsEnabled(false)
         nameTextField.placeholder = Constants.SELECT_ORDER_NUM
         titleLabel.text = "Starting Member"
-        titleLabel.textColor = .green
+        titleLabel.textColor = .registeringBoxColor
         
         // MARK: should separate this function within here??
         viewModel?.resetData()
@@ -316,23 +316,23 @@ class OrderViewController: BaseADViewController {
     }
     
     private func switchCancelB(_ isEnabled: Bool) {
-        cancelButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+        cancelButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchRegisterB(_ isEnabled: Bool) {
-        registerButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+        registerButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchExchangeB(_ isEnabled: Bool) {
-        exchangeButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+        exchangeButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchAddOrderB(_ isEnabled: Bool) {
-        addOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
+        addOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchDeleteOrderB(_ isEnabled: Bool) {
-        deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
+        deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
 }
 
