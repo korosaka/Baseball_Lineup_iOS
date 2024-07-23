@@ -31,7 +31,7 @@ class OrderViewController: BaseADViewController {
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         tf.font = UIFont.boldSystemFont(ofSize: 16)
         return tf
     }()

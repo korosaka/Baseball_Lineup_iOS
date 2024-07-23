@@ -11,7 +11,7 @@ class UsingUserDefaults {
     
     static let keyForCreatingSpecialTable = "table_for_special"
     static let keyForPurchasingSpecial = "purchase_special"
-   
+    
     static func createdStartingSpecialTable() {
         UserDefaults.standard.set(true, forKey: keyForCreatingSpecialTable)
     }

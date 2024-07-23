@@ -31,7 +31,7 @@ class SubMemberViewController: BaseADViewController {
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         return tf
     }()
     
