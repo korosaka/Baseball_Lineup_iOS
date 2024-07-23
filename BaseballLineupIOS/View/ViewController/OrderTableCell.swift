@@ -26,7 +26,6 @@ class OrderTableCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.backgroundColor = .systemBlue
-        button.addTarget(self, action: #selector(onClickNum), for: .touchUpInside)
         return button
     }()
     
@@ -53,6 +52,7 @@ class OrderTableCell: UITableViewCell {
         contentView.addSubview(numButton)
         contentView.addSubview(positionLabel)
         contentView.addSubview(nameLabel)
+        numButton.addTarget(self, action: #selector(onClickNum), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             numButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),

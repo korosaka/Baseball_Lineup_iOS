@@ -27,7 +27,6 @@ class SubPlayerTableCell: UITableViewCell {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.backgroundColor = .systemBlue
         button.setTitle("控", for: .normal)
-        button.addTarget(self, action: #selector(onClickSub), for: .touchUpInside)
         return button
     }()
     
@@ -106,6 +105,7 @@ class SubPlayerTableCell: UITableViewCell {
         contentView.addSubview(subButton)
         contentView.addSubview(roleLabels)
         contentView.addSubview(nameLabel)
+        subButton.addTarget(self, action: #selector(onClickSub), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             subButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
