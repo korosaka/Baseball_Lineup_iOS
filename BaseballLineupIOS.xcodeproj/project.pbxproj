@@ -31,6 +31,9 @@
 		888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BC24C2613BF6A004D49FE /* BaseADViewController.swift */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
 		888F313226072001000CE0AB /* CustomedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F313126072001000CE0AB /* CustomedColor.swift */; };
+		B26E4F6C2C4FDC9F00F52C47 /* StartingMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */; };
+		B26E4F6E2C4FE76F00F52C47 /* StartingMemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */; };
+		B26E4F702C4FEB4400F52C47 /* StartingMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */; };
 		B2CBED6A2C3FD0B6001AF5B1 /* UIViewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */; };
 		B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */; };
 		B2DF26722C240BED0004D941 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DF26712C240BED0004D941 /* StoreKit.framework */; };
@@ -66,6 +69,9 @@
 		888BC24C2613BF6A004D49FE /* BaseADViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseADViewController.swift; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		888F313126072001000CE0AB /* CustomedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedColor.swift; sourceTree = "<group>"; };
+		B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListViewController.swift; sourceTree = "<group>"; };
+		B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListCell.swift; sourceTree = "<group>"; };
+		B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListViewModel.swift; sourceTree = "<group>"; };
 		B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewItems.swift; sourceTree = "<group>"; };
 		B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsingUserDefaults.swift; sourceTree = "<group>"; };
 		B2DF26712C240BED0004D941 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -126,6 +132,7 @@
 				8864A340257EC88B00CA6889 /* CustomTabBarViewModel.swift */,
 				8864A343257ECB6500CA6889 /* SubMemberViewModel.swift */,
 				8864A346257ECBCB00CA6889 /* FieldViewModel.swift */,
+				B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -159,6 +166,8 @@
 				8864A349257F188000CA6889 /* SubPlayerTableCell.swift */,
 				88764A8525F4810500FA76EB /* SettingViewController.swift */,
 				888BC24C2613BF6A004D49FE /* BaseADViewController.swift */,
+				B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */,
+				B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -328,6 +337,7 @@
 				888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */,
 				8864A34A257F188000CA6889 /* SubPlayerTableCell.swift in Sources */,
 				888CD393256887820072CFA5 /* Constans.swift in Sources */,
+				B26E4F6C2C4FDC9F00F52C47 /* StartingMemberListViewController.swift in Sources */,
 				884CEBCD2573B2EC0020C932 /* DatabaseHelper.swift in Sources */,
 				886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */,
 				8864A337257E8FCC00CA6889 /* SubMemberViewController.swift in Sources */,
@@ -335,6 +345,8 @@
 				8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */,
 				887DA0112589B838003E237E /* SubOrderTable.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
+				B26E4F6E2C4FE76F00F52C47 /* StartingMemberListCell.swift in Sources */,
+				B26E4F702C4FEB4400F52C47 /* StartingMemberListViewModel.swift in Sources */,
 				B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */,
 				B2CBED6A2C3FD0B6001AF5B1 /* UIViewItems.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,

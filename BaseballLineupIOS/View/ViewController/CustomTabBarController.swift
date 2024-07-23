@@ -61,7 +61,13 @@ class CustomTabBarController: UITabBarController {
         let subTabTag = 2
         subMemberVC.tabBarItem = UITabBarItem(title: "ベンチ", image: UIImage(named: "sub_icon"), tag: subTabTag)
         
-        viewControllers = [orderVC, fieldVC, subMemberVC]
+        let startingMemberListVC = StartingMemberListViewController()
+        startingMemberListVC.viewModel?.orderType = orderType
+        startingMemberListVC.viewModel?.cacheData = viewModel?.cacheData
+        let startingListTabTag = 3
+        startingMemberListVC.tabBarItem = UITabBarItem(title: "スタメン表", image: UIImage(named: "order_icon"), tag: startingListTabTag)
+        
+        viewControllers = [orderVC, fieldVC, subMemberVC, startingMemberListVC]
     }
     
     private func setRightBarButtonItem() {
