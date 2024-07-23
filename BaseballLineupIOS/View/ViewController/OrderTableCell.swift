@@ -56,10 +56,10 @@ class OrderTableCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             numButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            numButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
-            numButton.widthAnchor.constraint(equalToConstant: 90),
-            numButton.heightAnchor.constraint(equalToConstant: 50),
+            numButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            numButton.widthAnchor.constraint(equalToConstant: 80),
+            numButton.heightAnchor.constraint(equalToConstant: 45),
             
             positionLabel.leadingAnchor.constraint(equalTo: numButton.trailingAnchor, constant: 10),
             positionLabel.widthAnchor.constraint(equalToConstant: 70),

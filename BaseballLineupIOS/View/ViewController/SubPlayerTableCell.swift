@@ -109,10 +109,10 @@ class SubPlayerTableCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             subButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            subButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            subButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
+            subButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            subButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             subButton.widthAnchor.constraint(equalToConstant: 60),
-            subButton.heightAnchor.constraint(equalToConstant: 50),
+            subButton.heightAnchor.constraint(equalToConstant: 45),
             
             roleLabels.leadingAnchor.constraint(equalTo: subButton.trailingAnchor, constant: 5),
             roleLabels.widthAnchor.constraint(equalToConstant: 90),
