@@ -28,7 +28,11 @@ class OrderViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
-        tf.font = UIFont.boldSystemFont(ofSize: 20)
+        tf.layer.cornerRadius = 6
+        tf.textColor = .black
+        tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        tf.font = UIFont.boldSystemFont(ofSize: 16)
         return tf
     }()
     
@@ -66,11 +70,12 @@ class OrderViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .center
         stackView.spacing = 5
-        stackView.backgroundColor = .systemBlue
+        stackView.backgroundColor = .registeringBoxColor
         
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
         stackView.addArrangedSubview(positionPicker)
+        stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
             numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.65),
@@ -114,6 +119,7 @@ class OrderViewController: BaseADViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -147,6 +153,8 @@ class OrderViewController: BaseADViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(OrderTableCell.self, forCellReuseIdentifier: cellIdentifier)
+        table.layer.cornerRadius = 8
+        table.backgroundColor = .white
         return table
     }()
     
@@ -244,7 +252,7 @@ class OrderViewController: BaseADViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(registeringStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
@@ -253,8 +261,8 @@ class OrderViewController: BaseADViewController {
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
             registeringStack.heightAnchor.constraint(equalToConstant: 85),
             operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
@@ -277,9 +285,9 @@ class OrderViewController: BaseADViewController {
         positionPicker.selectRow(Position.Non.indexForOrder, inComponent: 0, animated: true)
         nameTextField.text = Constants.EMPTY
         setItemsEnabled(false)
-        nameTextField.placeholder = "打順を選択してください"
+        nameTextField.placeholder = Constants.SELECT_ORDER_NUM
         titleLabel.text = "Starting Member"
-        titleLabel.textColor = .green
+        titleLabel.textColor = .registeringBoxColor
         
         // MARK: should separate this function within here??
         viewModel?.resetData()
@@ -308,23 +316,23 @@ class OrderViewController: BaseADViewController {
     }
     
     private func switchCancelB(_ isEnabled: Bool) {
-        cancelButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+        cancelButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchRegisterB(_ isEnabled: Bool) {
-        registerButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+        registerButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchExchangeB(_ isEnabled: Bool) {
-        exchangeButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+        exchangeButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchAddOrderB(_ isEnabled: Bool) {
-        addOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
+        addOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchDeleteOrderB(_ isEnabled: Bool) {
-        deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .systemOrange)
+        deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
 }
 
@@ -349,11 +357,18 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.orderNum = orderNum
         orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
         orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
-        orderTableCell.numButton.layer.cornerRadius = 15
-        orderTableCell.numButton.layer.borderColor = UIColor.black.cgColor
-        orderTableCell.numButton.layer.borderWidth = 2
+        orderTableCell.numButton.addNumButtonDesign()
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
-        orderTableCell.nameLabel.text = "\(startingPlayer.name.forDisplay)"
+        
+        let name = startingPlayer.name.forDisplay
+        if name.count < 8 {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        } else if name.count == 8 {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        } else {
+            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        }
+        orderTableCell.nameLabel.text = name
         
         return orderTableCell
     }

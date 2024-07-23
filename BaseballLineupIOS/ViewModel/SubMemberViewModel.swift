@@ -84,7 +84,7 @@ class SubMemberViewModel {
         if (isExchanging && index == firstSelectedIndex) {
             return .red
         }
-        return .systemBlue
+        return .numButtonColor
     }
     
     func overWritePlayer(name: String,

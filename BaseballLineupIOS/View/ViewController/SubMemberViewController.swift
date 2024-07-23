@@ -27,7 +27,11 @@ class SubMemberViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .white
-        tf.font = UIFont.boldSystemFont(ofSize: 18)
+        tf.font = UIFont.boldSystemFont(ofSize: 16)
+        tf.layer.cornerRadius = 6
+        tf.textColor = .black
+        tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         return tf
     }()
     
@@ -123,7 +127,8 @@ class SubMemberViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 0
-        stackView.backgroundColor = .systemBlue
+        stackView.backgroundColor = .registeringBoxColor
+        stackView.layer.cornerRadius = 6
         
         let spacer = UIView()
         stackView.addArrangedSubview(spacer)
@@ -164,6 +169,7 @@ class SubMemberViewController: BaseADViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -194,6 +200,8 @@ class SubMemberViewController: BaseADViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(SubPlayerTableCell.self, forCellReuseIdentifier: cellIdentifier)
+        table.layer.cornerRadius = 8
+        table.backgroundColor = .white
         return table
     }()
     
@@ -312,7 +320,7 @@ class SubMemberViewController: BaseADViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(registeringStack)
         view.addSubview(topOperationButtonsStack)
         view.addSubview(titleL)
@@ -322,8 +330,8 @@ class SubMemberViewController: BaseADViewController {
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
+            registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
             registeringStack.heightAnchor.constraint(equalToConstant: 85),
             topOperationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             topOperationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
@@ -346,11 +354,11 @@ class SubMemberViewController: BaseADViewController {
     }
     
     func setDefaultUIState() {
-        nameTF.placeholder = "控えを選択してください"
-        subL.textColor = .gray
+        nameTF.placeholder = Constants.SELECT_SUB
+        subL.textColor = .lightGray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
-        titleL.textColor = .green
+        titleL.textColor = .registeringBoxColor
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
@@ -374,21 +382,21 @@ class SubMemberViewController: BaseADViewController {
     }
     
     func setBottomButtonsEnabled(_ isInput: Bool) {
-        addB.setAvailability(isEnabled: isInput, backgroundColor: .systemTeal)
-        deleteB.setAvailability(isEnabled: isInput, backgroundColor: .systemRed)
-        exchangeWithStartingB.setAvailability(isEnabled: isInput, backgroundColor: .systemOrange)
+        addB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
+        deleteB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
+        exchangeWithStartingB.setAvailability(isEnabled: isInput, backgroundColor: .operationButtonColor)
     }
     
     private func switchCancelB(_ isEnabled: Bool) {
-        cancelB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemYellow)
+        cancelB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchRegisterB(_ isEnabled: Bool) {
-        registerB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemPink)
+        registerB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
     private func switchExchangeB(_ isEnabled: Bool) {
-        exchangeB.setAvailability(isEnabled: isEnabled, backgroundColor: .systemTeal)
+        exchangeB.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
     }
     
 }
@@ -415,9 +423,7 @@ extension SubMemberViewController: UITableViewDataSource {
             subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
         }
         
-        subTableCell.subButton.layer.cornerRadius = 15
-        subTableCell.subButton.layer.borderColor = UIColor.black.cgColor
-        subTableCell.subButton.layer.borderWidth = 2
+        subTableCell.subButton.addNumButtonDesign()
         
         let player = viewModel!.getSubPlayer(index: indexPath.row)
         designRoleLabel(uiLabel: subTableCell.pitcherLabel,
@@ -432,7 +438,16 @@ extension SubMemberViewController: UITableViewDataSource {
         designRoleLabel(uiLabel: subTableCell.fielderLabel,
                         isOn: player.isFielder.convertToBool(),
                         color: UIColor.fielderRoleColor)
-        subTableCell.nameLabel.text = player.name.forDisplay
+        
+        let name = player.name.forDisplay
+        if name.count < 8 {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        } else if name.count == 8 {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        } else {
+            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        }
+        subTableCell.nameLabel.text = name
         
         return subTableCell
     }
@@ -475,7 +490,7 @@ extension SubMemberViewController: SubMemberVMDelegate {
         
         let currentPlayer = viewModel!.getSubPlayer(index: selected)
         nameTF.placeholder = "名前を入力してください"
-        subL.textColor = .red
+        subL.textColor = .white
         nameTF.text = currentPlayer.name.original
         pitcherS.setOn(currentPlayer.isPitcher.convertToBool(), animated: true)
         hitterS.setOn(currentPlayer.isHitter.convertToBool(), animated: true)

@@ -240,7 +240,7 @@ class OrderViewModel {
         if (isExchanging && orderNum.order == firstSelectedNum?.order) {
             return .red
         }
-        return .systemBlue
+        return .numButtonColor
     }
     
     func getNumButtonText(orderNum: OrderNum) -> String {

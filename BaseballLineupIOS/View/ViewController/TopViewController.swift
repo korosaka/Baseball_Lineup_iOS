@@ -27,7 +27,7 @@ class TopViewController: UIViewController {
         label.text = Constants.TITLE_TOP
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 36)
-        label.backgroundColor = .systemGreen
+        label.backgroundColor = .appTitleColor
         label.textColor = .white
         return label
     }()
@@ -48,11 +48,12 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(type.buttonTitle , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
         button.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
         button.tag = type.buttonTag
         button.backgroundColor = type.buttonColor
         button.setTitleColor(.white, for: .normal)
+        button.addLargeButtonDesign()
         return button
     }
     
@@ -63,7 +64,7 @@ class TopViewController: UIViewController {
     }()
     
     private lazy var purchaseButton: UIButton = {
-        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemPurple)
+        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemIndigo)
         button.addTarget(self, action: #selector(onClickPurchase), for: .touchUpInside)
         return button
     }()
@@ -72,9 +73,10 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = color
         button.setTitleColor(.white, for: .normal)
+        button.addOperationButtonDesign()
         return button
     }
     
@@ -111,6 +113,7 @@ class TopViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
+        label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
         return label
@@ -141,7 +144,7 @@ class TopViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .appBackGroundColor
         view.addSubview(titleLabel)
         view.addSubview(orderButtons)
         view.addSubview(buttonsAboutStore)
@@ -207,6 +210,13 @@ class TopViewController: UIViewController {
         let purchased = UsingUserDefaults.isSpecialPurchased
         specialOrderButton.setTitle(vm.getSpecialOrderButttonText(purchased: purchased), for: .normal)
         specialOrderButton.isEnabled = purchased
+        if purchased {
+            specialOrderButton.addLargeButtonDesign()
+        } else {
+            specialOrderButton.layer.shadowOpacity = 0
+            specialOrderButton.layer.shadowRadius = 0
+            specialOrderButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        }
         purchaseButton.isHidden = purchased
         restoreButton.isHidden = purchased
         descriptions.isHidden = purchased
@@ -278,13 +288,12 @@ class TopViewController: UIViewController {
                         alertDialog = self.createSimpleAlert(product.displayName, Constants.EMPTY)
                         guard let  _dialog = alertDialog else { return }
                         
-                        //TODO: this is the temporary dealing (should be dealt depending on Light/Dark mode)
-                        _dialog.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.darkGray
-                        
+                        _dialog.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.dialogColor
                         _dialog.addAction(UIAlertAction(title: Constants.GO_TO_PURCHASE, style:UIAlertAction.Style.default){
                             (action:UIAlertAction)in
                             self.startPurchaseFlow(product: product)
                         })
+                        _dialog.setValue(NSAttributedString(string: product.displayName, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]), forKey: "attributedTitle")
                         _dialog.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
                         _dialog.view.addSubview(textView)
                         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -427,11 +436,11 @@ class TopViewController: UIViewController {
         var buttonColor: UIColor {
             switch self {
             case .Normal:
-                return .blue
+                return .largeButtonColor
             case .DH:
-                return .red
+                return .largeButtonColor
             case .Special:
-                return .systemYellow
+                return .largeButtonColor
             }
         }
     }

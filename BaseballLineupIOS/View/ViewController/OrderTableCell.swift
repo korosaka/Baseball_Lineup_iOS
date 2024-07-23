@@ -26,7 +26,6 @@ class OrderTableCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.backgroundColor = .systemBlue
-        button.addTarget(self, action: #selector(onClickNum), for: .touchUpInside)
         return button
     }()
     
@@ -34,7 +33,7 @@ class OrderTableCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .tintColor
+        label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
@@ -43,22 +42,24 @@ class OrderTableCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .tintColor
+        label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
     private func setupView() {
+        contentView.backgroundColor = .white
         contentView.addSubview(numButton)
         contentView.addSubview(positionLabel)
         contentView.addSubview(nameLabel)
+        numButton.addTarget(self, action: #selector(onClickNum), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             numButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            numButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
-            numButton.widthAnchor.constraint(equalToConstant: 90),
-            numButton.heightAnchor.constraint(equalToConstant: 50),
+            numButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            numButton.widthAnchor.constraint(equalToConstant: 80),
+            numButton.heightAnchor.constraint(equalToConstant: 45),
             
             positionLabel.leadingAnchor.constraint(equalTo: numButton.trailingAnchor, constant: 10),
             positionLabel.widthAnchor.constraint(equalToConstant: 70),

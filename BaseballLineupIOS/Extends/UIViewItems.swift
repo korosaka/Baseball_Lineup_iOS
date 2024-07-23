@@ -18,4 +18,34 @@ extension UIButton {
             self.backgroundColor = .gray
         }
     }
+    
+    func addNumButtonDesign() {
+        layer.cornerRadius = 15
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.borderWidth = 1
+        layer.shadowOpacity = 0.7
+        layer.shadowRadius = 2
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+    }
+    
+    func addOperationButtonDesign() {
+        layer.cornerRadius = 10
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderWidth = 1
+        layer.shadowOpacity = 0.7
+        layer.shadowRadius = 3
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 5, height: 5)
+    }
+    
+    func addLargeButtonDesign() {
+        layer.cornerRadius = 15
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.borderWidth = 1
+        layer.shadowOpacity = 0.7
+        layer.shadowRadius = 2
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+    }
 }

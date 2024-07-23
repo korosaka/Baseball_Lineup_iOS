@@ -27,7 +27,6 @@ class SubPlayerTableCell: UITableViewCell {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.backgroundColor = .systemBlue
         button.setTitle("控", for: .normal)
-        button.addTarget(self, action: #selector(onClickSub), for: .touchUpInside)
         return button
     }()
     
@@ -96,22 +95,24 @@ class SubPlayerTableCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .tintColor
+        label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
     private func setupView() {
+        contentView.backgroundColor = .white
         contentView.addSubview(subButton)
         contentView.addSubview(roleLabels)
         contentView.addSubview(nameLabel)
+        subButton.addTarget(self, action: #selector(onClickSub), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             subButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            subButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            subButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
+            subButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            subButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             subButton.widthAnchor.constraint(equalToConstant: 60),
-            subButton.heightAnchor.constraint(equalToConstant: 50),
+            subButton.heightAnchor.constraint(equalToConstant: 45),
             
             roleLabels.leadingAnchor.constraint(equalTo: subButton.trailingAnchor, constant: 5),
             roleLabels.widthAnchor.constraint(equalToConstant: 90),
