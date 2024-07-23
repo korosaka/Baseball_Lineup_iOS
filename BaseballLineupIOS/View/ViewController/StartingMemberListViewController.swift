@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-class StartingMemberListViewController: BaseADViewController {
+class StartingMemberListViewController: UIViewController {
     
     var viewModel: StartingMemberListViewModel?
     let cellIdentifier = "starting_member_cell"
@@ -45,26 +45,24 @@ class StartingMemberListViewController: BaseADViewController {
         super.viewDidLoad()
         setupView()
         orderTable.dataSource = self
+        orderTable.delegate = self
     }
     
     private func setupView() {
         view.backgroundColor = .appBackGroundColor
         view.addSubview(orderTable)
-        view.addSubview(bannerAD)
         
         NSLayoutConstraint.activate([
-            orderTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3),
-            orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
-            orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            orderTable.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -3),
-            bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
+            orderTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            orderTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
     
 }
 
-extension StartingMemberListViewController: UITableViewDataSource {
+extension StartingMemberListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableSize = viewModel?.getOrdeSize() else {
             return 0
@@ -83,15 +81,26 @@ extension StartingMemberListViewController: UITableViewDataSource {
         startingListTableCell.positionLabel.text = startingPlayer.position.description
         
         let name = startingPlayer.name.forDisplay
-        if name.count < 8 {
-            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        } else if name.count == 8 {
-            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        } else {
+        if name.count < 9 {
+            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        } else if name.count == 9 {
             startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        } else {
+            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 14)
         }
         startingListTableCell.nameLabel.text = name
         
         return startingListTableCell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let vm = viewModel else { return 0 }
+        let playerCount = vm.getOrdeSize()
+        if playerCount > 0 {
+            return Double(tableView.frame.size.height) / Double(playerCount)
+        } else {
+            return 0
+        }
+    }
+    
 }
