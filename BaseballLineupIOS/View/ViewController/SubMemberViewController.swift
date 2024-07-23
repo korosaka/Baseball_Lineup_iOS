@@ -147,21 +147,15 @@ class SubMemberViewController: BaseADViewController {
     }()
     
     private lazy var cancelB: UIButton = {
-        let button = createOperationButton(title: "キャンセル")
-        button.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "キャンセル")
     }()
     
     private lazy var registerB: UIButton = {
-        let button = createOperationButton(title: "登録")
-        button.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "登録")
     }()
     
     private lazy var exchangeB: UIButton = {
-        let button = createOperationButton(title: "入替")
-        button.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "入替")
     }()
     
     private func createOperationButton(title: String) -> UIButton {
@@ -206,21 +200,15 @@ class SubMemberViewController: BaseADViewController {
     }()
     
     private lazy var addB: UIButton = {
-        let button = createOperationButton(title: "控え追加")
-        button.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "控え追加")
     }()
     
     private lazy var deleteB: UIButton = {
-        let button = createOperationButton(title: "控え削除")
-        button.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "控え削除")
     }()
     
     private lazy var exchangeWithStartingB: UIButton = {
-        let button = createOperationButton(title: "先発入替")
-        button.addTarget(self, action: #selector(onClickExchangeWithStarting), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "先発入替")
     }()
     
     private lazy var bottomOperationButtonsStack: UIStackView = {
@@ -327,6 +315,12 @@ class SubMemberViewController: BaseADViewController {
         view.addSubview(subPlayerTable)
         view.addSubview(bottomOperationButtonsStack)
         view.addSubview(bannerAD)
+        cancelB.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
+        registerB.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
+        exchangeB.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
+        addB.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
+        deleteB.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
+        exchangeWithStartingB.addTarget(self, action: #selector(onClickExchangeWithStarting), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),

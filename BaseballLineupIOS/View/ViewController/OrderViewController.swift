@@ -85,33 +85,23 @@ class OrderViewController: BaseADViewController {
     }()
     
     private lazy var cancelButton: UIButton = {
-        let button = createOperationButton(title: "キャンセル")
-        button.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "キャンセル")
     }()
     
     private lazy var registerButton: UIButton = {
-        let button = createOperationButton(title: "登録")
-        button.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "登録")
     }()
     
     private lazy var exchangeButton: UIButton = {
-        let button = createOperationButton(title: "入替")
-        button.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "入替")
     }()
     
     private lazy var addOrderButton: UIButton = {
-        let button = createOperationButton(title: "追加")
-        button.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "追加")
     }()
     
     private lazy var deleteOrderButton: UIButton = {
-        let button = createOperationButton(title: "削除")
-        button.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
-        return button
+        return createOperationButton(title: "削除")
     }()
     
     private func createOperationButton(title: String) -> UIButton {
@@ -258,6 +248,11 @@ class OrderViewController: BaseADViewController {
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
         view.addSubview(bannerAD)
+        cancelButton.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
+        exchangeButton.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
+        addOrderButton.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
+        deleteOrderButton.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),

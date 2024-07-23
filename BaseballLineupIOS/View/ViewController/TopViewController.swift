@@ -49,7 +49,6 @@ class TopViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(type.buttonTitle , for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
         button.tag = type.buttonTag
         button.backgroundColor = type.buttonColor
         button.setTitleColor(.white, for: .normal)
@@ -58,15 +57,11 @@ class TopViewController: UIViewController {
     }
     
     private lazy var restoreButton: UIButton = {
-        let button = createStoreButton(title: Constants.RESTORE_PURCHASE, color: .systemIndigo)
-        button.addTarget(self, action: #selector(onClickRestore), for: .touchUpInside)
-        return button
+        return createStoreButton(title: Constants.RESTORE_PURCHASE, color: .systemIndigo)
     }()
     
     private lazy var purchaseButton: UIButton = {
-        let button = createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemIndigo)
-        button.addTarget(self, action: #selector(onClickPurchase), for: .touchUpInside)
-        return button
+        return createStoreButton(title: Constants.WHAT_IS_ALL_HITTER, color: .systemIndigo)
     }()
     
     private func createStoreButton(title: String, color: UIColor) -> UIButton {
@@ -149,6 +144,11 @@ class TopViewController: UIViewController {
         view.addSubview(orderButtons)
         view.addSubview(buttonsAboutStore)
         view.addSubview(descriptions)
+        nonDHOrderButton.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
+        dhOrderButton.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
+        specialOrderButton.addTarget(self, action: #selector(onClickOrderButton), for: .touchUpInside)
+        restoreButton.addTarget(self, action: #selector(onClickRestore), for: .touchUpInside)
+        purchaseButton.addTarget(self, action: #selector(onClickPurchase), for: .touchUpInside)
         
         let defaultLeadingSpace = 50.0
         let defaultTrailingSpace = -1.0 * defaultLeadingSpace
