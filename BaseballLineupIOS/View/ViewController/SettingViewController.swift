@@ -23,7 +23,6 @@ class SettingViewController: UIViewController {
         button.setTitle("閉じる" , for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(onClickClose), for: .touchUpInside)
         return button
     }()
     
@@ -47,6 +46,7 @@ class SettingViewController: UIViewController {
         view.addSubview(modal)
         view.addSubview(closeButton)
         view.addSubview(policyLink)
+        closeButton.addTarget(self, action: #selector(onClickClose), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             modal.centerXAnchor.constraint(equalTo: view.centerXAnchor),
