@@ -21,14 +21,15 @@ class TopViewController: UIViewController {
     private var indicator: UIActivityIndicatorView?
     
     private let titleLabel: UILabel = {
-        let label = UILabel()
+        let label = DecorateLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.strokeColor = UIColor.appTitleColor
+        label.textColor = UIColor.white
+        label.strokeSize = 4.0
         label.text = Constants.TITLE_TOP
+        label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 36)
-        label.backgroundColor = .appTitleColor
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
     

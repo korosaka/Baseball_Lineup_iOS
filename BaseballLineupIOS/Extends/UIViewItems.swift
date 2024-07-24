@@ -49,3 +49,26 @@ extension UIButton {
         layer.shadowOffset = CGSize(width: 3, height: 3)
     }
 }
+
+///ref: https://qiita.com/bu-ka/items/afda427e8dbe03e8e3a2
+class DecorateLabel: UILabel {
+    
+    var strokeColor:UIColor = UIColor.white
+    var strokeSize:CGFloat = 2.0
+
+    override func drawText(in rect: CGRect) {
+        if let context = UIGraphicsGetCurrentContext() {
+            let textColor = self.textColor
+
+            context.setLineWidth(self.strokeSize)
+            context.setLineJoin(CGLineJoin.round)
+            context.setTextDrawingMode(.stroke)
+            self.textColor = self.strokeColor
+            super.drawText(in: rect)
+
+            context.setTextDrawingMode(.fill)
+            self.textColor = textColor
+        }
+        super.drawText(in: rect)
+    }
+}
