@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "setting_24.png",
+      "filename" : "pin_24.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "setting_48.png",
+      "filename" : "pin_48.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "setting_72.png",
+      "filename" : "pin_72.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
