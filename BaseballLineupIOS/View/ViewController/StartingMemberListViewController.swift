@@ -46,6 +46,8 @@ class StartingMemberListViewController: UIViewController {
         setupView()
         orderTable.dataSource = self
         orderTable.delegate = self
+        orderTable.tableFooterView = UIView()
+        orderTable.tableHeaderView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,7 +103,9 @@ extension StartingMemberListViewController: UITableViewDataSource, UITableViewDe
         guard let vm = viewModel else { return 0 }
         let playerCount = vm.getOrdeSize()
         if playerCount > 0 {
-            return Double(tableView.frame.size.height) / Double(playerCount)
+            let height = Float(tableView.frame.size.height) / Float(playerCount)
+            //MARK: returing Decimal number(ex: 65.4 (65.0 is safe)) causes the bug that there are unexpected separator lines in Table
+            return CGFloat(floor(height))
         } else {
             return 0
         }
