@@ -47,10 +47,16 @@ class CustomTabBarController: UITabBarController {
         let orderTabTag = 0
         orderVC.tabBarItem = UITabBarItem(title: "作成", image: UIImage(named: "pen_paper_icon"), tag: orderTabTag)
         
+        let startingMemberListVC = StartingMemberListViewController()
+        startingMemberListVC.viewModel?.orderType = orderType
+        startingMemberListVC.viewModel?.cacheData = viewModel?.cacheData
+        let startingListTabTag = 1
+        startingMemberListVC.tabBarItem = UITabBarItem(title: "スタメン表", image: UIImage(named: "paper_icon"), tag: startingListTabTag)
+        
         let  fieldVC = FieldViewController()
         fieldVC.viewModel?.orderType = orderType
         fieldVC.viewModel?.cacheData = viewModel?.cacheData
-        let fieldTabTag = 1
+        let fieldTabTag = 2
         fieldVC.tabBarItem = UITabBarItem(title: "フィールド", image: UIImage(named: "pin_icon"), tag: fieldTabTag)
         
         let subMemberVC = SubMemberViewController()
@@ -58,16 +64,10 @@ class CustomTabBarController: UITabBarController {
         subMemberVC.viewModel?.cacheData = viewModel?.cacheData
         subMemberVC.viewModel?.helper = viewModel?.helper
         subMemberVC.parentViewModel = viewModel
-        let subTabTag = 2
+        let subTabTag = 3
         subMemberVC.tabBarItem = UITabBarItem(title: "ベンチ", image: UIImage(named: "sub_icon"), tag: subTabTag)
         
-        let startingMemberListVC = StartingMemberListViewController()
-        startingMemberListVC.viewModel?.orderType = orderType
-        startingMemberListVC.viewModel?.cacheData = viewModel?.cacheData
-        let startingListTabTag = 3
-        startingMemberListVC.tabBarItem = UITabBarItem(title: "スタメン表", image: UIImage(named: "paper_icon"), tag: startingListTabTag)
-        
-        viewControllers = [orderVC, fieldVC, subMemberVC, startingMemberListVC]
+        viewControllers = [orderVC, startingMemberListVC, fieldVC, subMemberVC]
     }
     
     private func setRightBarButtonItem() {
