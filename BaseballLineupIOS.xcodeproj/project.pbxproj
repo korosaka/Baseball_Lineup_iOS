@@ -141,15 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				886036F8255C3D2200C5ED1C /* ViewController */,
-				886036F7255C3D1900C5ED1C /* View */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		886036F7255C3D1900C5ED1C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				888F313126072001000CE0AB /* CustomedColor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +201,7 @@
 		B2CBED682C3FD08C001AF5B1 /* Extends */ = {
 			isa = PBXGroup;
 			children = (
+				888F313126072001000CE0AB /* CustomedColor.swift */,
 				B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */,
 			);
 			path = Extends;
