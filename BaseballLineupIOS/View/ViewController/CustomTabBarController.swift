@@ -45,7 +45,7 @@ class CustomTabBarController: UITabBarController {
         orderVC.viewModel?.helper = viewModel?.helper
         orderVC.parentViewModel = viewModel
         let orderTabTag = 0
-        orderVC.tabBarItem = UITabBarItem(title: "スタメン", image: UIImage(named: "order_icon"), tag: orderTabTag)
+        orderVC.tabBarItem = UITabBarItem(title: "作成", image: UIImage(named: "pencil_icon"), tag: orderTabTag)
         
         let  fieldVC = FieldViewController()
         fieldVC.viewModel?.orderType = orderType
@@ -65,7 +65,7 @@ class CustomTabBarController: UITabBarController {
         startingMemberListVC.viewModel?.orderType = orderType
         startingMemberListVC.viewModel?.cacheData = viewModel?.cacheData
         let startingListTabTag = 3
-        startingMemberListVC.tabBarItem = UITabBarItem(title: "スタメン表", image: UIImage(named: "order_icon"), tag: startingListTabTag)
+        startingMemberListVC.tabBarItem = UITabBarItem(title: "スタメン表", image: UIImage(named: "list_icon"), tag: startingListTabTag)
         
         viewControllers = [orderVC, fieldVC, subMemberVC, startingMemberListVC]
     }
