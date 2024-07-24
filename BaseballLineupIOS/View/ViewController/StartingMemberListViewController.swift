@@ -48,6 +48,10 @@ class StartingMemberListViewController: UIViewController {
         orderTable.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        orderTable.reloadData()
+    }
+    
     private func setupView() {
         view.backgroundColor = .appBackGroundColor
         view.addSubview(orderTable)
