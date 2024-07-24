@@ -12,7 +12,8 @@ class StartingMemberListViewModel {
     var cacheData: CacheOrderData?
     
     private func getStatingOrder() -> [StartingPlayer] {
-        cacheData!.getStartingOrder(orderType: orderType!)
+        guard let _cacheData = cacheData, let _orderType = orderType else { return [] }
+        return _cacheData.getStartingOrder(orderType: _orderType)
     }
     
     func getStatingPlayer(num: OrderNum) -> StartingPlayer {

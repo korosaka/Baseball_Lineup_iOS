@@ -81,9 +81,10 @@ extension StartingMemberListViewController: UITableViewDataSource, UITableViewDe
             fatalError("Could not create ReviewCell")
         }
         startingListTableCell.selectionStyle = .none
+        guard let vm = viewModel else { return startingListTableCell }
         let orderNum = OrderNum(order: indexPath.row + 1)
-        guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return startingListTableCell }
-        startingListTableCell.numLabel.text = viewModel!.getNumText(orderNum: orderNum)
+        let startingPlayer = vm.getStatingPlayer(num: orderNum)
+        startingListTableCell.numLabel.text = vm.getNumText(orderNum: orderNum)
         startingListTableCell.positionLabel.text = startingPlayer.position.description
         
         let name = startingPlayer.name.forDisplay
