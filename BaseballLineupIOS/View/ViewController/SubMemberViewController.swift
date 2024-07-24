@@ -208,7 +208,9 @@ class SubMemberViewController: BaseADViewController {
     }()
     
     private lazy var exchangeWithStartingB: UIButton = {
-        return createOperationButton(title: "先発入替")
+        let button = createOperationButton(title: "スタメン入替")
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        return button
     }()
     
     private lazy var bottomOperationButtonsStack: UIStackView = {
