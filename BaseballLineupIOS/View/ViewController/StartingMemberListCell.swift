@@ -59,7 +59,7 @@ class StartingMemberListCell: UITableViewCell {
             numLabel.widthAnchor.constraint(equalToConstant: 80),
             
             positionLabel.leadingAnchor.constraint(equalTo: numLabel.trailingAnchor, constant: 0),
-            positionLabel.widthAnchor.constraint(equalToConstant: 60),
+            positionLabel.widthAnchor.constraint(equalToConstant: 80),
             positionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 0),
