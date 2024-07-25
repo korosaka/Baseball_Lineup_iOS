@@ -438,13 +438,13 @@ extension SubMemberViewController: UITableViewDataSource {
                         color: UIColor.fielderRoleColor)
         
         let name = player.name.forDisplay
-        if name.count < 8 {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        } else if name.count == 8 {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        } else {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        let defaultTextSize = 24.0
+        let defaultTextCount = 7
+        var textSize = defaultTextSize
+        if name.count > defaultTextCount {
+            textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         subTableCell.nameLabel.text = name
         
         return subTableCell

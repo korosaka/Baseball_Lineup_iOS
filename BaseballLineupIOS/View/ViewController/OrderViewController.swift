@@ -364,13 +364,13 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
-        if name.count < 8 {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        } else if name.count == 8 {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        } else {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        let defaultTextSize = 24.0
+        let defaultTextCount = 7
+        var textSize = defaultTextSize
+        if name.count > defaultTextCount {
+            textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         orderTableCell.nameLabel.text = name
         
         return orderTableCell

@@ -443,13 +443,13 @@ class FieldViewController: BaseADViewController {
         guard let vm = viewModel else { return }
         for index in 0..<vm.getPlayersCount() {
             let name = vm.getPlayerName(index)
-            if name.count < 7 {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 18)
-            } else if name.count == 7 {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 16)
-            } else {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 12)
+            let defaultTextSize = 18.0
+            let defaultTextCount = 6
+            var textSize = defaultTextSize
+            if name.count > defaultTextCount {
+                textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
             }
+            nameLabels[index].font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
             nameLabels[index].text = name
             orderNumLabels[index].text = vm.getOrderNum(index)
         }
