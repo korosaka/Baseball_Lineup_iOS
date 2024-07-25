@@ -85,16 +85,16 @@ extension StartingMemberListViewController: UITableViewDataSource, UITableViewDe
         let orderNum = OrderNum(order: indexPath.row + 1)
         let startingPlayer = vm.getStatingPlayer(num: orderNum)
         startingListTableCell.numLabel.text = vm.getNumText(orderNum: orderNum)
-        startingListTableCell.positionLabel.text = startingPlayer.position.description
+        startingListTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
-        if name.count < 9 {
-            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        } else if name.count == 9 {
-            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        } else {
-            startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        let defaultTextSize = 28.0
+        let defaultTextCount = 6
+        var textSize = defaultTextSize
+        if name.count > defaultTextCount {
+            textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         startingListTableCell.nameLabel.text = name
         
         return startingListTableCell

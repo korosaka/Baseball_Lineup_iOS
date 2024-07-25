@@ -154,14 +154,14 @@ class CacheOrderData {
                 startingOrderNormal.removeAll()
                 for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_NORMAL {
                     let playerNormal = try StartingNormalTable.fetchOne(db, key: order)
-                    if playerNormal != nil {
-                        let startingPlayer = StartingPlayer(position: Position(description: playerNormal!.position),
-                                                            name: PlayerName(original: playerNormal!.name))
-                        startingOrderNormal.append(startingPlayer)
-                    } else {
+                    guard let _playerNormal = playerNormal else {
                         //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
                         startingOrderNormal.append(StartingPlayer())
+                        continue
                     }
+                    let startingPlayer = StartingPlayer(position: Position(description: _playerNormal.position),
+                                                        name: PlayerName(original: _playerNormal.name))
+                    startingOrderNormal.append(startingPlayer)
                 }
                 
                 subOrderNormal.removeAll()
@@ -181,14 +181,14 @@ class CacheOrderData {
                 startingOrderDH.removeAll()
                 for order in Constants.ORDER_FIRST...Constants.PLAYERS_NUMBER_DH {
                     let playerDH = try StartingDHTable.fetchOne(db, key: order)
-                    if playerDH != nil {
-                        let startingPlayer = StartingPlayer(position: Position(description: playerDH!.position),
-                                                            name: PlayerName(original: playerDH!.name))
-                        startingOrderDH.append(startingPlayer)
-                    } else {
+                    guard let _playerDH = playerDH else {
                         //TODO: it looks needless because empty data shuld have been added to Table for each order when DB table is created
                         startingOrderDH.append(StartingPlayer())
+                        continue
                     }
+                    let startingPlayer = StartingPlayer(position: Position(description: _playerDH.position),
+                                                        name: PlayerName(original: _playerDH.name))
+                    startingOrderDH.append(startingPlayer)
                 }
                 
                 subOrderDH.removeAll()
@@ -311,7 +311,6 @@ class CacheOrderData {
     }
     
     func exchangeSubOrder(orderType: OrderType ,index1: Int, index2: Int) {
-        //TODO: refactor
         switch orderType {
         case .DH:
             exchangeSubPlayers(order: &subOrderDH, index1, index2)

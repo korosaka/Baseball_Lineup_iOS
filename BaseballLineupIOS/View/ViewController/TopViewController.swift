@@ -21,14 +21,15 @@ class TopViewController: UIViewController {
     private var indicator: UIActivityIndicatorView?
     
     private let titleLabel: UILabel = {
-        let label = UILabel()
+        let label = DecorateLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.strokeColor = UIColor.appTitleColor
+        label.textColor = UIColor.white
+        label.strokeSize = 4.0
         label.text = Constants.TITLE_TOP
+        label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 36)
-        label.backgroundColor = .appTitleColor
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
     
@@ -246,7 +247,10 @@ class TopViewController: UIViewController {
     }
     
     @objc private func onClickPurchase(_ sender: UIButton) {
-        guard !isIndicatorAnimating, let vm = viewModel else { return }
+        guard !isIndicatorAnimating,
+              let vm = viewModel,
+              let policyURL = URL(string: Constants.PRIVACY_POLICY_URL),
+              let tosURL = URL(string: Constants.TERMS_OF_USE_URL) else { return }
         
         indicator?.startAnimating()
         Task {
@@ -276,11 +280,11 @@ class TopViewController: UIViewController {
                         let attributedString = NSMutableAttributedString(string: allHitterDescription)
                         
                         attributedString.addAttribute(.link,
-                                                      value: URL(string: Constants.PRIVACY_POLICY_URL)!,
+                                                      value: policyURL,
                                                       range: NSString(string: allHitterDescription).range(of: Constants.PRIVACY_POLICY))
                         
                         attributedString.addAttribute(.link,
-                                                      value: URL(string: Constants.TERMS_OF_USE_URL)!,
+                                                      value: tosURL,
                                                       range: NSString(string: allHitterDescription).range(of: Constants.TERMS_OF_USE))
                         
                         textView.attributedText = attributedString

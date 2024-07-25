@@ -208,7 +208,9 @@ class SubMemberViewController: BaseADViewController {
     }()
     
     private lazy var exchangeWithStartingB: UIButton = {
-        return createOperationButton(title: "先発入替")
+        let button = createOperationButton(title: "スタメン入替")
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        return button
     }()
     
     private lazy var bottomOperationButtonsStack: UIStackView = {
@@ -237,12 +239,13 @@ class SubMemberViewController: BaseADViewController {
     }
     
     @objc func onClickRegister(_ sender: Any) {
-        if viewModel!.isSelected() {
-            viewModel!.overWritePlayer(name: nameTF.text!,
-                                       isP: pitcherS.isOn,
-                                       isH: hitterS.isOn,
-                                       isR: runnerS.isOn,
-                                       isF: fielderS.isOn)
+        guard let vm = viewModel, let text = nameTF.text else { return }
+        if vm.isSelected() {
+            vm.overWritePlayer(name: text,
+                               isP: pitcherS.isOn,
+                               isH: hitterS.isOn,
+                               isR: runnerS.isOn,
+                               isF: fielderS.isOn)
         }
     }
     
@@ -410,16 +413,17 @@ extension SubMemberViewController: UITableViewDataSource {
         subTableCell.parentViewModel = self.parentViewModel
         subTableCell.tableIndex = indexPath.row
         
+        guard let parentVM = parentViewModel, let vm = viewModel else { return subTableCell }
         // MARK: Although it is not good to use "if" in View Controller, in this cace, 2 View Model are used,,,,,
-        if parentViewModel!.isExchangingStartingSub {
-            subTableCell.subButton.backgroundColor = parentViewModel!.getSubButtonColor(index: indexPath.row)
+        if parentVM.isExchangingStartingSub {
+            subTableCell.subButton.backgroundColor = parentVM.getSubButtonColor(index: indexPath.row)
         } else {
-            subTableCell.subButton.backgroundColor = viewModel!.getNumButtonColor(index: indexPath.row)
+            subTableCell.subButton.backgroundColor = vm.getNumButtonColor(index: indexPath.row)
         }
         
         subTableCell.subButton.addNumButtonDesign()
         
-        let player = viewModel!.getSubPlayer(index: indexPath.row)
+        let player = vm.getSubPlayer(index: indexPath.row)
         designRoleLabel(uiLabel: subTableCell.pitcherLabel,
                         isOn: player.isPitcher.convertToBool(),
                         color: UIColor.pitcherRoleColor)
@@ -434,13 +438,13 @@ extension SubMemberViewController: UITableViewDataSource {
                         color: UIColor.fielderRoleColor)
         
         let name = player.name.forDisplay
-        if name.count < 8 {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        } else if name.count == 8 {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        } else {
-            subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        let defaultTextSize = 24.0
+        let defaultTextCount = 7
+        var textSize = defaultTextSize
+        if name.count > defaultTextCount {
+            textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        subTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         subTableCell.nameLabel.text = name
         
         return subTableCell
@@ -480,9 +484,11 @@ extension SubMemberViewController: SubMemberVMDelegate {
     }
     
     func prepareRegistering(selected: Int) {
+        guard let vm = viewModel else { return }
+        
         setItemsDefaultEnabled(true)
         
-        let currentPlayer = viewModel!.getSubPlayer(index: selected)
+        let currentPlayer = vm.getSubPlayer(index: selected)
         nameTF.placeholder = "名前を入力してください"
         subL.textColor = .white
         nameTF.text = currentPlayer.name.original

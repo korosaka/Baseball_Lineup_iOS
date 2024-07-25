@@ -49,15 +49,21 @@ class OrderViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .fill
         
-        let spacer = UIView()
+        let spacer1 = UIView()
+        let spacer2 = UIView()
+        let spacer3 = UIView()
+        stackView.addArrangedSubview(spacer1)
         stackView.addArrangedSubview(numlabel)
+        stackView.addArrangedSubview(spacer2)
         stackView.addArrangedSubview(nameTextField)
-        stackView.addArrangedSubview(spacer)
+        stackView.addArrangedSubview(spacer3)
         
         NSLayoutConstraint.activate([
-            numlabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 9/20),
-            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 10/20),
-            spacer.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
+            spacer1.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
+            numlabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 8/20),
+            spacer2.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
+            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 9/20),
+            spacer3.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
         ])
         
         return stackView
@@ -78,7 +84,7 @@ class OrderViewController: BaseADViewController {
         stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
-            numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.65),
+            numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.6),
         ])
         
         return stackView
@@ -173,9 +179,10 @@ class OrderViewController: BaseADViewController {
     }
     
     @objc private func onClickRegister(_ sender: UIButton) {
-        if viewModel!.isNumSelected() {
-            viewModel?.writtenName = nameTextField.text!
-            viewModel?.overWriteStatingPlayer()
+        guard let vm = viewModel, let text = nameTextField.text else { return }
+        if vm.isNumSelected() {
+            vm.writtenName = text
+            vm.overWriteStatingPlayer()
             orderTable.reloadData()
             setDefaultUIState()
         }
@@ -258,12 +265,12 @@ class OrderViewController: BaseADViewController {
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
-            registeringStack.heightAnchor.constraint(equalToConstant: 85),
-            operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
+            registeringStack.heightAnchor.constraint(equalToConstant: 100),
+            operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 15),
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
             operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
-            titleLabel.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
@@ -348,21 +355,22 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.parentViewModel = self.parentViewModel
         
         let orderNum = OrderNum(order: indexPath.row + 1)
-        guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return orderTableCell }
+        guard let vm = viewModel else { return orderTableCell }
+        let startingPlayer = vm.getStatingPlayer(num: orderNum)
         orderTableCell.orderNum = orderNum
-        orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
-        orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
+        orderTableCell.numButton.setTitle(vm.getNumButtonText(orderNum: orderNum), for: .normal)
+        orderTableCell.numButton.backgroundColor = vm.getNumButtonColor(orderNum: orderNum)
         orderTableCell.numButton.addNumButtonDesign()
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
-        if name.count < 8 {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        } else if name.count == 8 {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        } else {
-            orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        let defaultTextSize = 24.0
+        let defaultTextCount = 7
+        var textSize = defaultTextSize
+        if name.count > defaultTextCount {
+            textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        orderTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         orderTableCell.nameLabel.text = name
         
         return orderTableCell
@@ -380,12 +388,13 @@ extension OrderViewController: OrderVMDelegate {
     }
     
     func prepareRegistering(selectedNum: OrderNum) {
-        let currentPlayer = viewModel!.getStatingPlayer(num: selectedNum)
+        guard let vm = viewModel else { return }
+        let currentPlayer = vm.getStatingPlayer(num: selectedNum)
         
-        numlabel.text = viewModel?.getNumButtonText(orderNum: selectedNum)
-        viewModel?.selectedPosition = currentPlayer.position
+        numlabel.text = vm.getNumButtonText(orderNum: selectedNum)
+        vm.selectedPosition = currentPlayer.position
         setItemsEnabled(true)
-        if viewModel!.isDHPitcher(orderNum: selectedNum) {
+        if vm.isDHPitcher(orderNum: selectedNum) {
             positionPicker.selectRow(Position.Pitcher.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
             viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.indexForOrder])
@@ -441,7 +450,7 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         pickerLabel.font = UIFont.boldSystemFont(ofSize: 26)
         pickerLabel.textAlignment = .center
         pickerLabel.text = Constants.POSITIONS[row]
-        pickerLabel.textColor = .white
+        pickerLabel.textColor = .pickerColor
         
         return pickerLabel
     }

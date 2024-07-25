@@ -22,7 +22,7 @@ class StartingMemberListCell: UITableViewCell {
     let numLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
@@ -31,7 +31,7 @@ class StartingMemberListCell: UITableViewCell {
     let positionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
@@ -40,7 +40,7 @@ class StartingMemberListCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
@@ -58,12 +58,12 @@ class StartingMemberListCell: UITableViewCell {
             numLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             numLabel.widthAnchor.constraint(equalToConstant: 80),
             
-            positionLabel.leadingAnchor.constraint(equalTo: numLabel.trailingAnchor, constant: 10),
-            positionLabel.widthAnchor.constraint(equalToConstant: 70),
+            positionLabel.leadingAnchor.constraint(equalTo: numLabel.trailingAnchor, constant: 0),
+            positionLabel.widthAnchor.constraint(equalToConstant: 80),
             positionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 5),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 0),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }

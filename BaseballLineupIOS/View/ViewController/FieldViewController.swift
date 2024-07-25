@@ -413,14 +413,13 @@ class FieldViewController: BaseADViewController {
         guard let vm = viewModel else { return }
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(2.0)
-        let borderColor = UIColor.black.cgColor
         
         for index in 0..<nameLabels.count {
             let label = nameLabels[index]
             label.clipsToBounds = true
             label.layer.cornerRadius = radiusValue
             label.layer.borderWidth = borderWith
-            label.layer.borderColor = borderColor
+            label.layer.borderColor = vm.getNameBorderColor(index).cgColor
             label.backgroundColor = vm.getNameLabelColor(index)
         }
     }
@@ -428,7 +427,7 @@ class FieldViewController: BaseADViewController {
     private func customNumLabelDesign() {
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(2.0)
-        let borderColor = UIColor.black.cgColor
+        let borderColor = UIColor.orderNumBorderColor.cgColor
         
         orderNumLabels.forEach { numLabel in
             numLabel.clipsToBounds = true
@@ -443,13 +442,13 @@ class FieldViewController: BaseADViewController {
         guard let vm = viewModel else { return }
         for index in 0..<vm.getPlayersCount() {
             let name = vm.getPlayerName(index)
-            if name.count < 7 {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 18)
-            } else if name.count == 7 {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 16)
-            } else {
-                nameLabels[index].font = UIFont.boldSystemFont(ofSize: 12)
+            let defaultTextSize = 18.0
+            let defaultTextCount = 6
+            var textSize = defaultTextSize
+            if name.count > defaultTextCount {
+                textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
             }
+            nameLabels[index].font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
             nameLabels[index].text = name
             orderNumLabels[index].text = vm.getOrderNum(index)
         }
