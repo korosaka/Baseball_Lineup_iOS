@@ -94,8 +94,8 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
     }
     
     func reloadTables() {
-        //TODO: don't use force wrapping
-        for vc in self.viewControllers! {
+        guard let controllers = self.viewControllers else { return }
+        for vc in controllers {
             if let controller: OrderViewController = vc as? OrderViewController {
                 controller.reloadOrder()
             }
@@ -106,8 +106,8 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
     }
     
     func setUIDefault() {
-        //TODO: don't use force wrapping
-        for vc in self.viewControllers! {
+        guard let controllers = self.viewControllers else { return }
+        for vc in controllers {
             if let controller: OrderViewController = vc as? OrderViewController {
                 controller.setUIDefault()
             }
@@ -121,8 +121,8 @@ extension CustomTabBarController: CustomTabBarVMDelegate {
                            startingNum: OrderNum,
                            startingPlayer: StartingPlayer,
                            subPlayer: SubPlayer) throws {
-        //TODO: don't use force wrapping
-        for vc in self.viewControllers! {
+        guard let controllers = self.viewControllers else { return }
+        for vc in controllers {
             if let controller: OrderViewController = vc as? OrderViewController {
                 try controller.viewModel?.updateStartingTable(db, orderNum: startingNum, newData: startingPlayer)
             }

@@ -179,9 +179,10 @@ class OrderViewController: BaseADViewController {
     }
     
     @objc private func onClickRegister(_ sender: UIButton) {
-        if viewModel!.isNumSelected() {
-            viewModel?.writtenName = nameTextField.text!
-            viewModel?.overWriteStatingPlayer()
+        guard let vm = viewModel, let text = nameTextField.text else { return }
+        if vm.isNumSelected() {
+            vm.writtenName = text
+            vm.overWriteStatingPlayer()
             orderTable.reloadData()
             setDefaultUIState()
         }
@@ -354,10 +355,11 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.parentViewModel = self.parentViewModel
         
         let orderNum = OrderNum(order: indexPath.row + 1)
-        guard let startingPlayer = viewModel?.getStatingPlayer(num: orderNum) else { return orderTableCell }
+        guard let vm = viewModel else { return orderTableCell }
+        let startingPlayer = vm.getStatingPlayer(num: orderNum)
         orderTableCell.orderNum = orderNum
-        orderTableCell.numButton.setTitle(viewModel!.getNumButtonText(orderNum: orderNum), for: .normal)
-        orderTableCell.numButton.backgroundColor = viewModel!.getNumButtonColor(orderNum: orderNum)
+        orderTableCell.numButton.setTitle(vm.getNumButtonText(orderNum: orderNum), for: .normal)
+        orderTableCell.numButton.backgroundColor = vm.getNumButtonColor(orderNum: orderNum)
         orderTableCell.numButton.addNumButtonDesign()
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
@@ -386,12 +388,13 @@ extension OrderViewController: OrderVMDelegate {
     }
     
     func prepareRegistering(selectedNum: OrderNum) {
-        let currentPlayer = viewModel!.getStatingPlayer(num: selectedNum)
+        guard let vm = viewModel else { return }
+        let currentPlayer = vm.getStatingPlayer(num: selectedNum)
         
-        numlabel.text = viewModel?.getNumButtonText(orderNum: selectedNum)
-        viewModel?.selectedPosition = currentPlayer.position
+        numlabel.text = vm.getNumButtonText(orderNum: selectedNum)
+        vm.selectedPosition = currentPlayer.position
         setItemsEnabled(true)
-        if viewModel!.isDHPitcher(orderNum: selectedNum) {
+        if vm.isDHPitcher(orderNum: selectedNum) {
             positionPicker.selectRow(Position.Pitcher.indexForOrder, inComponent: 0, animated: true)
             positionPicker.isUserInteractionEnabled = false
             viewModel?.selectedPosition = Position(description: Constants.POSITIONS[Position.Pitcher.indexForOrder])
