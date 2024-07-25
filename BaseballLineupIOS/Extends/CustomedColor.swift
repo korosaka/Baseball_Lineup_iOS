@@ -36,9 +36,23 @@ extension UIColor {
     //MARK: ORDER TABLE
     static var labelTextColor: UIColor { return UIColor(red: 0.0 / 255.0, green: 51.0 / 255.0, blue: 204.0 / 255.0, alpha: 1.0) }
     static var appBackGroundColor: UIColor { return UIColor(red: 234.0 / 255.0, green: 244.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
-    static var registeringBoxColor: UIColor { return UIColor(red: 86.0 / 255.0, green: 170.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    static var textFieldDarkColor: UIColor { return UIColor(red: 127.0 / 255.0, green: 191.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    static var registeringBoxLightColor: UIColor { return UIColor(red: 86.0 / 255.0, green: 170.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    static var registeringBoxDarkColor: UIColor { return UIColor(red: 25.0 / 255.0, green: 140.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var operationButtonColor: UIColor { return UIColor(red: 122.0 / 255.0, green: 188.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var numButtonColor: UIColor { return UIColor(red: 25.0 / 255.0, green: 140.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var pickerColor: UIColor { return UIColor(red: 255.0 / 255.0, green: 220.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0) }
     
+    static func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return dark
+                } else {
+                    return light
+                }
+            }
+        }
+        return light
+    }
 }
