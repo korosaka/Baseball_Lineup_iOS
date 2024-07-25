@@ -24,7 +24,6 @@
 		886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B351E2550617C0056AB86 /* AppDelegate.swift */; };
 		886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B35202550617C0056AB86 /* SceneDelegate.swift */; };
 		886B35232550617C0056AB86 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886B35222550617C0056AB86 /* TopViewController.swift */; };
-		886B35262550617C0056AB86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35242550617C0056AB86 /* Main.storyboard */; };
 		886B35282550617D0056AB86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 886B35272550617D0056AB86 /* Assets.xcassets */; };
 		886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 886B35292550617D0056AB86 /* LaunchScreen.storyboard */; };
 		88764A8625F4810500FA76EB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88764A8525F4810500FA76EB /* SettingViewController.swift */; };
@@ -32,6 +31,10 @@
 		888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BC24C2613BF6A004D49FE /* BaseADViewController.swift */; };
 		888CD393256887820072CFA5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CD392256887820072CFA5 /* Constans.swift */; };
 		888F313226072001000CE0AB /* CustomedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F313126072001000CE0AB /* CustomedColor.swift */; };
+		B26E4F6C2C4FDC9F00F52C47 /* StartingMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */; };
+		B26E4F6E2C4FE76F00F52C47 /* StartingMemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */; };
+		B26E4F702C4FEB4400F52C47 /* StartingMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */; };
+		B2CBED6A2C3FD0B6001AF5B1 /* UIViewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */; };
 		B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */; };
 		B2DF26722C240BED0004D941 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DF26712C240BED0004D941 /* StoreKit.framework */; };
 		B2DF26742C2413390004D941 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B2DF26732C2413390004D941 /* StoreConfiguration.storekit */; };
@@ -58,7 +61,6 @@
 		886B351E2550617C0056AB86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		886B35202550617C0056AB86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		886B35222550617C0056AB86 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
-		886B35252550617C0056AB86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		886B35272550617D0056AB86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		886B352A2550617D0056AB86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886B352C2550617D0056AB86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +69,10 @@
 		888BC24C2613BF6A004D49FE /* BaseADViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseADViewController.swift; sourceTree = "<group>"; };
 		888CD392256887820072CFA5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		888F313126072001000CE0AB /* CustomedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedColor.swift; sourceTree = "<group>"; };
+		B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListViewController.swift; sourceTree = "<group>"; };
+		B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListCell.swift; sourceTree = "<group>"; };
+		B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingMemberListViewModel.swift; sourceTree = "<group>"; };
+		B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewItems.swift; sourceTree = "<group>"; };
 		B2DF266F2C1C0B3C0004D941 /* UsingUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsingUserDefaults.swift; sourceTree = "<group>"; };
 		B2DF26712C240BED0004D941 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B2DF26732C2413390004D941 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = StoreConfiguration.storekit; path = BaseballLineupIOS/StoreConfiguration.storekit; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 				8864A340257EC88B00CA6889 /* CustomTabBarViewModel.swift */,
 				8864A343257ECB6500CA6889 /* SubMemberViewModel.swift */,
 				8864A346257ECBCB00CA6889 /* FieldViewModel.swift */,
+				B26E4F6F2C4FEB4400F52C47 /* StartingMemberListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -134,16 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				886036F8255C3D2200C5ED1C /* ViewController */,
-				886036F7255C3D1900C5ED1C /* View */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		886036F7255C3D1900C5ED1C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				886B35242550617C0056AB86 /* Main.storyboard */,
-				888F313126072001000CE0AB /* CustomedColor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,6 +157,8 @@
 				8864A349257F188000CA6889 /* SubPlayerTableCell.swift */,
 				88764A8525F4810500FA76EB /* SettingViewController.swift */,
 				888BC24C2613BF6A004D49FE /* BaseADViewController.swift */,
+				B26E4F6B2C4FDC9F00F52C47 /* StartingMemberListViewController.swift */,
+				B26E4F6D2C4FE76F00F52C47 /* StartingMemberListCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -186,6 +185,7 @@
 		886B351D2550617C0056AB86 /* BaseballLineupIOS */ = {
 			isa = PBXGroup;
 			children = (
+				B2CBED682C3FD08C001AF5B1 /* Extends */,
 				886036F6255C3D1100C5ED1C /* View */,
 				886036F5255C3D0600C5ED1C /* ViewModel */,
 				886036F4255C3CFA00C5ED1C /* Model */,
@@ -196,6 +196,15 @@
 				886B352C2550617D0056AB86 /* Info.plist */,
 			);
 			path = BaseballLineupIOS;
+			sourceTree = "<group>";
+		};
+		B2CBED682C3FD08C001AF5B1 /* Extends */ = {
+			isa = PBXGroup;
+			children = (
+				888F313126072001000CE0AB /* CustomedColor.swift */,
+				B2CBED692C3FD0B6001AF5B1 /* UIViewItems.swift */,
+			);
+			path = Extends;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +269,6 @@
 			files = (
 				886B352B2550617D0056AB86 /* LaunchScreen.storyboard in Resources */,
 				886B35282550617D0056AB86 /* Assets.xcassets in Resources */,
-				886B35262550617C0056AB86 /* Main.storyboard in Resources */,
 				B2DF26742C2413390004D941 /* StoreConfiguration.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +329,7 @@
 				888BC24D2613BF6A004D49FE /* BaseADViewController.swift in Sources */,
 				8864A34A257F188000CA6889 /* SubPlayerTableCell.swift in Sources */,
 				888CD393256887820072CFA5 /* Constans.swift in Sources */,
+				B26E4F6C2C4FDC9F00F52C47 /* StartingMemberListViewController.swift in Sources */,
 				884CEBCD2573B2EC0020C932 /* DatabaseHelper.swift in Sources */,
 				886B351F2550617C0056AB86 /* AppDelegate.swift in Sources */,
 				8864A337257E8FCC00CA6889 /* SubMemberViewController.swift in Sources */,
@@ -328,7 +337,10 @@
 				8864A33E257EA60500CA6889 /* FieldViewController.swift in Sources */,
 				887DA0112589B838003E237E /* SubOrderTable.swift in Sources */,
 				886B35212550617C0056AB86 /* SceneDelegate.swift in Sources */,
+				B26E4F6E2C4FE76F00F52C47 /* StartingMemberListCell.swift in Sources */,
+				B26E4F702C4FEB4400F52C47 /* StartingMemberListViewModel.swift in Sources */,
 				B2DF26702C1C0B3C0004D941 /* UsingUserDefaults.swift in Sources */,
+				B2CBED6A2C3FD0B6001AF5B1 /* UIViewItems.swift in Sources */,
 				886036FE255C54F900C5ED1C /* TopViewModel.swift in Sources */,
 				884CEBC7257390270020C932 /* StartingOrderTable.swift in Sources */,
 				88764A8625F4810500FA76EB /* SettingViewController.swift in Sources */,
@@ -343,14 +355,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		886B35242550617C0056AB86 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				886B35252550617C0056AB86 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		886B35292550617D0056AB86 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -482,14 +486,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202406271;
+				CURRENT_PROJECT_VERSION = 202407251;
 				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ciccc.ca.korosaka.BaseballLineupIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -503,14 +507,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202406271;
+				CURRENT_PROJECT_VERSION = 202407251;
 				DEVELOPMENT_TEAM = 377486B56V;
 				INFOPLIST_FILE = BaseballLineupIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ciccc.ca.korosaka.BaseballLineupIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

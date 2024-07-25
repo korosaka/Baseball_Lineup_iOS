@@ -11,13 +11,6 @@ import StoreKit
 
 class TopViewModel {
     
-    func informOrderType(segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goOrderScreen" {
-            let tabBarController = segue.destination as! CustomTabBarController
-            tabBarController.viewModel?.orderType = sender as? OrderType
-        }
-    }
-    
     func fetchAllHitterProduct(completion: @escaping (Result<Product, Error>) -> Void) async {
         let productIds = [Constants.ALL_HITTER_ID]
         guard let allHitterIndex = productIds.firstIndex(of: Constants.ALL_HITTER_ID) else { return }
@@ -111,7 +104,7 @@ class TopViewModel {
     
     func getSpecialOrderButttonColor(purchased: Bool) -> UIColor {
         if purchased {
-            return .systemYellow
+            return .largeButtonColor
         } else {
             return .gray
         }

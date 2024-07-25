@@ -38,7 +38,8 @@ class OrderViewModel {
     }
     
     func getStatingOrder() -> [StartingPlayer] {
-        cacheData!.getStartingOrder(orderType: orderType!)
+        guard let _cacheData = cacheData, let _orderType = orderType else { return [] }
+        return _cacheData.getStartingOrder(orderType: _orderType)
     }
     
     func getStatingPlayer(num: OrderNum) -> StartingPlayer {
@@ -240,7 +241,7 @@ class OrderViewModel {
         if (isExchanging && orderNum.order == firstSelectedNum?.order) {
             return .red
         }
-        return .systemBlue
+        return .numButtonColor
     }
     
     func getNumButtonText(orderNum: OrderNum) -> String {

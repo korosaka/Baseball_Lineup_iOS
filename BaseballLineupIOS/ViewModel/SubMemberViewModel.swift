@@ -24,11 +24,13 @@ class SubMemberViewModel {
     weak var delegate: SubMemberVMDelegate?
     
     func getOrdeSize() -> Int {
-        return cacheData?.getSubOrder(orderType: orderType!).count ?? 0
+        guard let _cacheData = cacheData, let _orderType = orderType else { return 0 }
+        return _cacheData.getSubOrder(orderType: _orderType).count
     }
     
     func getSubOrder() -> [SubPlayer] {
-        cacheData!.getSubOrder(orderType: orderType!)
+        guard let _cacheData = cacheData, let _orderType = orderType else { return [] }
+        return _cacheData.getSubOrder(orderType: _orderType)
     }
     
     func getSubPlayer(index: Int) -> SubPlayer {
@@ -84,7 +86,7 @@ class SubMemberViewModel {
         if (isExchanging && index == firstSelectedIndex) {
             return .red
         }
-        return .systemBlue
+        return .numButtonColor
     }
     
     func overWritePlayer(name: String,
