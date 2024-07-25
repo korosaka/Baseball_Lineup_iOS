@@ -39,11 +39,11 @@ class SubPlayerTableCell: UITableViewCell {
     }()
     
     lazy var fielderLabel: UILabel = {
-        return createRoleLabel(text: "代走", color: .systemBlue)
+        return createRoleLabel(text: "守備", color: .systemBlue)
     }()
     
     lazy var runnerLabel: UILabel = {
-        return createRoleLabel(text: "守備", color: .systemYellow)
+        return createRoleLabel(text: "代走", color: .systemYellow)
     }()
     
     private func createRoleLabel(text: String, color: UIColor) -> UILabel {
