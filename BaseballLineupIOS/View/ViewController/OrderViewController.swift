@@ -27,12 +27,13 @@ class OrderViewController: BaseADViewController {
     private let nameTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = .white
+        tf.backgroundColor = UIColor.dynamicColor(light: .white, dark: .textFieldDarkColor)
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
-                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.dynamicColor(light: .lightGray, dark: .gray)])
         tf.font = UIFont.boldSystemFont(ofSize: 16)
+        tf.clearButtonMode = .always
         return tf
     }()
     
@@ -76,7 +77,7 @@ class OrderViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .center
         stackView.spacing = 5
-        stackView.backgroundColor = .registeringBoxColor
+        stackView.backgroundColor = UIColor.dynamicColor(light: .registeringBoxLightColor, dark: .registeringBoxDarkColor)
         
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
@@ -289,7 +290,7 @@ class OrderViewController: BaseADViewController {
         setItemsEnabled(false)
         nameTextField.placeholder = Constants.SELECT_ORDER_NUM
         titleLabel.text = "Starting Member"
-        titleLabel.textColor = .registeringBoxColor
+        titleLabel.textColor = .registeringBoxLightColor
         
         // MARK: should separate this function within here??
         viewModel?.resetData()
@@ -403,7 +404,7 @@ extension OrderViewController: OrderVMDelegate {
             positionPicker.isUserInteractionEnabled = true
         }
         
-        nameTextField.placeholder = "名前を入力してください"
+        nameTextField.placeholder = "ここに名前を入力してください"
         nameTextField.text = currentPlayer.name.original
     }
     

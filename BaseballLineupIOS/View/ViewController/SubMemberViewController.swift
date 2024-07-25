@@ -26,12 +26,13 @@ class SubMemberViewController: BaseADViewController {
     private let nameTF: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.backgroundColor = .white
+        tf.backgroundColor = UIColor.dynamicColor(light: .white, dark: .textFieldDarkColor)
         tf.font = UIFont.boldSystemFont(ofSize: 16)
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
-                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.dynamicColor(light: .lightGray, dark: .gray)])
+        tf.clearButtonMode = .always
         return tf
     }()
     
@@ -127,7 +128,7 @@ class SubMemberViewController: BaseADViewController {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 0
-        stackView.backgroundColor = .registeringBoxColor
+        stackView.backgroundColor = UIColor.dynamicColor(light: .registeringBoxLightColor, dark: .registeringBoxDarkColor)
         stackView.layer.cornerRadius = 6
         
         let spacer = UIView()
@@ -355,7 +356,7 @@ class SubMemberViewController: BaseADViewController {
         subL.textColor = .lightGray
         nameTF.text = Constants.EMPTY
         titleL.text = "Sub Member"
-        titleL.textColor = .registeringBoxColor
+        titleL.textColor = .registeringBoxLightColor
         pitcherS.setOn(false, animated: true)
         hitterS.setOn(false, animated: true)
         runnerS.setOn(false, animated: true)
