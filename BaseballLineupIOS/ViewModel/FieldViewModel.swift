@@ -130,6 +130,21 @@ class FieldViewModel {
         }
     }
     
+    func getNameBorderColor(_ index: Int) -> UIColor {
+        switch index {
+        case PositionInField.Pitcher.index:
+            return UIColor.pitcherBorderColor
+        case PositionInField.Catcher.index:
+            return UIColor.catcherBorderColor
+        case PositionInField.First.index...PositionInField.Short.index:
+            return UIColor.infielderBorderColor
+        case PositionInField.Left.index...PositionInField.Right.index:
+            return UIColor.outfielderBorderColor
+        default:
+            return UIColor.dhBorderColor
+        }
+    }
+    
     func getPlayerName(_ positionFieldIndex: Int) -> String {
         return playersInField[positionFieldIndex].playerName
     }

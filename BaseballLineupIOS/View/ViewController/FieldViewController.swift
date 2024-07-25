@@ -413,14 +413,13 @@ class FieldViewController: BaseADViewController {
         guard let vm = viewModel else { return }
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(2.0)
-        let borderColor = UIColor.black.cgColor
         
         for index in 0..<nameLabels.count {
             let label = nameLabels[index]
             label.clipsToBounds = true
             label.layer.cornerRadius = radiusValue
             label.layer.borderWidth = borderWith
-            label.layer.borderColor = borderColor
+            label.layer.borderColor = vm.getNameBorderColor(index).cgColor
             label.backgroundColor = vm.getNameLabelColor(index)
         }
     }
@@ -428,7 +427,7 @@ class FieldViewController: BaseADViewController {
     private func customNumLabelDesign() {
         let radiusValue = CGFloat(10.0)
         let borderWith = CGFloat(2.0)
-        let borderColor = UIColor.black.cgColor
+        let borderColor = UIColor.orderNumBorderColor.cgColor
         
         orderNumLabels.forEach { numLabel in
             numLabel.clipsToBounds = true
