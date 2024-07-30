@@ -72,6 +72,21 @@ class SquareViewController: BaseADViewController {
         return stackView
     }()
     
+    @objc private func onClickDefault(_ sender: UIButton) {
+        startingVC.view.isHidden = false
+        fieldVC.view.isHidden = false
+    }
+    
+    @objc private func onClickStarting(_ sender: UIButton) {
+        startingVC.view.isHidden = false
+        fieldVC.view.isHidden = true
+    }
+    
+    @objc private func onClickField(_ sender: UIButton) {
+        startingVC.view.isHidden = true
+        fieldVC.view.isHidden = false
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -100,6 +115,9 @@ class SquareViewController: BaseADViewController {
         view.addSubview(vcStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(bannerAD)
+        defaultButton.addTarget(self, action: #selector(onClickDefault), for: .touchUpInside)
+        startingOnyButton.addTarget(self, action: #selector(onClickStarting), for: .touchUpInside)
+        fieldOnlyButton.addTarget(self, action: #selector(onClickField), for: .touchUpInside)
         
         let screenWidth = view.frame.size.width
         let spaceAd = -3.0
