@@ -71,7 +71,7 @@ class CustomTabBarController: UITabBarController {
         squareVC.viewModel?.orderType = orderType
         squareVC.viewModel?.cacheData = viewModel?.cacheData
         let squareTabTag = 4
-        squareVC.tabBarItem = UITabBarItem(title: "スクエア", image: UIImage(named: "paper_icon"), tag: squareTabTag)
+        squareVC.tabBarItem = UITabBarItem(title: "スクエア", image: UIImage(named: "square_icon"), tag: squareTabTag)
         
         viewControllers = [orderVC, startingMemberListVC, fieldVC, subMemberVC, squareVC]
     }
