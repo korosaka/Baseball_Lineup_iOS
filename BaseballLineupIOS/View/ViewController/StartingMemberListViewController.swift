@@ -13,6 +13,7 @@ class StartingMemberListViewController: UIViewController {
     
     var viewModel: StartingMemberListViewModel?
     let cellIdentifier = "starting_member_cell"
+    private var isOnSquare: Bool?
     
     private lazy var orderTable: UITableView = {
         let table = UITableView()
@@ -33,8 +34,9 @@ class StartingMemberListViewController: UIViewController {
         setup()
     }
     
-    convenience init() {
+    convenience init(isOnSquare: Bool = false) {
         self.init(nibName: nil, bundle: nil)
+        self.isOnSquare = isOnSquare
     }
     
     func setup() {
@@ -98,6 +100,18 @@ extension StartingMemberListViewController: UITableViewDataSource, UITableViewDe
         if name.count > defaultTextCount {
             textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
         }
+        
+        if isOnSquare == true {
+            let defaultPlayerCount = Constants.PLAYERS_NUMBER_NORMAL
+            let orderSize = vm.getOrdeSize()
+            let adjustedTextSize = Double(Int(defaultTextSize) * defaultPlayerCount / orderSize)
+            startingListTableCell.numLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(adjustedTextSize))
+            startingListTableCell.positionLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(adjustedTextSize))
+            if adjustedTextSize < textSize {
+                textSize = adjustedTextSize
+            }
+        }
+        
         startingListTableCell.nameLabel.font = UIFont.boldSystemFont(ofSize: CGFloat(textSize))
         startingListTableCell.nameLabel.text = name
         

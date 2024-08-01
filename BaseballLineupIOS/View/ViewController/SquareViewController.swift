@@ -12,7 +12,7 @@ class SquareViewController: BaseADViewController {
     var viewModel: StartingMemberListViewModel?
     
     private lazy var startingVC: StartingMemberListViewController = {
-        let vc = StartingMemberListViewController()
+        let vc = StartingMemberListViewController(isOnSquare: true)
         vc.viewModel?.orderType = viewModel?.orderType
         vc.viewModel?.cacheData = viewModel?.cacheData
         return vc
