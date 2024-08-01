@@ -51,6 +51,10 @@ class StartingMemberListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        reloadTable()
+    }
+    
+    func reloadTable() {
         orderTable.reloadData()
     }
     

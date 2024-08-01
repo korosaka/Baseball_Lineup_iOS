@@ -110,6 +110,10 @@ class SquareViewController: BaseADViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        startingVC.reloadTable()
+    }
+    
     private func setupView() {
         view.backgroundColor = .appBackGroundColor
         view.addSubview(vcStack)
