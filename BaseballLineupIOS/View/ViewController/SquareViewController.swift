@@ -38,10 +38,10 @@ class SquareViewController: BaseADViewController {
         return stackView
     }()
     
-//    private lazy var defaultButton: UIButton = {
-//        return createOperationButton(title: "両方")
-//    }()
-//    
+    //    private lazy var defaultButton: UIButton = {
+    //        return createOperationButton(title: "両方")
+    //    }()
+    //
     private lazy var startingOnyButton: UIButton = {
         return createOperationButton(title: "スタメン表")
     }()
@@ -49,7 +49,7 @@ class SquareViewController: BaseADViewController {
     private lazy var fieldOnlyButton: UIButton = {
         return createOperationButton(title: "フィールド")
     }()
-//    
+    //
     private func createOperationButton(title: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class SquareViewController: BaseADViewController {
         button.addOperationButtonDesign()
         return button
     }
-//    
+    //
     private lazy var operationButtonsStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,12 +72,12 @@ class SquareViewController: BaseADViewController {
         stackView.addArrangedSubview(fieldOnlyButton)
         return stackView
     }()
-//    
-//    @objc private func onClickDefault(_ sender: UIButton) {
-//        startingVC.view.isHidden = false
-//        fieldVC.view.isHidden = false
-//    }
-//    
+    //
+    //    @objc private func onClickDefault(_ sender: UIButton) {
+    //        startingVC.view.isHidden = false
+    //        fieldVC.view.isHidden = false
+    //    }
+    //
     @objc private func onClickStarting(_ sender: UIButton) {
         startingVC.view.isHidden = false
         fieldVC.view.isHidden = true
@@ -121,7 +121,7 @@ class SquareViewController: BaseADViewController {
         view.addSubview(vcStack)
         view.addSubview(operationButtonsStack)
         view.addSubview(bannerAD)
-//        defaultButton.addTarget(self, action: #selector(onClickDefault), for: .touchUpInside)
+        //        defaultButton.addTarget(self, action: #selector(onClickDefault), for: .touchUpInside)
         startingOnyButton.addTarget(self, action: #selector(onClickStarting), for: .touchUpInside)
         fieldOnlyButton.addTarget(self, action: #selector(onClickField), for: .touchUpInside)
         
