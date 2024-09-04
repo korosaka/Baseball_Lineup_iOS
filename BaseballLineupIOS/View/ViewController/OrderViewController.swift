@@ -111,6 +111,11 @@ class OrderViewController: BaseADViewController {
         return createOperationButton(title: "削除")
     }()
     
+    private lazy var allClearButton: UIButton = {
+        return createOperationButton(title: "全削除")
+    }()
+
+    
     private func createOperationButton(title: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -175,6 +180,7 @@ class OrderViewController: BaseADViewController {
         switchExchangeB(false)
         switchAddOrderB(false)
         switchDeleteOrderB(false)
+        switchAllClearB(false)
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
@@ -211,6 +217,21 @@ class OrderViewController: BaseADViewController {
         if vm.shouldRemoveDH() {
             positionPicker.reloadAllComponents()
         }
+    }
+    
+    @objc private func onClickAllClear(_ sender: UIButton) {
+        guard let vm = viewModel else { return }
+        
+        let alertDialog = UIAlertController(title: Constants.CLEAR_ALL,
+                                            message: Constants.SURE_FOR_ALL_CLEAR,
+                                            preferredStyle: UIAlertController.Style.alert)
+        alertDialog.addAction(UIAlertAction(title: Constants.OK, style:UIAlertAction.Style.default){
+            (action:UIAlertAction)in
+            vm.allClearData()
+            self.reloadOrder()
+        })
+        alertDialog.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
+        present(alertDialog, animated: true, completion:nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -255,12 +276,14 @@ class OrderViewController: BaseADViewController {
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
+        view.addSubview(allClearButton)
         view.addSubview(bannerAD)
         cancelButton.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
         exchangeButton.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
         addOrderButton.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
         deleteOrderButton.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
+        allClearButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -277,7 +300,10 @@ class OrderViewController: BaseADViewController {
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            orderTable.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -3),
+            allClearButton.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
+            allClearButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            allClearButton.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -5),
+            allClearButton.widthAnchor.constraint(equalToConstant: 100),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
@@ -304,6 +330,7 @@ class OrderViewController: BaseADViewController {
         switchExchangeB(!isInput)
         switchAddOrderB(!isInput)
         switchDeleteOrderB(!isInput)
+        switchAllClearB(!isInput)
     }
     
     func prepareToExchangeWithSub() {
@@ -314,6 +341,7 @@ class OrderViewController: BaseADViewController {
         switchAddOrderB(false)
         switchDeleteOrderB(false)
         switchCancelB(true)
+        switchAllClearB(false)
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
     }
@@ -336,6 +364,10 @@ class OrderViewController: BaseADViewController {
     
     private func switchDeleteOrderB(_ isEnabled: Bool) {
         deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
+    }
+    
+    private func switchAllClearB(_ isEnabled: Bool) {
+        allClearButton.setAvailability(isEnabled: isEnabled, backgroundColor: .allClearButtonColor)
     }
 }
 

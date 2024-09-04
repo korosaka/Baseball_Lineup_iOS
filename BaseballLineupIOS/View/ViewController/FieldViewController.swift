@@ -13,6 +13,7 @@ class FieldViewController: BaseADViewController {
     
     private var nameLabels = [UILabel]()
     private var orderNumLabels = [UILabel]()
+    private var isOnSquare: Bool?
     
     private lazy var centerNum: UILabel = {
         return createLabel()
@@ -235,8 +236,9 @@ class FieldViewController: BaseADViewController {
         setup()
     }
     
-    convenience init() {
+    convenience init(isOnSquare: Bool = false) {
         self.init(nibName: nil, bundle: nil)
+        self.isOnSquare = isOnSquare
     }
     
     func setup() {
@@ -255,8 +257,9 @@ class FieldViewController: BaseADViewController {
     private func setupView() {
         let backgroundImage = UIImage(named: "field_image")
         let backgroundImageView = UIImageView(image: backgroundImage)
-        backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.contentMode = .scaleAspectFill
         view.addSubview(backgroundImageView)
         addPlayerStack(pitcherStack)
         addPlayerStack(catcherStack)
@@ -279,13 +282,17 @@ class FieldViewController: BaseADViewController {
         let playerStackWidth = 150.0
         let viewHeight = view.frame.size.height
         let viewWidth = view.frame.size.width
-        let spaceAboveCenter = viewHeight * 0.02
-        let spaceBottomCenter = viewHeight * 0.05
-        let spaceBottomLeftRight = viewHeight * 0.08
-        let spaceBottomShortSecond = viewHeight * 0.07
-        let spaceAbovePitcher = viewHeight * 0.02
-        let spaceBottomCatcher = viewHeight * -0.03
-        let spaceAboveCatcher = viewHeight * -0.05
+        var baseCalcSize = viewHeight
+        if isOnSquare == true {
+            baseCalcSize = viewWidth * 0.9
+        }
+        let spaceAboveCenter = baseCalcSize * 0.02
+        let spaceBottomCenter = baseCalcSize * 0.05
+        let spaceBottomLeftRight = baseCalcSize * 0.08
+        let spaceBottomShortSecond = baseCalcSize * 0.07
+        let spaceAbovePitcher = baseCalcSize * 0.02
+        let spaceBottomCatcher = baseCalcSize * -0.03
+        let spaceAboveCatcher = baseCalcSize * -0.05
         let spaceDH = -1.0
         let spaceAd = -3.0
         let adjustmentForCenterX = -15.0
@@ -365,7 +372,10 @@ class FieldViewController: BaseADViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        prepareForAppear()
+    }
+    
+    func prepareForAppear() {
         guard let orderType = viewModel?.orderType else {
             return
         }

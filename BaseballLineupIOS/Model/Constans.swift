@@ -44,6 +44,8 @@ struct Constants {
     static let HAD_PURCHASED = "お客様は既に購入済みでした。\n(お支払いは不要です)"
     static let GO_TO_PURCHASE = "購入手続へ"
     static let FAIL_FETCH_PRODUCT = "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。"
+    static let CLEAR_ALL = "オールクリア"
+    static let SURE_FOR_ALL_CLEAR = "スタメンを白紙に戻しますか？"
     
     //All-Hitter
     static let ALL_HITTER_ID = "all_hitter_rule"
