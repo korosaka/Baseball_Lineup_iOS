@@ -178,6 +178,27 @@ class OrderViewModel {
         _cacheData.fetchOrderFromDB(_orderType, _helper)
     }
     
+    func allClearData() {
+        guard let _helper = helper,
+              let _cacheData = cacheData,
+              let _orderType = orderType else { return }
+        
+        for order in Constants.ORDER_FIRST...getOrdeSize() {
+            let emptyPlayer = StartingPlayer()
+            let orderNum = OrderNum(order: order)
+            let result = _helper.inDatabase{(db) in
+                try updateStartingTable(db, orderNum: orderNum, newData: emptyPlayer)
+            }
+            if result {
+                _cacheData.overWriteStartingPlayer(type: _orderType,
+                                                   orderNum: orderNum,
+                                                   player: emptyPlayer)
+            } else {
+                print("DB Error happened!!!!!!!!")
+            }
+        }
+    }
+    
     func overWriteStatingPlayer() {
         guard let _helper = helper,
               let _cacheData = cacheData,
