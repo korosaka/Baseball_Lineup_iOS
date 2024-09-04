@@ -111,10 +111,8 @@ class OrderViewController: BaseADViewController {
         return createOperationButton(title: "削除")
     }()
     
-    private lazy var clearDataButton: UIButton = {
-        let button = createOperationButton(title: "全削除")
-        button.backgroundColor = .allClearButtonColor
-        return button
+    private lazy var allClearButton: UIButton = {
+        return createOperationButton(title: "全削除")
     }()
 
     
@@ -278,14 +276,14 @@ class OrderViewController: BaseADViewController {
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
-        view.addSubview(clearDataButton)
+        view.addSubview(allClearButton)
         view.addSubview(bannerAD)
         cancelButton.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
         exchangeButton.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
         addOrderButton.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
         deleteOrderButton.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
-        clearDataButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
+        allClearButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -302,10 +300,10 @@ class OrderViewController: BaseADViewController {
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            clearDataButton.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
-            clearDataButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            clearDataButton.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -5),
-            clearDataButton.widthAnchor.constraint(equalToConstant: 100),
+            allClearButton.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
+            allClearButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            allClearButton.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -5),
+            allClearButton.widthAnchor.constraint(equalToConstant: 100),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
@@ -369,7 +367,7 @@ class OrderViewController: BaseADViewController {
     }
     
     private func switchAllClearB(_ isEnabled: Bool) {
-        clearDataButton.setAvailability(isEnabled: isEnabled, backgroundColor: .allClearButtonColor)
+        allClearButton.setAvailability(isEnabled: isEnabled, backgroundColor: .allClearButtonColor)
     }
 }
 
