@@ -220,6 +220,21 @@ class OrderViewController: BaseADViewController {
         }
     }
     
+    @objc private func onClickAllClear(_ sender: UIButton) {
+        guard let vm = viewModel else { return }
+        
+        let alertDialog = UIAlertController(title: Constants.CLEAR_ALL,
+                                            message: Constants.SURE_FOR_ALL_CLEAR,
+                                            preferredStyle: UIAlertController.Style.alert)
+        alertDialog.addAction(UIAlertAction(title: Constants.OK, style:UIAlertAction.Style.default){
+            (action:UIAlertAction)in
+            vm.allClearData()
+            self.reloadOrder()
+        })
+        alertDialog.addAction(UIAlertAction(title: Constants.TITLE_CANCEL, style:UIAlertAction.Style.cancel, handler: nil))
+        present(alertDialog, animated: true, completion:nil)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -269,6 +284,7 @@ class OrderViewController: BaseADViewController {
         exchangeButton.addTarget(self, action: #selector(onClickExchange), for: .touchUpInside)
         addOrderButton.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
         deleteOrderButton.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
+        clearDataButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
