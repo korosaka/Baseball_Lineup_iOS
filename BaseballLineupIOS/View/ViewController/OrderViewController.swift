@@ -111,6 +111,13 @@ class OrderViewController: BaseADViewController {
         return createOperationButton(title: "削除")
     }()
     
+    private lazy var clearDataButton: UIButton = {
+        let button = createOperationButton(title: "全削除")
+        button.backgroundColor = .red
+        return button
+    }()
+
+    
     private func createOperationButton(title: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -255,6 +262,7 @@ class OrderViewController: BaseADViewController {
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
+        view.addSubview(clearDataButton)
         view.addSubview(bannerAD)
         cancelButton.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
@@ -277,7 +285,10 @@ class OrderViewController: BaseADViewController {
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            orderTable.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -3),
+            clearDataButton.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
+            clearDataButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            clearDataButton.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -5),
+            clearDataButton.widthAnchor.constraint(equalToConstant: 100),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
