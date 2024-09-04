@@ -43,6 +43,8 @@ extension UIColor {
     static var numButtonColor: UIColor { return UIColor(red: 25.0 / 255.0, green: 140.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var pickerColor: UIColor { return UIColor(red: 255.0 / 255.0, green: 220.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0) }
     
+    static var allClearButtonColor: UIColor { return UIColor(red: 135.0 / 255.0, green: 15.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    
     static func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
         if #available(iOS 13, *) {
             return UIColor { (traitCollection) -> UIColor in

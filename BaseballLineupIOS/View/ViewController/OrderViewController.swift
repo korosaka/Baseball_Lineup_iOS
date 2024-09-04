@@ -113,7 +113,7 @@ class OrderViewController: BaseADViewController {
     
     private lazy var clearDataButton: UIButton = {
         let button = createOperationButton(title: "全削除")
-        button.backgroundColor = .red
+        button.backgroundColor = .allClearButtonColor
         return button
     }()
 
