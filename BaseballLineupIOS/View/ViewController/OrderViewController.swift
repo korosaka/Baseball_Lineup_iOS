@@ -182,6 +182,7 @@ class OrderViewController: BaseADViewController {
         switchExchangeB(false)
         switchAddOrderB(false)
         switchDeleteOrderB(false)
+        switchAllClearB(false)
         titleLabel.text = "入れ替える打順を2つ選択してください"
         titleLabel.textColor = .red
     }
@@ -331,6 +332,7 @@ class OrderViewController: BaseADViewController {
         switchExchangeB(!isInput)
         switchAddOrderB(!isInput)
         switchDeleteOrderB(!isInput)
+        switchAllClearB(!isInput)
     }
     
     func prepareToExchangeWithSub() {
@@ -341,6 +343,7 @@ class OrderViewController: BaseADViewController {
         switchAddOrderB(false)
         switchDeleteOrderB(false)
         switchCancelB(true)
+        switchAllClearB(false)
         titleLabel.text = "控えと入れ替える打順を選択してください"
         titleLabel.textColor = .red
     }
@@ -363,6 +366,10 @@ class OrderViewController: BaseADViewController {
     
     private func switchDeleteOrderB(_ isEnabled: Bool) {
         deleteOrderButton.setAvailability(isEnabled: isEnabled, backgroundColor: .operationButtonColor)
+    }
+    
+    private func switchAllClearB(_ isEnabled: Bool) {
+        clearDataButton.setAvailability(isEnabled: isEnabled, backgroundColor: .allClearButtonColor)
     }
 }
 
