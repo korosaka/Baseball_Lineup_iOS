@@ -16,7 +16,6 @@ class TopViewController: UIViewController {
     
     var viewModel: TopViewModel?
     private var isDoneTrackingCheck = false
-    private var isShownInterstitial = false
     private var interstitial: GADInterstitialAd?
     private var indicator: UIActivityIndicatorView?
     
@@ -403,12 +402,12 @@ class TopViewController: UIViewController {
     }
     
     private func showInterstitial() {
-        if isShownInterstitial { return }
         if let _interstitial = interstitial {
             _interstitial.present(fromRootViewController: self)
-            isShownInterstitial = true
+            loadInterstitialAd()
         } else {
             print("Ad wasn't ready")
+            loadInterstitialAd()
         }
     }
     
