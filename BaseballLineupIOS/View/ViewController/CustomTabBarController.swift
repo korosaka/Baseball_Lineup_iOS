@@ -86,6 +86,10 @@ class CustomTabBarController: UITabBarController {
         let settingVC = SettingViewController()
         navigationController?.pushViewController(settingVC, animated: true)
     }
+    
+    func backToTop() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension CustomTabBarController: CustomTabBarVMDelegate {
