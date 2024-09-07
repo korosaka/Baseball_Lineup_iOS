@@ -226,7 +226,7 @@ class TopViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isDoneTrackingCheck { requestIDFA() } // showing Interstitial is only once!
+        if !isDoneTrackingCheck { requestIDFA() }
     }
     
     @objc private func onClickRestore(_ sender: UIButton) {
