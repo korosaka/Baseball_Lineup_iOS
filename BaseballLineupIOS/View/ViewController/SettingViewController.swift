@@ -107,6 +107,10 @@ class SettingViewController: UIViewController {
     @objc func onClickClose(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    
+    func backToPrevious() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension SettingViewController: UITextViewDelegate {
