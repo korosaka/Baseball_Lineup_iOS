@@ -62,6 +62,10 @@ struct Constants {
     static let TERMS_OF_USE = "利用規約"
     static let TERMS_OF_USE_URL = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
     
+    //StoreReview (ref: https://qiita.com/Shota-Abe/items/abe8567a0018e6359ab5)
+    static let STORE_REVIEW = "アプリを評価(App Store)"
+    static let STORE_REVIEW_URL = "https://apps.apple.com/jp/app/id1557158760?action=write-review"
+    
     //Top
     static let TITLE_TOP = "野球スタメン\n作成アプリ"
     static let NON_DH = "DHなし"
