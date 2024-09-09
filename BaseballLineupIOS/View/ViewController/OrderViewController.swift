@@ -8,11 +8,14 @@
 
 import UIKit
 import GoogleMobileAds
+import StoreKit
 
 class OrderViewController: BaseADViewController {
     
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
+    let timingsForReviewUnder100 = [10, 25, 50, 75]
+    let reviewFrequency = 100
     
     private let numlabel: UILabel = {
         let label = UILabel()
@@ -250,6 +253,7 @@ class OrderViewController: BaseADViewController {
     
     func setup() {
         viewModel = .init()
+        UsingUserDefaults.countUpAppUsing()
     }
     
     override func viewDidLoad() {
@@ -267,6 +271,15 @@ class OrderViewController: BaseADViewController {
         } else {
             addOrderButton.isHidden = true
             deleteOrderButton.isHidden = true
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let appUsingCount = UsingUserDefaults.countOfUsingApp
+        if timingsForReviewUnder100.contains(appUsingCount) || appUsingCount % reviewFrequency == 0 {
+            requestReview()
+            UsingUserDefaults.countUpAppUsing()
         }
     }
     
@@ -368,6 +381,12 @@ class OrderViewController: BaseADViewController {
     
     private func switchAllClearB(_ isEnabled: Bool) {
         allClearButton.setAvailability(isEnabled: isEnabled, backgroundColor: .allClearButtonColor)
+    }
+    
+    private func requestReview() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
     }
 }
 
