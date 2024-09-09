@@ -46,6 +46,8 @@ struct Constants {
     static let FAIL_FETCH_PRODUCT = "インターネットの通信状態を確認してください。\n時間をおいてもう一度お試しください。"
     static let CLEAR_ALL = "オールクリア"
     static let SURE_FOR_ALL_CLEAR = "スタメンを白紙に戻しますか？"
+    static let HOW_TO_USE_TITLE = "使い方"
+    static let HOW_TO_USE_DESCRIPTION = "①登録したい打順ボタンをクリック\n(左上に選択した打順が表示されます)\n\n②上のエリアで名前を入力、\n守備位置を選択\n\n③登録ボタンをクリック"
     
     //All-Hitter
     static let ALL_HITTER_ID = "all_hitter_rule"
