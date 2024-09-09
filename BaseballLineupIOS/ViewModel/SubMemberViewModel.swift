@@ -81,10 +81,10 @@ class SubMemberViewModel {
     
     func getNumButtonColor(index: Int) -> UIColor {
         if (isSelected() && index == targetIndex) {
-            return .red
+            return .selectedNumButtonColor
         }
         if (isExchanging && index == firstSelectedIndex) {
-            return .red
+            return .selectedNumButtonColor
         }
         return .numButtonColor
     }

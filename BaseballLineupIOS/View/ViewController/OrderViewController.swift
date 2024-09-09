@@ -14,8 +14,11 @@ class OrderViewController: BaseADViewController {
     
     var viewModel: OrderViewModel?
     var parentViewModel: CustomTabBarViewModel?
-    let timingsForReviewUnder100 = [10, 25, 50, 75]
-    let reviewFrequency = 100
+    private let timingsForReviewUnder100 = [10, 25, 50, 75]
+    private let reviewFrequency = 100
+    private var wasReviewRequestShown = false
+    private let timingForInitialUsing = 1
+    private var wasGuidanceShown = false
     
     private let numlabel: UILabel = {
         let label = UILabel()
@@ -73,6 +76,33 @@ class OrderViewController: BaseADViewController {
         return stackView
     }()
     
+    private lazy var pickerStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.backgroundColor = UIColor.dynamicColor(light: .registeringPositionLightColor, dark: .registeringPositionDarkColor)
+        
+        let label = UILabel()
+        label.text = "守備位置"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12)
+
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(positionPicker)
+        stackView.layer.cornerRadius = 6
+        stackView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 4/20),
+            positionPicker.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 16/20),
+        ])
+        
+        return stackView
+    }()
+    
     private lazy var registeringStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +114,7 @@ class OrderViewController: BaseADViewController {
         
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
-        stackView.addArrangedSubview(positionPicker)
+        stackView.addArrangedSubview(pickerStack)
         stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
@@ -117,6 +147,12 @@ class OrderViewController: BaseADViewController {
     private lazy var allClearButton: UIButton = {
         return createOperationButton(title: "全削除")
     }()
+    
+    private lazy var guidanceButton: UIButton = {
+        let button = createOperationButton(title: "使い方")
+        button.backgroundColor = .operationButtonColor
+        return button
+    }()
 
     
     private func createOperationButton(title: String) -> UIButton {
@@ -140,6 +176,20 @@ class OrderViewController: BaseADViewController {
         stackView.addArrangedSubview(exchangeButton)
         stackView.addArrangedSubview(addOrderButton)
         stackView.addArrangedSubview(deleteOrderButton)
+        return stackView
+    }()
+    
+    private lazy var bottomButtonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        let spacer = UIView()
+        stackView.addArrangedSubview(guidanceButton)
+        stackView.addArrangedSubview(spacer)
+        stackView.addArrangedSubview(allClearButton)
         return stackView
     }()
     
@@ -237,6 +287,10 @@ class OrderViewController: BaseADViewController {
         present(alertDialog, animated: true, completion:nil)
     }
     
+    @objc private func onClickGuidance(_ sender: UIButton) {
+        showGuidance()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -277,9 +331,11 @@ class OrderViewController: BaseADViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let appUsingCount = UsingUserDefaults.countOfUsingApp
-        if timingsForReviewUnder100.contains(appUsingCount) || appUsingCount % reviewFrequency == 0 {
+        if !wasReviewRequestShown && (timingsForReviewUnder100.contains(appUsingCount) || appUsingCount % reviewFrequency == 0) {
             requestReview()
-            UsingUserDefaults.countUpAppUsing()
+            wasReviewRequestShown = true
+        } else if appUsingCount == timingForInitialUsing && !wasGuidanceShown {
+            showGuidance()
         }
     }
     
@@ -289,7 +345,7 @@ class OrderViewController: BaseADViewController {
         view.addSubview(operationButtonsStack)
         view.addSubview(titleLabel)
         view.addSubview(orderTable)
-        view.addSubview(allClearButton)
+        view.addSubview(bottomButtonsStack)
         view.addSubview(bannerAD)
         cancelButton.addTarget(self, action: #selector(onClickCancel), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(onClickRegister), for: .touchUpInside)
@@ -297,6 +353,7 @@ class OrderViewController: BaseADViewController {
         addOrderButton.addTarget(self, action: #selector(onClickAdd), for: .touchUpInside)
         deleteOrderButton.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
         allClearButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
+        guidanceButton.addTarget(self, action: #selector(onClickGuidance), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -313,10 +370,11 @@ class OrderViewController: BaseADViewController {
             orderTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             orderTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             orderTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            allClearButton.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
-            allClearButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            allClearButton.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -5),
-            allClearButton.widthAnchor.constraint(equalToConstant: 100),
+            bottomButtonsStack.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
+            bottomButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            bottomButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            bottomButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            bannerAD.topAnchor.constraint(equalTo: bottomButtonsStack.bottomAnchor, constant: 5),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
         ])
@@ -387,6 +445,17 @@ class OrderViewController: BaseADViewController {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
         }
+    }
+    
+    private func showGuidance() {
+        let alertDialog = UIAlertController(title: Constants.HOW_TO_USE_TITLE,
+                                            message: Constants.HOW_TO_USE_DESCRIPTION,
+                                            preferredStyle: UIAlertController.Style.alert)
+        alertDialog.addAction(UIAlertAction(title: Constants.OK, style:UIAlertAction.Style.default){
+            (action:UIAlertAction)in
+            self.wasGuidanceShown = true
+        })
+        present(alertDialog, animated: true, completion:nil)
     }
 }
 
