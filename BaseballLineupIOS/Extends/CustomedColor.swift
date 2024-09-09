@@ -39,6 +39,8 @@ extension UIColor {
     static var textFieldDarkColor: UIColor { return UIColor(red: 127.0 / 255.0, green: 191.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var registeringBoxLightColor: UIColor { return UIColor(red: 86.0 / 255.0, green: 170.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var registeringBoxDarkColor: UIColor { return UIColor(red: 25.0 / 255.0, green: 140.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
+    static var registeringPositionLightColor: UIColor { return UIColor(red: 61.0 / 255.0, green: 158.0 / 255.0, blue: 255 / 255.0, alpha: 1.0) }
+    static var registeringPositionDarkColor: UIColor { return UIColor(red: 0.0 / 255.0, green: 127.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var operationButtonColor: UIColor { return UIColor(red: 122.0 / 255.0, green: 188.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var numButtonColor: UIColor { return UIColor(red: 25.0 / 255.0, green: 140.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }
     static var pickerColor: UIColor { return UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0) }

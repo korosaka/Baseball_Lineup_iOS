@@ -73,6 +73,33 @@ class OrderViewController: BaseADViewController {
         return stackView
     }()
     
+    private lazy var pickerStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.backgroundColor = UIColor.dynamicColor(light: .registeringPositionLightColor, dark: .registeringPositionDarkColor)
+        
+        let label = UILabel()
+        label.text = "守備位置"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12)
+
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(positionPicker)
+        stackView.layer.cornerRadius = 6
+        stackView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 4/20),
+            positionPicker.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 16/20),
+        ])
+        
+        return stackView
+    }()
+    
     private lazy var registeringStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +111,7 @@ class OrderViewController: BaseADViewController {
         
         stackView.addArrangedSubview(UIView())
         stackView.addArrangedSubview(numAndName)
-        stackView.addArrangedSubview(positionPicker)
+        stackView.addArrangedSubview(pickerStack)
         stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
