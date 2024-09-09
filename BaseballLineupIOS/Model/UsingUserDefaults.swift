@@ -41,6 +41,7 @@ class UsingUserDefaults {
     
     static var countOfUsingApp: Int {
         get {
+            // If the specified key doesn‘t exist, this method returns 0: https://developer.apple.com/documentation/foundation/userdefaults/1407405-integer
             return UserDefaults.standard.integer(forKey: keyForAppUsingCount)
         }
     }
