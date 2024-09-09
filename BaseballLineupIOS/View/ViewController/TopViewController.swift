@@ -228,7 +228,12 @@ class TopViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isDoneTrackingCheck { requestIDFA() }
+        if isDoneTrackingCheck { return }
+        indicator?.startAnimating()
+        //ref for this delay: https://qiita.com/renave/items/b408aad151df722be747
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.requestIDFA()
+        }
     }
     
     @objc private func onClickRestore(_ sender: UIButton) {
@@ -379,9 +384,7 @@ class TopViewController: UIViewController {
     /*
      ref: https://developers.google.com/admob/ios/ios14#request
      */
-    func requestIDFA() {
-        indicator?.startAnimating()
-        Thread.sleep(forTimeInterval: 0.5) //to fix the bug of not showing tracking request: https://qiita.com/renave/items/b408aad151df722be747
+    private func requestIDFA() {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                 self.loadInterstitialAd()
