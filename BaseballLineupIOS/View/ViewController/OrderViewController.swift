@@ -16,6 +16,7 @@ class OrderViewController: BaseADViewController {
     var parentViewModel: CustomTabBarViewModel?
     private let timingsForReviewUnder100 = [10, 25, 50, 75]
     private let reviewFrequency = 100
+    private var wasReviewRequestShown = false
     private let timingForInitialUsing = 1
     private var wasGuidanceShown = false
     
@@ -330,9 +331,9 @@ class OrderViewController: BaseADViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let appUsingCount = UsingUserDefaults.countOfUsingApp
-        if timingsForReviewUnder100.contains(appUsingCount) || appUsingCount % reviewFrequency == 0 {
+        if !wasReviewRequestShown && (timingsForReviewUnder100.contains(appUsingCount) || appUsingCount % reviewFrequency == 0) {
             requestReview()
-            UsingUserDefaults.countUpAppUsing() //TODO: delete
+            wasReviewRequestShown = true
         } else if appUsingCount == timingForInitialUsing && !wasGuidanceShown {
             showGuidance()
         }
