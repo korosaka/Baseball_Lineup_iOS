@@ -66,7 +66,7 @@ class SettingViewController: UIViewController {
             modal.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7),
             closeButton.topAnchor.constraint(equalTo: modal.topAnchor, constant: 3),
             closeButton.leadingAnchor.constraint(equalTo: modal.leadingAnchor, constant: 3),
-            policyLink.centerYAnchor.constraint(equalTo: modal.centerYAnchor),
+            policyLink.centerYAnchor.constraint(equalTo: modal.centerYAnchor, constant: -25),
             policyLink.heightAnchor.constraint(equalToConstant: 50),
             policyLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
             policyLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
