@@ -75,7 +75,7 @@ class CustomTabBarViewModel {
             return .systemBlue
         }
         if index == selectedIndex {
-            return .red
+            return .selectedNumButtonColor
         } else {
             return .systemBlue
         }

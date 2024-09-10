@@ -16,8 +16,9 @@ class TopViewController: UIViewController {
     
     var viewModel: TopViewModel?
     private var isDoneTrackingCheck = false
-    private var isShownInterstitial = false
     private var interstitial: GADInterstitialAd?
+    private let interstitialFrequency = 2
+    private var clickOrderButtonCount = 0
     private var indicator: UIActivityIndicatorView?
     
     private let titleLabel: UILabel = {
@@ -227,7 +228,12 @@ class TopViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !isDoneTrackingCheck { requestIDFA() } // showing Interstitial is only once!
+        if isDoneTrackingCheck { return }
+        indicator?.startAnimating()
+        //ref for this delay: https://qiita.com/renave/items/b408aad151df722be747
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.requestIDFA()
+        }
     }
     
     @objc private func onClickRestore(_ sender: UIButton) {
@@ -364,7 +370,11 @@ class TopViewController: UIViewController {
     
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck, !isIndicatorAnimating {
-            showInterstitial()
+            if clickOrderButtonCount % interstitialFrequency == 0 {
+                showInterstitial()
+            }
+            clickOrderButtonCount += 1
+            
             let customTabBarController = CustomTabBarController()
             customTabBarController.setupViewControllers(type)
             self.navigationController?.pushViewController(customTabBarController, animated: true)
@@ -374,9 +384,7 @@ class TopViewController: UIViewController {
     /*
      ref: https://developers.google.com/admob/ios/ios14#request
      */
-    func requestIDFA() {
-        indicator?.startAnimating()
-        Thread.sleep(forTimeInterval: 0.5) //to fix the bug of not showing tracking request: https://qiita.com/renave/items/b408aad151df722be747
+    private func requestIDFA() {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                 self.loadInterstitialAd()
@@ -403,12 +411,12 @@ class TopViewController: UIViewController {
     }
     
     private func showInterstitial() {
-        if isShownInterstitial { return }
         if let _interstitial = interstitial {
             _interstitial.present(fromRootViewController: self)
-            isShownInterstitial = true
+            loadInterstitialAd()
         } else {
             print("Ad wasn't ready")
+            loadInterstitialAd()
         }
     }
     

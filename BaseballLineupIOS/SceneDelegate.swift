@@ -53,6 +53,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        if let navigationController: UINavigationController = window?.rootViewController as? UINavigationController {
+            var currentTop = navigationController.topViewController
+            if let settingVC: SettingViewController = currentTop as? SettingViewController {
+                settingVC.backToPrevious()
+                currentTop = navigationController.topViewController
+            }
+            if let tabBarController: CustomTabBarController = currentTop as? CustomTabBarController {
+                tabBarController.backToPrevious()
+            }
+        }
     }
 
 

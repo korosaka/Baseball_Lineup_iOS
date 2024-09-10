@@ -257,10 +257,10 @@ class OrderViewModel {
     
     func getNumButtonColor(orderNum: OrderNum) -> UIColor {
         if (isNumSelected() && orderNum.order == targetOrderNum.order) {
-            return .red
+            return .selectedNumButtonColor
         }
         if (isExchanging && orderNum.order == firstSelectedNum?.order) {
-            return .red
+            return .selectedNumButtonColor
         }
         return .numButtonColor
     }

@@ -11,6 +11,7 @@ class UsingUserDefaults {
     
     static let keyForCreatingSpecialTable = "table_for_special"
     static let keyForPurchasingSpecial = "purchase_special"
+    static let keyForAppUsingCount = "app_use_count"
     
     static func createdStartingSpecialTable() {
         UserDefaults.standard.set(true, forKey: keyForCreatingSpecialTable)
@@ -30,6 +31,18 @@ class UsingUserDefaults {
     static var isSpecialPurchased: Bool {
         get {
             return UserDefaults.standard.bool(forKey: keyForPurchasingSpecial)
+        }
+    }
+    
+    static func countUpAppUsing() {
+        let currentCount = countOfUsingApp
+        UserDefaults.standard.setValue(currentCount + 1, forKey: keyForAppUsingCount)
+    }
+    
+    static var countOfUsingApp: Int {
+        get {
+            // If the specified key doesn‘t exist, this method returns 0: https://developer.apple.com/documentation/foundation/userdefaults/1407405-integer
+            return UserDefaults.standard.integer(forKey: keyForAppUsingCount)
         }
     }
 }
