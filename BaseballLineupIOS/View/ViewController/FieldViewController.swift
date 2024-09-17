@@ -298,7 +298,6 @@ class FieldViewController: BaseADViewController {
         let spaceAd = -3.0
         let adjustmentForCenterX = -15.0
         
-        //
         let leftEdge = 2.0
         let rightEdge = -5.0
         let shortEdge = 15.0
