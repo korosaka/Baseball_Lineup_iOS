@@ -15,6 +15,7 @@ struct Constants {
     
     static let POSITIONS = ["---", "投" ,"捕" ,"一" ,"二" ,"三" ,"遊" ,"左" ,"中" ,"右" ,"DH"]
     static let EMPTY = ""
+    static let SPACE = " "
     static let NOT_REGISTERED = "----"
     static let NO_NUM = "---"
     static let NO_NUM_FOR_FIELD = "-"
