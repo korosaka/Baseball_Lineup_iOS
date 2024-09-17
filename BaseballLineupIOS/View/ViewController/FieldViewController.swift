@@ -14,7 +14,7 @@ class FieldViewController: BaseADViewController {
     private var nameLabels = [UILabel]()
     private var orderNumLabels = [UILabel]()
     private var isOnSquare: Bool?
-    let defaultTextSize = 22.0
+    private let defaultTextSize = 22.0
     
     private lazy var centerNum: UILabel = {
         return createLabel()
