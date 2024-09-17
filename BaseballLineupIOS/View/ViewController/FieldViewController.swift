@@ -292,8 +292,8 @@ class FieldViewController: BaseADViewController {
         let spaceBottomLeftRight = baseCalcSize * 0.08
         let spaceBottomShortSecond = baseCalcSize * 0.05
         let spaceAbovePitcher = baseCalcSize * 0.02
-        let spaceBottomCatcher = baseCalcSize * -0.002
-        let spaceAboveCatcher = baseCalcSize * -0.05
+        let spaceBottomCatcher = baseCalcSize * -0.03
+        let spaceAboveCatcher = baseCalcSize * -0.02
         let spaceDH = -1.0
         let spaceAd = -3.0
         let adjustmentForCenterX = -15.0
