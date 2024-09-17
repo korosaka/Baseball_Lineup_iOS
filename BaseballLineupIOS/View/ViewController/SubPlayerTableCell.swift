@@ -21,10 +21,17 @@ class SubPlayerTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let subButton: UIButton = {
+    lazy var defaultTextSize: Double = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 48.0
+        }
+        return 24.0
+    }()
+    
+    lazy var subButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         button.backgroundColor = .systemBlue
         button.setTitle("控", for: .normal)
         return button
@@ -49,7 +56,11 @@ class SubPlayerTableCell: UITableViewCell {
     private func createRoleLabel(text: String, color: UIColor) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         label.textAlignment = .center
         label.text = text
         return label
@@ -91,10 +102,10 @@ class SubPlayerTableCell: UITableViewCell {
         return stackView
     }()
     
-    let nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
@@ -107,16 +118,27 @@ class SubPlayerTableCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         subButton.addTarget(self, action: #selector(onClickSub), for: .touchUpInside)
         
+        var subButtonWidth = 60.0
+        var subButtonHeight = 45.0
+        var roleLabelsWidth = 90.0
+        var roleLabelsHeight = 50.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            subButtonWidth = 120.0
+            subButtonHeight = 90.0
+            roleLabelsWidth = 180.0
+            roleLabelsHeight = 100.0
+        }
+        
         NSLayoutConstraint.activate([
             subButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
             subButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             subButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            subButton.widthAnchor.constraint(equalToConstant: 60),
-            subButton.heightAnchor.constraint(equalToConstant: 45),
+            subButton.widthAnchor.constraint(equalToConstant: subButtonWidth),
+            subButton.heightAnchor.constraint(equalToConstant: subButtonHeight),
             
             roleLabels.leadingAnchor.constraint(equalTo: subButton.trailingAnchor, constant: 5),
-            roleLabels.widthAnchor.constraint(equalToConstant: 90),
-            roleLabels.heightAnchor.constraint(equalToConstant: 50),
+            roleLabels.widthAnchor.constraint(equalToConstant: roleLabelsWidth),
+            roleLabels.heightAnchor.constraint(equalToConstant: roleLabelsHeight),
             roleLabels.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             nameLabel.leadingAnchor.constraint(equalTo: roleLabels.trailingAnchor, constant: 5),
