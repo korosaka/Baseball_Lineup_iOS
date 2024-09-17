@@ -94,7 +94,7 @@ extension StartingMemberListViewController: UITableViewDataSource, UITableViewDe
         startingListTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
-        let defaultTextSize = 28.0
+        let defaultTextSize = startingListTableCell.defaultTextSize
         let defaultTextCount = 6
         var textSize = defaultTextSize
         if name.count > defaultTextCount {
