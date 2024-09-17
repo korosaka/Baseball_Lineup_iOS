@@ -24,7 +24,11 @@ class OrderViewController: BaseADViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.NO_NUM
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        var textSize = 30.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 60.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -38,7 +42,11 @@ class OrderViewController: BaseADViewController {
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_ORDER_NUM,
                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.dynamicColor(light: .lightGray, dark: .gray)])
-        tf.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        tf.font = UIFont.boldSystemFont(ofSize: textSize)
         tf.clearButtonMode = .always
         return tf
     }()
@@ -55,6 +63,7 @@ class OrderViewController: BaseADViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
+        stackView.spacing = 0
         
         let spacer1 = UIView()
         let spacer2 = UIView()
@@ -68,8 +77,8 @@ class OrderViewController: BaseADViewController {
         NSLayoutConstraint.activate([
             spacer1.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
             numlabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 8/20),
-            spacer2.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
-            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 9/20),
+            spacer2.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 2/20),
+            nameTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 8/20),
             spacer3.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/20),
         ])
         
@@ -88,7 +97,11 @@ class OrderViewController: BaseADViewController {
         label.text = "守備位置"
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12)
+        var textSize = 12.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 24.0
+        }
+        label.font = UIFont.systemFont(ofSize: textSize)
 
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(positionPicker)
@@ -109,16 +122,22 @@ class OrderViewController: BaseADViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 5
+        stackView.spacing = 0
         stackView.backgroundColor = UIColor.dynamicColor(light: .registeringBoxLightColor, dark: .registeringBoxDarkColor)
         
-        stackView.addArrangedSubview(UIView())
+        let space1 = UIView()
+        let space2 = UIView()
+        stackView.addArrangedSubview(space1)
         stackView.addArrangedSubview(numAndName)
+        stackView.addArrangedSubview(space2)
         stackView.addArrangedSubview(pickerStack)
         stackView.layer.cornerRadius = 6
         
         NSLayoutConstraint.activate([
-            numAndName.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.6),
+            space1.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/40),
+            numAndName.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 23/40),
+            space2.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/40),
+            pickerStack.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 15/40),
         ])
         
         return stackView
@@ -153,13 +172,16 @@ class OrderViewController: BaseADViewController {
         button.backgroundColor = .operationButtonColor
         return button
     }()
-
     
     private func createOperationButton(title: String) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        var textSize = 20.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 40.0
+        }
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
         button.addOperationButtonDesign()
         return button
     }
@@ -197,7 +219,11 @@ class OrderViewController: BaseADViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Starting Member"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         label.textAlignment = .center
         return label
     }()
@@ -355,15 +381,22 @@ class OrderViewController: BaseADViewController {
         allClearButton.addTarget(self, action: #selector(onClickAllClear), for: .touchUpInside)
         guidanceButton.addTarget(self, action: #selector(onClickGuidance), for: .touchUpInside)
         
+        var registeringStackHeight = 110.0
+        var operationButtonsStackHeight = 40.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            registeringStackHeight = 220.0
+            operationButtonsStackHeight = 80.0
+        }
+        
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
-            registeringStack.heightAnchor.constraint(equalToConstant: 100),
+            registeringStack.heightAnchor.constraint(equalToConstant: registeringStackHeight),
             operationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 15),
             operationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             operationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            operationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            operationButtonsStack.heightAnchor.constraint(equalToConstant: operationButtonsStackHeight),
             titleLabel.topAnchor.constraint(equalTo: operationButtonsStack.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
@@ -373,7 +406,7 @@ class OrderViewController: BaseADViewController {
             bottomButtonsStack.topAnchor.constraint(equalTo: orderTable.bottomAnchor, constant: 3),
             bottomButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             bottomButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            bottomButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            bottomButtonsStack.heightAnchor.constraint(equalToConstant: operationButtonsStackHeight),
             bannerAD.topAnchor.constraint(equalTo: bottomButtonsStack.bottomAnchor, constant: 5),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
@@ -485,7 +518,7 @@ extension OrderViewController: UITableViewDataSource {
         orderTableCell.positionLabel.text = "(\(startingPlayer.position.description))"
         
         let name = startingPlayer.name.forDisplay
-        let defaultTextSize = 24.0
+        let defaultTextSize = orderTableCell.defaultTextSize
         let defaultTextCount = 7
         var textSize = defaultTextSize
         if name.count > defaultTextCount {
@@ -568,11 +601,22 @@ extension OrderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         let pickerLabel = UILabel()
-        pickerLabel.font = UIFont.boldSystemFont(ofSize: 26)
+        var textSize = 24.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 50.0
+        }
+        pickerLabel.font = UIFont.boldSystemFont(ofSize: textSize)
         pickerLabel.textAlignment = .center
         pickerLabel.text = Constants.POSITIONS[row]
         pickerLabel.textColor = .pickerColor
         
         return pickerLabel
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 50
+        }
+        return 24
     }
 }
