@@ -64,8 +64,14 @@ enum OrderType {
 struct PlayerName {
     var original: String
     var forDisplay: String {
+        let space = Character(Constants.SPACE)
+        let array = Array(original)
         if original == Constants.EMPTY {
             return Constants.NOT_REGISTERED
+        } else if original.count == 2 {
+            return String([array[0], space, space, array[1]])
+        } else if original.count == 3 {
+            return String([array[0], space, array[1], space, array[2]])
         } else {
             return original
         }
