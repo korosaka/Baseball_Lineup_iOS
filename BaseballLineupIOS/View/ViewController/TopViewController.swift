@@ -391,7 +391,8 @@ class TopViewController: UIViewController {
     
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck, !isIndicatorAnimating {
-            if clickOrderButtonCount % interstitialFrequency == 0 {
+            let isTheInitialUsing = UsingUserDefaults.countOfUsingApp == 0
+            if clickOrderButtonCount % interstitialFrequency == 0 && !isTheInitialUsing {
                 showInterstitial()
             }
             clickOrderButtonCount += 1
