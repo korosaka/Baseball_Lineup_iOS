@@ -26,29 +26,37 @@ class SettingViewController: UIViewController {
         return button
     }()
     
-    private let policyLink: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont.boldSystemFont(ofSize: 20)
-        textView.textAlignment = .center
-        textView.backgroundColor = .clear
-        return textView
+    private lazy var policyLink: UITextView = {
+        return createTextForLink()
     }()
     
-    private let storeReviewLink: UITextView = {
+    private lazy var storeReviewLink: UITextView = {
+        return createTextForLink()
+    }()
+    
+    private lazy var blogLink: UITextView = {
+        return createTextForLink()
+    }()
+    
+    private lazy var contactLink: UITextView = {
+        return createTextForLink()
+    }()
+    
+    private func createTextForLink() -> UITextView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont.boldSystemFont(ofSize: 20)
         textView.textAlignment = .center
         textView.backgroundColor = .clear
         return textView
-    }()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         registerPolicyLink()
         registerStoreReviewLink()
+        registerBlogLink()
+        registerContactLink()
     }
     
     private func setupView() {
@@ -57,23 +65,36 @@ class SettingViewController: UIViewController {
         view.addSubview(closeButton)
         view.addSubview(policyLink)
         view.addSubview(storeReviewLink)
+        view.addSubview(blogLink)
+        view.addSubview(contactLink)
         closeButton.addTarget(self, action: #selector(onClickClose), for: .touchUpInside)
+        
+        let defaultSpace = 10.0
+        let defaultHeight = 50.0
         
         NSLayoutConstraint.activate([
             modal.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             modal.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            modal.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.4),
-            modal.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7),
+            modal.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.6),
+            modal.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.9),
             closeButton.topAnchor.constraint(equalTo: modal.topAnchor, constant: 3),
             closeButton.leadingAnchor.constraint(equalTo: modal.leadingAnchor, constant: 3),
-            policyLink.centerYAnchor.constraint(equalTo: modal.centerYAnchor, constant: -25),
-            policyLink.heightAnchor.constraint(equalToConstant: 50),
+            policyLink.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: defaultSpace),
+            policyLink.heightAnchor.constraint(equalToConstant: defaultHeight),
             policyLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
             policyLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
             storeReviewLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
             storeReviewLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
-            storeReviewLink.topAnchor.constraint(equalTo: policyLink.bottomAnchor, constant: 10),
-            storeReviewLink.heightAnchor.constraint(equalToConstant: 50),
+            storeReviewLink.topAnchor.constraint(equalTo: policyLink.bottomAnchor, constant: defaultSpace),
+            storeReviewLink.heightAnchor.constraint(equalToConstant: defaultHeight),
+            blogLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
+            blogLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
+            blogLink.topAnchor.constraint(equalTo: storeReviewLink.bottomAnchor, constant: defaultSpace),
+            blogLink.heightAnchor.constraint(equalToConstant: defaultHeight),
+            contactLink.leadingAnchor.constraint(equalTo: modal.leadingAnchor),
+            contactLink.trailingAnchor.constraint(equalTo: modal.trailingAnchor),
+            contactLink.topAnchor.constraint(equalTo: blogLink.bottomAnchor, constant: defaultSpace),
+            contactLink.heightAnchor.constraint(equalToConstant: defaultHeight),
         ])
     }
     
@@ -92,16 +113,42 @@ class SettingViewController: UIViewController {
     }
     
     private func registerStoreReviewLink() {
-        let baseString = Constants.STORE_REVIEW
+        let baseString = Constants.STORE_REVIEW + Constants.STORE_REVIEW_MESSAGE
         let storeURL = Constants.STORE_REVIEW_URL
         let attributedString = NSMutableAttributedString(string: baseString)
         attributedString.addAttribute(.link,
                                       value: storeURL,
-                                      range: NSString(string: baseString).range(of: baseString))
+                                      range: NSString(string: baseString).range(of: Constants.STORE_REVIEW))
         storeReviewLink.attributedText = attributedString
         storeReviewLink.isSelectable = true
         storeReviewLink.isEditable = false
         storeReviewLink.delegate = self
+    }
+    
+    private func registerBlogLink() {
+        let baseString = Constants.BLOG + Constants.BLOG_MESSAGE
+        let blogURL = Constants.BLOG_URL
+        let attributedString = NSMutableAttributedString(string: baseString)
+        attributedString.addAttribute(.link,
+                                      value: blogURL,
+                                      range: NSString(string: baseString).range(of: Constants.BLOG))
+        blogLink.attributedText = attributedString
+        blogLink.isSelectable = true
+        blogLink.isEditable = false
+        blogLink.delegate = self
+    }
+    
+    private func registerContactLink() {
+        let baseString = Constants.CONTACT_US + Constants.CONTACT_US_MESSAGE
+        let contactURL = Constants.CONTACT_US_URL
+        let attributedString = NSMutableAttributedString(string: baseString)
+        attributedString.addAttribute(.link,
+                                      value: contactURL,
+                                      range: NSString(string: baseString).range(of: Constants.CONTACT_US))
+        contactLink.attributedText = attributedString
+        contactLink.isSelectable = true
+        contactLink.isEditable = false
+        contactLink.delegate = self
     }
     
     @objc func onClickClose(_ sender: Any) {
