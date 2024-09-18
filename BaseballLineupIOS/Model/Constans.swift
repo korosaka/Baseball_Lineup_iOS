@@ -15,6 +15,7 @@ struct Constants {
     
     static let POSITIONS = ["---", "投" ,"捕" ,"一" ,"二" ,"三" ,"遊" ,"左" ,"中" ,"右" ,"DH"]
     static let EMPTY = ""
+    static let SPACE = " "
     static let NOT_REGISTERED = "----"
     static let NO_NUM = "---"
     static let NO_NUM_FOR_FIELD = "-"
@@ -64,7 +65,16 @@ struct Constants {
     
     //StoreReview (ref: https://qiita.com/Shota-Abe/items/abe8567a0018e6359ab5)
     static let STORE_REVIEW = "アプリを評価(App Store)"
+    static let STORE_REVIEW_MESSAGE = "\n(高評価いただけると大変ありがたいです)"
     static let STORE_REVIEW_URL = "https://apps.apple.com/jp/app/id1557158760?action=write-review"
+    
+    //BLOG
+    static let BLOG = "打線組んだブログ"
+    static let BLOG_MESSAGE = "\n(野球好きなら面白いブログです、暇つぶしにぜひ)"
+    static let BLOG_URL = "https://enjoy-baseball-app.com/"
+    static let CONTACT_US = "お問い合わせ"
+    static let CONTACT_US_MESSAGE = "\n(問題報告やクレームはこちらからお願いします)"
+    static let CONTACT_US_URL = "https://enjoy-baseball-app.com/contact-us/"
     
     //Top
     static let TITLE_TOP = "野球スタメン\n作成アプリ"

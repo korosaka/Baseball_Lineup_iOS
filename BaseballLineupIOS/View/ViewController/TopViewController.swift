@@ -30,7 +30,11 @@ class TopViewController: UIViewController {
         label.text = Constants.TITLE_TOP
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 40)
+        var textSize = 40.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 80.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         return label
     }()
     
@@ -50,7 +54,11 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(type.buttonTitle , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
+        var textSize = 28.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 56.0
+        }
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
         button.tag = type.buttonTag
         button.backgroundColor = type.buttonColor
         button.setTitleColor(.white, for: .normal)
@@ -70,7 +78,11 @@ class TopViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
         button.backgroundColor = color
         button.setTitleColor(.white, for: .normal)
         button.addOperationButtonDesign()
@@ -111,7 +123,11 @@ class TopViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
         label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 12)
+        var textSize = 12.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 24.0
+        }
+        label.font = UIFont.systemFont(ofSize: textSize)
         label.numberOfLines = 0
         return label
     }
@@ -154,7 +170,12 @@ class TopViewController: UIViewController {
         
         let defaultLeadingSpace = 50.0
         let defaultTrailingSpace = -1.0 * defaultLeadingSpace
-        let orderButtonHeight = 50.0
+        var orderButtonHeight = 50.0
+        var buttonsAboutStoreHeight = 40.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            orderButtonHeight = 100.0
+            buttonsAboutStoreHeight = 80.0
+        }
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -178,7 +199,7 @@ class TopViewController: UIViewController {
             buttonsAboutStore.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: defaultLeadingSpace),
             buttonsAboutStore.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: defaultTrailingSpace),
             buttonsAboutStore.bottomAnchor.constraint(equalTo: descriptions.topAnchor, constant: -10),
-            buttonsAboutStore.heightAnchor.constraint(equalToConstant: 40),
+            buttonsAboutStore.heightAnchor.constraint(equalToConstant: buttonsAboutStoreHeight),
             restoreButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor),
             restoreButton.bottomAnchor.constraint(equalTo: buttonsAboutStore.bottomAnchor),
             purchaseButton.topAnchor.constraint(equalTo: buttonsAboutStore.topAnchor),
@@ -370,7 +391,8 @@ class TopViewController: UIViewController {
     
     private func onClickOrderType(type: OrderType) {
         if isDoneTrackingCheck, !isIndicatorAnimating {
-            if clickOrderButtonCount % interstitialFrequency == 0 {
+            let isTheInitialUsing = UsingUserDefaults.countOfUsingApp == 0
+            if clickOrderButtonCount % interstitialFrequency == 0 && !isTheInitialUsing {
                 showInterstitial()
             }
             clickOrderButtonCount += 1

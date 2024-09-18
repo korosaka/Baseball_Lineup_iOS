@@ -14,6 +14,13 @@ class FieldViewController: BaseADViewController {
     private var nameLabels = [UILabel]()
     private var orderNumLabels = [UILabel]()
     private var isOnSquare: Bool?
+    private lazy var defaultTextSize: Double = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 44.0
+        }
+        return 22.0
+    }()
+
     
     private lazy var centerNum: UILabel = {
         return createLabel()
@@ -198,7 +205,7 @@ class FieldViewController: BaseADViewController {
     private func createLabel() -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .black
         label.textAlignment = .center
         return label
@@ -218,9 +225,9 @@ class FieldViewController: BaseADViewController {
         stackView.addArrangedSubview(playerName)
         
         NSLayoutConstraint.activate([
-            orderNum.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 18/100),
+            orderNum.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 20/100),
             spacer.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/100),
-            playerName.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 81/100),
+            playerName.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 79/100),
         ])
         
         return stackView
@@ -278,13 +285,14 @@ class FieldViewController: BaseADViewController {
         addPlayerStack(dh6Stack)
         view.addSubview(bannerAD)
         
-        let playerStackHeight = 28.0
-        let playerStackWidth = 150.0
         let viewHeight = view.frame.size.height
         let viewWidth = view.frame.size.width
         var baseCalcSize = viewHeight
         if isOnSquare == true {
             baseCalcSize = viewWidth * 0.9
+        }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            baseCalcSize *= 1.4
         }
         let spaceAboveCenter = baseCalcSize * 0.02
         let spaceBottomCenter = baseCalcSize * 0.05
@@ -292,15 +300,19 @@ class FieldViewController: BaseADViewController {
         let spaceBottomShortSecond = baseCalcSize * 0.07
         let spaceAbovePitcher = baseCalcSize * 0.02
         let spaceBottomCatcher = baseCalcSize * -0.03
-        let spaceAboveCatcher = baseCalcSize * -0.05
+        let spaceAboveCatcher = baseCalcSize * -0.02
         let spaceDH = -1.0
         let spaceAd = -3.0
         let adjustmentForCenterX = -15.0
         
-        let leftEdge = 2.0
-        let rightEdge = -5.0
-        let shortEdge = 15.0
-        let secondEdge = -15.0
+        var edgeBaseSize = viewWidth
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            edgeBaseSize *= 3
+        }
+        let leftEdge = edgeBaseSize * 0.005
+        let rightEdge = -1.0 * leftEdge
+        let shortEdge = edgeBaseSize * 0.04
+        let secondEdge = edgeBaseSize * -0.05
         
         NSLayoutConstraint.activate([
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -340,6 +352,13 @@ class FieldViewController: BaseADViewController {
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: spaceAd),
         ])
+        
+        var playerStackHeight = 30.0
+        var playerStackWidth = 160.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            playerStackHeight = 60.0
+            playerStackWidth = 320.0
+        }
         
         playerStacks.forEach {
             $0.heightAnchor.constraint(equalToConstant: playerStackHeight).isActive = true
@@ -452,8 +471,7 @@ class FieldViewController: BaseADViewController {
         guard let vm = viewModel else { return }
         for index in 0..<vm.getPlayersCount() {
             let name = vm.getPlayerName(index)
-            let defaultTextSize = 18.0
-            let defaultTextCount = 6
+            let defaultTextCount = 5
             var textSize = defaultTextSize
             if name.count > defaultTextCount {
                 textSize = Double(Int(defaultTextSize) * defaultTextCount / name.count)
