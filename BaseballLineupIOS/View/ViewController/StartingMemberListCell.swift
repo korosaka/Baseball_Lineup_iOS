@@ -19,28 +19,35 @@ class StartingMemberListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let numLabel: UILabel = {
+    lazy var defaultTextSize: Double = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 56.0
+        }
+        return 28.0
+    }()
+    
+    lazy var numLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
-    let positionLabel: UILabel = {
+    lazy var positionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
-    let nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
@@ -52,14 +59,19 @@ class StartingMemberListCell: UITableViewCell {
         contentView.addSubview(positionLabel)
         contentView.addSubview(nameLabel)
         
+        var numPositionLabelWidth = 80.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            numPositionLabelWidth = 160.0
+        }
+        
         NSLayoutConstraint.activate([
             numLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
             numLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             numLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            numLabel.widthAnchor.constraint(equalToConstant: 80),
+            numLabel.widthAnchor.constraint(equalToConstant: numPositionLabelWidth),
             
             positionLabel.leadingAnchor.constraint(equalTo: numLabel.trailingAnchor, constant: 0),
-            positionLabel.widthAnchor.constraint(equalToConstant: 80),
+            positionLabel.widthAnchor.constraint(equalToConstant: numPositionLabelWidth),
             positionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 0),

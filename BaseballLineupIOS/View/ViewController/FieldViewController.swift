@@ -14,7 +14,13 @@ class FieldViewController: BaseADViewController {
     private var nameLabels = [UILabel]()
     private var orderNumLabels = [UILabel]()
     private var isOnSquare: Bool?
-    private let defaultTextSize = 22.0
+    private lazy var defaultTextSize: Double = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 44.0
+        }
+        return 22.0
+    }()
+
     
     private lazy var centerNum: UILabel = {
         return createLabel()
@@ -279,18 +285,19 @@ class FieldViewController: BaseADViewController {
         addPlayerStack(dh6Stack)
         view.addSubview(bannerAD)
         
-        let playerStackHeight = 30.0
-        let playerStackWidth = 160.0
         let viewHeight = view.frame.size.height
         let viewWidth = view.frame.size.width
         var baseCalcSize = viewHeight
         if isOnSquare == true {
             baseCalcSize = viewWidth * 0.9
         }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            baseCalcSize *= 1.4
+        }
         let spaceAboveCenter = baseCalcSize * 0.02
         let spaceBottomCenter = baseCalcSize * 0.05
         let spaceBottomLeftRight = baseCalcSize * 0.08
-        let spaceBottomShortSecond = baseCalcSize * 0.05
+        let spaceBottomShortSecond = baseCalcSize * 0.07
         let spaceAbovePitcher = baseCalcSize * 0.02
         let spaceBottomCatcher = baseCalcSize * -0.03
         let spaceAboveCatcher = baseCalcSize * -0.02
@@ -298,10 +305,14 @@ class FieldViewController: BaseADViewController {
         let spaceAd = -3.0
         let adjustmentForCenterX = -15.0
         
-        let leftEdge = 2.0
-        let rightEdge = -5.0
-        let shortEdge = 15.0
-        let secondEdge = -18.0
+        var edgeBaseSize = viewWidth
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            edgeBaseSize *= 3
+        }
+        let leftEdge = edgeBaseSize * 0.005
+        let rightEdge = -1.0 * leftEdge
+        let shortEdge = edgeBaseSize * 0.04
+        let secondEdge = edgeBaseSize * -0.05
         
         NSLayoutConstraint.activate([
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -341,6 +352,13 @@ class FieldViewController: BaseADViewController {
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: spaceAd),
         ])
+        
+        var playerStackHeight = 30.0
+        var playerStackWidth = 160.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            playerStackHeight = 60.0
+            playerStackWidth = 320.0
+        }
         
         playerStacks.forEach {
             $0.heightAnchor.constraint(equalToConstant: playerStackHeight).isActive = true

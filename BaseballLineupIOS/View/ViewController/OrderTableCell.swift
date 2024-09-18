@@ -21,33 +21,51 @@ class OrderTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let numButton: UIButton = {
+    lazy var defaultTextSize: Double = {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 48.0
+        }
+        return 24.0
+    }()
+    
+    lazy var numButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         button.backgroundColor = .systemBlue
         return button
     }()
     
-    let positionLabel: UILabel = {
+    lazy var positionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
-    let nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: defaultTextSize)
         label.textColor = .labelTextColor
         label.textAlignment = .center
         return label
     }()
     
     private func setupView() {
+        var buttonWidth = 80.0
+        var buttonHeight = 45.0
+        var spaceBetweenButtonPosition = 10.0
+        var positionWidth = 70.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            buttonWidth = 160.0
+            buttonHeight = 90.0
+            spaceBetweenButtonPosition = 50.0
+            positionWidth = 140.0
+        }
+        
         contentView.backgroundColor = .white
         contentView.addSubview(numButton)
         contentView.addSubview(positionLabel)
@@ -58,11 +76,11 @@ class OrderTableCell: UITableViewCell {
             numButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
             numButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            numButton.widthAnchor.constraint(equalToConstant: 80),
-            numButton.heightAnchor.constraint(equalToConstant: 45),
+            numButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            numButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
-            positionLabel.leadingAnchor.constraint(equalTo: numButton.trailingAnchor, constant: 10),
-            positionLabel.widthAnchor.constraint(equalToConstant: 70),
+            positionLabel.leadingAnchor.constraint(equalTo: numButton.trailingAnchor, constant: spaceBetweenButtonPosition),
+            positionLabel.widthAnchor.constraint(equalToConstant: positionWidth),
             positionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 5),

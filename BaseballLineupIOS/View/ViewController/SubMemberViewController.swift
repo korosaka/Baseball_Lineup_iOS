@@ -16,7 +16,11 @@ class SubMemberViewController: BaseADViewController {
     private let subL: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        var textSize = 30.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 60.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         label.textColor = .white
         label.text = "控え"
         label.textAlignment = .center
@@ -27,7 +31,11 @@ class SubMemberViewController: BaseADViewController {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = UIColor.dynamicColor(light: .white, dark: .textFieldDarkColor)
-        tf.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        tf.font = UIFont.boldSystemFont(ofSize: textSize)
         tf.layer.cornerRadius = 6
         tf.textColor = .black
         tf.attributedPlaceholder = NSAttributedString(string: Constants.SELECT_SUB,
@@ -113,7 +121,11 @@ class SubMemberViewController: BaseADViewController {
         let label = UILabel()
         label.text = text
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(uiSwitch)
@@ -138,7 +150,7 @@ class SubMemberViewController: BaseADViewController {
         stackView.addArrangedSubview(hitterAndfielderStack)
         
         NSLayoutConstraint.activate([
-            labelAndTF.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/100),
+            spacer.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/100),
             labelAndTF.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 55/100),
             pitcherAndRuunerStack.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 22/100),
             hitterAndfielderStack.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 22/100),
@@ -163,7 +175,11 @@ class SubMemberViewController: BaseADViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title , for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        var textSize = 20.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 40.0
+        }
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
         button.addOperationButtonDesign()
         return button
     }
@@ -184,7 +200,11 @@ class SubMemberViewController: BaseADViewController {
     private let titleL: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        var textSize = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 32.0
+        }
+        label.font = UIFont.boldSystemFont(ofSize: textSize)
         label.textAlignment = .center
         return label
     }()
@@ -210,7 +230,11 @@ class SubMemberViewController: BaseADViewController {
     
     private lazy var exchangeWithStartingB: UIButton = {
         let button = createOperationButton(title: "スタメン入替")
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        var textSize = 18.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            textSize = 36.0
+        }
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
         return button
     }()
     
@@ -326,15 +350,24 @@ class SubMemberViewController: BaseADViewController {
         deleteB.addTarget(self, action: #selector(onClickDelete), for: .touchUpInside)
         exchangeWithStartingB.addTarget(self, action: #selector(onClickExchangeWithStarting), for: .touchUpInside)
         
+        var registeringStackHeight = 85.0
+        var topOperationButtonsStackHeight = 40.0
+        var bottomOperationButtonsStackHeight = 35.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            registeringStackHeight = 170.0
+            topOperationButtonsStackHeight = 80.0
+            bottomOperationButtonsStackHeight = 70.0
+        }
+        
         NSLayoutConstraint.activate([
             registeringStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             registeringStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 2),
             registeringStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -2),
-            registeringStack.heightAnchor.constraint(equalToConstant: 85),
+            registeringStack.heightAnchor.constraint(equalToConstant: registeringStackHeight),
             topOperationButtonsStack.topAnchor.constraint(equalTo: registeringStack.bottomAnchor, constant: 10),
             topOperationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             topOperationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            topOperationButtonsStack.heightAnchor.constraint(equalToConstant: 40),
+            topOperationButtonsStack.heightAnchor.constraint(equalToConstant: topOperationButtonsStackHeight),
             titleL.topAnchor.constraint(equalTo: topOperationButtonsStack.bottomAnchor, constant: 8),
             titleL.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             titleL.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
@@ -344,7 +377,7 @@ class SubMemberViewController: BaseADViewController {
             bottomOperationButtonsStack.topAnchor.constraint(equalTo: subPlayerTable.bottomAnchor, constant: 5),
             bottomOperationButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             bottomOperationButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            bottomOperationButtonsStack.heightAnchor.constraint(equalToConstant: 35),
+            bottomOperationButtonsStack.heightAnchor.constraint(equalToConstant: bottomOperationButtonsStackHeight),
             bottomOperationButtonsStack.bottomAnchor.constraint(equalTo: bannerAD.topAnchor, constant: -10),
             bannerAD.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bannerAD.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3),
@@ -439,7 +472,7 @@ extension SubMemberViewController: UITableViewDataSource {
                         color: UIColor.fielderRoleColor)
         
         let name = player.name.forDisplay
-        let defaultTextSize = 24.0
+        let defaultTextSize = subTableCell.defaultTextSize
         let defaultTextCount = 7
         var textSize = defaultTextSize
         if name.count > defaultTextCount {
