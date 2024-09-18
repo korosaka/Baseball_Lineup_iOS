@@ -357,7 +357,7 @@ class FieldViewController: BaseADViewController {
         var playerStackWidth = 160.0
         if UIDevice.current.userInterfaceIdiom == .pad {
             playerStackHeight = 60.0
-            playerStackWidth = 320
+            playerStackWidth = 320.0
         }
         
         playerStacks.forEach {
