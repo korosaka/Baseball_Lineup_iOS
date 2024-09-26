@@ -110,6 +110,16 @@ class TopViewModel {
         }
     }
     
+    func shouldShowInterstitial() -> Bool {
+        let isTheInitialUsing = UsingUserDefaults.countOfUsingApp == 0
+        if isTheInitialUsing { return false }
+        
+        guard let previousTime = UsingUserDefaults.savedInterstitialTime else { return true }
+        let timeDifference = Date().timeIntervalSince(previousTime)
+        let adIntervalTime: TimeInterval = 3600 //1hour
+        return timeDifference > adIntervalTime
+    }
+    
 }
 
 enum CustomError: Error {

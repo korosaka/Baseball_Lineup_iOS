@@ -17,8 +17,6 @@ class TopViewController: UIViewController {
     var viewModel: TopViewModel?
     private var isDoneTrackingCheck = false
     private var interstitial: GADInterstitialAd?
-    private let interstitialFrequency = 2
-    private var clickOrderButtonCount = 0
     private var indicator: UIActivityIndicatorView?
     
     private let titleLabel: UILabel = {
@@ -390,12 +388,10 @@ class TopViewController: UIViewController {
     }
     
     private func onClickOrderType(type: OrderType) {
-        if isDoneTrackingCheck, !isIndicatorAnimating {
-            let isTheInitialUsing = UsingUserDefaults.countOfUsingApp == 0
-            if clickOrderButtonCount % interstitialFrequency == 0 && !isTheInitialUsing {
+        if isDoneTrackingCheck, !isIndicatorAnimating, let vm = viewModel {
+            if vm.shouldShowInterstitial() {
                 showInterstitial()
             }
-            clickOrderButtonCount += 1
             
             let customTabBarController = CustomTabBarController()
             customTabBarController.setupViewControllers(type)
@@ -434,6 +430,7 @@ class TopViewController: UIViewController {
     
     private func showInterstitial() {
         if let _interstitial = interstitial {
+            UsingUserDefaults.saveInterstitialTime()
             _interstitial.present(fromRootViewController: self)
             loadInterstitialAd()
         } else {
